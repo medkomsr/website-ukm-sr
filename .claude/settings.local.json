@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:senireligiub.figma.site)",
+      "mcp__Claude_in_Chrome__list_connected_browsers",
+      "Bash(curl -sv \"https://senireligiub.figma.site/_json/ea98f914-192f-4baf-8fd2-036f065a3c09/_index.json\")",
+      "Bash(curl -s \"https://senireligiub.figma.site/_components/v2/2c19f82446f9ce3ee11f5afdc23175f08e862fb4.js\")",
+      "Bash(python3)",
+      "mcp__Claude_Preview__preview_start",
+      "mcp__Claude_in_Chrome__tabs_context_mcp"
+    ]
+  }
+}
