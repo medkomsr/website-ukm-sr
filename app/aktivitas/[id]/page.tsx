@@ -2,10 +2,9 @@ import { use } from "react";
 import { notFound } from "next/navigation";
 import SiteLayout from "@/components/site-layout";
 import { activities, Activity } from "@/lib/data";
-
-import RelatedSection from "@/app/aktivitas/components/related";
-import ContentSection from "@/app/aktivitas/components/content";
-import HeroSection from "@/app/aktivitas/components/hero";
+import HeroSection from "@/app/aktivitas/[id]/components/hero";
+import ContentSection from "@/app/aktivitas/[id]/components/content";
+import RelatedSection from "@/app/aktivitas/[id]/components/related";
 
 export default function AktivitasDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
