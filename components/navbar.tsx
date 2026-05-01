@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ChevronRight, Settings } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { label: "Beranda", path: "/" },
@@ -40,20 +41,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between h-16 md:h-[72px]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <Image
-            src="/logo.png"
-            alt="UKM Seni Religi Logo"
-            width={40}
-            height={40}
-            className="rounded-xl object-cover transition-all duration-300"
-          />
+          <Image src="/logo.png" alt="UKM Seni Religi Logo" width={40} height={40} className="rounded-xl object-cover transition-all duration-300" />
           <div>
-            <div className="text-[16px] tracking-tight font-bold transition-colors duration-300 text-[var(--color-maroon-800)]">
-              Seni Religi
-            </div>
-            <div className="text-[10px] tracking-[0.15em] uppercase text-neutral-400">
-              UNIVERSITAS BRAWIJAYA
-            </div>
+            <div className="text-[16px] tracking-tight font-bold transition-colors duration-300 text-(--color-maroon-800)">Seni Religi</div>
+            <div className="text-[10px] tracking-[0.15em] uppercase text-neutral-400">UNIVERSITAS BRAWIJAYA</div>
           </div>
         </Link>
 
@@ -100,12 +91,9 @@ export default function Navbar() {
         </nav>
 
         {/* Mobile toggle */}
-        <button
-          className="lg:hidden p-2.5 rounded-xl cursor-pointer transition-colors duration-300 text-neutral-700 hover:bg-neutral-100 border-none bg-transparent"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
+        <Button variant="ghost" size="icon" className="lg:hidden text-neutral-700" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        </Button>
       </div>
 
       {/* Mobile menu */}

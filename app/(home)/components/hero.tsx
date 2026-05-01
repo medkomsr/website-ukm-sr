@@ -8,18 +8,14 @@ import { IMAGES } from "@/lib/data";
 
 export default function HeroSection() {
   return (
-    <section
-      className="relative min-h-[100vh] flex items-center overflow-hidden"
-      style={{ background: "#0d2a1a" }}
-    >
+    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: "#0d2a1a" }}>
       {/* Background image */}
       <div className="absolute inset-0">
         <Image src={IMAGES.golden} alt="" fill className="object-cover" priority />
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(135deg, rgba(13,42,26,0.90) 0%, rgba(13,42,26,0.70) 50%, rgba(13,42,26,0.82) 100%)",
+            background: "linear-gradient(135deg, rgba(13,42,26,0.90) 0%, rgba(13,42,26,0.70) 50%, rgba(13,42,26,0.82) 100%)",
           }}
         />
         <div
@@ -37,12 +33,11 @@ export default function HeroSection() {
             <motion.h1
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] as const }}
               className="text-[40px] md:text-[56px] lg:text-[64px] text-white leading-[1.1] mb-6"
               style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
             >
-              Seni yang{" "}
-              <span style={{ color: "#F59E0B" }}>Menginspirasi</span>
+              Seni yang <span style={{ color: "#F59E0B" }}>Menginspirasi</span>
               <br />
               Iman yang Menguatkan
             </motion.h1>
@@ -56,11 +51,7 @@ export default function HeroSection() {
               UKM Seni Religi adalah wadah bagi mahasiswa yang ingin mengembangkan bakat seni bernuansa keagamaan.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
               <Link
                 href="/aktivitas"
                 className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-[15px] font-semibold no-underline"
@@ -96,18 +87,13 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] as const }}
             className="hidden lg:block relative"
             style={{ height: "460px" }}
           >
             {/* Main image card */}
             <div className="absolute left-12 top-10 right-0 bottom-8 rounded-3xl overflow-hidden shadow-2xl">
-              <Image
-                src={IMAGES.geometric}
-                alt="Islamic geometric pattern"
-                fill
-                className="object-cover"
-              />
+              <Image src={IMAGES.geometric} alt="Islamic geometric pattern" fill className="object-cover" />
             </div>
 
             {/* Stat card – top-left overlap */}
