@@ -10,7 +10,7 @@ const fadeUp = {
   initial: { opacity: 0, y: 40 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
 };
 
 const highlights = [
@@ -28,7 +28,7 @@ export default function AboutSection() {
           <motion.div {...fadeUp} className="relative">
             <div className="relative h-[420px] rounded-3xl overflow-hidden shadow-2xl">
               <Image src={IMAGES.community} alt="Komunitas UKM" fill className="object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
             </div>
             {/* Floating stat card */}
             <div
@@ -51,30 +51,28 @@ export default function AboutSection() {
             </motion.span>
             <motion.h2
               {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.1 } }}
-              className="text-[30px] md:text-[42px] text-[var(--color-neutral-1000)] mb-6 leading-tight"
+              className="text-[30px] md:text-[42px] text-(--color-neutral-1000) mb-6 leading-tight"
               style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
             >
-              Berkarya dengan tulus,{" "}
-              <span style={{ color: "var(--color-maroon-500)" }}>Inovasi tanpa batas</span>
+              Berkarya dengan tulus, <span style={{ color: "var(--color-maroon-500)" }}>Inovasi tanpa batas</span>
             </motion.h2>
             <motion.p
               {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.15 } }}
               className="text-[15px] text-neutral-600 leading-relaxed mb-4"
             >
-              UKM Seni Religi adalah Unit Kegiatan Mahasiswa yang berdiri sejak tahun 2015, berfokus pada pengembangan seni bernuansa keagamaan. Kami mewadahi minat dan bakat mahasiswa dalam kaligrafi, nasyid, tilawah, puisi religi, dan seni pertunjukan islami.
+              UKM Seni Religi adalah Unit Kegiatan Mahasiswa yang berdiri sejak tahun 2015, berfokus pada pengembangan seni bernuansa keagamaan. Kami
+              mewadahi minat dan bakat mahasiswa dalam kaligrafi, nasyid, tilawah, puisi religi, dan seni pertunjukan islami.
             </motion.p>
             <motion.p
               {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.2 } }}
               className="text-[15px] text-neutral-600 leading-relaxed mb-8"
             >
-              Dengan lebih dari 150 anggota aktif dan puluhan kegiatan setiap tahunnya, kami berkomitmen menjadi wadah kreativitas yang berlandaskan nilai-nilai islami.
+              Dengan lebih dari 150 anggota aktif dan puluhan kegiatan setiap tahunnya, kami berkomitmen menjadi wadah kreativitas yang berlandaskan
+              nilai-nilai islami.
             </motion.p>
 
             {/* Highlights */}
-            <motion.div
-              {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.25 } }}
-              className="space-y-3 mb-8"
-            >
+            <motion.div {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.25 } }} className="space-y-3 mb-8">
               {highlights.map(({ icon: Icon, text }) => (
                 <div key={text} className="flex items-center gap-3">
                   <div
