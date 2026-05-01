@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import SiteLayout from "@/components/site-layout";
 import { DEPT_DATA, DeptMember, DeptDivisi } from "@/lib/data";
-import HeroSection from "@/components/tentang/hero";
-import DeskripsiSection from "@/components/tentang/deskripsi";
-import ProgramKerjaSection from "@/components/tentang/program-kerja";
-import StrukturOrganisasiSection from "@/components/tentang/struktur-organisasi";
-import BackSection from "@/components/tentang/back";
+import HeroSection from "@/app/tentang/components/hero";
+import DeskripsiSection from "@/app/tentang/components/deskripsi";
+import ProgramKerjaSection from "@/app/tentang/components/program-kerja";
+import StrukturOrganisasiSection from "@/app/tentang/components/struktur-organisasi";
+import BackSection from "@/app/tentang/components/back";
 
 export default function DeptDetailPage({ params }: { params: Promise<{ dept: string }> }) {
   const { dept } = use(params);

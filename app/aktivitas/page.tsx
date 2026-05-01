@@ -1,7 +1,7 @@
 import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/components/aktivitas/header";
-import ActivityCard from "@/components/aktivitas/activity-card";
-import ItemsGridSection from "@/components/aktivitas/items-grid";
+import HeaderSection from "@/app/aktivitas/components/header";
+import ActivityCard from "@/app/aktivitas/components/activity-card";
+import ItemsGridSection from "@/app/aktivitas/components/items-grid";
 
 export default function AktivitasPage() {
   return (

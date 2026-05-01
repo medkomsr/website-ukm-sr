@@ -1,6 +1,6 @@
 "use client";
 
-import ActivityCard from "@/components/aktivitas/activity-card";
+import ActivityCard from "@/app/aktivitas/components/activity-card";
 import { activities } from "@/lib/data";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Filter, Search } from "lucide-react";

@@ -1,7 +1,7 @@
 import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/components/kontak/header";
-import FAQSection from "@/components/kontak/faq";
-import MainContactSection from "@/components/kontak/main-contact";
+import HeaderSection from "@/app/kontak/components/header";
+import FAQSection from "@/app/kontak/components/faq";
+import MainContactSection from "@/app/kontak/components/main-contact";
 
 export default function KontakPage() {
   return (

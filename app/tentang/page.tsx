@@ -1,8 +1,8 @@
 import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/components/aktivitas/header";
-import AboutSection from "@/components/home/about";
-import VisiMisiSection from "@/components/tentang/visi-misi";
-import StrukturKepengurusanSection from "@/components/tentang/struktur-kepengurusan";
+import HeaderSection from "@/app/aktivitas/components/header";
+import AboutSection from "@/app/(home)/components/about";
+import VisiMisiSection from "@/app/tentang/components/visi-misi";
+import StrukturKepengurusanSection from "@/app/tentang/components/struktur-kepengurusan";
 
 export default function TentangPage() {
   return (
