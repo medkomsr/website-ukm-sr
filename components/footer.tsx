@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { label: "Beranda", path: "/" },
@@ -121,23 +123,21 @@ export default function Footer() {
               Berlangganan untuk mendapatkan update kegiatan terbaru.
             </p>
             <div className="flex gap-2">
-              <input
+              <Input
                 type="email"
                 placeholder="Email Anda"
-                className="flex-1 rounded-xl px-4 py-2.5 text-[13px] text-white placeholder-white/30 focus:outline-none transition-colors"
+                className="flex-1 rounded-xl text-[13px] text-white placeholder:text-white/30"
                 style={{
                   background: "rgba(255,255,255,0.08)",
                   border: "1px solid rgba(255,255,255,0.10)",
                 }}
-                onFocus={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(132,204,22,0.5)")}
-                onBlur={(e) => ((e.target as HTMLElement).style.borderColor = "rgba(255,255,255,0.10)")}
               />
-              <button
-                className="px-5 py-2.5 rounded-xl text-[13px] font-bold cursor-pointer transition-colors hover:bg-lime-400"
+              <Button
+                className="rounded-xl px-5 text-[13px] font-bold hover:brightness-110"
                 style={{ background: "#84cc16", color: "var(--color-maroon-900)" }}
               >
                 Kirim
-              </button>
+              </Button>
             </div>
           </div>
         </div>
