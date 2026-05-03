@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy, Star, Handshake, BookMarked,
   MapPin, Building2, ChevronRight, ArrowRight,
-  Medal, Award, Users, Calendar,
+  Medal, Award, Users, Calendar, Newspaper,
 } from "lucide-react";
 import SiteLayout from "@/components/site-layout";
 import {
@@ -76,14 +76,19 @@ function AchievementCard({ item, delay = 0 }: { item: Achievement; delay?: numbe
   const pos = item.position ? POSITION_STYLE[item.position] : null;
   const CatIcon = cat.icon;
   const PosIcon = pos ? pos.icon : Award;
+  const hasArticle = !!item.articleId;
 
-  return (
+  const cardBody = (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden hover:border-[color-mix(in_srgb,var(--color-maroon-500)_25%,transparent)] hover:shadow-xl hover:-translate-y-1 transition-all duration-400 flex flex-col"
+      className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-400 flex flex-col h-full"
+      style={{
+        borderColor: hasArticle ? undefined : undefined,
+        cursor: hasArticle ? "pointer" : "default",
+      }}
     >
       {/* Top accent bar */}
       <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${cat.color}99 0%, ${cat.color} 60%, transparent 100%)` }} />
@@ -91,7 +96,6 @@ function AchievementCard({ item, delay = 0 }: { item: Achievement; delay?: numbe
       <div className="p-5 flex flex-col flex-1 gap-3">
         {/* Badge row */}
         <div className="flex items-center justify-between gap-2 flex-wrap">
-          {/* Category pill */}
           <span
             className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold"
             style={{ background: cat.bg, color: cat.color }}
@@ -99,17 +103,16 @@ function AchievementCard({ item, delay = 0 }: { item: Achievement; delay?: numbe
             <CatIcon size={11} />
             {cat.label}
           </span>
-
-          {/* Level badge */}
           <span
-            className="text-[11px] font-bold px-2.5 py-1 rounded-full border"
+            className="text-[11px] font-bold px-2.5 py-1 rounded-full border ml-auto"
             style={{ background: lv.bg, color: lv.color, borderColor: lv.ring }}
           >
             {item.level}
           </span>
+          <Newspaper size={12} className="opacity-50 group-hover:opacity-100 transition-opacity" style={{ color: "#b45309" }} />
         </div>
 
-        {/* Position ribbon (if competition win) */}
+        {/* Position ribbon */}
         {pos && (
           <div
             className="self-start inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[12px] font-bold"
@@ -150,10 +153,38 @@ function AchievementCard({ item, delay = 0 }: { item: Achievement; delay?: numbe
             <MapPin size={12} className="flex-shrink-0" />
             <span>{item.location}</span>
           </div>
+
+          {/* Baca Berita footer link */}
+          {hasArticle && (
+            <div
+              className="flex items-center gap-1.5 pt-2 mt-1 group-hover:gap-2.5 transition-all duration-300"
+              style={{ borderTop: "1px solid #fde68a" }}
+            >
+              <Newspaper size={12} style={{ color: "#b45309" }} />
+              <span className="text-[12px] font-semibold" style={{ color: "#b45309" }}>
+                Baca Berita Selengkapnya
+              </span>
+              <ArrowRight
+                size={12}
+                className="-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300"
+                style={{ color: "#b45309" }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
   );
+
+  if (hasArticle) {
+    return (
+      <Link href={`/aktivitas/${item.articleId}`} className="no-underline flex flex-col h-full">
+        {cardBody}
+      </Link>
+    );
+  }
+
+  return cardBody;
 }
 
 // ─── Featured Card ─────────────────────────────────────────────────────────
@@ -162,17 +193,20 @@ function FeaturedCard({ item, delay = 0 }: { item: Achievement; delay?: number }
   const cat = CATEGORY_CONFIG[item.category];
   const lv  = LEVEL_CONFIG[item.level];
   const CatIcon = cat.icon;
+  const hasArticle = !!item.articleId;
 
-  return (
+  const inner = (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="relative rounded-3xl overflow-hidden"
+      whileHover={{ y: hasArticle ? -5 : 0, transition: { duration: 0.3 } }}
+      className="relative rounded-3xl overflow-hidden group h-full"
       style={{
         background: "linear-gradient(135deg, #0d2a1a 0%, #1a4a2e 60%, #0d2a1a 100%)",
         boxShadow: "0 8px 40px rgba(13,42,26,0.25)",
+        cursor: hasArticle ? "pointer" : "default",
       }}
     >
       {/* Islamic pattern watermark */}
@@ -184,6 +218,12 @@ function FeaturedCard({ item, delay = 0 }: { item: Achievement; delay?: number }
       {/* Gold shimmer top edge */}
       <div className="absolute top-0 left-0 right-0 h-[2px]"
         style={{ background: "linear-gradient(90deg, transparent, #F59E0B, transparent)" }} />
+
+      {/* Hover glow */}
+      {hasArticle && (
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{ background: "radial-gradient(ellipse at top, rgba(245,158,11,0.07) 0%, transparent 60%)" }} />
+      )}
 
       <div className="relative p-7 md:p-8">
         <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -200,6 +240,7 @@ function FeaturedCard({ item, delay = 0 }: { item: Achievement; delay?: number }
             style={{ background: "rgba(255,255,255,0.10)", color: "rgba(255,255,255,0.60)" }}>
             {item.year}
           </span>
+          <Newspaper size={13} className="ml-auto opacity-60" style={{ color: "#F59E0B" }} />
         </div>
 
         {item.position && (
@@ -210,14 +251,17 @@ function FeaturedCard({ item, delay = 0 }: { item: Achievement; delay?: number }
           </div>
         )}
 
-        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", lineHeight: 1.35, marginBottom: 10 }}>
+        <h3
+          className="group-hover:text-amber-300 transition-colors duration-300"
+          style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 20, color: "white", lineHeight: 1.35, marginBottom: 10 }}
+        >
           {item.title}
         </h3>
         <p style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", lineHeight: 1.7, marginBottom: 16 }}>
           {item.description}
         </p>
 
-        <div className="flex flex-wrap gap-x-5 gap-y-1.5">
+        <div className="flex flex-wrap gap-x-5 gap-y-1.5 mb-4">
           <span className="flex items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.50)" }}>
             <Building2 size={12} />{item.organizer}
           </span>
@@ -225,9 +269,37 @@ function FeaturedCard({ item, delay = 0 }: { item: Achievement; delay?: number }
             <MapPin size={12} />{item.location}
           </span>
         </div>
+
+        {/* Baca Berita CTA */}
+        {hasArticle && (
+          <div
+            className="flex items-center gap-2 pt-4 group-hover:gap-3 transition-all duration-300"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
+          >
+            <Newspaper size={14} style={{ color: "#F59E0B" }} />
+            <span className="text-[13px] font-semibold" style={{ color: "#F59E0B" }}>
+              Baca Berita Selengkapnya
+            </span>
+            <ArrowRight
+              size={14}
+              className="-translate-x-1 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300"
+              style={{ color: "#F59E0B" }}
+            />
+          </div>
+        )}
       </div>
     </motion.div>
   );
+
+  if (hasArticle) {
+    return (
+      <Link href={`/aktivitas/${item.articleId}`} className="no-underline block h-full">
+        {inner}
+      </Link>
+    );
+  }
+
+  return inner;
 }
 
 // ─── Page ───────────────────────────────────────────────────────────────────
@@ -239,14 +311,17 @@ export default function PrestasiPage() {
   const [catFilter, setCatFilter]   = useState<"all" | AchievementCategory>("all");
   const [levelFilter, setLevelFilter] = useState<"all" | AchievementLevel>("all");
 
-  const featured = useMemo(() => achievements.filter((a) => a.featured), []);
+  // Only show achievements that have a linked article as proof
+  const withArticle = useMemo(() => achievements.filter((a) => !!a.articleId), []);
+
+  const featured = useMemo(() => withArticle.filter((a) => a.featured), [withArticle]);
 
   const filtered = useMemo(() => {
-    let list = [...achievements];
+    let list = [...withArticle];
     if (catFilter   !== "all") list = list.filter((a) => a.category === catFilter);
     if (levelFilter !== "all") list = list.filter((a) => a.level    === levelFilter);
     return list;
-  }, [catFilter, levelFilter]);
+  }, [catFilter, levelFilter, withArticle]);
 
   // Group by year descending
   const byYear = useMemo(() => {

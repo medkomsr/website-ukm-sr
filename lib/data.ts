@@ -261,7 +261,7 @@ export const activities: Activity[] = [
     description: "Ahmad Fauzi berbagi perjalanan dua tahunnya belajar kaligrafi di UKM Seni Religi hingga meraih prestasi tingkat nasional.",
     date: "20 Februari 2026",
     image: IMAGES.calligraphy,
-    category: "Liputan",
+    category: "Prestasi",
     readTime: "7 menit",
     tags: ["Kaligrafi", "Inspiratif", "Ahmad Fauzi", "Juara Nasional"],
     author: { name: "Siti Rahma", role: "Jurnalis Media UKM SR" },
@@ -280,7 +280,7 @@ export const activities: Activity[] = [
     description: "Program pertukaran seni antar-kampus resmi diluncurkan, melibatkan lima universitas dari Jawa, Sumatera, dan Kalimantan.",
     date: "10 Februari 2026",
     image: IMAGES.community,
-    category: "Liputan",
+    category: "Prestasi",
     readTime: "4 menit",
     tags: ["Kolaborasi", "Antar-Kampus", "Program Pertukaran", "Nasional"],
     author: { name: "Dian Purnama", role: "Redaktur Media UKM SR" },
@@ -326,6 +326,97 @@ export const activities: Activity[] = [
       "Pekan kedua (8–14 Ramadhan): Lomba Tilawah Internal antar-anggota dengan kategori pemula dan menengah. Ini juga menjadi ajang seleksi untuk mewakili UKM dalam lomba tilawah tingkat kampus yang diadakan oleh Rektorat.",
       "Pekan ketiga (15–21 Ramadhan): Pameran Kaligrafi Ramadhan di Lobby Gedung Rektorat — terbuka untuk umum. Anggota dari Divisi Kaligrafi akan memajang 30 karya terbaik dengan tema ayat-ayat tentang Ramadhan.",
       "Malam Lailatul Qadar (27 Ramadhan): I'tikaf dan Khataman Quran Bersama — kegiatan paling ditunggu. Seluruh anggota berkumpul untuk itikaf semalam suntuk, diakhiri dengan khataman Al-Quran berjamaah menjelang sahur.",
+    ],
+  },
+  // ── Artikel Prestasi Tambahan ──────────────────────────────────────────────
+  {
+    id: "art-p2",
+    type: "article",
+    title: "Dua Kali Berturut-turut! UKM SR Juara 1 Nasyid Nasional 2025",
+    description: "Tim Nasyid UKM Seni Religi kembali mengharumkan nama Universitas Brawijaya, meraih gelar juara nasional untuk kedua kalinya berturut-turut di Yogyakarta.",
+    date: "20 November 2025",
+    image: IMAGES.stage,
+    category: "Prestasi",
+    readTime: "4 menit",
+    tags: ["Nasyid", "Juara Nasional", "2025", "Yogyakarta"],
+    author: { name: "Dian Purnama", role: "Redaktur Media UKM SR" },
+    body: [
+      "Untuk kedua kalinya berturut-turut, Tim Nasyid UKM Seni Religi Universitas Brawijaya berhasil mengukir namanya di puncak Kompetisi Nasyid Mahasiswa Nasional 2025 yang diselenggarakan di Yogyakarta. Mengalahkan 31 tim terbaik dari perguruan tinggi seluruh Indonesia, UKM SR kembali membuktikan bahwa dominasinya di kancah nasyid nasional bukan sekadar keberuntungan.",
+      "Tim beranggotakan delapan orang ini — dipimpin Reza Firmansyah yang juga kapten tahun sebelumnya — tampil dengan aransemen orisinal bertema 'Damai dalam Keberagaman'. Mereka memadukan harmoni vokal khas nasyid tradisional dengan elemen musik kontemporer yang segar, menciptakan sajian yang memukau dewan juri dan penonton sekaligus.",
+      '"Tahun lalu kemenangan kami mungkin mengejutkan banyak pihak. Tapi tahun ini kami datang dengan persiapan jauh lebih matang, tekad jauh lebih bulat. Kami ingin membuktikan bahwa ini bukan kebetulan," ujar Reza dengan penuh haru usai pengumuman pemenang.',
+      "Gelar juara nasional kedua ini membawa konsekuensi positif bagi UKM SR: undangan tampil di berbagai festival seni Islam tingkat provinsi dan nasional, serta perhatian dari label rekaman islami yang akhirnya berujung pada kolaborasi produksi album di tahun berikutnya. Sebuah legacy yang terus berbuah.",
+    ],
+  },
+  {
+    id: "art-p3",
+    type: "article",
+    title: "UKM Seni Religi Dinobatkan UKM Berprestasi Terbaik UB 2025",
+    description: "Rektorat Universitas Brawijaya menganugerahkan gelar UKM Terbaik kepada UKM Seni Religi atas prestasi kompetisi dan inovasi program kerja sepanjang 2025.",
+    date: "5 Desember 2025",
+    image: IMAGES.golden,
+    category: "Prestasi",
+    readTime: "3 menit",
+    tags: ["Penghargaan", "UKM Terbaik", "Universitas Brawijaya", "2025"],
+    author: { name: "Hana Putri", role: "Kepala Humas UKM SR" },
+    body: [
+      "Pada malam puncak Dies Natalis Universitas Brawijaya ke-63 yang berlangsung megah di Auditorium Utama UB, UKM Seni Religi resmi dinobatkan sebagai UKM Berprestasi Terbaik tahun 2025 oleh Rektorat UB. Penghargaan ini diberikan atas pencapaian luar biasa UKM SR dalam kompetisi tingkat nasional, inovasi program kerja, dan kontribusi nyata terhadap reputasi universitas.",
+      "Penilaian dilakukan oleh tim asesor independen dari Direktorat Kemahasiswaan UB berdasarkan empat aspek: jumlah dan kualitas prestasi kompetitif, efektivitas program pengembangan anggota, tingkat partisipasi dan kepuasan anggota, serta dampak sosial kegiatan terhadap komunitas kampus. UKM SR unggul di semua aspek, terutama dengan dua gelar juara nasional nasyid dan satu gelar juara kaligrafi se-Jawa dalam satu tahun.",
+      '"Penghargaan ini bukan milik pengurus saja, tapi milik seluruh 150-an anggota aktif yang telah berjuang sepanjang tahun. Setiap latihan rutin, setiap kompetisi yang kami ikuti, setiap program yang kami jalankan — semuanya berkontribusi pada penghargaan ini," kata Muhammad Ilham, Ketua Umum UKM SR, dalam pidato penerimaannya.',
+      "Penghargaan UKM Terbaik ini menjadi dorongan besar bagi seluruh anggota untuk mempertahankan dan meningkatkan standar di tahun-tahun mendatang. Bagi calon anggota dan mitra potensial, ini adalah bukti konkret bahwa UKM Seni Religi adalah organisasi yang serius, terorganisir, dan konsisten berprestasi.",
+    ],
+  },
+  {
+    id: "art-p4",
+    type: "article",
+    title: "Kehormatan Tertinggi: UKM SR Tampil di Istana Negara pada Maulid Nabi 2021",
+    description: "Pencapaian bersejarah — Tim Tilawah dan Nasyid UKM Seni Religi UB mendapat kehormatan tampil di hadapan Presiden RI dalam acara kenegaraan.",
+    date: "20 Oktober 2021",
+    image: IMAGES.mosque,
+    category: "Prestasi",
+    readTime: "5 menit",
+    tags: ["Istana Negara", "Maulid Nabi", "Penampil Kenegaraan", "2021"],
+    author: { name: "Siti Rahma", role: "Jurnalis Media UKM SR" },
+    body: [
+      "Sebuah momen yang tidak akan pernah terlupakan terjadi pada Oktober 2021: tim gabungan Divisi Tilawah dan Nasyid UKM Seni Religi Universitas Brawijaya menerima undangan resmi dari Sekretariat Negara Republik Indonesia untuk tampil dalam acara Peringatan Maulid Nabi Muhammad SAW di Istana Negara, Jakarta.",
+      "Undangan ini datang setelah rekaman penampilan tim UKM SR dalam Festival Nasyid Virtual Nasional 2021 — yang berbuah gelar Juara 1 — ditonton oleh panitia seleksi acara kenegaraan. Dari ratusan kandidat UKM dan komunitas seni Islam dari seluruh Indonesia, tim UKM SR terpilih sebagai salah satu dari tiga kelompok yang tampil langsung di hadapan Presiden, Wakil Presiden, dan para pejabat negara.",
+      "Persiapan berlangsung intensif selama dua minggu. Setiap detail penampilan — dari pembagian suara, aransemen, kostum, hingga gestur panggung — dikonsultasikan dengan tim protokol Istana. Momen berdiri di panggung Istana Negara, di hadapan Presiden Republik Indonesia, adalah pengalaman spiritual dan nasional yang tak ternilai bagi setiap anggota tim.",
+      '"Saat kami melantunkan nasyid di Istana, perasaannya luar biasa. Kami bukan hanya mewakili UKM atau Universitas Brawijaya — kami merasa mewakili seluruh mahasiswa muslim Indonesia yang mencintai seni Islam. Ini pencapaian tertinggi dalam sejarah UKM kami," ungkap Nurul Hidayah, lead vocalist tim tilawah.',
+    ],
+  },
+  {
+    id: "art-p5",
+    type: "article",
+    title: "Bersejarah! UKM SR Rekam EP Nasyid Bersama Label Nasional 2024",
+    description: "Untuk pertama kalinya UKM mahasiswa di Jawa Timur berkolaborasi dengan label musik islami nasional dalam produksi EP empat lagu yang kini dapat didengarkan di semua platform streaming.",
+    date: "10 Agustus 2024",
+    image: IMAGES.art,
+    category: "Prestasi",
+    readTime: "4 menit",
+    tags: ["Album EP", "Kolaborasi", "Senandung Records", "2024"],
+    author: { name: "Dian Purnama", role: "Redaktur Media UKM SR" },
+    body: [
+      "Sebuah tonggak sejarah baru tercipta bagi UKM Seni Religi Universitas Brawijaya pada pertengahan 2024: kolaborasi resmi dengan Senandung Records, salah satu label musik islami terkemuka di Indonesia, dalam produksi sebuah Extended Play (EP) empat lagu. Ini adalah pertama kalinya sebuah UKM mahasiswa di Jawa Timur mencapai level kolaborasi profesional dengan label rekaman nasional.",
+      "Proses ini bermula dari rekaman demo yang diunggah tim nasyid UKM SR ke media sosial seusai kemenangan nasional 2023 dan 2024. Rekaman tersebut menjangkau telinga A&R (Artist & Repertoire) Senandung Records, yang kemudian menghubungi ketua UKM SR untuk membicarakan kemungkinan kolaborasi. Setelah beberapa bulan negosiasi dan uji coba sesi rekaman, kontrak kolaborasi resmi ditandatangani.",
+      "EP bertajuk 'Cahaya Nusantara' berisi empat lagu orisinal yang semuanya ditulis oleh anggota UKM SR: 'Senyum Ibu', 'Langkah Hamba', 'Cahaya di Ujung Senja' (yang membawa mereka juara nasional 2026), dan 'Rindu Rasul'. Rekaman berlangsung di studio profesional Jakarta dan Malang selama dua bulan penuh, diproduseri oleh musisi nasyid berpengalaman.",
+      "EP ini kini tersedia di Spotify, Apple Music, YouTube Music, dan platform streaming lainnya. Dalam 30 hari pertama rilis, lagu 'Cahaya di Ujung Senja' meraih lebih dari 50.000 stream — angka yang luar biasa untuk sebuah debut EP dari UKM mahasiswa. Kolaborasi ini membuka pintu bagi UKM SR untuk terus berkarya di level yang lebih profesional.",
+    ],
+  },
+  {
+    id: "art-p6",
+    type: "article",
+    title: "UKM SR Juara 1 Lomba Kaligrafi Klasik Se-Jawa 2025",
+    description: "Tim kaligrafi UKM SR menumbangkan 67 peserta dari seluruh Jawa dalam lomba kaligrafi klasik bergengsi di Semarang, memperkuat dominasi di bidang kaligrafi islami.",
+    date: "15 September 2025",
+    image: IMAGES.calligraphy,
+    category: "Prestasi",
+    readTime: "3 menit",
+    tags: ["Kaligrafi", "Juara 1", "Se-Jawa", "Semarang", "2025"],
+    author: { name: "Siti Rahma", role: "Jurnalis Media UKM SR" },
+    body: [
+      "Tim Kaligrafi UKM Seni Religi Universitas Brawijaya menorehkan prestasi membanggakan dalam Lomba Kaligrafi Klasik Se-Jawa 2025 yang diselenggarakan oleh Asosiasi Kaligrafi Indonesia – Region Jawa di Semarang. Dengan mengalahkan 67 peserta dari berbagai universitas dan pondok pesantren di Jawa, UKM SR membawa pulang trofi juara pertama dan total hadiah senilai Rp 10 juta.",
+      "Kompetisi ini menguji kemampuan peserta dalam tiga gaya khat klasik: Tsuluts, Naskhi, dan Riq'ah. Tim UKM SR menampilkan karya kaligrafi kolaboratif berlatar ayat kursi yang dikerjakan selama 4 jam langsung di hadapan juri dan penonton. Keindahan komposisi, ketepatan goresan, dan keseimbangan estetika karya UKM SR berhasil memikat dewan juri yang terdiri dari empat maestro kaligrafi nasional.",
+      '"Kami berlatih hampir setiap hari selama tiga bulan terakhir khusus untuk kompetisi ini. Kami tahu pesaingnya berat — ada beberapa pondok pesantren dengan tradisi kaligrafi ratusan tahun. Tapi kami percaya dengan metode dan kerja keras kami," kata Kepala Divisi Kaligrafi UKM SR, Ahmad Fauzi, yang turut berkompetisi dan meraih nilai tertinggi individu.',
+      "Kemenangan ini semakin mengukuhkan posisi Divisi Kaligrafi UKM SR sebagai salah satu yang terkuat di Jawa Timur. Dalam dua tahun terakhir, divisi ini telah meraih setidaknya tiga podium di kompetisi tingkat provinsi dan nasional, menjadikan kaligrafi sebagai salah satu keunggulan kompetitif utama UKM Seni Religi.",
     ],
   },
 ];
@@ -637,6 +728,7 @@ export interface Achievement {
   organizer: string;
   location: string;
   featured?: boolean;      // Highlight di bagian atas halaman
+  articleId?: string;      // ID aktivitas/artikel terkait di /aktivitas/[id]
 }
 
 export const achievements: Achievement[] = [
@@ -652,6 +744,7 @@ export const achievements: Achievement[] = [
     organizer: "Kementerian Agama RI",
     location: "Balai Sarbini, Jakarta",
     featured: true,
+    articleId: "art-1",
   },
   {
     id: "ach-2026-02",
@@ -663,6 +756,7 @@ export const achievements: Achievement[] = [
     position: "Juara 2",
     organizer: "LPTQ Jawa Timur",
     location: "Surabaya, Jawa Timur",
+    articleId: "art-3",
   },
   {
     id: "ach-2026-03",
@@ -684,6 +778,7 @@ export const achievements: Achievement[] = [
     level: "Nasional",
     organizer: "UKM Seni Religi UB",
     location: "Malang & Online",
+    articleId: "art-4",
   },
   // ── 2025 ──────────────────────────────────────────────────────────────────
   {
@@ -697,6 +792,7 @@ export const achievements: Achievement[] = [
     organizer: "Asosiasi Nasyid Indonesia",
     location: "Yogyakarta",
     featured: true,
+    articleId: "art-p2",
   },
   {
     id: "ach-2025-02",
@@ -719,6 +815,7 @@ export const achievements: Achievement[] = [
     position: "Juara 1",
     organizer: "Asosiasi Kaligrafi Indonesia – Region Jawa",
     location: "Semarang, Jawa Tengah",
+    articleId: "art-p6",
   },
   {
     id: "ach-2025-04",
@@ -731,6 +828,7 @@ export const achievements: Achievement[] = [
     organizer: "Rektorat Universitas Brawijaya",
     location: "Malang",
     featured: true,
+    articleId: "art-p3",
   },
   {
     id: "ach-2025-05",
@@ -786,6 +884,7 @@ export const achievements: Achievement[] = [
     organizer: "Senandung Records",
     location: "Jakarta & Malang",
     featured: true,
+    articleId: "art-p5",
   },
   // ── 2023 ──────────────────────────────────────────────────────────────────
   {
@@ -887,6 +986,7 @@ export const achievements: Achievement[] = [
     organizer: "Sekretariat Negara RI",
     location: "Istana Negara, Jakarta",
     featured: true,
+    articleId: "art-p4",
   },
   {
     id: "ach-2021-03",
