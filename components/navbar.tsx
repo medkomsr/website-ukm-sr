@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Beranda", path: "/" },
   { label: "Tentang", path: "/tentang" },
   { label: "Aktivitas", path: "/aktivitas" },
+  { label: "Prestasi", path: "/prestasi" },
   { label: "Galeri", path: "/galeri" },
   { label: "Kontak", path: "/kontak" },
 ];
