@@ -23,7 +23,7 @@ function DeptCard({
 }) {
   return (
     <div>
-      <div className="group relative rounded-3xl overflow-hidden" style={{ height: featured ? "380px" : "300px", cursor: "pointer" }}>
+      <div className="group relative rounded-3xl overflow-hidden" style={{ height: featured ? "380px" : "300px" }}>
         <Image src={img} alt={abbr} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
         <div className="absolute inset-0" style={{ background: overlay }} />
         <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-7 px-4 text-center">
@@ -110,13 +110,6 @@ const departments = [
     img: IMAGES.art,
     overlay: "linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.90) 100%)",
   },
-  {
-    slug: "humas",
-    heading: "Departemen",
-    abbr: "Humas",
-    img: IMAGES.mosque,
-    overlay: "linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.90) 100%)",
-  },
 ];
 
 export default function StrukturKepengurusanSection() {
@@ -140,9 +133,9 @@ export default function StrukturKepengurusanSection() {
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {departments.map((dept, i) => (
-            <motion.div key={dept.abbr} {...wivTentang(i * 0.08)} className={dept.featured ? "sm:col-span-2" : ""}>
+            <motion.div key={dept.abbr} {...wivTentang(i * 0.08)} className={dept.featured ? "sm:col-span-2 md:col-span-3" : ""}>
               <DeptCard {...dept} />
             </motion.div>
           ))}
