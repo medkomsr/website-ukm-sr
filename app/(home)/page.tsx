@@ -2,7 +2,7 @@ import SiteLayout from "@/components/site-layout";
 import HeroSection from "@/app/(home)/components/hero";
 import AboutSection from "@/app/(home)/components/about";
 import DivisionsSection from "@/app/(home)/components/divisions";
-import ActivitiesSection from "@/app/(home)/components/activities-preview";
+import PrestasiPreviewSection from "@/app/(home)/components/prestasi-preview";
 import GallerySection from "@/app/(home)/components/gallery-preview";
 import NewsSection from "@/app/(home)/components/news-preview";
 export default function Home() {
@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <DivisionsSection />
-      <ActivitiesSection />
+      <PrestasiPreviewSection />
       <GallerySection />
       <NewsSection />
     </SiteLayout>
