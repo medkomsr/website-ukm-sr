@@ -41,9 +41,19 @@ export default function HeroSection() {
           </motion.h1>
 
           <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-[11px] md:text-[12px] tracking-[0.28em] uppercase font-semibold mb-8"
+            style={{ color: "rgba(255,255,255,0.50)" }}
+          >
+            Universitas Brawijaya
+          </motion.p>
+
+          <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            transition={{ duration: 0.7, delay: 0.32 }}
             className="text-[17px] md:text-[20px] leading-relaxed mb-10"
             style={{
               fontFamily: "var(--font-display)",
@@ -53,10 +63,10 @@ export default function HeroSection() {
           >
             "Hidup itu Seni, Seni itu Indah,
             <br />
-            Indah itu Baik, Yang Baik disenangi"
+            Indah itu Baik, Yang Baik Disenangi"
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.48 }}>
             <Link
               href="/aktivitas"
               className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full text-[15px] font-semibold no-underline"

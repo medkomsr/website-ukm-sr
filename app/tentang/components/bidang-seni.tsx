@@ -23,7 +23,7 @@ function BidangCard({
     <div>
       <div
         className="group relative rounded-3xl overflow-hidden"
-        style={{ height: "300px", cursor: "pointer" }}
+        style={{ height: "300px" }}
       >
         <Image
           src={img}
@@ -101,6 +101,7 @@ const bidangList = Object.values(BIDANG_DATA);
 export default function BidangSeniSection() {
   return (
     <section
+      id="bidang-seni"
       className="py-16 md:py-24"
       style={{ background: "linear-gradient(135deg, #fef2f2 0%, #fde8d8 100%)" }}
     >
@@ -124,7 +125,7 @@ export default function BidangSeniSection() {
             {...wivTentang(0.1)}
             className="text-[15px] text-neutral-500 mt-3 max-w-xl mx-auto leading-relaxed"
           >
-            Empat bidang seni religi yang menjadi pilar ekspresi kreatif dan spiritual UKM Seni Religi.
+            Delapan bidang seni & ilmu Al-Qur'an yang menjadi pilar pengembangan kreativitas dan spiritualitas anggota UKM Seni Religi.
           </motion.p>
         </div>
 

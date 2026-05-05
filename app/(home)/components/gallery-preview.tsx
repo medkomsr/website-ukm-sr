@@ -39,24 +39,39 @@ export default function GallerySection() {
           </motion.p>
         </div>
 
-        {/* Grid */}
+        {/* Grid
+            Mobile  : 2 kolom, semua kartu aspect-[4/3] seragam → rapi & bersih
+            Desktop : 3 kolom, item pertama row-span-2 (tinggi 2 baris) → editorial
+        */}
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">
           {preview.map((img, i) => (
             <motion.div
               key={img.src}
               {...fadeUp(i * 0.08)}
-              className={`group relative overflow-hidden rounded-2xl cursor-pointer ${i === 0 ? "md:row-span-2" : ""}`}
-              style={{ aspectRatio: i === 0 ? "auto" : "4/3", minHeight: i === 0 ? 320 : 160 }}
+              className={[
+                "group relative overflow-hidden rounded-xl md:rounded-2xl cursor-pointer",
+                // Semua item uniform 4/3 di mobile
+                "aspect-[4/3]",
+                // Item pertama: di desktop tinggi 2 baris, aspect-ratio dilepas
+                i === 0 ? "md:row-span-2 md:aspect-auto" : "",
+              ]
+                .filter(Boolean)
+                .join(" ")}
             >
               <Image
                 src={img.src}
                 alt={img.alt}
                 fill
-                className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                sizes="(min-width: 768px) 33vw, 50vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
               />
-              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute bottom-3 left-3 right-3 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="text-white text-[13px] font-semibold">{img.caption}</p>
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+              {/* Caption */}
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-1 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <p className="text-white text-[12px] md:text-[13px] font-semibold leading-snug line-clamp-2">
+                  {img.caption}
+                </p>
               </div>
             </motion.div>
           ))}
