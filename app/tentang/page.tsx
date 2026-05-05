@@ -1,8 +1,9 @@
 import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/app/aktivitas/components/header";
+import HeaderSection from "@/app/tentang/components/header";
 import AboutSection from "@/app/(home)/components/about";
 import VisiMisiSection from "@/app/tentang/components/visi-misi";
 import StrukturKepengurusanSection from "@/app/tentang/components/struktur-kepengurusan";
+import BidangSeniSection from "@/app/tentang/components/bidang-seni";
 
 export default function TentangPage() {
   return (
@@ -11,13 +12,16 @@ export default function TentangPage() {
       <HeaderSection />
 
       {/* About */}
-      <AboutSection />
+      <AboutSection variant="image" hideCta />
 
       {/* Vision & Mission – Flip Cards */}
       <VisiMisiSection />
 
       {/* Struktur Kepengurusan */}
       <StrukturKepengurusanSection />
+
+      {/* Bidang Seni */}
+      <BidangSeniSection />
     </SiteLayout>
   );
 }
