@@ -107,15 +107,8 @@ export default function BidangSeniSection() {
     >
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
-          <motion.span
-            {...wivTentang(0)}
-            className="inline-block text-[12px] font-bold tracking-[0.2em] uppercase mb-3"
-            style={{ color: "var(--color-maroon-500)" }}
-          >
-            Seni & Budaya
-          </motion.span>
           <motion.h2
-            {...wivTentang(0.05)}
+            {...wivTentang(0)}
             className="text-[26px] md:text-[34px] text-(--color-neutral-1000)"
             style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
           >
