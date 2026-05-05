@@ -3,9 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  Trophy, Medal, Star, Award, ArrowRight, Building2, MapPin, Newspaper,
-} from "lucide-react";
+import { Trophy, Medal, Star, Award, ArrowRight, Building2, MapPin, Newspaper } from "lucide-react";
 import { achievements, Achievement, AchievementCategory } from "@/lib/data";
 
 // ─── Animated Counter ───────────────────────────────────────────────────────
@@ -32,21 +30,26 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
           requestAnimationFrame(tick);
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [target]);
-  return <span ref={ref}>{val}{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {val}
+      {suffix}
+    </span>
+  );
 }
 
 // ─── Config ─────────────────────────────────────────────────────────────────
 
 const CATEGORY_STYLE: Record<AchievementCategory, { color: string; bg: string }> = {
-  Kompetisi:    { color: "#f87171", bg: "rgba(248,113,113,0.15)" },
-  Penghargaan:  { color: "#fbbf24", bg: "rgba(251,191,36,0.15)"  },
-  Kolaborasi:   { color: "#34d399", bg: "rgba(52,211,153,0.15)"  },
-  "Rekam Jejak":{ color: "#86efac", bg: "rgba(134,239,172,0.12)" },
+  Kompetisi: { color: "#f87171", bg: "rgba(248,113,113,0.15)" },
+  Penghargaan: { color: "#fbbf24", bg: "rgba(251,191,36,0.15)" },
+  Kolaborasi: { color: "#34d399", bg: "rgba(52,211,153,0.15)" },
+  "Rekam Jejak": { color: "#86efac", bg: "rgba(134,239,172,0.12)" },
 };
 
 const POSITION_STYLE: Record<string, { bg: string; color: string }> = {
@@ -59,16 +62,21 @@ const POSITION_STYLE: Record<string, { bg: string; color: string }> = {
 const featured = achievements.filter((a) => a.featured && a.articleId).slice(0, 3);
 
 const statsList = [
-  { icon: Trophy, label: "Total Prestasi",    value: achievements.length, suffix: "+" },
-  { icon: Medal,  label: "Tingkat Nasional",  value: achievements.filter((a) => a.level === "Nasional" || a.level === "Internasional").length, suffix: "" },
-  { icon: Award,  label: "Cabang Kompetisi",  value: achievements.filter((a) => a.category === "Kompetisi").length, suffix: "" },
-  { icon: Star,   label: "Juara 1",           value: achievements.filter((a) => a.position === "Juara 1").length, suffix: "×" },
+  { icon: Trophy, label: "Total Prestasi", value: achievements.length, suffix: "+" },
+  {
+    icon: Medal,
+    label: "Tingkat Nasional",
+    value: achievements.filter((a) => a.level === "Nasional" || a.level === "Internasional").length,
+    suffix: "",
+  },
+  { icon: Award, label: "Cabang Kompetisi", value: achievements.filter((a) => a.category === "Kompetisi").length, suffix: "" },
+  { icon: Star, label: "Juara 1", value: achievements.filter((a) => a.position === "Juara 1").length, suffix: "×" },
 ];
 
 // ─── Achievement Preview Card ────────────────────────────────────────────────
 
 function AchievementCard({ item, delay }: { item: Achievement; delay: number }) {
-  const pos = item.position ? POSITION_STYLE[item.position] ?? null : null;
+  const pos = item.position ? (POSITION_STYLE[item.position] ?? null) : null;
   const noPos = item.position && !pos;
   const cat = CATEGORY_STYLE[item.category as AchievementCategory];
   const hasArticle = !!item.articleId;
@@ -96,13 +104,16 @@ function AchievementCard({ item, delay }: { item: Achievement; delay: number }) 
       {/* Metallic sheen sweep on hover */}
       <div
         className="absolute top-0 bottom-0 w-[55%] -skew-x-12 pointer-events-none -translate-x-full group-hover:translate-x-[310%] transition-transform duration-[700ms] ease-in-out"
-        style={{ left: 0, zIndex: 10, background: "linear-gradient(105deg, transparent 10%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 60%, transparent 90%)" }}
+        style={{
+          left: 0,
+          zIndex: 10,
+          background:
+            "linear-gradient(105deg, transparent 10%, rgba(255,255,255,0.06) 40%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 60%, transparent 90%)",
+        }}
       />
 
       {/* Newspaper indicator — subtle top-right */}
-      <div
-        className="absolute top-4 right-4 z-20 opacity-50 group-hover:opacity-100 transition-opacity duration-300"
-      >
+      <div className="absolute top-4 right-4 z-20 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
         <Newspaper size={14} style={{ color: "#F59E0B" }} />
       </div>
 
@@ -132,10 +143,7 @@ function AchievementCard({ item, delay }: { item: Achievement; delay: number }) 
 
         {/* Position ribbon */}
         {pos && (
-          <div
-            className="self-start inline-flex items-center gap-1.5 mb-3 px-3 py-1.5 rounded-xl"
-            style={{ background: pos.bg, color: pos.color }}
-          >
+          <div className="self-start inline-flex items-center gap-1.5 mb-3 px-3 py-1.5 rounded-xl" style={{ background: pos.bg, color: pos.color }}>
             <Medal size={12} />
             <span className="text-[12px] font-bold">{item.position}</span>
           </div>
@@ -166,18 +174,12 @@ function AchievementCard({ item, delay }: { item: Achievement; delay: number }) 
         </h3>
 
         {/* Description — flex-1 pushes footer to bottom */}
-        <p
-          className="line-clamp-3 flex-1"
-          style={{ fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.7, marginBottom: 18 }}
-        >
+        <p className="line-clamp-3 flex-1" style={{ fontSize: 13, color: "rgba(255,255,255,0.58)", lineHeight: 1.7, marginBottom: 18 }}>
           {item.description}
         </p>
 
         {/* Meta + CTA footer — always at bottom */}
-        <div
-          className="pt-4 mt-auto"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
-        >
+        <div className="pt-4 mt-auto" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
           <div className="flex flex-col gap-1.5 mb-3">
             <span className="flex items-center gap-1.5 text-[12px]" style={{ color: "rgba(255,255,255,0.42)" }}>
               <Building2 size={11} />
@@ -214,7 +216,7 @@ function AchievementCard({ item, delay }: { item: Achievement; delay: number }) 
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true, margin: "-60px" } as const,
     transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const, delay },
-    whileHover: { y: -6, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+    whileHover: { y: -6, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as const } },
     // h-full + flex flex-col so the card fills the grid cell and stacks content vertically
     className: "relative rounded-3xl overflow-hidden group hover:shadow-2xl transition-shadow duration-500 h-full flex flex-col",
     style: {
@@ -241,10 +243,7 @@ function AchievementCard({ item, delay }: { item: Achievement; delay: number }) 
 
 export default function PrestasiPreviewSection() {
   return (
-    <section
-      className="py-20 md:py-28 relative overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #f9f7ef 0%, #ede8d4 100%)" }}
-    >
+    <section className="py-20 md:py-28 relative overflow-hidden" style={{ background: "linear-gradient(160deg, #f9f7ef 0%, #ede8d4 100%)" }}>
       {/* Decorative radial glow top-right */}
       <div
         className="absolute -top-60 -right-60 w-[500px] h-[500px] rounded-full pointer-events-none"
@@ -257,7 +256,6 @@ export default function PrestasiPreviewSection() {
       />
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
-
         {/* ── Section Header ── */}
         <div className="mb-10">
           <div>
@@ -279,11 +277,9 @@ export default function PrestasiPreviewSection() {
               className="text-[30px] md:text-[42px] leading-tight"
               style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "#0d2a1a" }}
             >
-              Rekam Jejak{" "}
-              <span style={{ color: "var(--color-maroon-500)" }}>Pencapaian Kami</span>
+              Rekam Jejak <span style={{ color: "var(--color-maroon-500)" }}>Pencapaian Kami</span>
             </motion.h2>
           </div>
-
         </div>
 
         {/* ── Stats Strip ── */}
@@ -308,10 +304,7 @@ export default function PrestasiPreviewSection() {
               }}
             >
               {/* Icon */}
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                style={{ background: "rgba(245,158,11,0.14)" }}
-              >
+              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ background: "rgba(245,158,11,0.14)" }}>
                 <Icon size={18} style={{ color: "#F59E0B" }} />
               </div>
 
