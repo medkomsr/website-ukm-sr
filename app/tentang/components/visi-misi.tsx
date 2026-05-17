@@ -4,6 +4,7 @@ import { wivTentang } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Award, Star } from "lucide-react";
 import { useState } from "react";
+import type { SanityVisiMisi } from "@/sanity/types";
 
 function FlipCard({
   frontBg,
@@ -38,7 +39,6 @@ function FlipCard({
           transform: flipped ? `rotateY(${flipDeg}deg)` : "rotateY(0deg)",
         }}
       >
-        {/* FRONT – dark gradient, centered icon + title */}
         <div
           style={{
             position: "absolute",
@@ -55,33 +55,14 @@ function FlipCard({
             userSelect: "none",
           }}
         >
-          <div
-            style={{
-              width: 60,
-              height: 60,
-              borderRadius: 16,
-              background: "#F59E0B",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <div style={{ width: 60, height: 60, borderRadius: 16, background: "#F59E0B", display: "flex", alignItems: "center", justifyContent: "center" }}>
             {icon}
           </div>
-          <p
-            style={{
-              color: "white",
-              fontFamily: "var(--font-display)",
-              fontWeight: 700,
-              fontSize: 26,
-              letterSpacing: "-0.01em",
-            }}
-          >
+          <p style={{ color: "white", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 26, letterSpacing: "-0.01em" }}>
             {title}
           </p>
         </div>
 
-        {/* BACK – light cream, Islamic geometric watermark + content */}
         <div
           style={{
             position: "absolute",
@@ -95,18 +76,7 @@ function FlipCard({
             userSelect: "none",
           }}
         >
-          {/* Watermark */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage: `url(${"/element-islamic.png"})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.06,
-            }}
-          />
-          {/* Content */}
+          <div style={{ position: "absolute", inset: 0, backgroundImage: `url(${"/element-islamic.png"})`, backgroundSize: "cover", backgroundPosition: "center", opacity: 0.06 }} />
           <div style={{ position: "relative", padding: "32px", height: "100%", display: "flex", flexDirection: "column", justifyContent: "center" }}>
             {back}
           </div>
@@ -116,7 +86,21 @@ function FlipCard({
   );
 }
 
-export default function VisiMisiSection() {
+type Props = {
+  data: SanityVisiMisi | null
+}
+
+export default function VisiMisiSection({ data }: Props) {
+  const visi = data?.visi ?? "Menjadi unit kegiatan mahasiswa terdepan dalam pengembangan seni bernuansa keagamaan yang berlandaskan nilai-nilai islami dan mampu bersaing di tingkat nasional."
+  const misi = data?.misi?.length
+    ? data.misi
+    : [
+        "Mewadahi minat dan bakat seni mahasiswa dalam bingkai islami",
+        "Mengembangkan kreativitas melalui program terstruktur",
+        "Berprestasi di tingkat regional dan nasional",
+        "Menjadi jembatan antara seni dan spiritualitas",
+      ]
+
   return (
     <section className="py-16 md:py-20" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f0f9f4 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -129,7 +113,6 @@ export default function VisiMisiSection() {
           </h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Visi – flips to the left */}
           <FlipCard
             direction="left"
             frontBg="linear-gradient(135deg, #0d2a1a 0%, #1a4a2e 100%)"
@@ -138,16 +121,12 @@ export default function VisiMisiSection() {
             back={
               <>
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "#0d2a1a", marginBottom: 12 }}>Visi Kami</p>
-                <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7 }}>
-                  Menjadi unit kegiatan mahasiswa terdepan dalam pengembangan seni bernuansa keagamaan yang berlandaskan nilai-nilai islami dan mampu
-                  bersaing di tingkat nasional.
-                </p>
+                <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7 }}>{visi}</p>
                 <div style={{ marginTop: 20, height: 2, width: 40, background: "#F59E0B", borderRadius: 2 }} />
               </>
             }
           />
 
-          {/* Misi – flips to the right */}
           <FlipCard
             direction="right"
             frontBg="linear-gradient(135deg, #420a0a 0%, #7f1d1d 100%)"
@@ -157,28 +136,9 @@ export default function VisiMisiSection() {
               <>
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "#420a0a", marginBottom: 14 }}>Misi Kami</p>
                 <ul style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {[
-                    "Mewadahi minat dan bakat seni mahasiswa dalam bingkai islami",
-                    "Mengembangkan kreativitas melalui program terstruktur",
-                    "Berprestasi di tingkat regional dan nasional",
-                    "Menjadi jembatan antara seni dan spiritualitas",
-                  ].map((m, i) => (
+                  {misi.map((m, i) => (
                     <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: "#374151", lineHeight: 1.6 }}>
-                      <span
-                        style={{
-                          minWidth: 20,
-                          height: 20,
-                          borderRadius: "50%",
-                          background: "#991b1b",
-                          color: "white",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: 10,
-                          fontWeight: 700,
-                          marginTop: 1,
-                        }}
-                      >
+                      <span style={{ minWidth: 20, height: 20, borderRadius: "50%", background: "#991b1b", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, marginTop: 1 }}>
                         {i + 1}
                       </span>
                       {m}

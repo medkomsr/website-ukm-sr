@@ -1,7 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { Activity, statusConfig } from "@/lib/data";
+import type { SanityActivity } from "@/sanity/types";
+
+const statusConfig: Record<string, { label: string; bg: string; text: string }> = {
+  upcoming: { label: "Akan Datang", bg: "#84cc16", text: "#14532d" },
+  ongoing: { label: "Berlangsung", bg: "#facc15", text: "#92400e" },
+  completed: { label: "Selesai", bg: "#e5e5e5", text: "#525252" },
+};
 import { motion } from "framer-motion";
 import { wivGeneral } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -9,15 +15,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 import { Calendar } from "lucide-react";
 
-function RelatedCard({ item }: { item: Activity }) {
+function RelatedCard({ item }: { item: SanityActivity }) {
   const isEvent = item.type === "event";
   const st = item.status ? statusConfig[item.status] : null;
   return (
-    <Link href={`/aktivitas/${item.id}`} className="no-underline block">
+    <Link href={`/aktivitas/${item.slug}`} className="no-underline block">
       <Card className="group rounded-2xl border-neutral-100 overflow-hidden hover:border-[color-mix(in_srgb,var(--color-maroon-500)_30%,transparent)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer gap-0 py-0">
         {/* Image */}
         <div className="relative h-40 overflow-hidden rounded-t-2xl">
-          <Image src={item.image} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+          <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
           <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent" />
 
           {/* Type + status badges */}
@@ -58,7 +64,7 @@ function RelatedCard({ item }: { item: Activity }) {
   );
 }
 
-export default function RelatedSection({ related }: { related: Activity[] }) {
+export default function RelatedSection({ related }: { related: SanityActivity[] }) {
   return (
     <section className="py-12 md:py-16 border-t border-neutral-100" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f0f9f4 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -72,7 +78,7 @@ export default function RelatedSection({ related }: { related: Activity[] }) {
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {related.map((a, i) => (
-            <motion.div key={a.id} {...wivGeneral(i * 0.08)}>
+            <motion.div key={a._id} {...wivGeneral(i * 0.08)}>
               <RelatedCard item={a} />
             </motion.div>
           ))}

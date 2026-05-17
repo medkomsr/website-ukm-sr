@@ -1,11 +1,11 @@
 "use client";
-import { GalleryItem } from "@/lib/data";
+import type { SanityGalleryItem } from "@/sanity/types";
 import { Button } from "@/components/ui/button";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
 
-export default function LightboxSection({ item, onClose }: { item: GalleryItem | null; onClose: () => void }) {
+export default function LightboxSection({ item, onClose }: { item: SanityGalleryItem | null; onClose: () => void }) {
   return (
     <AnimatePresence>
       {item && (
@@ -29,7 +29,7 @@ export default function LightboxSection({ item, onClose }: { item: GalleryItem |
               <X size={18} />
             </Button>
             <div className="relative w-full max-h-[75vh]" style={{ aspectRatio: "16/10" }}>
-              <Image src={item.src} alt={item.alt} fill className="object-contain rounded-lg" />
+              <Image src={item.imageUrl} alt={item.alt} fill className="object-contain rounded-lg" />
             </div>
             <p className="text-center text-white/70 text-[14px] mt-4">{item.caption}</p>
           </motion.div>

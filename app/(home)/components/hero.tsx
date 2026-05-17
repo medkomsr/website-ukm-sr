@@ -5,8 +5,27 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
 import { IMAGES } from "@/lib/data";
+import type { SanityHomePage, SanitySiteSettings } from "@/sanity/types";
 
-export default function HeroSection() {
+type Props = {
+  home: SanityHomePage | null
+  settings: SanitySiteSettings | null
+}
+
+export default function HeroSection({ home, settings }: Props) {
+  const hero = home?.hero
+  const judul1 = hero?.judul1 ?? "Seni yang "
+  const judulHighlight = hero?.judulHighlight ?? "Menginspirasi"
+  const judul2 = hero?.judul2 ?? "Iman yang Menguatkan"
+  const deskripsi = hero?.deskripsi ?? "UKM Seni Religi adalah wadah bagi mahasiswa yang ingin mengembangkan bakat seni bernuansa keagamaan."
+  const ctaText = hero?.ctaText ?? "Lihat Kegiatan"
+
+  const anggota = settings?.jumlahAnggota ?? "150+"
+  const penghargaan = settings?.jumlahPenghargaan ?? "25+"
+  const tahun = settings?.tahunBerdiri
+    ? `${new Date().getFullYear() - settings.tahunBerdiri}+`
+    : "10+"
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: "#0d2a1a" }}>
       {/* Background image */}
@@ -37,9 +56,9 @@ export default function HeroSection() {
               className="text-[40px] md:text-[56px] lg:text-[64px] text-white leading-[1.1] mb-6"
               style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
             >
-              Seni yang <span style={{ color: "#F59E0B" }}>Menginspirasi</span>
+              {judul1}<span style={{ color: "#F59E0B" }}>{judulHighlight}</span>
               <br />
-              Iman yang Menguatkan
+              {judul2}
             </motion.h1>
 
             <motion.p
@@ -48,7 +67,7 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.25 }}
               className="text-[17px] md:text-[19px] text-white/70 leading-relaxed mb-10 max-w-md"
             >
-              UKM Seni Religi adalah wadah bagi mahasiswa yang ingin mengembangkan bakat seni bernuansa keagamaan.
+              {deskripsi}
             </motion.p>
 
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
@@ -78,12 +97,12 @@ export default function HeroSection() {
                 }}
               >
                 <Play size={14} fill="currentColor" className="text-amber-400" />
-                Lihat Kegiatan
+                {ctaText}
               </Link>
             </motion.div>
           </div>
 
-          {/* Right – large image card with floating stat badges */}
+          {/* Right – stat badges */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -91,12 +110,10 @@ export default function HeroSection() {
             className="hidden lg:block relative"
             style={{ height: "460px" }}
           >
-            {/* Main image card */}
             <div className="absolute left-12 top-10 right-0 bottom-8 rounded-3xl overflow-hidden shadow-2xl">
               <Image src={IMAGES.geometric} alt="Islamic geometric pattern" fill className="object-cover" />
             </div>
 
-            {/* Stat card – top-left overlap */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -104,11 +121,10 @@ export default function HeroSection() {
               className="absolute top-0 left-0 bg-white rounded-2xl shadow-xl z-10"
               style={{ padding: "14px 20px" }}
             >
-              <div className="text-[30px] font-extrabold text-gray-900 leading-none">150+</div>
+              <div className="text-[30px] font-extrabold text-gray-900 leading-none">{anggota}</div>
               <div className="text-[13px] text-gray-400 mt-1">Anggota Aktif</div>
             </motion.div>
 
-            {/* Stat pill – top-right */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -116,10 +132,9 @@ export default function HeroSection() {
               className="absolute top-6 right-4 z-10 rounded-full px-4 py-2 text-[13px] font-semibold shadow-lg"
               style={{ background: "#F59E0B", color: "#1a1a1a" }}
             >
-              10+ Tahun Berdiri
+              {tahun} Tahun Berdiri
             </motion.div>
 
-            {/* Stat card – bottom-right */}
             <motion.div
               initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -127,7 +142,7 @@ export default function HeroSection() {
               className="absolute bottom-0 right-4 bg-white rounded-2xl shadow-xl z-10"
               style={{ padding: "14px 20px" }}
             >
-              <div className="text-[30px] font-extrabold text-gray-900 leading-none">25+</div>
+              <div className="text-[30px] font-extrabold text-gray-900 leading-none">{penghargaan}</div>
               <div className="text-[13px] text-gray-400 mt-1">Penghargaan</div>
             </motion.div>
           </motion.div>

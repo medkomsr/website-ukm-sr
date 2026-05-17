@@ -4,12 +4,12 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { DeptDetail } from "@/lib/data";
+import type { SanityDepartemenDetail } from "@/sanity/types";
 
-export default function HeroSection({ data }: { data: DeptDetail }) {
+export default function HeroSection({ data }: { data: SanityDepartemenDetail }) {
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 420 }}>
-      <Image src={data.img} alt={data.abbr} fill className="object-cover" priority />
+      <Image src={data.imageUrl} alt={data.abbr} fill className="object-cover" priority />
       <div className="absolute inset-0" style={{ background: data.overlay }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16">

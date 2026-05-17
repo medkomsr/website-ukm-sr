@@ -1,20 +1,15 @@
-import { use } from "react";
 import { notFound } from "next/navigation";
-import Link from "next/link";
-
-import { motion } from "framer-motion";
-import { ChevronRight } from "lucide-react";
 import SiteLayout from "@/components/site-layout";
-import { DEPT_DATA, DeptMember, DeptDivisi } from "@/lib/data";
 import HeroSection from "@/app/tentang/[dept]/components/hero";
 import DeskripsiSection from "@/app/tentang/[dept]/components/deskripsi";
 import ProgramKerjaSection from "@/app/tentang/[dept]/components/program-kerja";
 import StrukturOrganisasiSection from "@/app/tentang/[dept]/components/struktur-organisasi";
 import BackSection from "@/app/tentang/[dept]/components/back";
+import { getDepartemenBySlug } from "@/sanity/queries/departemen";
 
-export default function DeptDetailPage({ params }: { params: Promise<{ dept: string }> }) {
-  const { dept } = use(params);
-  const data = DEPT_DATA[dept];
+export default async function DeptDetailPage({ params }: { params: Promise<{ dept: string }> }) {
+  const { dept } = await params;
+  const data = await getDepartemenBySlug(dept);
   if (!data) notFound();
 
   return (

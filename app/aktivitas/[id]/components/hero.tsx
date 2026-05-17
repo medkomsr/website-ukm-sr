@@ -4,9 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, Calendar, ChevronRight, Clock, MapPin, User } from "lucide-react";
-import { Activity, statusConfig } from "@/lib/data";
+import type { SanityActivity } from "@/sanity/types";
 
-export default function HeroSection({ item, isEvent }: { item: Activity; isEvent: boolean }) {
+const statusConfig: Record<string, { label: string; bg: string; text: string }> = {
+  upcoming: { label: "Akan Datang", bg: "#84cc16", text: "#14532d" },
+  ongoing: { label: "Berlangsung", bg: "#facc15", text: "#92400e" },
+  completed: { label: "Selesai", bg: "#e5e5e5", text: "#525252" },
+};
+
+export default function HeroSection({ item, isEvent }: { item: SanityActivity; isEvent: boolean }) {
   const st = item.status ? statusConfig[item.status] : null;
 
   const overlayGradient = isEvent
@@ -15,7 +21,7 @@ export default function HeroSection({ item, isEvent }: { item: Activity; isEvent
 
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 480 }}>
-      <Image src={item.image} alt={item.title} fill className="object-cover" priority />
+      <Image src={item.imageUrl} alt={item.title} fill className="object-cover" priority />
       <div className="absolute inset-0" style={{ background: overlayGradient }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16 flex flex-col h-full" style={{ minHeight: 480 }}>

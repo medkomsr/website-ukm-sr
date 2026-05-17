@@ -1,6 +1,6 @@
 "use client";
 
-import { DeptDetail, DeptDivisi, DeptMember } from "@/lib/data";
+import type { SanityDepartemenDetail, SanityDeptDivisi, SanityDeptMember } from "@/sanity/types";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
 import React from "react";
@@ -120,7 +120,7 @@ function MemberCard({
   );
 }
 
-function OrgTree({ kepala, divisi }: { kepala: DeptMember; divisi: DeptDivisi[] }) {
+function OrgTree({ kepala, divisi }: { kepala: SanityDeptMember; divisi: SanityDeptDivisi[] }) {
   return (
     <div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 44 }}>
@@ -166,7 +166,7 @@ function OrgTree({ kepala, divisi }: { kepala: DeptMember; divisi: DeptDivisi[] 
   );
 }
 
-export default function StrukturOrganisasiSection({ data }: { data: DeptDetail }) {
+export default function StrukturOrganisasiSection({ data }: { data: SanityDepartemenDetail }) {
   return (
     <section className="py-14 md:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
