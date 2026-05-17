@@ -1,10 +1,10 @@
 "use client";
 
-import { DeptDetail } from "@/lib/data";
+import type { SanityDepartemenDetail } from "@/sanity/types";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-export default function DeskripsiSection({ data }: { data: DeptDetail }) {
+export default function DeskripsiSection({ data }: { data: SanityDepartemenDetail }) {
   return (
     <section className="py-14 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">

@@ -1,7 +1,7 @@
 "use client";
 
 import ActivityCard from "@/app/aktivitas/components/activity-card";
-import { activities } from "@/lib/data";
+import type { SanityActivity } from "@/sanity/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Filter, Search } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -10,7 +10,7 @@ const ITEMS_PER_PAGE = 9;
 
 const categories = ["Festival", "Workshop", "Lomba", "Rutin", "Pengumuman", "Liputan", "Prestasi"];
 
-export default function ItemsGridSection() {
+export default function ItemsGridSection({ items }: { items: SanityActivity[] }) {
   const [typeFilter, setTypeFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -19,7 +19,7 @@ export default function ItemsGridSection() {
   const [showFilters, setShowFilters] = useState(false);
 
   const filtered = useMemo(() => {
-    let list = [...activities];
+    let list = [...items];
     if (typeFilter !== "all") list = list.filter((a) => a.type === typeFilter);
     if (categoryFilter !== "all") list = list.filter((a) => a.category === categoryFilter);
     if (statusFilter !== "all") list = list.filter((a) => a.type === "event" && a.status === statusFilter);
@@ -193,7 +193,7 @@ export default function ItemsGridSection() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pageItems.map((item, i) => (
-                <ActivityCard key={item.id} item={item} delay={i * 0.05} />
+                <ActivityCard key={item._id} item={item} delay={i * 0.05} />
               ))}
             </div>
           )}

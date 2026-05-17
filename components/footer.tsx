@@ -5,6 +5,7 @@ import Image from "next/image";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import type { SanitySiteSettings } from "@/sanity/types";
 
 const navLinks = [
   { label: "Beranda", path: "/" },
@@ -36,19 +37,28 @@ function IconFacebook({ size = 17 }: { size?: number }) {
   );
 }
 
-const socials = [
-  { Icon: IconInstagram, href: "#" },
-  { Icon: IconYoutube, href: "#" },
-  { Icon: IconFacebook, href: "#" },
-];
+type Props = {
+  settings: SanitySiteSettings | null
+}
 
-const contactInfo = [
-  { icon: MapPin, text: "Jl. MT. Haryono No.161, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145" },
-  { icon: Phone, text: "+62 812-3456-7890" },
-  { icon: Mail, text: "senireligi@ub.ac.id" },
-];
+export default function Footer({ settings }: Props) {
+  const tagline = settings?.tagline ?? "Wadah pengembangan seni bernuansa keagamaan untuk mahasiswa yang kreatif dan inspiratif."
+  const alamat = settings?.alamat ?? "Jl. MT. Haryono No.161, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145"
+  const telepon = settings?.telepon ?? "+62 812-3456-7890"
+  const email = settings?.email ?? "senireligi@ub.ac.id"
 
-export default function Footer() {
+  const contactInfo = [
+    { icon: MapPin, text: alamat },
+    { icon: Phone, text: telepon },
+    { icon: Mail, text: email },
+  ];
+
+  const socials = [
+    { Icon: IconInstagram, href: settings?.instagramUrl ?? "#" },
+    { Icon: IconYoutube, href: settings?.youtubeUrl ?? "#" },
+    { Icon: IconFacebook, href: settings?.facebookUrl ?? "#" },
+  ];
+
   return (
     <footer style={{ background: "var(--color-maroon-900)" }} className="text-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-14 md:py-20">
@@ -58,13 +68,11 @@ export default function Footer() {
             <div className="flex items-center gap-2.5 mb-5">
               <Image src="/logo-white.png" alt="UKM Seni Religi Logo" width={40} height={40} className="rounded-xl object-cover" />
               <div>
-                <div className="text-[16px] text-white font-bold">Seni Religi</div>
+                <div className="text-[16px] text-white font-bold">{settings?.namaOrg ?? "Seni Religi"}</div>
                 <div className="text-[10px] tracking-[0.15em] uppercase text-white/40">Universitas Brawijaya</div>
               </div>
             </div>
-            <p className="text-[14px] text-white/50 leading-relaxed">
-              Wadah pengembangan seni bernuansa keagamaan untuk mahasiswa yang kreatif dan inspiratif.
-            </p>
+            <p className="text-[14px] text-white/50 leading-relaxed">{tagline}</p>
             <div className="flex gap-2.5 mt-6">
               {socials.map(({ Icon, href }, i) => (
                 <a
@@ -92,11 +100,7 @@ export default function Footer() {
             <div className="text-[12px] uppercase tracking-[0.2em] text-lime-400 mb-5 font-bold">Navigasi</div>
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  href={link.path}
-                  className="text-[14px] text-white/50 no-underline hover:text-white transition-colors duration-200"
-                >
+                <Link key={link.path} href={link.path} className="text-[14px] text-white/50 no-underline hover:text-white transition-colors duration-200">
                   {link.label}
                 </Link>
               ))}
@@ -119,38 +123,26 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <div className="text-[12px] uppercase tracking-[0.2em] text-lime-400 mb-5 font-bold">Info Terbaru</div>
-            <p className="text-[14px] text-white/50 mb-4">
-              Berlangganan untuk mendapatkan update kegiatan terbaru.
-            </p>
+            <p className="text-[14px] text-white/50 mb-4">Berlangganan untuk mendapatkan update kegiatan terbaru.</p>
             <div className="flex gap-2">
               <Input
                 type="email"
                 placeholder="Email Anda"
                 className="flex-1 rounded-xl text-[13px] text-white placeholder:text-white/30"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.10)",
-                }}
+                style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.10)" }}
               />
-              <Button
-                className="rounded-xl px-5 text-[13px] font-bold hover:brightness-110"
-                style={{ background: "#84cc16", color: "var(--color-maroon-900)" }}
-              >
+              <Button className="rounded-xl px-5 text-[13px] font-bold hover:brightness-110" style={{ background: "#84cc16", color: "var(--color-maroon-900)" }}>
                 Kirim
               </Button>
             </div>
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-[12px] text-white/30"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}
-        >
-          <span>© 2026 Seni Religi — Universitas Brawijaya. All rights reserved.</span>
+        <div className="mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-[12px] text-white/30" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <span>© {new Date().getFullYear()} {settings?.namaOrg ?? "Seni Religi"} — Universitas Brawijaya. All rights reserved.</span>
           <div className="flex gap-5">
             <a href="#" className="text-white/30 hover:text-white/60 no-underline transition-colors">Kebijakan Privasi</a>
-            <a href="#" className="text-white/30 hover:text-white/60 no-underline transition-colors">Syarat & Ketentuan</a>
+            <a href="#" className="text-white/30 hover:text-white/60 no-underline transition-colors">Syarat &amp; Ketentuan</a>
           </div>
         </div>
       </div>

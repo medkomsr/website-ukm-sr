@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
-import { activities } from "@/lib/data";
+import type { SanityActivity } from "@/sanity/types";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
@@ -15,9 +15,8 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const, delay },
 });
 
-const news = activities.filter((a) => a.type === "article").slice(0, 3);
-
-export default function NewsSection() {
+export default function NewsSection({ items }: { items: SanityActivity[] }) {
+  const news = items.slice(0, 3);
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -55,8 +54,8 @@ export default function NewsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {news.map((item, i) => (
             <Link
-              key={item.id}
-              href={`/aktivitas/${item.id}`}
+              key={item._id}
+              href={`/aktivitas/${item.slug}`}
               className={`no-underline flex flex-col h-full ${i === 0 ? "md:col-span-2 lg:col-span-1" : ""}`}
             >
               <motion.div {...fadeUp(i * 0.1)} className="h-full group cursor-pointer">
@@ -65,7 +64,7 @@ export default function NewsSection() {
                   {/* Image */}
                   <div className="relative h-52 overflow-hidden rounded-t-3xl">
                     <Image
-                      src={item.image}
+                      src={item.imageUrl}
                       alt={item.title}
                       fill
                       className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"

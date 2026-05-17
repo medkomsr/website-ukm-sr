@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react";
-import { activities } from "@/lib/data";
+import type { SanityActivity } from "@/sanity/types";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 
@@ -21,9 +21,8 @@ const statusStyles: Record<string, { label: string; bg: string; text: string }> 
   completed: { label: "Selesai", bg: "#e5e5e5", text: "#525252" },
 };
 
-const preview = activities.filter((a) => a.type === "event").slice(0, 3);
-
-export default function ActivitiesSection() {
+export default function ActivitiesSection({ items }: { items: SanityActivity[] }) {
+  const preview = items.slice(0, 3);
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -73,14 +72,14 @@ export default function ActivitiesSection() {
           {preview.map((item, i) => {
             const st = item.status ? statusStyles[item.status] : null;
             return (
-              <Link key={item.id} href={`/aktivitas/${item.id}`} className="no-underline flex flex-col h-full">
+              <Link key={item._id} href={`/aktivitas/${item.slug}`} className="no-underline flex flex-col h-full">
                 <motion.div {...fadeUp(i * 0.1)} className="h-full">
                   <Card className="group h-full cursor-pointer rounded-3xl border-neutral-100 hover:border-[color-mix(in_srgb,var(--color-maroon-500)_30%,transparent)] shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 gap-0 py-0">
 
                     {/* Image — placed as first child so Card auto-rounds top corners */}
                     <div className="relative h-52 overflow-hidden rounded-t-3xl">
                       <Image
-                        src={item.image}
+                        src={item.imageUrl}
                         alt={item.title}
                         fill
                         className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"

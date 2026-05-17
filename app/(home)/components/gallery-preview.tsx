@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Images } from "lucide-react";
-import { galleryImages } from "@/lib/data";
+import type { SanityGalleryItem } from "@/sanity/types";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 40 },
@@ -13,9 +13,8 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const, delay },
 });
 
-const preview = galleryImages.slice(0, 6);
-
-export default function GallerySection() {
+export default function GallerySection({ items }: { items: SanityGalleryItem[] }) {
+  const preview = items.slice(0, 6);
   return (
     <section
       className="py-20 md:py-28 relative overflow-hidden"
@@ -43,13 +42,13 @@ export default function GallerySection() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">
           {preview.map((img, i) => (
             <motion.div
-              key={img.src}
+              key={img._id}
               {...fadeUp(i * 0.08)}
               className={`group relative overflow-hidden rounded-2xl cursor-pointer ${i === 0 ? "md:row-span-2" : ""}`}
               style={{ aspectRatio: i === 0 ? "auto" : "4/3", minHeight: i === 0 ? 320 : 160 }}
             >
               <Image
-                src={img.src}
+                src={img.imageUrl}
                 alt={img.alt}
                 fill
                 className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"

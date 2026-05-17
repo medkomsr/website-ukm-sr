@@ -1,6 +1,6 @@
 "use client";
 
-import { DeptDetail } from "@/lib/data";
+import type { SanityDepartemenDetail } from "@/sanity/types";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -124,7 +124,7 @@ function ProgramCard({ title, description, i }: { title: string; description: st
   );
 }
 
-export default function ProgramKerjaSection({ data }: { data: DeptDetail }) {
+export default function ProgramKerjaSection({ data }: { data: SanityDepartemenDetail }) {
   return (
     <section className="py-14 md:py-20" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">

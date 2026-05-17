@@ -1,16 +1,15 @@
 import SiteLayout from "@/components/site-layout";
 import HeaderSection from "@/app/aktivitas/components/header";
-import ActivityCard from "@/app/aktivitas/components/activity-card";
 import ItemsGridSection from "@/app/aktivitas/components/items-grid";
+import { getAllAktivitas } from "@/sanity/queries/aktivitas";
 
-export default function AktivitasPage() {
+export default async function AktivitasPage() {
+  const items = await getAllAktivitas();
+
   return (
     <SiteLayout>
-      {/* Header */}
       <HeaderSection />
-
-      {/* Filter bar & Items grid*/}
-      <ItemsGridSection />
+      <ItemsGridSection items={items} />
     </SiteLayout>
   );
 }

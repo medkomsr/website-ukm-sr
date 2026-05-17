@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Tag, User, BookOpen, CheckCircle2, Circle } from "lucide-react";
 import Link from "next/link";
-import { Activity } from "@/lib/data";
+import { PortableText } from "@portabletext/react";
+import type { SanityActivity } from "@/sanity/types";
 import { wivGeneral } from "@/lib/utils";
 
 function InfoPill({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) {
@@ -29,7 +30,7 @@ function InfoPill({ icon: Icon, label, value }: { icon: React.ElementType; label
   );
 }
 
-function AgendaSection({ agenda }: { agenda: Activity["agenda"] }) {
+function AgendaSection({ agenda }: { agenda: SanityActivity["agenda"] }) {
   if (!agenda?.length) return null;
   return (
     <motion.div {...wivGeneral(0)}>
@@ -72,26 +73,23 @@ function AgendaSection({ agenda }: { agenda: Activity["agenda"] }) {
   );
 }
 
-function ArticleBody({ body }: { body: string[] }) {
+function ArticleBody({ body }: { body: SanityActivity["body"] }) {
+  if (!body?.length) return null;
   return (
-    <div className="space-y-5">
-      {body.map((para, i) => (
-        <motion.p
-          key={i}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-20px" }}
-          transition={{ duration: 0.45, delay: i * 0.06 }}
-          style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}
-        >
-          {para}
-        </motion.p>
-      ))}
+    <div className="prose prose-neutral max-w-none" style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+      <PortableText
+        value={body}
+        components={{
+          block: {
+            normal: ({ children }) => <p style={{ marginBottom: "1.25rem" }}>{children}</p>,
+          },
+        }}
+      />
     </div>
   );
 }
 
-export default function ContentSection({ item, isEvent }: { item: Activity; isEvent: boolean }) {
+export default function ContentSection({ item, isEvent }: { item: SanityActivity; isEvent: boolean }) {
   return (
     <section className="py-12 md:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">

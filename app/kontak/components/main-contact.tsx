@@ -7,77 +7,45 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { MapPin, Phone, Mail, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import type { SanitySiteSettings } from "@/sanity/types";
 
 function IconInstagram({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={style}
-    >
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
     </svg>
   );
 }
 function IconYoutube({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={style}
-    >
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-      <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" /><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
     </svg>
   );
 }
 function IconFacebook({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={style}
-    >
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={style}>
       <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
     </svg>
   );
 }
 
-const socials = [
-  { icon: IconInstagram, label: "Instagram", handle: "@senireligi_ub", href: "#" },
-  { icon: IconYoutube, label: "YouTube", handle: "Seni Religi Universitas Brawijaya", href: "#" },
-  { icon: IconFacebook, label: "Facebook", handle: "Seni Religi Universitas Brawijaya", href: "#" },
-];
-
-const contactInfo = [
-  { icon: MapPin, label: "Alamat", value: "Jl. MT. Haryono No.161, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145" },
-  { icon: Phone, label: "Telepon", value: "+62 812-3456-7890" },
-  { icon: Mail, label: "Email", value: "senireligi@ub.ac.id" },
-];
-
-export default function MainContactSection() {
+export default function MainContactSection({ settings }: { settings: SanitySiteSettings | null }) {
   const [form, setForm] = useState({ nama: "", email: "", subjek: "", pesan: "" });
   const [submitted, setSubmitted] = useState(false);
+
+  const contactInfo = [
+    { icon: MapPin, label: "Alamat", value: settings?.alamat ?? "Jl. MT. Haryono No.161, Kota Malang, Jawa Timur 65145" },
+    { icon: Phone, label: "Telepon", value: settings?.telepon ?? "+62 812-3456-7890" },
+    { icon: Mail, label: "Email", value: settings?.email ?? "senireligi@ub.ac.id" },
+  ];
+
+  const socials = [
+    { icon: IconInstagram, label: "Instagram", handle: settings?.instagram ?? "@senireligi_ub", href: settings?.instagramUrl ?? "#" },
+    { icon: IconYoutube, label: "YouTube", handle: settings?.youtube ?? "Seni Religi Universitas Brawijaya", href: settings?.youtubeUrl ?? "#" },
+    { icon: IconFacebook, label: "Facebook", handle: settings?.facebook ?? "Seni Religi Universitas Brawijaya", href: settings?.facebookUrl ?? "#" },
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,13 +74,7 @@ export default function MainContactSection() {
                     <p className="text-[14px] text-neutral-500 mb-6 max-w-sm mx-auto">
                       Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda melalui email.
                     </p>
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        setSubmitted(false);
-                        setForm({ nama: "", email: "", subjek: "", pesan: "" });
-                      }}
-                    >
+                    <Button variant="secondary" onClick={() => { setSubmitted(false); setForm({ nama: "", email: "", subjek: "", pesan: "" }); }}>
                       Kirim Pesan Lain
                     </Button>
                   </motion.div>
@@ -121,51 +83,22 @@ export default function MainContactSection() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-1.5">
                         <Label className="text-[12px] text-neutral-500 font-medium">Nama Lengkap *</Label>
-                        <Input
-                          required
-                          type="text"
-                          value={form.nama}
-                          onChange={(e) => setForm({ ...form, nama: e.target.value })}
-                          placeholder="Masukkan nama lengkap"
-                          className="rounded-lg bg-neutral-50 h-10 text-sm px-3"
-                        />
+                        <Input required type="text" value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} placeholder="Masukkan nama lengkap" className="rounded-lg bg-neutral-50 h-10 text-sm px-3" />
                       </div>
                       <div className="space-y-1.5">
                         <Label className="text-[12px] text-neutral-500 font-medium">Email *</Label>
-                        <Input
-                          required
-                          type="email"
-                          value={form.email}
-                          onChange={(e) => setForm({ ...form, email: e.target.value })}
-                          placeholder="email@example.com"
-                          className="rounded-lg bg-neutral-50 h-10 text-s px-3"
-                        />
+                        <Input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="email@example.com" className="rounded-lg bg-neutral-50 h-10 text-sm px-3" />
                       </div>
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-[12px] text-neutral-500 font-medium">Subjek</Label>
-                      <Input
-                        type="text"
-                        value={form.subjek}
-                        onChange={(e) => setForm({ ...form, subjek: e.target.value })}
-                        placeholder="Tentang apa pesan Anda?"
-                        className="rounded-lg bg-neutral-50 h-10 text-sm px-3"
-                      />
+                      <Input type="text" value={form.subjek} onChange={(e) => setForm({ ...form, subjek: e.target.value })} placeholder="Tentang apa pesan Anda?" className="rounded-lg bg-neutral-50 h-10 text-sm px-3" />
                     </div>
                     <div className="space-y-1.5">
                       <Label className="text-[12px] text-neutral-500 font-medium">Pesan *</Label>
-                      <Textarea
-                        required
-                        value={form.pesan}
-                        onChange={(e) => setForm({ ...form, pesan: e.target.value })}
-                        placeholder="Ceritakan motivasi Anda..."
-                        rows={5}
-                        className="rounded-lg bg-neutral-50 text-sm resize-none px-3"
-                      />
+                      <Textarea required value={form.pesan} onChange={(e) => setForm({ ...form, pesan: e.target.value })} placeholder="Ceritakan motivasi Anda..." rows={5} className="rounded-lg bg-neutral-50 text-sm resize-none px-3" />
                     </div>
-                    <Button type="submit" className="w-full h-12 text-[14px] font-bold rounded-xl">
-                      Kirim Pesan
-                    </Button>
+                    <Button type="submit" className="w-full h-12 text-[14px] font-bold rounded-xl">Kirim Pesan</Button>
                   </form>
                 )}
               </CardContent>
@@ -173,22 +106,13 @@ export default function MainContactSection() {
           </motion.div>
 
           {/* Sidebar */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="lg:col-span-5 space-y-6"
-          >
-            {/* Contact info */}
+          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="lg:col-span-5 space-y-6">
             <div className="bg-white rounded-2xl border border-neutral-200 p-6">
               <h3 className="text-[15px] font-bold text-(--color-neutral-1000) mb-5">Informasi Kontak</h3>
               <div className="space-y-4">
                 {contactInfo.map(({ icon: Icon, label, value }) => (
                   <div key={label} className="flex items-start gap-3">
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-                      style={{ background: "color-mix(in srgb, var(--color-maroon-500) 10%, transparent)" }}
-                    >
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0" style={{ background: "color-mix(in srgb, var(--color-maroon-500) 10%, transparent)" }}>
                       <Icon size={15} style={{ color: "var(--color-maroon-500)" }} />
                     </div>
                     <div>
@@ -200,20 +124,12 @@ export default function MainContactSection() {
               </div>
             </div>
 
-            {/* Social media */}
             <div className="bg-white rounded-2xl border border-neutral-200 p-6">
               <h3 className="text-[15px] font-bold text-(--color-neutral-1000) mb-5">Media Sosial</h3>
               <div className="space-y-3">
                 {socials.map(({ icon: Icon, label, handle, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    className="flex items-center gap-3 p-3 rounded-xl no-underline transition-colors hover:bg-neutral-50 group"
-                  >
-                    <div
-                      className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200"
-                      style={{ background: "color-mix(in srgb, var(--color-maroon-500) 8%, transparent)" }}
-                    >
+                  <a key={label} href={href} className="flex items-center gap-3 p-3 rounded-xl no-underline transition-colors hover:bg-neutral-50 group">
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "color-mix(in srgb, var(--color-maroon-500) 8%, transparent)" }}>
                       <Icon size={16} style={{ color: "var(--color-maroon-500)" }} />
                     </div>
                     <div>

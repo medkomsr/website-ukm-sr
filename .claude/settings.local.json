@@ -7,7 +7,9 @@
       "Bash(curl -s \"https://senireligiub.figma.site/_components/v2/2c19f82446f9ce3ee11f5afdc23175f08e862fb4.js\")",
       "Bash(python3)",
       "mcp__Claude_Preview__preview_start",
-      "mcp__Claude_in_Chrome__tabs_context_mcp"
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
