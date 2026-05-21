@@ -103,7 +103,7 @@ function AchievementCard({ item, delay }: { item: Achievement; delay: number }) 
 
       {/* Metallic sheen sweep on hover */}
       <div
-        className="absolute top-0 bottom-0 w-[55%] -skew-x-12 pointer-events-none -translate-x-full group-hover:translate-x-[310%] transition-transform duration-[700ms] ease-in-out"
+        className="absolute top-0 bottom-0 w-[55%] -skew-x-12 pointer-events-none -translate-x-full group-hover:translate-x-[310%] transition-transform duration-700 ease-in-out"
         style={{
           left: 0,
           zIndex: 10,
