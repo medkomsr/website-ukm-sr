@@ -10,7 +10,9 @@ import {
   useMotionTemplate,
 } from "framer-motion";
 import { Users, Award, CalendarDays, ArrowRight } from "lucide-react";
-import { IMAGES } from "@/lib/data";
+import { IMAGES } from "@/lib/types/data";
+import { useHomePage } from "@/hooks/useHomePage";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 const fadeUp = {
   initial: { opacity: 0, y: 40 },
@@ -163,7 +165,24 @@ function PhotoCard() {
   );
 }
 
+const DEFAULT_HIGHLIGHTS = [
+  "150+ Anggota dari Seluruh Fakultas",
+  "25+ Penghargaan Tingkat Nasional",
+  "50+ Kegiatan Setiap Tahun",
+];
+
 export default function AboutSection({ variant = "logo", hideCta = false }: { variant?: "logo" | "image"; hideCta?: boolean }) {
+ const { data: homepageData, isLoading: isLoadingHomepageData, error: errorHomepageData } = useHomePage();
+//  const { data: siteSettings, isLoading: isLoadingSiteSettings, error: errorSiteSettings } = useSiteSettings();
+ 
+
+ const about = homepageData?.about
+  const judul1 = about?.judul1 ?? "Berkarya dengan tulus, "
+  const judulHighlight = about?.judulHighlight ?? "Inovasi tanpa batas"
+  const deskripsi1 = about?.deskripsi1 ?? "UKM Seni Religi adalah Unit Kegiatan Mahasiswa yang berdiri sejak tahun 2015, berfokus pada pengembangan seni bernuansa keagamaan. Kami mewadahi minat dan bakat mahasiswa dalam kaligrafi, nasyid, tilawah, puisi religi, dan seni pertunjukan islami."
+  const deskripsi2 = about?.deskripsi2 ?? "Dengan lebih dari 150 anggota aktif dan puluhan kegiatan setiap tahunnya, kami berkomitmen menjadi wadah kreativitas yang berlandaskan nilai-nilai islami."
+  const highlights = about?.highlights?.length ? about.highlights : DEFAULT_HIGHLIGHTS
+  // const tahunBerdiri = siteSettings?.tahunBerdiri ?? 2015
   return (
     <section className="py-20 md:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -191,37 +210,38 @@ export default function AboutSection({ variant = "logo", hideCta = false }: { va
               className="text-[30px] md:text-[42px] text-(--color-neutral-1000) mb-6 leading-tight"
               style={{ fontFamily: "var(--font-display)", fontWeight: 700 }}
             >
-              Hidup itu Seni, Seni itu Indah,{" "}
-              <span style={{ color: "var(--color-maroon-500)" }}>Indah itu Baik, Yang Baik Disenangi</span>
+              {judul1}
+              <span style={{ color: "var(--color-maroon-500)" }}>{judulHighlight}</span>
             </motion.h2>
             <motion.p
               {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.15 } }}
               className="text-[15px] text-neutral-600 leading-relaxed mb-4"
             >
-              UKM Seni Religi adalah Unit Kegiatan Mahasiswa yang berdiri sejak tahun 2015, berfokus pada pengembangan seni bernuansa keagamaan. Kami
-              mewadahi minat dan bakat mahasiswa dalam kaligrafi, nasyid, tilawah, puisi religi, dan seni pertunjukan islami.
+              {deskripsi1}
             </motion.p>
             <motion.p
               {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.2 } }}
               className="text-[15px] text-neutral-600 leading-relaxed mb-8"
             >
-              Dengan lebih dari 150 anggota aktif dan puluhan kegiatan setiap tahunnya, kami berkomitmen menjadi wadah kreativitas yang berlandaskan
-              nilai-nilai islami.
+              {deskripsi2}
             </motion.p>
 
             {/* Highlights */}
             <motion.div {...{ ...fadeUp, transition: { ...fadeUp.transition, delay: 0.25 } }} className="space-y-3 mb-8">
-              {highlights.map(({ icon: Icon, text }) => (
-                <div key={text} className="flex items-center gap-3">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ background: "color-mix(in srgb, var(--color-maroon-500) 10%, transparent)" }}
-                  >
-                    <Icon size={15} style={{ color: "var(--color-maroon-500)" }} />
+              {highlights.map((text, i) => {
+                const Icon = [Users, Award, CalendarDays][i % 3];
+                return (
+                  <div key={i} className="flex items-center gap-3">
+                    <div
+                      className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                      style={{ background: "color-mix(in srgb, var(--color-maroon-500) 10%, transparent)" }}
+                    >
+                      <Icon size={15} style={{ color: "var(--color-maroon-500)" }} />
+                    </div>
+                    <span className="text-[14px] text-neutral-700">{text}</span>
                   </div>
-                  <span className="text-[14px] text-neutral-700">{text}</span>
-                </div>
-              ))}
+                );
+              })}
             </motion.div>
 
             {!hideCta && (

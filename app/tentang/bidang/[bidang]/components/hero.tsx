@@ -4,13 +4,22 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { BidangDetail } from "@/lib/bidang-data";
+import { useBidangBySlug } from "@/hooks/useBidang";
+import { notFound } from "next/navigation";
 
-export default function HeroSection({ data }: { data: BidangDetail }) {
+export default function HeroSection({ slug }: { slug: string }) {
+  const { data, isLoading } = useBidangBySlug(slug);
+
+  if (isLoading) {
+    return <section className="relative overflow-hidden bg-neutral-900 animate-pulse" style={{ minHeight: 420 }} />;
+  }
+
+  if (!data) return notFound();
+
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 420 }}>
-      <Image src={data.img} alt={data.abbr} fill className="object-cover" priority />
-      <div className="absolute inset-0" style={{ background: data.overlay }} />
+      <Image src={data.imageUrl} alt={data.abbr} fill className="object-cover" priority />
+      <div className="absolute inset-0" style={{ background: data.overlay || "rgba(0,0,0,0.5)" }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16">
         {/* Breadcrumb */}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Play, ChevronDown } from "lucide-react";
-import { IMAGES } from "@/lib/data";
+import { IMAGES } from "@/lib/types/data";
 
 export default function HeroSection() {
   return (

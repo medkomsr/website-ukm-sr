@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { MapPin, Phone, Mail, CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 function IconInstagram({ size = 16, style }: { size?: number; style?: React.CSSProperties }) {
   return (
@@ -63,22 +64,24 @@ function IconFacebook({ size = 16, style }: { size?: number; style?: React.CSSPr
   );
 }
 
-const socials = [
-  { icon: IconInstagram, label: "Instagram", handle: "@senireligi_ub", href: "#" },
-  { icon: IconYoutube, label: "YouTube", handle: "Seni Religi Universitas Brawijaya", href: "#" },
-  { icon: IconFacebook, label: "Facebook", handle: "Seni Religi Universitas Brawijaya", href: "#" },
-];
-
-const contactInfo = [
-  { icon: MapPin, label: "Alamat", value: "Jl. MT. Haryono No.161, Ketawanggede, Kec. Lowokwaru, Kota Malang, Jawa Timur 65145" },
-  { icon: Phone, label: "Telepon", value: "+62 812-3456-7890" },
-  { icon: Mail, label: "Email", value: "senireligi@ub.ac.id" },
-];
 
 export default function MainContactSection() {
   const [form, setForm] = useState({ nama: "", email: "", subjek: "", pesan: "" });
   const [submitted, setSubmitted] = useState(false);
+  
+  const { data: siteSettings, isLoading: isLoadingSiteSettings, error: errorSiteSettings } = useSiteSettings();
+  
+  const contactInfo = [
+    { icon: MapPin, label: "Alamat", value: siteSettings?.alamat ?? "Jl. MT. Haryono No.161, Kota Malang, Jawa Timur 65145" },
+    { icon: Phone, label: "Telepon", value: siteSettings?.telepon ?? "+62 812-3456-7890" },
+    { icon: Mail, label: "Email", value: siteSettings?.email ?? "senireligi@ub.ac.id" },
+  ];
 
+  const socials = [
+    { icon: IconInstagram, label: "Instagram", handle: siteSettings?.instagram ?? "@senireligi_ub", href: siteSettings?.instagramUrl ?? "#" },
+    { icon: IconYoutube, label: "YouTube", handle: siteSettings?.youtube ?? "Seni Religi Universitas Brawijaya", href: siteSettings?.youtubeUrl ?? "#" },
+    { icon: IconFacebook, label: "Facebook", handle: siteSettings?.facebook ?? "Seni Religi Universitas Brawijaya", href: siteSettings?.facebookUrl ?? "#" },
+  ];
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);

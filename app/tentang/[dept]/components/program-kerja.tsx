@@ -1,9 +1,10 @@
 "use client";
 
-import { DeptDetail } from "@/lib/data";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useDepartemenBySlug } from "@/hooks/useDepartemen";
+import { notFound } from "next/navigation";
 
 function ProgramCard({ title, description, i }: { title: string; description: string; i: number }) {
   const [flipped, setFlipped] = useState(false);
@@ -124,7 +125,11 @@ function ProgramCard({ title, description, i }: { title: string; description: st
   );
 }
 
-export default function ProgramKerjaSection({ data }: { data: DeptDetail }) {
+export default function ProgramKerjaSection({ dept }: { dept: string }) {
+  const { data: departemen, isLoading, error } = useDepartemenBySlug(dept);
+
+  if (!isLoading && !departemen) notFound();
+
   return (
     <section className="py-14 md:py-20" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -137,8 +142,8 @@ export default function ProgramKerjaSection({ data }: { data: DeptDetail }) {
           </h2>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {data.programs.map((p, i) => (
-            <ProgramCard key={i} title={p} description={data.programDescriptions[i]} i={i} />
+          {departemen?.programs.map((p, i) => (
+            <ProgramCard key={i} title={p} description={departemen?.programDescriptions[i]} i={i} />
           ))}
         </div>
       </div>

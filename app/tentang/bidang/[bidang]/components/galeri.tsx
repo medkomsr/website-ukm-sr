@@ -1,11 +1,13 @@
 "use client";
 
-import { BidangDetail, BidangGalleryItem } from "@/lib/bidang-data";
+import { useBidangBySlug } from "@/hooks/useBidang";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { notFound } from "next/navigation";
+import type { SanityBidangGalleryItem } from "@/sanity/types";
 
-function GalleryCard({ item, delay }: { item: BidangGalleryItem; delay: number }) {
+function GalleryCard({ item, delay }: { item: SanityBidangGalleryItem; delay: number }) {
   return (
     <motion.div
       {...wivTentangDept(delay)}
@@ -14,8 +16,8 @@ function GalleryCard({ item, delay }: { item: BidangGalleryItem; delay: number }
     >
       {/* Photo — scales on group hover */}
       <Image
-        src={item.src}
-        alt={item.alt}
+        src={item.imageUrl}
+        alt={item.alt || item.caption || "Gallery"}
         fill
         className="object-cover transition-transform duration-700 group-hover:scale-110"
         style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
@@ -62,7 +64,12 @@ function GalleryCard({ item, delay }: { item: BidangGalleryItem; delay: number }
   );
 }
 
-export default function GaleriSection({ data }: { data: BidangDetail }) {
+export default function GaleriSection({ slug }: { slug: string }) {
+  const { data, isLoading } = useBidangBySlug(slug);
+
+  if (isLoading) return <section className="py-14 md:py-20 min-h-[400px]" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }} />;
+  if (!data) return notFound();
+
   return (
     <section
       className="py-14 md:py-20"
@@ -88,7 +95,7 @@ export default function GaleriSection({ data }: { data: BidangDetail }) {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5">
-          {data.gallery.map((item, i) => (
+          {data.gallery?.map((item, i) => (
             <GalleryCard key={i} item={item} delay={i * 0.1} />
           ))}
         </div>
