@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Images } from "lucide-react";
-import { galleryImages } from "@/lib/data";
+import { useGaleri } from "@/hooks/useGaleri";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 40 },
@@ -13,9 +13,10 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const, delay },
 });
 
-const preview = galleryImages.slice(0, 6);
-
 export default function GallerySection() {
+  const { data: galeri } = useGaleri();
+  const preview = (galeri ?? []).slice(0, 6);
+
   return (
     <section
       className="py-20 md:py-28 relative overflow-hidden"
@@ -46,12 +47,12 @@ export default function GallerySection() {
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-10">
           {preview.map((img, i) => (
             <motion.div
-              key={img.src}
+              key={img._id}
               {...fadeUp(i * 0.08)}
               className={[
                 "group relative overflow-hidden rounded-xl md:rounded-2xl cursor-pointer",
                 // Semua item uniform 4/3 di mobile
-                "aspect-[4/3]",
+                "aspect-4/3",
                 // Item pertama: di desktop tinggi 2 baris, aspect-ratio dilepas
                 i === 0 ? "md:row-span-2 md:aspect-auto" : "",
               ]
@@ -59,14 +60,14 @@ export default function GallerySection() {
                 .join(" ")}
             >
               <Image
-                src={img.src}
-                alt={img.alt}
+                src={img.imageUrl}
+                alt={img.alt || img.caption || "Gallery image"}
                 fill
                 sizes="(min-width: 768px) 33vw, 50vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
               />
               {/* Hover overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
               {/* Caption */}
               <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4 translate-y-1 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <p className="text-white text-[12px] md:text-[13px] font-semibold leading-snug line-clamp-2">

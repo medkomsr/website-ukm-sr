@@ -4,10 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BookOpen, Calendar, ChevronRight, Clock, MapPin, User } from "lucide-react";
-import { Activity, statusConfig } from "@/lib/data";
+import { statusConfig } from "@/lib/types/data";
+import { useAktivitasBySlug } from "@/hooks/useAktivitas";
 
-export default function HeroSection({ item, isEvent }: { item: Activity; isEvent: boolean }) {
-  const st = item.status ? statusConfig[item.status] : null;
+export default function HeroSection({ slug }: { slug: string}) {
+
+  
+    const { data: activity, isLoading, error } = useAktivitasBySlug(slug);
+  
+    const isEvent = activity?.type === "event";
+  const st = activity?.status ? statusConfig[activity?.status] : null;
 
   const overlayGradient = isEvent
     ? "linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.88) 100%)"
@@ -15,7 +21,7 @@ export default function HeroSection({ item, isEvent }: { item: Activity; isEvent
 
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 480 }}>
-      <Image src={item.image} alt={item.title} fill className="object-cover" priority />
+      <Image src={activity?.imageUrl || ''} alt={activity?.title || ''} fill className="object-cover" priority />
       <div className="absolute inset-0" style={{ background: overlayGradient }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16 flex flex-col h-full" style={{ minHeight: 480 }}>
@@ -34,7 +40,7 @@ export default function HeroSection({ item, isEvent }: { item: Activity; isEvent
             Kegiatan &amp; Aktivitas
           </Link>
           <ChevronRight size={12} />
-          <span className="text-white/90 line-clamp-1 max-w-[200px]">{item.title}</span>
+          <span className="text-white/90 line-clamp-1 max-w-[200px]">{activity?.title}</span>
         </motion.div>
 
         {/* Badge row */}
@@ -58,19 +64,19 @@ export default function HeroSection({ item, isEvent }: { item: Activity; isEvent
             className="px-3 py-1 rounded-full text-[11px] font-semibold backdrop-blur-sm"
             style={{ background: "rgba(255,255,255,0.15)", color: "white", border: "1px solid rgba(255,255,255,0.25)" }}
           >
-            {item.category}
+            {activity?.category}
           </span>
           {isEvent && st && (
             <span className="px-3 py-1 rounded-full text-[11px] font-bold" style={{ background: st.bg, color: st.text }}>
               {st.label}
             </span>
           )}
-          {!isEvent && item.readTime && (
+          {!isEvent && activity?.readTime && (
             <span
               className="px-3 py-1 rounded-full text-[11px] font-semibold backdrop-blur-sm flex items-center gap-1"
               style={{ background: "rgba(255,255,255,0.15)", color: "white", border: "1px solid rgba(255,255,255,0.25)" }}
             >
-              <BookOpen size={10} /> {item.readTime} baca
+              <BookOpen size={10} /> {activity?.readTime} baca
             </span>
           )}
         </motion.div>
@@ -83,7 +89,7 @@ export default function HeroSection({ item, isEvent }: { item: Activity; isEvent
           className="text-[32px] md:text-[48px] leading-tight text-white"
           style={{ fontFamily: "var(--font-display)", fontWeight: 700, maxWidth: 760, textShadow: "0 2px 20px rgba(0,0,0,0.3)" }}
         >
-          {item.title}
+          {activity?.title}
         </motion.h1>
 
         {/* Meta row */}
@@ -95,24 +101,24 @@ export default function HeroSection({ item, isEvent }: { item: Activity; isEvent
         >
           <span className="flex items-center gap-1.5">
             <Calendar size={13} />
-            {item.date}
+            {activity?.date}
           </span>
-          {isEvent && item.time && (
+          {isEvent && activity?.time && (
             <span className="flex items-center gap-1.5">
               <Clock size={13} />
-              {item.time}
+              {activity?.time}
             </span>
           )}
-          {!isEvent && item.author && (
+          {!isEvent && activity?.author && (
             <span className="flex items-center gap-1.5">
               <User size={13} />
-              {item.author.name}
+              {activity?.author.name}
             </span>
           )}
-          {isEvent && item.location && (
+          {isEvent && activity?.location && (
             <span className="flex items-center gap-1.5">
               <MapPin size={13} />
-              {item.location}
+              {activity?.location}
             </span>
           )}
         </motion.div>

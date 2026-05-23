@@ -4,16 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ZoomIn } from "lucide-react";
-import { galleryImages, IMAGES, GalleryItem } from "@/lib/data";
+import { useGaleri } from "@/hooks/useGaleri";
+import type { SanityGalleryItem } from "@/sanity/types";
 
-export default function GalleryGridSection({ items, setLightbox }: { items: GalleryItem[]; setLightbox: (img: GalleryItem) => void }) {
+export default function GalleryGridSection({ setLightbox }: { setLightbox: (img: SanityGalleryItem) => void }) {
+ const { data: galeries, isLoading, error } = useGaleri();
   return (
     <section className="py-12 md:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="columns-2 md:columns-3 gap-4 space-y-4">
-          {items.map((img, i) => (
+          {galeries?.map((img, i) => (
             <motion.div
-              key={`${img.src}-${i}`}
+              key={`${img._id}-${i}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -23,8 +25,8 @@ export default function GalleryGridSection({ items, setLightbox }: { items: Gall
             >
               <div className="relative" style={{ aspectRatio: i % 5 === 0 ? "3/4" : "4/3" }}>
                 <Image
-                  src={img.src}
-                  alt={img.alt}
+                  src={img.imageUrl || ''}
+                  alt={img.alt || ''}
                   fill
                   className="object-cover transition-all duration-700 group-hover:scale-105 group-hover:brightness-110"
                 />

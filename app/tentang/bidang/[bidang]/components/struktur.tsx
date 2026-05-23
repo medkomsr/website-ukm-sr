@@ -1,8 +1,9 @@
 "use client";
 
-import { BidangDetail } from "@/lib/bidang-data";
+import { useBidangBySlug } from "@/hooks/useBidang";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { notFound } from "next/navigation";
 
 function BidangMemberCard({
   name,
@@ -24,7 +25,7 @@ function BidangMemberCard({
   const initFs = isKetua ? 52 : 44;
   const nameFs = isKetua ? 15 : 14;
   const roleFs = isKetua ? 12 : 11;
-  const border = isKetua ? "3px solid #F59E0B" : "2.5px solid #7f1d1d";
+  const border = isKetua ? "3px solid #F59E0B" : "2.5px solid #14532d";
 
   const parts = name.trim().split(/\s+/);
   const initials =
@@ -123,7 +124,12 @@ function BidangMemberCard({
   );
 }
 
-export default function StrukturSection({ data }: { data: BidangDetail }) {
+export default function StrukturSection({ slug }: { slug: string }) {
+  const { data, isLoading } = useBidangBySlug(slug);
+
+  if (isLoading) return <section className="py-14 md:py-20 bg-white min-h-[400px]" />;
+  if (!data) return notFound();
+
   return (
     <section className="py-14 md:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -151,22 +157,26 @@ export default function StrukturSection({ data }: { data: BidangDetail }) {
             flexWrap: "wrap",
           }}
         >
-          <BidangMemberCard
-            name={data.ketuaBidang.name}
-            role={data.ketuaBidang.role}
-            fakultas={data.ketuaBidang.fakultas}
-            angkatan={data.ketuaBidang.angkatan}
-            isKetua={true}
-            delay={0}
-          />
-          <BidangMemberCard
-            name={data.wakilKetuaBidang.name}
-            role={data.wakilKetuaBidang.role}
-            fakultas={data.wakilKetuaBidang.fakultas}
-            angkatan={data.wakilKetuaBidang.angkatan}
-            isKetua={false}
-            delay={0.15}
-          />
+          {data.ketuaBidang && (
+            <BidangMemberCard
+              name={data.ketuaBidang.name}
+              role={data.ketuaBidang.role}
+              fakultas={data.ketuaBidang.fakultas}
+              angkatan={data.ketuaBidang.angkatan}
+              isKetua={true}
+              delay={0}
+            />
+          )}
+          {data.wakilKetuaBidang && (
+            <BidangMemberCard
+              name={data.wakilKetuaBidang.name}
+              role={data.wakilKetuaBidang.role}
+              fakultas={data.wakilKetuaBidang.fakultas}
+              angkatan={data.wakilKetuaBidang.angkatan}
+              isKetua={false}
+              delay={0.15}
+            />
+          )}
         </div>
       </div>
     </section>

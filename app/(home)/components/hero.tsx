@@ -2,16 +2,46 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Play, ChevronDown } from "lucide-react";
-import { IMAGES } from "@/lib/data";
+import { IMAGES } from "@/lib/types/data";
+import { useState, useEffect } from "react";
+
+const SLIDES = [IMAGES.golden, IMAGES.festival, IMAGES.mosque];
 
 export default function HeroSection() {
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % SLIDES.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: "#0d2a1a" }}>
-      {/* Background image */}
+      {/* Background slideshow — crossfade tiap 3 detik */}
       <div className="absolute inset-0">
-        <Image src={IMAGES.golden} alt="" fill className="object-cover" priority />
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={current}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+          >
+            <Image
+              src={SLIDES[current]}
+              alt=""
+              fill
+              className="object-cover"
+              priority={current === 0}
+            />
+          </motion.div>
+        </AnimatePresence>
+        {/* Overlay gradients */}
         <div
           className="absolute inset-0"
           style={{
@@ -121,12 +151,13 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Wave bottom */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none" className="w-full h-16 md:h-20">
-          <path d="M0,40 C360,80 720,10 1080,50 C1260,70 1350,60 1440,45 L1440,80 L0,80 Z" fill="white" />
-        </svg>
-      </div>
+      {/* Bottom fade — transisi mulus ke section berikutnya */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: "linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.08) 60%, rgba(255,255,255,0.55) 85%, white 100%)",
+        }}
+      />
     </section>
   );
 }
