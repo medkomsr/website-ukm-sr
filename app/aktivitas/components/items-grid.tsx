@@ -1,7 +1,7 @@
 "use client";
 
 import ActivityCard from "@/app/aktivitas/components/activity-card";
-import { activities } from "@/lib/data";
+import { useAktivitas } from "@/hooks/useAktivitas";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, Filter, Search } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -18,8 +18,10 @@ export default function ItemsGridSection() {
   const [page, setPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
 
+const { data: activities, isLoading, error } = useAktivitas();
+
   const filtered = useMemo(() => {
-    let list = [...activities];
+    let list = [...(activities || [])];
     if (typeFilter !== "all") list = list.filter((a) => a.type === typeFilter);
     if (categoryFilter !== "all") list = list.filter((a) => a.category === categoryFilter);
     if (statusFilter !== "all") list = list.filter((a) => a.type === "event" && a.status === statusFilter);
@@ -28,7 +30,7 @@ export default function ItemsGridSection() {
       list = list.filter((a) => a.title.toLowerCase().includes(q) || a.description.toLowerCase().includes(q));
     }
     return list;
-  }, [typeFilter, categoryFilter, statusFilter, search]);
+  }, [activities, typeFilter, categoryFilter, statusFilter, search]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
   const curPage = Math.min(page, totalPages);
@@ -193,7 +195,7 @@ export default function ItemsGridSection() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pageItems.map((item, i) => (
-                <ActivityCard key={item.id} item={item} delay={i * 0.05} />
+                <ActivityCard key={item._id} item={item} delay={i * 0.05} />
               ))}
             </div>
           )}

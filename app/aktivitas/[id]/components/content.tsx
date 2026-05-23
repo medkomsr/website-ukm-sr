@@ -3,8 +3,12 @@
 import { motion } from "framer-motion";
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Tag, User, BookOpen, CheckCircle2, Circle } from "lucide-react";
 import Link from "next/link";
-import { Activity } from "@/lib/data";
 import { wivGeneral } from "@/lib/utils";
+import { useAktivitasBySlug } from "@/hooks/useAktivitas";
+import { notFound } from "next/navigation";
+import type { SanityActivity } from "@/sanity/types";
+import { PortableText } from "next-sanity";
+import type { PortableTextBlock } from "next-sanity";
 
 function InfoPill({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) {
   return (
@@ -29,7 +33,7 @@ function InfoPill({ icon: Icon, label, value }: { icon: React.ElementType; label
   );
 }
 
-function AgendaSection({ agenda }: { agenda: Activity["agenda"] }) {
+function AgendaSection({ agenda }: { agenda: SanityActivity["agenda"] }) {
   if (!agenda?.length) return null;
   return (
     <motion.div {...wivGeneral(0)}>
@@ -72,26 +76,52 @@ function AgendaSection({ agenda }: { agenda: Activity["agenda"] }) {
   );
 }
 
-function ArticleBody({ body }: { body: string[] }) {
+function ArticleBody({ body }: { body: PortableTextBlock[] }) {
   return (
-    <div className="space-y-5">
-      {body.map((para, i) => (
-        <motion.p
-          key={i}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-20px" }}
-          transition={{ duration: 0.45, delay: i * 0.06 }}
-          style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}
-        >
-          {para}
-        </motion.p>
-      ))}
+    <div className="space-y-5 text-[16px] text-[#374151] leading-[1.8]">
+      <PortableText
+        value={body}
+        components={{
+          block: {
+            normal: ({ children }) => (
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-20px" }}
+                transition={{ duration: 0.45 }}
+                className="mb-5"
+              >
+                {children}
+              </motion.p>
+            ),
+            h2: ({ children }) => (
+              <h2 className="text-[24px] font-bold mt-10 mb-4" style={{ fontFamily: "var(--font-display)" }}>
+                {children}
+              </h2>
+            ),
+            h3: ({ children }) => (
+              <h3 className="text-[20px] font-bold mt-8 mb-4" style={{ fontFamily: "var(--font-display)" }}>
+                {children}
+              </h3>
+            ),
+          },
+        }}
+      />
     </div>
   );
 }
 
-export default function ContentSection({ item, isEvent }: { item: Activity; isEvent: boolean }) {
+export default function ContentSection({ slug }: { slug: string }) {
+  const { data: activity, isLoading } = useAktivitasBySlug(slug);
+
+  if (isLoading) {
+    return <section className="py-12 md:py-16 bg-white min-h-[400px] animate-pulse" />;
+  }
+
+  if (!activity) return notFound();
+
+  const isEvent = activity.type === "event";
+
   return (
     <section className="py-12 md:py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -104,29 +134,29 @@ export default function ContentSection({ item, isEvent }: { item: Activity; isEv
                 className="text-[17px] md:text-[18px] leading-relaxed"
                 style={{ color: "#374151", borderLeft: "3px solid var(--color-maroon-400)", paddingLeft: 20 }}
               >
-                {item.longDescription ?? item.description}
+                {activity.longDescription ?? activity.description}
               </p>
             </motion.div>
 
             {/* Article body */}
-            {!isEvent && item.body && (
+            {!isEvent && activity.body && (
               <motion.div {...wivGeneral(0.05)} className="mb-12">
-                <ArticleBody body={item.body} />
+                <ArticleBody body={activity.body} />
               </motion.div>
             )}
 
             {/* Agenda */}
-            {isEvent && item.agenda && (
+            {isEvent && activity.agenda && (
               <div className="mb-12">
-                <AgendaSection agenda={item.agenda} />
+                <AgendaSection agenda={activity.agenda} />
               </div>
             )}
 
             {/* Tags */}
-            {item.tags && item.tags.length > 0 && (
+            {activity.tags && activity.tags.length > 0 && (
               <motion.div {...wivGeneral(0.1)} className="flex flex-wrap items-center gap-2 pt-6 border-t border-neutral-100">
                 <Tag size={13} style={{ color: "#9ca3af" }} />
-                {item.tags.map((t) => (
+                {activity.tags.map((t) => (
                   <span
                     key={t}
                     className="px-3 py-1 rounded-full text-[12px] font-medium transition-colors duration-200 cursor-default hover:bg-[color-mix(in_srgb,var(--color-maroon-500)_12%,transparent)]"
@@ -139,7 +169,7 @@ export default function ContentSection({ item, isEvent }: { item: Activity; isEv
             )}
 
             {/* Author card (articles) */}
-            {!isEvent && item.author && (
+            {!isEvent && activity.author && (
               <motion.div
                 {...wivGeneral(0.12)}
                 className="mt-8 p-5 rounded-2xl flex items-center gap-4"
@@ -150,7 +180,7 @@ export default function ContentSection({ item, isEvent }: { item: Activity; isEv
                   style={{ background: "linear-gradient(135deg, #0d2a1a 0%, #1a4a2e 100%)" }}
                 >
                   <span style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontWeight: 700, fontSize: 18, color: "white" }}>
-                    {item.author.name
+                    {activity.author.name
                       .split(" ")
                       .map((w) => w[0])
                       .slice(0, 2)
@@ -158,8 +188,8 @@ export default function ContentSection({ item, isEvent }: { item: Activity; isEv
                   </span>
                 </div>
                 <div>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: "#0d2a1a" }}>{item.author.name}</p>
-                  <p style={{ fontSize: 12, color: "#6b7280" }}>{item.author.role}</p>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: "#0d2a1a" }}>{activity.author.name}</p>
+                  <p style={{ fontSize: 12, color: "#6b7280" }}>{activity.author.role}</p>
                 </div>
               </motion.div>
             )}
@@ -168,16 +198,16 @@ export default function ContentSection({ item, isEvent }: { item: Activity; isEv
           {/* Right: Sidebar */}
           <div className="space-y-4 lg:sticky lg:top-24 self-start">
             {/* Info pills */}
-            <InfoPill icon={Calendar} label="Tanggal" value={item.date} />
-            {isEvent && item.time && <InfoPill icon={Clock} label="Waktu" value={item.time} />}
-            {isEvent && item.location && <InfoPill icon={MapPin} label="Lokasi" value={item.location} />}
-            {isEvent && item.organizer && <InfoPill icon={Users} label="Penyelenggara" value={item.organizer} />}
-            {isEvent && item.maxParticipants && <InfoPill icon={Users} label="Kapasitas" value={`${item.maxParticipants} peserta`} />}
-            {!isEvent && item.readTime && <InfoPill icon={BookOpen} label="Waktu Baca" value={item.readTime} />}
-            {!isEvent && item.author && <InfoPill icon={User} label="Penulis" value={item.author.name} />}
+            {activity.date && <InfoPill icon={Calendar} label="Tanggal" value={activity.date} />}
+            {isEvent && activity.time && <InfoPill icon={Clock} label="Waktu" value={activity.time} />}
+            {isEvent && activity.location && <InfoPill icon={MapPin} label="Lokasi" value={activity.location} />}
+            {isEvent && activity.organizer && <InfoPill icon={Users} label="Penyelenggara" value={activity.organizer} />}
+            {isEvent && activity.maxParticipants && <InfoPill icon={Users} label="Kapasitas" value={`${activity.maxParticipants} peserta`} />}
+            {!isEvent && activity.readTime && <InfoPill icon={BookOpen} label="Waktu Baca" value={activity.readTime} />}
+            {!isEvent && activity.author && <InfoPill icon={User} label="Penulis" value={activity.author.name} />}
 
             {/* CTA */}
-            {isEvent && item.status === "upcoming" && (
+            {isEvent && activity.status === "upcoming" && (
               <motion.div
                 {...wivGeneral(0.1)}
                 className="p-5 rounded-2xl text-center"
@@ -190,20 +220,20 @@ export default function ContentSection({ item, isEvent }: { item: Activity; isEv
                 >
                   Daftar Sekarang
                 </button>
-                {item.maxParticipants && (
-                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 10 }}>Kapasitas terbatas {item.maxParticipants} peserta</p>
+                {activity.maxParticipants && (
+                  <p style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 10 }}>Kapasitas terbatas {activity.maxParticipants} peserta</p>
                 )}
               </motion.div>
             )}
 
-            {isEvent && item.status === "completed" && (
+            {isEvent && activity.status === "completed" && (
               <motion.div {...wivGeneral(0.1)} className="p-5 rounded-2xl flex items-center gap-3" style={{ background: "#f5f5f5" }}>
                 <CheckCircle2 size={18} style={{ color: "#9ca3af" }} />
                 <p style={{ fontSize: 13, color: "#6b7280", fontWeight: 500 }}>Acara ini telah selesai diselenggarakan.</p>
               </motion.div>
             )}
 
-            {isEvent && item.status === "ongoing" && (
+            {isEvent && activity.status === "ongoing" && (
               <motion.div
                 {...wivGeneral(0.1)}
                 className="p-5 rounded-2xl flex items-center gap-3"

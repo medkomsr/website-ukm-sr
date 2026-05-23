@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react";
-import { activities } from "@/lib/data";
+import { activities } from "@/lib/types/data";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 

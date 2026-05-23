@@ -1,9 +1,10 @@
 "use client";
 
-import { DeptDetail, DeptDivisi, DeptMember } from "@/lib/data";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
-import React from "react";
+import type { SanityDeptDivisi, SanityDeptMember } from "@/sanity/types";
+import { useDepartemenBySlug } from "@/hooks/useDepartemen";
+import { notFound } from "next/navigation";
 
 function MemberCard({
   name,
@@ -120,7 +121,7 @@ function MemberCard({
   );
 }
 
-function OrgTree({ kepala, divisi }: { kepala: DeptMember; divisi: DeptDivisi[] }) {
+function OrgTree({ kepala, divisi }: { kepala: SanityDeptMember; divisi: SanityDeptDivisi[] }) {
   return (
     <div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 44 }}>
@@ -128,45 +129,54 @@ function OrgTree({ kepala, divisi }: { kepala: DeptMember; divisi: DeptDivisi[] 
         <MemberCard name={kepala.name} role={kepala.role} fakultas={kepala.fakultas} angkatan={kepala.angkatan} level="kepala-dept" delay={0} />
 
         {/* Row 2 — Kepala Divisi */}
-        <div style={{ display: "flex", gap: 36, justifyContent: "center", flexWrap: "wrap" }}>
-          {divisi.map((div, i) => (
-            <MemberCard
-              key={i}
-              name={div.kepala.name}
-              role={div.kepala.role}
-              fakultas={div.kepala.fakultas}
-              angkatan={div.kepala.angkatan}
-              level="kepala-div"
-              divName={div.name}
-              delay={i * 0.12}
-            />
-          ))}
-        </div>
+        {divisi && divisi.length > 0 && (
+          <div style={{ display: "flex", gap: 36, justifyContent: "center", flexWrap: "wrap" }}>
+            {divisi.map((div, i) => (
+              <MemberCard
+                key={i}
+                name={div.kepala.name}
+                role={div.kepala.role}
+                fakultas={div.kepala.fakultas}
+                angkatan={div.kepala.angkatan}
+                level="kepala-div"
+                divName={div.name}
+                delay={i * 0.12}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Row 3 — Staff, grouped per divisi with a subtle gap between groups */}
-        <div style={{ display: "flex", gap: 44, justifyContent: "center", flexWrap: "wrap" }}>
-          {divisi.map((div, i) => (
-            <div key={i} style={{ display: "flex", gap: 16 }}>
-              {div.staff.map((s, j) => (
-                <MemberCard
-                  key={j}
-                  name={s.name}
-                  role={s.role}
-                  fakultas={s.fakultas}
-                  angkatan={s.angkatan}
-                  level="staff"
-                  delay={(i * 3 + j) * 0.08}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
+        {divisi && divisi.length > 0 && (
+          <div style={{ display: "flex", gap: 44, justifyContent: "center", flexWrap: "wrap" }}>
+            {divisi.map((div, i) => (
+              <div key={i} style={{ display: "flex", gap: 16 }}>
+                {div.staff?.map((s, j) => (
+                  <MemberCard
+                    key={j}
+                    name={s.name}
+                    role={s.role}
+                    fakultas={s.fakultas}
+                    angkatan={s.angkatan}
+                    level="staff"
+                    delay={(i * 3 + j) * 0.08}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-export default function StrukturOrganisasiSection({ data }: { data: DeptDetail }) {
+export default function StrukturOrganisasiSection({ dept }: { dept: string }) {
+  const { data: departemen, isLoading, error } = useDepartemenBySlug(dept);
+
+  if (!isLoading && !departemen) notFound();
+  if (isLoading || !departemen?.kepala) return null;
+
   return (
     <section className="py-14 md:py-20 bg-white">
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -179,7 +189,7 @@ export default function StrukturOrganisasiSection({ data }: { data: DeptDetail }
           </h2>
         </motion.div>
 
-        <OrgTree kepala={data.kepala} divisi={data.divisi} />
+        <OrgTree kepala={departemen.kepala} divisi={departemen.divisi || []} />
       </div>
     </section>
   );

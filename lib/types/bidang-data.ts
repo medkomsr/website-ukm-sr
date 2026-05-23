@@ -1,4 +1,4 @@
-import { IMAGES } from "@/lib/data";
+import { IMAGES } from "@/lib/types/data";
 
 export interface BidangMember {
   name: string;

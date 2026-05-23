@@ -2,17 +2,18 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Activity, statusStyles } from "@/lib/data";
+import { statusStyles } from "@/lib/types/data";
+import type { SanityActivity } from "@/sanity/types";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function ActivityCard({ item, delay }: { item: Activity; delay: number }) {
+export default function ActivityCard({ item, delay }: { item: SanityActivity; delay: number }) {
   const isEvent = item.type === "event";
   const st = item.status ? statusStyles[item.status] : null;
   return (
-    <Link href={`/aktivitas/${item.id}`} className="no-underline flex flex-col h-full">
+    <Link href={`/aktivitas/${item.slug}`} className="no-underline flex flex-col h-full">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -24,7 +25,7 @@ export default function ActivityCard({ item, delay }: { item: Activity; delay: n
           {/* Image */}
           <div className="relative h-48 overflow-hidden rounded-t-2xl">
             <Image
-              src={item.image}
+              src={item.imageUrl}
               alt={item.title}
               fill
               className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"

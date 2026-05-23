@@ -9,16 +9,16 @@ export default function BackSection() {
         <Link
           href="/tentang"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline transition-all duration-300 border-2"
-          style={{ borderColor: "#7f1d1d", color: "#7f1d1d", background: "transparent" }}
+          style={{ borderColor: "#14532d", color: "#14532d", background: "transparent" }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLElement;
-            el.style.background = "#7f1d1d";
+            el.style.background = "#14532d";
             el.style.color = "white";
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget as HTMLElement;
             el.style.background = "transparent";
-            el.style.color = "#7f1d1d";
+            el.style.color = "#14532d";
           }}
         >
           ← Kembali ke Tentang Kami
