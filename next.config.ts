@@ -2,9 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
-  experimental: {
-    cacheComponents: true,
-  },
+  cacheComponents: true,
   images: {
     remotePatterns: [
       {
