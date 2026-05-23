@@ -121,15 +121,8 @@ export default function VisiMisiSection() {
 
   const { data: visiMisi, isLoading, error } = useVisiMisi();
 
-  const visi = visiMisi?.visi ?? "Menjadi unit kegiatan mahasiswa terdepan dalam pengembangan seni bernuansa keagamaan yang berlandaskan nilai-nilai islami dan mampu bersaing di tingkat nasional."
-  const misi = visiMisi?.misi?.length
-    ? visiMisi.misi
-    : [
-        "Mewadahi minat dan bakat seni mahasiswa dalam bingkai islami",
-        "Mengembangkan kreativitas melalui program terstruktur",
-        "Berprestasi di tingkat regional dan nasional",
-        "Menjadi jembatan antara seni dan spiritualitas",
-      ]
+  const visi = visiMisi?.visi 
+  const misi = visiMisi?.misi
   return (
     <section className="py-16 md:py-20" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f0f9f4 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
@@ -169,7 +162,7 @@ export default function VisiMisiSection() {
               <>
                 <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "#420a0a", marginBottom: 14 }}>Misi Kami</p>
                 <ul style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                  {misi.map((m, i) => (
+                  {misi?.map((m, i) => (
                     <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: "#374151", lineHeight: 1.6 }}>
                       <span style={{ minWidth: 20, height: 20, borderRadius: "50%", background: "#991b1b", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, marginTop: 1 }}>
                         {i + 1}
