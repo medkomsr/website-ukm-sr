@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X, ChevronRight, ChevronDown, Settings, LayoutGrid, Trophy } from "lucide-react";
+import { Menu, X, ChevronRight, ChevronDown, LayoutGrid, Trophy } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
@@ -193,13 +193,6 @@ export default function Navbar() {
             );
           })}
 
-          <Link
-            href="/admin"
-            className="ml-2 p-2.5 rounded-full text-[13px] no-underline transition-all duration-300 border border-neutral-200 text-neutral-600 hover:bg-neutral-100"
-            title="Admin Panel"
-          >
-            <Settings size={18} />
-          </Link>
         </nav>
 
         {/* Mobile toggle */}

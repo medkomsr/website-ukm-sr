@@ -4,13 +4,18 @@ import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { DeptDetail } from "@/lib/data";
+import { useDepartemenBySlug } from "@/hooks/useDepartemen";
+import { notFound } from "next/navigation";
 
-export default function HeroSection({ data }: { data: DeptDetail }) {
+export default function HeroSection({ dept }: { dept: string }) {
+  const { data: departemen, isLoading, error } = useDepartemenBySlug(dept);
+
+  if (!isLoading && !departemen) notFound();
+
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 420 }}>
-      <Image src={data.img} alt={data.abbr} fill className="object-cover" priority />
-      <div className="absolute inset-0" style={{ background: data.overlay }} />
+      <Image src={departemen?.imageUrl || ''} alt={departemen?.abbr || ''} fill className="object-cover" priority />
+      <div className="absolute inset-0" style={{ background: departemen?.overlay || 'rgba(0,0,0,0.5)' }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16">
         {/* Breadcrumb */}
@@ -28,7 +33,7 @@ export default function HeroSection({ data }: { data: DeptDetail }) {
             Tentang
           </Link>
           <ChevronRight size={12} />
-          <span className="text-white/90">{data.abbr}</span>
+          <span className="text-white/90">{departemen?.abbr}</span>
         </motion.div>
 
         {/* Labels + title */}
@@ -39,7 +44,7 @@ export default function HeroSection({ data }: { data: DeptDetail }) {
           className="inline-block text-[12px] font-bold tracking-[0.2em] uppercase mb-4"
           style={{ color: "#F59E0B" }}
         >
-          {data.heading}
+          {departemen?.heading}
         </motion.span>
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -48,7 +53,7 @@ export default function HeroSection({ data }: { data: DeptDetail }) {
           className="text-[36px] md:text-[52px] leading-tight text-white"
           style={{ fontFamily: "var(--font-display)", fontWeight: 700, maxWidth: 640 }}
         >
-          {data.fullName}
+          {departemen?.fullName}
         </motion.h1>
       </div>
 

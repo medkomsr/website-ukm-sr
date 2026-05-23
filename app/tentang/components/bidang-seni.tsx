@@ -2,23 +2,14 @@
 
 import { wivTentang } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { BIDANG_DATA } from "@/lib/bidang-data";
+import { useBidang } from "@/hooks/useBidang";
 import Image from "next/image";
 import Link from "next/link";
+import type { SanityBidang } from "@/sanity/types";
 
-function BidangCard({
-  heading,
-  abbr,
-  img,
-  overlay,
-  slug,
-}: {
-  heading: string;
-  abbr: string;
-  img: string;
-  overlay: string;
-  slug: string;
-}) {
+function BidangCard({ bidang }: { bidang: SanityBidang }) {
+  const overlay = bidang.overlay || "linear-gradient(to bottom, rgba(66,10,10,0.15) 0%, rgba(66,10,10,0.92) 100%)";
+  
   return (
     <div>
       <div
@@ -26,8 +17,8 @@ function BidangCard({
         style={{ height: "300px" }}
       >
         <Image
-          src={img}
-          alt={abbr}
+          src={bidang.imageUrl}
+          alt={bidang.abbr}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
         />
@@ -55,7 +46,7 @@ function BidangCard({
               letterSpacing: "0.06em",
             }}
           >
-            {heading}
+            {bidang.heading}
           </p>
           <p
             style={{
@@ -68,25 +59,25 @@ function BidangCard({
               letterSpacing: "0.01em",
             }}
           >
-            {abbr}
+            {bidang.abbr}
           </p>
         </div>
       </div>
 
       <div className="flex justify-center mt-5">
         <Link
-          href={`/tentang/bidang/${slug}`}
+          href={`/tentang/bidang/${bidang.slug}`}
           className="px-7 py-2.5 rounded-full text-[13px] font-semibold border-2 no-underline transition-all duration-300 inline-block"
-          style={{ borderColor: "#7f1d1d", color: "#7f1d1d", background: "transparent" }}
+          style={{ borderColor: "#14532d", color: "#14532d", background: "transparent" }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLElement;
-            el.style.background = "#7f1d1d";
+            el.style.background = "#14532d";
             el.style.color = "white";
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget as HTMLElement;
             el.style.background = "transparent";
-            el.style.color = "#7f1d1d";
+            el.style.color = "#14532d";
           }}
         >
           Lihat Detail
@@ -96,9 +87,9 @@ function BidangCard({
   );
 }
 
-const bidangList = Object.values(BIDANG_DATA);
-
 export default function BidangSeniSection() {
+  const { data: bidangList, isLoading } = useBidang();
+
   return (
     <section
       id="bidang-seni"
@@ -122,19 +113,21 @@ export default function BidangSeniSection() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {bidangList.map((bidang, i) => (
-            <motion.div key={bidang.slug} {...wivTentang(i * 0.08)}>
-              <BidangCard
-                heading={bidang.heading}
-                abbr={bidang.abbr}
-                img={bidang.img}
-                overlay={bidang.overlay}
-                slug={bidang.slug}
-              />
-            </motion.div>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="rounded-3xl bg-black/5 animate-pulse" style={{ height: "300px" }} />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {(bidangList ?? []).map((bidang, i) => (
+              <motion.div key={bidang._id} {...wivTentang(i * 0.08)}>
+                <BidangCard bidang={bidang} />
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -3,15 +3,15 @@
 import { useState } from "react";
 import GalleryGridSection from "./gallery-grid";
 import LightboxSection from "./lightbox";
-import { GalleryItem } from "@/lib/data";
+import type { SanityGalleryItem } from "@/sanity/types";
 
-export default function GalleryWrapper({ items }: { items: GalleryItem[] }) {
-  const [lightbox, setLightbox] = useState<GalleryItem | null>(null);
+export default function GalleryWrapper() {
+  const [lightbox, setLightbox] = useState<SanityGalleryItem | null>(null);
 
   return (
     <>
       {/* Gallery grid */}
-      <GalleryGridSection items={items} setLightbox={setLightbox} />
+      <GalleryGridSection setLightbox={setLightbox} />
 
       {/* Lightbox */}
       <LightboxSection item={lightbox} onClose={() => setLightbox(null)} />
