@@ -68,16 +68,16 @@ function BidangCard({ bidang }: { bidang: SanityBidang }) {
         <Link
           href={`/tentang/bidang/${bidang.slug}`}
           className="px-7 py-2.5 rounded-full text-[13px] font-semibold border-2 no-underline transition-all duration-300 inline-block"
-          style={{ borderColor: "#7f1d1d", color: "#7f1d1d", background: "transparent" }}
+          style={{ borderColor: "#14532d", color: "#14532d", background: "transparent" }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLElement;
-            el.style.background = "#7f1d1d";
+            el.style.background = "#14532d";
             el.style.color = "white";
           }}
           onMouseLeave={(e) => {
             const el = e.currentTarget as HTMLElement;
             el.style.background = "transparent";
-            el.style.color = "#7f1d1d";
+            el.style.color = "#14532d";
           }}
         >
           Lihat Detail

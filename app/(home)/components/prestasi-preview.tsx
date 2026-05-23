@@ -12,9 +12,9 @@ import type { SanityPrestasi } from "@/sanity/types";
 type Category = SanityPrestasi["category"];
 
 const CATEGORY_STYLE: Record<Category, { color: string; bg: string }> = {
-  Kompetisi:     { color: "#f87171", bg: "rgba(248,113,113,0.15)" },
-  Penghargaan:   { color: "#fbbf24", bg: "rgba(251,191,36,0.15)" },
-  Kolaborasi:    { color: "#34d399", bg: "rgba(52,211,153,0.15)" },
+  Kompetisi: { color: "#f87171", bg: "rgba(248,113,113,0.15)" },
+  Penghargaan: { color: "#fbbf24", bg: "rgba(251,191,36,0.15)" },
+  Kolaborasi: { color: "#34d399", bg: "rgba(52,211,153,0.15)" },
   "Rekam Jejak": { color: "#86efac", bg: "rgba(134,239,172,0.12)" },
 };
 
@@ -34,13 +34,13 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    
+
     const obs = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !started.current) {
         started.current = true;
         const dur = 1400;
         const start = performance.now();
-        
+
         const tick = (now: number) => {
           const p = Math.min((now - start) / dur, 1);
           const ease = 1 - Math.pow(1 - p, 3);
@@ -50,7 +50,7 @@ function Counter({ target, suffix = "" }: { target: number; suffix?: string }) {
         requestAnimationFrame(tick);
       }
     }, { threshold: 0.5 });
-    
+
     obs.observe(el);
     return () => obs.disconnect();
   }, [target]);
@@ -87,10 +87,10 @@ function SectionHeader() {
 
 function StatsStrip({ items }: { items: SanityPrestasi[] }) {
   const statsList = [
-    { icon: Trophy, label: "Total Prestasi",   value: items.length, suffix: "+" },
-    { icon: Medal,  label: "Tingkat Nasional", value: items.filter((a) => a.level === "Nasional" || a.level === "Internasional").length, suffix: "" },
-    { icon: Award,  label: "Cabang Kompetisi", value: items.filter((a) => a.category === "Kompetisi").length, suffix: "" },
-    { icon: Star,   label: "Juara 1",          value: items.filter((a) => a.position === "Juara 1").length, suffix: "×" },
+    { icon: Trophy, label: "Total Prestasi", value: items.length, suffix: "+" },
+    { icon: Medal, label: "Tingkat Nasional", value: items.filter((a) => a.level === "Nasional" || a.level === "Internasional").length, suffix: "" },
+    { icon: Award, label: "Cabang Kompetisi", value: items.filter((a) => a.category === "Kompetisi").length, suffix: "" },
+    { icon: Star, label: "Juara 1", value: items.filter((a) => a.position === "Juara 1").length, suffix: "×" },
   ];
 
   return (
@@ -126,9 +126,9 @@ function StatsStrip({ items }: { items: SanityPrestasi[] }) {
 }
 
 function AchievementCard({ item, delay }: { item: SanityPrestasi; delay: number }) {
-  const pos   = item.position ? (POSITION_STYLE[item.position] ?? null) : null;
+  const pos = item.position ? (POSITION_STYLE[item.position] ?? null) : null;
   const noPos = item.position && !pos;
-  const cat   = CATEGORY_STYLE[item.category];
+  const cat = CATEGORY_STYLE[item.category];
 
   return (
     <motion.div
@@ -258,7 +258,7 @@ export default function PrestasiPreviewSection() {
 
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative">
         <SectionHeader />
-        
+
         <StatsStrip items={items} />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">

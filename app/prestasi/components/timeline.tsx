@@ -10,7 +10,7 @@ type Category = SanityPrestasi["category"];
 type Level    = SanityPrestasi["level"];
 
 const CATEGORY_CONFIG: Record<Category, { label: string; icon: React.ElementType; color: string; bg: string }> = {
-  Kompetisi:    { label: "Kompetisi",   icon: Trophy,     color: "#991b1b", bg: "#fef2f2" },
+  Kompetisi:    { label: "Kompetisi",   icon: Trophy,     color: "#166534", bg: "#f0fdf4" },
   Penghargaan:  { label: "Penghargaan", icon: Star,       color: "#d97706", bg: "#fffbeb" },
   Kolaborasi:   { label: "Kolaborasi",  icon: Handshake,  color: "#0d7a6e", bg: "#f0fdfa" },
   "Rekam Jejak":{ label: "Rekam Jejak", icon: BookMarked, color: "#4d7c0f", bg: "#f7fee7" },
@@ -21,7 +21,7 @@ const LEVEL_CONFIG: Record<Level, { color: string; bg: string; ring: string }> =
   Kota:          { color: "#0369a1", bg: "#eff6ff",  ring: "#bfdbfe" },
   Provinsi:      { color: "#059669", bg: "#f0fdf4",  ring: "#bbf7d0" },
   Nasional:      { color: "#b45309", bg: "#fffbeb",  ring: "#fde68a" },
-  Internasional: { color: "#991b1b", bg: "#fef2f2",  ring: "#fecaca" },
+  Internasional: { color: "#166534", bg: "#f0fdf4",  ring: "#bbf7d0" },
 };
 
 const POSITION_STYLE: Record<string, { bg: string; color: string }> = {
@@ -74,7 +74,7 @@ function AchievementCard({ item, delay = 0 }: { item: SanityPrestasi; delay?: nu
         )}
         {item.position && !pos && (
           <div className="self-start inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-[12px] font-semibold"
-            style={{ background: "#fef2f2", color: "#991b1b" }}>
+            style={{ background: "#f0fdf4", color: "#166534" }}>
             <Award size={12} />
             {item.position}
           </div>

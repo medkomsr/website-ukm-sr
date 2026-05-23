@@ -25,7 +25,7 @@ function BidangMemberCard({
   const initFs = isKetua ? 52 : 44;
   const nameFs = isKetua ? 15 : 14;
   const roleFs = isKetua ? 12 : 11;
-  const border = isKetua ? "3px solid #F59E0B" : "2.5px solid #7f1d1d";
+  const border = isKetua ? "3px solid #F59E0B" : "2.5px solid #14532d";
 
   const parts = name.trim().split(/\s+/);
   const initials =
