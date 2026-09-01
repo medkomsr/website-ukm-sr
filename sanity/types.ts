@@ -1,4 +1,5 @@
 import type { PortableTextBlock } from "@portabletext/react"
+import type { Image, ImageDimensions } from "sanity"
 
 export type SanitySiteSettings = {
   namaOrg: string
@@ -170,6 +171,44 @@ export type SanityBidang = {
   ketuaBidang: SanityBidangMember
   wakilKetuaBidang: SanityBidangMember
   order?: number
+}
+
+export type SanityKaligrafiStatus = "available" | "sold"
+
+export type SanityKaligrafiCategory = {
+  _id: string
+  name: string
+  slug: string
+  displayOrder: number
+}
+
+export type SanityKaligrafiItem = {
+  _id: string
+  title: string
+  code: string
+  image: Image
+  alt: string
+  category: SanityKaligrafiCategory
+  price: number
+  description?: string
+  status: SanityKaligrafiStatus
+  soldAt?: string
+  displayOrder: number
+  imageLqip: string | null
+  imageDimensions: ImageDimensions | null
+}
+
+export type SanityKaligrafiCatalogPage = {
+  items: SanityKaligrafiItem[]
+  total: number
+  page: number
+  pageSize: number
+  totalPages: number
+}
+
+export type SanityKaligrafiCatalogMeta = {
+  categories: SanityKaligrafiCategory[]
+  whatsappNumber: string | null
 }
 
 

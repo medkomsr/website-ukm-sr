@@ -9,6 +9,9 @@ import { divisiSchema } from "./divisi"
 import { faqSchema } from "./faq"
 import { prestasiSchema } from "./prestasi"
 import { bidangSchema } from "./bidang"
+import { kaligrafiCategorySchema } from "./kaligrafiCategory"
+import { kaligrafiItemSchema } from "./kaligrafiItem"
+import { kaligrafiSettingsSchema } from "./kaligrafiSettings"
 
 export const schemaTypes = [
   siteSettingsSchema,
@@ -22,4 +25,7 @@ export const schemaTypes = [
   faqSchema,
   prestasiSchema,
   bidangSchema,
+  kaligrafiCategorySchema,
+  kaligrafiItemSchema,
+  kaligrafiSettingsSchema,
 ]

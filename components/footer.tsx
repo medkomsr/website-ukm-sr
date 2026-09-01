@@ -12,6 +12,7 @@ const navLinks = [
   { label: "Aktivitas", path: "/aktivitas" },
   { label: "Prestasi", path: "/prestasi" },
   { label: "Galeri", path: "/galeri" },
+  { label: "Katalog", path: "/katalog" },
   { label: "Kontak", path: "/kontak" },
 ];
 

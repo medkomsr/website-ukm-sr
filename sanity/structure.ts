@@ -13,6 +13,49 @@ export const structure: StructureResolver = (S) =>
       S.listItem().title('Visi & Misi').id('visiMisi').child(
         S.document().schemaType('visiMisi').documentId('visiMisi')
       ),
+      S.listItem()
+        .title('Katalog Kaligrafi')
+        .id('kaligrafiCatalog')
+        .child(
+          S.list()
+            .title('Katalog Kaligrafi')
+            .items([
+              S.listItem()
+                .title('Pengaturan')
+                .id('kaligrafiSettings')
+                .child(
+                  S.document()
+                    .schemaType('kaligrafiSettings')
+                    .documentId('kaligrafiSettings')
+                ),
+              S.divider(),
+              S.listItem()
+                .title('Karya Tersedia')
+                .id('kaligrafiAvailable')
+                .child(
+                  S.documentList()
+                    .title('Karya Tersedia')
+                    .schemaType('kaligrafiItem')
+                    .filter('_type == "kaligrafiItem" && status == "available"')
+                    .defaultOrdering([
+                      { field: 'displayOrder', direction: 'asc' },
+                      { field: '_createdAt', direction: 'desc' },
+                    ])
+                ),
+              S.listItem()
+                .title('Karya Terjual')
+                .id('kaligrafiSold')
+                .child(
+                  S.documentList()
+                    .title('Karya Terjual')
+                    .schemaType('kaligrafiItem')
+                    .filter('_type == "kaligrafiItem" && status == "sold"')
+                    .defaultOrdering([{ field: 'soldAt', direction: 'desc' }])
+                ),
+              S.documentTypeListItem('kaligrafiItem').title('Semua Karya'),
+              S.documentTypeListItem('kaligrafiCategory').title('Kategori'),
+            ])
+        ),
       S.divider(),
       S.documentTypeListItem('event').title('Kegiatan'),
       S.documentTypeListItem('artikel').title('Artikel'),

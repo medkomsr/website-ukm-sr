@@ -13,12 +13,27 @@ import {apiVersion, dataset, projectId} from './sanity/env'
 import {schema} from './sanity/schemaTypes'
 import {structure} from './sanity/structure'
 
+const singletonTypes = new Set(['kaligrafiSettings'])
+const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
+
 export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemaTypes' folder
-  schema,
+  schema: {
+    ...schema,
+    templates: (templates) =>
+      templates.filter(({schemaType}) => !singletonTypes.has(schemaType)),
+  },
+  document: {
+    actions: (actions, context) =>
+      singletonTypes.has(context.schemaType)
+        ? actions.filter(({action}) => action && singletonActions.has(action))
+        : actions,
+    newDocumentOptions: (options) =>
+      options.filter(({templateId}) => !singletonTypes.has(templateId)),
+  },
   plugins: [
     structureTool({structure}),
     // Vision is for querying with GROQ from inside the Studio

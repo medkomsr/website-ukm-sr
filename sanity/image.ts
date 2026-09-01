@@ -1,10 +1,10 @@
-import createImageUrlBuilder from "@sanity/image-url"
+import createImageUrlBuilder, { type SanityImageSource } from "@sanity/image-url"
+import { sanityConfig } from "./config"
 
 const builder = createImageUrlBuilder({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID as string,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET as string,
+  projectId: sanityConfig.projectId,
+  dataset: sanityConfig.dataset,
 })
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const urlFor = (source: any) =>
+export const urlFor = (source: SanityImageSource) =>
   builder.image(source).auto("format").fit("max")

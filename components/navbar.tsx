@@ -22,6 +22,7 @@ const navLinks: NavLink[] = [
     ],
   },
   { label: "Galeri", path: "/galeri" },
+  { label: "Katalog", path: "/katalog" },
   { label: "Kontak", path: "/kontak" },
 ];
 

@@ -3,6 +3,8 @@
 import { useBidangBySlug } from "@/hooks/useBidang";
 import { wivTentangDept } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default function DeskripsiSection({ slug }: { slug: string }) {
@@ -21,6 +23,19 @@ export default function DeskripsiSection({ slug }: { slug: string }) {
           >
             {data.description}
           </motion.p>
+
+          {slug === "khattil-quran" && (
+            <motion.div {...wivTentangDept(0.12)} className="mt-8">
+              <Link
+                href="/katalog"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[14px] font-semibold no-underline transition-all duration-300 hover:brightness-110 active:scale-95"
+                style={{ background: "var(--color-maroon-500)", color: "white" }}
+              >
+                Lihat Katalog Kaligrafi
+                <ArrowRight size={15} />
+              </Link>
+            </motion.div>
+          )}
         </div>
       </div>
     </section>
