@@ -1,7 +1,6 @@
 "use server";
 
-import { cacheLife } from "next/dist/server/use-cache/cache-life"
-import { cacheTag } from "next/dist/server/use-cache/cache-tag"
+import { cacheLife, cacheTag } from "next/cache"
 import { client } from "../client"
 import type { SanityFaq } from "../types"
 

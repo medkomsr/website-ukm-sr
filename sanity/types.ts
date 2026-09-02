@@ -4,9 +4,9 @@ export type SanitySiteSettings = {
   namaOrg: string
   tagline: string
   tahunBerdiri: number
-  jumlahAnggota: string
-  jumlahPenghargaan: string
-  jumlahKegiatan: string
+  jumlahAnggota: number
+  jumlahPenghargaan: number
+  jumlahKegiatan: number
   alamat: string
   telepon: string
   email: string
@@ -37,22 +37,12 @@ export type SanityHomePage = {
     heading: string
     subheading: string
   }
+  featuredBidang?: SanityBidangCard[]
 }
 
 export type SanityVisiMisi = {
   visi: string
   misi: string[]
-}
-
-export type SanityDivisi = {
-  _id: string
-  nama: string
-  subtitle: string
-  deskripsi: string
-  jumlahAnggota: number
-  ikon: string
-  accent: string
-  imageUrl: string | null
 }
 
 export type SanityFaq = {
@@ -72,11 +62,11 @@ export type SanityActivity = {
   imageUrl: string
   category: string
   date: string
+  endDate?: string
   status?: EventStatus
   time?: string
   location?: string
   readTime?: string
-  longDescription?: string
   tags?: string[]
   agenda?: Array<{ time: string; item: string }>
   organizer?: string
@@ -112,7 +102,15 @@ export type SanityDepartemenCard = {
   heading: string
   abbr: string
   imageUrl: string
-  overlay: string
+  overlayTheme?: OverlayTheme
+}
+
+export type OverlayTheme = "green" | "maroon" | "neutral"
+
+export type SanityProgramItem = {
+  _key?: string
+  title: string
+  description: string
 }
 
 export type SanityDepartemenDetail = {
@@ -122,10 +120,9 @@ export type SanityDepartemenDetail = {
   abbr: string
   fullName: string
   imageUrl: string
-  overlay: string
+  overlayTheme?: OverlayTheme
   description: string
-  programs: string[]
-  programDescriptions: string[]
+  programItems: SanityProgramItem[]
   kepala: SanityDeptMember
   divisi: SanityDeptDivisi[]
 }
@@ -164,12 +161,17 @@ export type SanityBidang = {
   abbr: string
   fullName: string
   imageUrl: string
-  overlay?: string
+  overlayTheme?: OverlayTheme
   description: string
   gallery: SanityBidangGalleryItem[]
   ketuaBidang: SanityBidangMember
   wakilKetuaBidang: SanityBidangMember
   order?: number
 }
+
+export type SanityBidangCard = Pick<
+  SanityBidang,
+  '_id' | 'slug' | 'heading' | 'abbr' | 'fullName' | 'imageUrl' | 'overlayTheme' | 'description' | 'order'
+>
 
 

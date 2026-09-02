@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useBidangBySlug } from "@/hooks/useBidang";
+import { getOverlayGradient } from "@/lib/overlay-theme";
 import { notFound } from "next/navigation";
 
 export default function HeroSection({ slug }: { slug: string }) {
@@ -19,7 +20,7 @@ export default function HeroSection({ slug }: { slug: string }) {
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 420 }}>
       <Image src={data.imageUrl} alt={data.abbr} fill className="object-cover" priority />
-      <div className="absolute inset-0" style={{ background: data.overlay || "rgba(0,0,0,0.5)" }} />
+      <div className="absolute inset-0" style={{ background: getOverlayGradient(data.overlayTheme) }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16">
         {/* Breadcrumb */}

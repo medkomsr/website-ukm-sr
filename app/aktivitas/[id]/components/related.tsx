@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Calendar } from "lucide-react";
 import type { SanityActivity } from "@/sanity/types";
 import { useAktivitasBySlug, useRelatedAktivitas } from "@/hooks/useAktivitas";
+import { formatDateRangeId } from "@/lib/content-date";
 
 function RelatedCard({ item }: { item: SanityActivity }) {
   const isEvent = item.type === "event";
@@ -49,7 +50,7 @@ function RelatedCard({ item }: { item: SanityActivity }) {
         <CardContent className="p-4">
           <p className="text-[11px] text-neutral-400 mb-1.5 flex items-center gap-1">
             <Calendar size={10} />
-            {item.date}
+            {formatDateRangeId(item.date, item.type === "event" ? item.endDate : undefined)}
           </p>
           <h4 className="text-[13px] font-bold text-(--color-neutral-1000) leading-snug group-hover:text-(--color-maroon-500) transition-colors line-clamp-2">
             {item.title}

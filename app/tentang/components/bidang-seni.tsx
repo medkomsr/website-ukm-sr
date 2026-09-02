@@ -6,9 +6,10 @@ import { useBidang } from "@/hooks/useBidang";
 import Image from "next/image";
 import Link from "next/link";
 import type { SanityBidang } from "@/sanity/types";
+import { getOverlayGradient } from "@/lib/overlay-theme";
 
 function BidangCard({ bidang }: { bidang: SanityBidang }) {
-  const overlay = bidang.overlay || "linear-gradient(to bottom, rgba(66,10,10,0.15) 0%, rgba(66,10,10,0.92) 100%)";
+  const overlay = getOverlayGradient(bidang.overlayTheme);
   
   return (
     <div>

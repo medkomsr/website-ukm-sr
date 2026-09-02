@@ -18,7 +18,7 @@ export async function getAllBidang(): Promise<SanityBidang[]> {
       abbr,
       fullName,
       "imageUrl": image.asset->url,
-      overlay,
+      overlayTheme,
       description,
       "gallery": gallery[]{
         "imageUrl": image.asset->url,
@@ -45,7 +45,7 @@ export async function getBidangBySlug(slug: string): Promise<SanityBidang | null
       abbr,
       fullName,
       "imageUrl": image.asset->url,
-      overlay,
+      overlayTheme,
       description,
       "gallery": gallery[]{
         "imageUrl": image.asset->url,

@@ -5,19 +5,21 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useDepartemen } from "@/hooks/useDepartemen";
+import { getOverlayGradient } from "@/lib/overlay-theme";
+import type { OverlayTheme } from "@/sanity/types";
 
 function DeptCard({
   heading,
   abbr,
   imageUrl,
-  overlay,
+  overlayTheme,
   featured = false,
   slug,
 }: {
   heading: string;
   abbr: string;
   imageUrl: string;
-  overlay: string;
+  overlayTheme?: OverlayTheme;
   featured?: boolean;
   slug: string;
 }) {
@@ -25,7 +27,7 @@ function DeptCard({
     <div>
       <div className="group relative rounded-3xl overflow-hidden" style={{ height: featured ? "380px" : "300px" }}>
         <Image src={imageUrl || ''} alt={abbr || ''} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
-        <div className="absolute inset-0" style={{ background: overlay }} />
+        <div className="absolute inset-0" style={{ background: getOverlayGradient(overlayTheme) }} />
         <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-7 px-4 text-center">
           {/* Small italic label */}
           <p
@@ -80,41 +82,8 @@ function DeptCard({
   );
 }
 
-// const departments = [
-//   {
-//     slug: "bkrt",
-//     heading: "Badan",
-//     abbr: "BKRT",
-//     img: IMAGES.community,
-//     overlay: "linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.90) 100%)",
-//     featured: true,
-//   },
-//   {
-//     slug: "psdm",
-//     heading: "Departemen",
-//     abbr: "PSDM",
-//     img: IMAGES.stage,
-//     overlay: "linear-gradient(to bottom, rgba(66,10,10,0.15) 0%, rgba(66,10,10,0.90) 100%)",
-//   },
-//   {
-//     slug: "minba",
-//     heading: "Departemen",
-//     abbr: "Minba",
-//     img: IMAGES.calligraphy,
-//     overlay: "linear-gradient(to bottom, rgba(66,10,10,0.15) 0%, rgba(66,10,10,0.90) 100%)",
-//   },
-//   {
-//     slug: "medkom",
-//     heading: "Departemen",
-//     abbr: "Medkom",
-//     img: IMAGES.art,
-//     overlay: "linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.90) 100%)",
-//   },
-// ];
-
 export default function StrukturKepengurusanSection() {
-
-    const { data: allDepartemen, isLoading, error } = useDepartemen();
+  const { data: allDepartemen } = useDepartemen();
   return (
     <section className="py-16 md:py-24" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { BookOpen, Calendar, ChevronRight, Clock, MapPin, User } from "lucide-react";
 import { statusConfig } from "@/lib/types/data";
 import { useAktivitasBySlug } from "@/hooks/useAktivitas";
+import { formatDateRangeId } from "@/lib/content-date";
 
 export default function HeroSection({ slug }: { slug: string}) {
 
@@ -101,7 +102,7 @@ export default function HeroSection({ slug }: { slug: string}) {
         >
           <span className="flex items-center gap-1.5">
             <Calendar size={13} />
-            {activity?.date}
+            {formatDateRangeId(activity?.date, isEvent ? activity?.endDate : undefined)}
           </span>
           {isEvent && activity?.time && (
             <span className="flex items-center gap-1.5">

@@ -7,6 +7,7 @@ export function useGaleri() {
   return useQuery<SanityGalleryItem[]>({
     queryKey: ['galeri'],
     queryFn: getAllGaleri,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

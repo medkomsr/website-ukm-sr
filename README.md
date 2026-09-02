@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Website UKM Seni Religi UB
 
-## Getting Started
+Website publik dan Sanity Studio untuk pengelolaan konten UKM Seni Religi Universitas Brawijaya.
 
-First, run the development server:
+## Panduan admin
+
+- [Panduan sumber Markdown](docs/panduan-admin-sanity.md)
+- [Panduan PDF publik](public/panduan-admin-sanity.pdf)
+
+PDF juga dapat dibuka dari menu **Panduan Admin** di Sanity Studio.
+
+## Menjalankan proyek
+
+Salin `.env.example` menjadi `.env.local`, isi konfigurasi project Sanity, lalu jalankan:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Website tersedia di `http://localhost:3000` dan Studio di `http://localhost:3000/studio`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validasi perubahan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm test
+npx tsc --noEmit --incremental false
+npx sanity schemas validate --level warning
+npm run lint
+npm run build
+```
 
-## Learn More
+Repositori masih memiliki beberapa temuan lint lama di komponen yang tidak terkait. Perubahan baru tidak boleh menambah error lint.
 
-To learn more about Next.js, take a look at the following resources:
+## Migrasi konten Sanity
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Mode default hanya membaca data dan menampilkan rencana perubahan:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run sanity:migrate:dry
+```
 
-## Deploy on Vercel
+Sebelum mode apply, ekspor backup dataset. Ganti tanggal pada nama file agar setiap backup mudah dikenali:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npx sanity dataset export production tmp/sanity-backups/pre-admin-ux-YYYY-MM-DD.tar.gz
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Perubahan produksi hanya boleh dijalankan setelah laporan dry-run ditinjau dan semua tanggal, waktu, atau angka statistik yang tidak valid diperbaiki; konten aktivitas yang tidak akan dipakai dapat di-unpublish.
+
+```bash
+npx tsx scripts/sanity-content-migration.ts --apply --backup-confirmed
+```
+
+Mode apply memerlukan `SANITY_API_WRITE_TOKEN`. Script bersifat idempotent dan tidak menebak tanggal yang tidak valid.
+
+## Revalidasi setelah publish
+
+Atur webhook Sanity ke:
+
+```text
+POST https://<domain>/api/revalidate/sanity
+```
+
+Webhook wajib memakai secret yang sama dengan `SANITY_REVALIDATE_SECRET` dan projection berikut:
+
+```groq
+{
+  "_id": _id,
+  "_type": _type,
+  "projectId": sanity::projectId(),
+  "dataset": sanity::dataset(),
+  "operation": delta::operation()
+}
+```
+
+Endpoint memverifikasi signature, project, dataset, operasi, dan allowlist tipe dokumen sebelum mengosongkan cache terkait.

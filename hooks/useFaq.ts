@@ -7,6 +7,7 @@ export function useFaq() {
   return useQuery<SanityFaq[]>({
     queryKey: ['faq'],
     queryFn: getAllFaq,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

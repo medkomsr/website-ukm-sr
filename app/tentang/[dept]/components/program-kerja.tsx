@@ -126,7 +126,7 @@ function ProgramCard({ title, description, i }: { title: string; description: st
 }
 
 export default function ProgramKerjaSection({ dept }: { dept: string }) {
-  const { data: departemen, isLoading, error } = useDepartemenBySlug(dept);
+  const { data: departemen, isLoading } = useDepartemenBySlug(dept);
 
   if (!isLoading && !departemen) notFound();
 
@@ -142,8 +142,8 @@ export default function ProgramKerjaSection({ dept }: { dept: string }) {
           </h2>
         </motion.div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {departemen?.programs.map((p, i) => (
-            <ProgramCard key={i} title={p} description={departemen?.programDescriptions[i]} i={i} />
+          {departemen?.programItems?.map((program, i) => (
+            <ProgramCard key={program._key ?? `${program.title}-${i}`} title={program.title} description={program.description} i={i} />
           ))}
         </div>
       </div>

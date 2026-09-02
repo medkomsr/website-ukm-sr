@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { formatDateRangeId } from "@/lib/content-date";
 
 export default function ActivityCard({ item, delay }: { item: SanityActivity; delay: number }) {
   const isEvent = item.type === "event";
@@ -68,7 +69,7 @@ export default function ActivityCard({ item, delay }: { item: SanityActivity; de
             <div className="flex items-center gap-3 text-[12px] text-neutral-400 mb-2.5">
               <span className="flex items-center gap-1">
                 <Calendar size={12} />
-                {item.date}
+                {formatDateRangeId(item.date, isEvent ? item.endDate : undefined)}
               </span>
               {isEvent && item.time && (
                 <span className="flex items-center gap-1">

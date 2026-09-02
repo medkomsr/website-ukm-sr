@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useDepartemenBySlug } from "@/hooks/useDepartemen";
+import { getOverlayGradient } from "@/lib/overlay-theme";
 import { notFound } from "next/navigation";
 
 export default function HeroSection({ dept }: { dept: string }) {
@@ -15,7 +16,7 @@ export default function HeroSection({ dept }: { dept: string }) {
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 420 }}>
       <Image src={departemen?.imageUrl || ''} alt={departemen?.abbr || ''} fill className="object-cover" priority />
-      <div className="absolute inset-0" style={{ background: departemen?.overlay || 'rgba(0,0,0,0.5)' }} />
+      <div className="absolute inset-0" style={{ background: getOverlayGradient(departemen?.overlayTheme) }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16">
         {/* Breadcrumb */}

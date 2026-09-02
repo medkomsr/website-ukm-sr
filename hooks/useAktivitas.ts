@@ -12,7 +12,8 @@ export function useAktivitas() {
   return useQuery<SanityActivity[]>({
     queryKey: ['aktivitas'],
     queryFn: getAllAktivitas,
-    staleTime: 60 * 60 * 1000, // 1 jam (sesuai cache di query)
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -22,7 +23,8 @@ export function useAktivitasBySlug(slug: string) {
     queryKey: ['aktivitas', slug],
     queryFn: () => getAktivitasBySlug(slug),
     enabled: !!slug, // Only run jika slug ada
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -32,6 +34,7 @@ export function useRelatedAktivitas(slug: string, category: string) {
     queryKey: ['aktivitas', 'related', slug, category],
     queryFn: () => getRelatedAktivitas(slug, category),
     enabled: !!slug && !!category,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

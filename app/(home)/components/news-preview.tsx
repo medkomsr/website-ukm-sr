@@ -7,6 +7,7 @@ import { ArrowRight, Calendar, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { useAktivitas } from "@/hooks/useAktivitas";
+import { formatDateId } from "@/lib/content-date";
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 40 },
@@ -98,7 +99,7 @@ export default function NewsSection() {
                     <div className="flex items-center gap-3 text-[12px] text-neutral-400 mb-2.5">
                       <span className="flex items-center gap-1">
                         <Calendar size={12} />
-                        {item.date}
+                        {formatDateId(item.date)}
                       </span>
                       {item.readTime && (
                         <span className="flex items-center gap-1">

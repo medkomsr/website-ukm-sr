@@ -7,7 +7,8 @@ export function useBidang() {
   return useQuery<SanityBidang[]>({
     queryKey: ['bidang'],
     queryFn: getAllBidang,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -15,7 +16,8 @@ export function useBidangBySlug(slug: string) {
   return useQuery<SanityBidang | null>({
     queryKey: ['bidang', slug],
     queryFn: () => getBidangBySlug(slug),
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
     enabled: !!slug,
   });
 }

@@ -7,7 +7,8 @@ export function usePrestasi() {
   return useQuery<SanityPrestasi[]>({
     queryKey: ['prestasi'],
     queryFn: getAllPrestasi,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -15,7 +16,8 @@ export function useFeaturedPrestasi() {
   return useQuery<SanityPrestasi[]>({
     queryKey: ['prestasi', 'featured'],
     queryFn: getFeaturedPrestasi,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -23,7 +25,8 @@ export function usePrestasiByYear(year: number) {
   return useQuery<SanityPrestasi[]>({
     queryKey: ['prestasi', year],
     queryFn: () => getPrestasiByYear(year),
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
     enabled: !!year,
   });
 }

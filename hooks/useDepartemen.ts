@@ -11,7 +11,8 @@ export function useDepartemen() {
   return useQuery<SanityDepartemenCard[]>({
     queryKey: ['departemen'],
     queryFn: getAllDepartemen,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }
 
@@ -21,6 +22,7 @@ export function useDepartemenBySlug(slug: string) {
     queryKey: ['departemen', slug],
     queryFn: () => getDepartemenBySlug(slug),
     enabled: !!slug,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

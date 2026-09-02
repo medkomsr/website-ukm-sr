@@ -7,6 +7,7 @@ export function useVisiMisi() {
   return useQuery<SanityVisiMisi | null>({
     queryKey: ['visiMisi'],
     queryFn: getVisiMisi,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

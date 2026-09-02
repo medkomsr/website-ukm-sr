@@ -7,6 +7,7 @@ export function useSiteSettings() {
   return useQuery<SanitySiteSettings | null>({
     queryKey: ['siteSettings'],
     queryFn: getSiteSettings,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

@@ -3,7 +3,14 @@
 import { groq } from "next-sanity"
 import { client } from "../client"
 import { cacheLife, cacheTag } from "next/cache"
-import type { SanityDepartemenCard, SanityDepartemenDetail } from "../types"
+import type { SanityDepartemenCard, SanityDepartemenDetail, SanityProgramItem } from "../types"
+import {mergeProgramItems} from "../../lib/program-items"
+
+type LegacyDepartemenDetail = Omit<SanityDepartemenDetail, "programItems"> & {
+  programItems?: SanityProgramItem[]
+  programs?: string[]
+  programDescriptions?: string[]
+}
 
 export async function getAllDepartemen(): Promise<SanityDepartemenCard[]> {
   "use cache"
@@ -17,7 +24,7 @@ export async function getAllDepartemen(): Promise<SanityDepartemenCard[]> {
       heading,
       abbr,
       "imageUrl": image.asset->url,
-      overlay
+      overlayTheme
     }`
   )
 }
@@ -27,7 +34,7 @@ export async function getDepartemenBySlug(slug: string): Promise<SanityDeparteme
   cacheLife("hours")
   cacheTag("departemen", `departemen-${slug}`)
 
-  return client.fetch(
+  const departemen = await client.fetch<LegacyDepartemenDetail | null>(
     groq`*[_type == "departemen" && slug.current == $slug][0] {
       _id,
       "slug": slug.current,
@@ -35,8 +42,9 @@ export async function getDepartemenBySlug(slug: string): Promise<SanityDeparteme
       abbr,
       fullName,
       "imageUrl": image.asset->url,
-      overlay,
+      overlayTheme,
       description,
+      programItems,
       programs,
       programDescriptions,
       kepala,
@@ -44,4 +52,11 @@ export async function getDepartemenBySlug(slug: string): Promise<SanityDeparteme
     }`,
     { slug }
   )
+
+  if (!departemen) return null
+  const {programItems, programs, programDescriptions, ...detail} = departemen
+  return {
+    ...detail,
+    programItems: mergeProgramItems(programItems, programs, programDescriptions),
+  }
 }

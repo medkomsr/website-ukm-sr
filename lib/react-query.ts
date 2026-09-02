@@ -1,11 +1,11 @@
-import { QueryClient, UseMutationOptions } from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       // Kapan perlu refresh data
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 60 * 1000, // 1 minute
       // Seberapa lama data di-cache
       gcTime: 10 * 60 * 1000, // 10 minutes
       retry: (failureCount, error) => {
@@ -14,7 +14,7 @@ export const queryClient = new QueryClient({
         }
         return failureCount < 3;
       },
-      refetchOnWindowFocus: false,
+      refetchOnWindowFocus: true,
       refetchOnReconnect: true,
     },
     mutations: {

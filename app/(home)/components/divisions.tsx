@@ -5,7 +5,9 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useBidang } from "@/hooks/useBidang";
-import type { SanityBidang } from "@/sanity/types";
+import { useHomePage } from "@/hooks/useHomePage";
+import { getOverlayGradient } from "@/lib/overlay-theme";
+import type { SanityBidangCard } from "@/sanity/types";
 
 const wiv = (delay = 0) => ({
   initial: { opacity: 0, y: 28 },
@@ -14,32 +16,7 @@ const wiv = (delay = 0) => ({
   transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] as const, delay },
 });
 
-// Tampilkan 3 bidang unggulan di homepage — sisanya bisa dilihat di /tentang#bidang-seni
-const FEATURED_SLUGS = ["banjari-nasyid", "khattil-quran", "ttq"];
-
-// Subtitle/kategori singkat per bidang untuk label kecil di kartu
-const SUBTITLE_MAP: Record<string, string> = {
-  "banjari-nasyid": "Musik Vokal Islami",
-  "khattil-quran": "Seni Tulis Al-Qur'an",
-  "hifdzil-quran": "Hafalan Al-Qur'an",
-  "syarhil-quran": "Tafsir Komunikatif",
-  "fahmil-quran": "Cerdas-Cermat Qur'ani",
-  dia: "Debat Ilmiah",
-  ktdaq: "Riset & Inovasi Qur'ani",
-  ttq: "Seni Baca Al-Qur'an",
-};
-
-// Deskripsi pendek (1 kalimat) untuk kartu — fallback ke description dari Sanity
-const SHORT_DESC: Record<string, string> = {
-  "banjari-nasyid": "Padukan irama hadrah & harmoni nasyid dalam pentas seni musik islami yang siap pentas dan kompetisi.",
-  "khattil-quran": "Tulis ayat-ayat Al-Qur'an dengan gaya Naskhi, Tsuluts, Diwani, hingga Kufi yang memukau.",
-  ttq: "Bacakan Al-Qur'an dengan maqamat indah—Bayati, Hijaz, Nahawand—dan kaidah tajwid yang sempurna.",
-};
-
-function DivisionCard({ bidang, delay = 0 }: { bidang: SanityBidang; delay?: number }) {
-  const subtitle = SUBTITLE_MAP[bidang.slug] ?? bidang.heading;
-  const desc     = SHORT_DESC[bidang.slug] ?? bidang.description;
-
+function DivisionCard({ bidang, delay = 0 }: { bidang: SanityBidangCard; delay?: number }) {
   return (
     <motion.div {...wiv(delay)}>
       <Link
@@ -57,13 +34,10 @@ function DivisionCard({ bidang, delay = 0 }: { bidang: SanityBidang; delay?: num
           style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
         />
 
-        {/* Bottom-focused gradient — keeps photo visible at top */}
+        {/* Semantic theme selected in Studio and mapped to safe CSS in code. */}
         <div
           className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to top, rgba(7,22,13,0.97) 0%, rgba(7,22,13,0.80) 30%, rgba(7,22,13,0.28) 55%, rgba(7,22,13,0.06) 100%)",
-          }}
+          style={{ background: getOverlayGradient(bidang.overlayTheme) }}
         />
 
         {/* Top micro-vignette for label readability */}
@@ -76,7 +50,7 @@ function DivisionCard({ bidang, delay = 0 }: { bidang: SanityBidang; delay?: num
           {/* Top: category label */}
           <div>
             <span className="text-[10px] tracking-[0.22em] uppercase font-bold text-white/55">
-              {subtitle}
+              {bidang.heading}
             </span>
           </div>
 
@@ -89,7 +63,7 @@ function DivisionCard({ bidang, delay = 0 }: { bidang: SanityBidang; delay?: num
               {bidang.fullName}
             </h3>
             <p className="text-[13px] text-white/60 leading-relaxed mb-5 line-clamp-2">
-              {desc}
+              {bidang.description}
             </p>
             <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.13em] text-white/45 transition-colors duration-300 group-hover:text-amber-400">
               Pelajari lebih lanjut
@@ -110,11 +84,12 @@ function DivisionCard({ bidang, delay = 0 }: { bidang: SanityBidang; delay?: num
 
 export default function DivisionsSection() {
   const { data: allBidang } = useBidang();
+  const { data: homePage } = useHomePage();
 
-  // Filter 3 bidang featured berdasarkan FEATURED_SLUGS, jaga urutan
-  const featured = FEATURED_SLUGS
-    .map((slug) => (allBidang ?? []).find((b) => b.slug === slug))
-    .filter((b): b is SanityBidang => !!b);
+  const configured = homePage?.featuredBidang?.filter((item): item is SanityBidangCard => Boolean(item?._id)) ?? [];
+  const featured = (configured.length > 0 ? configured : allBidang ?? []).slice(0, 3);
+  const sectionHeading = homePage?.divisions?.heading ?? "Jelajahi Cabang Seni Religi";
+  const sectionDescription = homePage?.divisions?.subheading ?? "Temukan passion Anda melalui berbagai bidang seni yang mengasah kreativitas dan memperdalam spiritualitas.";
 
   return (
     <section className="py-20 md:py-28" style={{ background: "#f7fbf8" }}>
@@ -133,15 +108,13 @@ export default function DivisionsSection() {
             className="text-[30px] md:text-[42px] mb-4 leading-tight"
             style={{ fontFamily: "var(--font-display)", fontWeight: 700, color: "#0d2a1a" }}
           >
-            Jelajahi Cabang{" "}
-            <span style={{ color: "var(--color-maroon-500)" }}>Seni Religi</span>
+            {sectionHeading}
           </motion.h2>
           <motion.p
             {...wiv(0.14)}
             className="text-[16px] text-neutral-500 max-w-xl mx-auto leading-relaxed"
           >
-            Temukan passion Anda melalui berbagai divisi seni yang dirancang untuk mengasah
-            kreativitas dan memperdalam spiritualitas.
+            {sectionDescription}
           </motion.p>
         </div>
 

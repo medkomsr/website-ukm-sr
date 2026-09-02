@@ -7,6 +7,7 @@ export function useHomePage() {
   return useQuery<SanityHomePage | null>({
     queryKey: ['homePage'],
     queryFn: getHomePage,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 }

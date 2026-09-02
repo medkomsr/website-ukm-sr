@@ -9,6 +9,7 @@ import { notFound } from "next/navigation";
 import type { SanityActivity } from "@/sanity/types";
 import { PortableText } from "next-sanity";
 import type { PortableTextBlock } from "next-sanity";
+import { formatDateRangeId } from "@/lib/content-date";
 
 function InfoPill({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) {
   return (
@@ -134,7 +135,7 @@ export default function ContentSection({ slug }: { slug: string }) {
                 className="text-[17px] md:text-[18px] leading-relaxed"
                 style={{ color: "#374151", borderLeft: "3px solid var(--color-maroon-400)", paddingLeft: 20 }}
               >
-                {activity.longDescription ?? activity.description}
+                {activity.description}
               </p>
             </motion.div>
 
@@ -198,7 +199,7 @@ export default function ContentSection({ slug }: { slug: string }) {
           {/* Right: Sidebar */}
           <div className="space-y-4 lg:sticky lg:top-24 self-start">
             {/* Info pills */}
-            {activity.date && <InfoPill icon={Calendar} label="Tanggal" value={activity.date} />}
+            {activity.date && <InfoPill icon={Calendar} label="Tanggal" value={formatDateRangeId(activity.date, isEvent ? activity.endDate : undefined)} />}
             {isEvent && activity.time && <InfoPill icon={Clock} label="Waktu" value={activity.time} />}
             {isEvent && activity.location && <InfoPill icon={MapPin} label="Lokasi" value={activity.location} />}
             {isEvent && activity.organizer && <InfoPill icon={Users} label="Penyelenggara" value={activity.organizer} />}
