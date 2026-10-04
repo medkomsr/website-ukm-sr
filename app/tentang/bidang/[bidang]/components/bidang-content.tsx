@@ -8,6 +8,7 @@ import { srFields } from "@/lib/sr-fields";
 import type { SanityDepartemenDetail } from "@/sanity/types";
 import { ProfileContent } from "../../../[dept]/components/department-profile";
 import s from "../../../[dept]/components/department-profile.module.css";
+import DocumentationCollage from "./documentation-collage";
 
 export default function BidangContent({ slug }: { slug: string }) {
   const { data, isPending, isError, refetch } = useBidangBySlug(slug);
@@ -33,5 +34,5 @@ export default function BidangContent({ slug }: { slug: string }) {
   };
   const description = data?.description || field?.description || profile.description;
 
-  return <SiteLayout><ProfileContent key={JSON.stringify(data || slug)} data={profile} fieldDescription={description}/></SiteLayout>;
+  return <SiteLayout footerWave={false}><ProfileContent key={JSON.stringify(data || slug)} data={profile} fieldDescription={description}><DocumentationCollage key={slug} name={profile.abbr} items={data?.gallery || []}/></ProfileContent></SiteLayout>;
 }

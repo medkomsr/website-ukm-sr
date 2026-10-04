@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type MouseEvent } from "react";
+import { useRef, type MouseEvent, type ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -25,7 +25,7 @@ function previewDepartment(slug: string): SanityDepartemenDetail {
     kepala: { name: "", role: "", fakultas: "", angkatan: "" }, divisi: [] };
 }
 
-export function ProfileContent({ data, fieldDescription }: { data: SanityDepartemenDetail; fieldDescription?: string }) {
+export function ProfileContent({ data, fieldDescription, children }: { data: SanityDepartemenDetail; fieldDescription?: string; children?: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   const { data: settings } = useSiteSettings();
   const members = [data.kepala, ...(data.divisi || []).flatMap(group => [group.kepala, ...(group.staff || [])])].filter((member): member is SanityDeptMember => !!member?.name);
@@ -56,26 +56,53 @@ export function ProfileContent({ data, fieldDescription }: { data: SanityDeparte
     document.fonts.ready.then(() => {
       if (disposed || !root.current) return;
       media.add("(prefers-reduced-motion: no-preference)", () => {
-        const texts = root.current!.querySelectorAll<HTMLElement>("[data-description-lines]");
-        const splits = Array.from(texts, text => SplitText.create(text, {
-          type: "lines",
-          autoSplit: true,
-          aria: "auto",
-          onSplit: instance => gsap.from(instance.lines, {
-            rotationX: -100,
-            transformOrigin: "50% 50% -160px",
-            opacity: 0,
-            duration: .8,
-            ease: "power3.out",
-            stagger: .25,
-            scrollTrigger: {
-              trigger: text,
-              start: "clamp(top 85%)",
-              toggleActions: "play none none reverse",
-            },
-          }),
+        const track = root.current!.querySelector<HTMLElement>("[data-description-track]")!;
+        const panel = track.querySelector<HTMLElement>("[data-description-panel]")!;
+        const surface = panel.firstElementChild!;
+        const texts = Array.from(panel.querySelectorAll<HTMLElement>("[data-description-lines]"));
+        const lines = new Map<HTMLElement, Element[]>();
+        let reveal: gsap.core.Timeline | undefined;
+        let revealProgress = 0;
+        const holdDistance = () => innerHeight * 1.2;
+        const measure = () => { track.style.paddingBottom = `${holdDistance()}px`; };
+        measure();
+        ScrollTrigger.addEventListener("refreshInit", measure);
+        const rebuild = () => {
+          if (lines.size !== texts.length) return;
+          reveal?.kill();
+          reveal = gsap.timeline({ paused: true });
+          texts.forEach(text => {
+            reveal!.fromTo(lines.get(text)!, {
+              rotationX: -100, transformOrigin: "50% 50% -160px", opacity: 0,
+            }, { rotationX: 0, opacity: 1, duration: .8, stagger: .25, ease: "power3.out" });
+          });
+          // Leave a short reading interval before the panel starts its exit.
+          reveal.to({}, { duration: .4 }).progress(revealProgress);
+        };
+        const splits = texts.map(text => SplitText.create(text, {
+          type: "lines", autoSplit: true, aria: "auto",
+          onSplit: instance => { lines.set(text, instance.lines); rebuild(); },
         }));
-        return () => splits.forEach(split => split.revert());
+        const exit = gsap.timeline({ paused: true })
+          .to(surface, { scale: .7, opacity: .5, duration: .9, ease: "none" })
+          .to(surface, { opacity: 0, duration: .1, ease: "none" });
+        const update = (self: ScrollTrigger) => {
+          const elapsed = self.progress * (self.end - self.start);
+          revealProgress = gsap.utils.clamp(0, 1, elapsed / holdDistance());
+          reveal?.progress(revealProgress);
+          exit.progress(gsap.utils.clamp(0, 1, (elapsed - holdDistance()) / innerHeight));
+        };
+        const trigger = ScrollTrigger.create({
+          trigger: panel, start: "clamp(bottom bottom)", end: () => `+=${holdDistance() + innerHeight}`,
+          pin: panel, pinSpacing: false, invalidateOnRefresh: true, refreshPriority: 18,
+          onUpdate: update, onRefresh: update,
+        });
+        return () => {
+          trigger.kill(); reveal?.kill(); exit.kill();
+          splits.forEach(split => split.revert());
+          ScrollTrigger.removeEventListener("refreshInit", measure);
+          track.style.removeProperty("padding-bottom");
+        };
       });
       ScrollTrigger.refresh();
     });
@@ -104,13 +131,16 @@ export function ProfileContent({ data, fieldDescription }: { data: SanityDeparte
     </section>
     </div>
     {data.imageUrl && <div data-profile-panel className={s.panel}><div className={s.teamImage}><Image src={data.imageUrl} alt={`Kebersamaan ${data.abbr}`} fill sizes="100vw" priority /></div></div>}
-    {fieldDescription !== undefined ? <div data-profile-panel id={activityId} className={s.panel} tabIndex={-1}>
+    {fieldDescription !== undefined ? <div data-description-track id={activityId} className={s.panel} tabIndex={-1}>
+      <div data-description-panel className={s.panel}>
       <section data-tone="green" className={s.fieldDescription} aria-labelledby="field-description-title">
         <h2 data-description-lines id="field-description-title">Deskripsi Bidang</h2>
         <p data-description-lines>{fieldDescription}</p>
       </section>
+      </div>
     </div> : <ScrollGallery id={activityId} title="Program Kerja" items={programCards} count={programs.length} tone="green"/>}
-    <ScrollGallery id="pengurus" title="Pengurus" items={peopleCards} tone="cream" last/>
+    <ScrollGallery id="pengurus" title="Pengurus" items={peopleCards} tone="cream" last={!children}/>
+    {children}
   </div>;
 }
 

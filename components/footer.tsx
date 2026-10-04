@@ -31,13 +31,13 @@ function LegalDialog({ kind, close }: { kind: "privacy" | "terms"; close: () => 
 }
 
 /** Shared by the homepage and every public page layout. */
-export default function Footer() {
+export default function Footer({ wave = true }: { wave?: boolean }) {
   const { data: settings } = useSiteSettings();
   const [legal, setLegal] = useState<"privacy" | "terms" | null>(null);
   const socials = [["Instagram", settings?.instagramUrl], ["YouTube", settings?.youtubeUrl]]
     .filter(([, url]) => url && /^https?:\/\//.test(url));
   return (
-    <footer data-tone="green" data-wave className={`${s.footer} ${f.root}`}>
+    <footer data-tone="green" data-wave={wave || undefined} className={`${s.footer} ${f.root}`}>
       <div className={s.footerInfo}>
         <Link className={s.brand} href="/">
           <Image src="/logo.png" alt="" width={38} height={43} />
