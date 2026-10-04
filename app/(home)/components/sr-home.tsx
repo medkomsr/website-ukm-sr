@@ -6,27 +6,17 @@ import {
   useState,
   type CSSProperties,
   type ReactNode,
-  type MouseEvent,
 } from "react";
-import { flushSync } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Moon,
-  Sun,
-  X,
-  Plus,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, X, Plus } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
-import { useSiteTheme } from "@/hooks/useSiteTheme";
+import { Motto } from "./motto";
 import { HeroWordmark, HeroScrollButton } from "./hero-wordmark";
 import { CompanyReel } from "./company-reel";
+import { useFieldPlayground } from "./use-field-playground";
 import { useHomeMotion } from "./use-home-motion";
 import { Draggable } from "gsap/Draggable";
 import { useAktivitas } from "@/hooks/useAktivitas";
@@ -40,8 +30,8 @@ import { SrSymbol } from "./sr-symbol";
 import { ParticleSignature } from "./particle-signature";
 import s from "./sr-home.module.css";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, SplitText);
-const accents = ["#ffe000", "#67c753", "#f2ce32", "#35b653"];
+gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable);
+const accents = ["#e9e4cb", "#d8e2d1", "#f0ead8", "#c7d6c3"];
 const nav = [
   ["Beranda", "/#main-content"],
   ["Tentang kami", "/tentang"],
@@ -96,13 +86,7 @@ function TextLink({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
-function Island({
-  dark,
-  onTheme,
-}: {
-  dark: boolean;
-  onTheme: (e: MouseEvent<HTMLButtonElement>) => void;
-}) {
+function Island() {
   const root = useRef<HTMLDivElement>(null),
     toggle = useRef<HTMLButtonElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
@@ -121,37 +105,17 @@ function Island({
           timeline.current = gsap
             .timeline({ paused: true })
             .to(
-              "[data-island]",
-              {
-                width: Math.min(innerWidth - 32, 400),
-                duration,
-                ease: "back.out(1.8)",
-                easeReverse: "power2.out",
-              },
-              0,
-            )
-            .to(
-              "[data-island-brand]",
-              {
-                autoAlpha: 1,
-                x: 0,
-                duration: duration * 0.7,
-                easeReverse: "power3.out",
-              },
-              0.05,
-            )
-            .to(
               "[data-menu-backdrop]",
               { autoAlpha: 1, duration: duration * 0.5 },
               0,
             )
             .fromTo(
               "[data-menu-panel]",
-              { autoAlpha: 0, y: -24, scale: 0.86 },
+              { autoAlpha: 0, y: -28, scaleY: 0.8 },
               {
                 autoAlpha: 1,
                 y: 0,
-                scale: 1,
+                scaleY: 1,
                 duration,
                 ease: "back.out(1.8)",
                 easeReverse: "power3.out",
@@ -160,7 +124,7 @@ function Island({
             )
             .fromTo(
               "[data-menu-link]",
-              { opacity: 0, y: 12 },
+              { opacity: 0, y: -18 },
               {
                 opacity: 1,
                 y: 0,
@@ -243,23 +207,22 @@ function Island({
         style={{ pointerEvents: open ? "auto" : "none" }}
       />
       <header data-island className={s.island}>
-        <span className={s.islandBrand} data-island-brand>
-          <Image src="/logo.png" alt="" width={28} height={32} />
+        <Link
+          href="/"
+          className={s.islandBrand}
+          data-island-brand
+          onClick={() => setOpen(false)}
+          aria-label="Seni Religi — Beranda"
+        >
+          <Image src="/logo.png" alt="" width={34} height={34} />
           <b>
             Seni Religi<span>Universitas Brawijaya</span>
           </b>
-        </span>
+        </Link>
         <div className={s.islandButtons}>
           <button
-            className={s.iconButton}
-            onClick={onTheme}
-            aria-label={dark ? "Aktifkan tema terang" : "Aktifkan tema gelap"}
-          >
-            {dark ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          <button
             ref={toggle}
-            className={s.iconButton}
+            className={`${s.iconButton} ${s.menuButton}`}
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Tutup menu" : "Buka menu"}
             aria-expanded={open}
@@ -303,218 +266,6 @@ function Island({
         </nav>
       </div>
     </div>
-  );
-}
-
-function Motto() {
-  const root = useRef<HTMLElement>(null);
-  useGSAP(
-    (_context, contextSafe) => {
-      const mm = gsap.matchMedia();
-      mm.add(
-        {
-          desktop: "(min-width: 801px)",
-          motion: "(prefers-reduced-motion: no-preference)",
-        },
-        (match) => {
-          if (!match.conditions?.motion) return;
-          const section = root.current!;
-          const track =
-            section.querySelector<HTMLElement>("[data-motto-track]")!;
-          const phrases = Array.from(track.querySelectorAll("p"));
-          if (match.conditions.desktop) {
-            const reveals = phrases.map((phrase, index) => {
-              const split = SplitText.create(phrase.querySelector("span")!, {
-                type: "chars",
-                aria: "auto",
-              });
-              const timeline = gsap
-                .timeline({ paused: true })
-                .from(split.chars, {
-                  y: (i) => Math.sin(i * 0.8 + index) * 85,
-                  opacity: 0,
-                  scale: 0.65,
-                  rotation: (i) => (i % 2 ? 12 : -12),
-                  stagger: 0.075,
-                  duration: 0.7,
-                  ease: "power2.out",
-                })
-                .from(
-                  phrase.querySelector("button"),
-                  {
-                    opacity: 0,
-                    scale: 0.4,
-                    rotation: index % 2 ? 25 : -25,
-                    duration: 0.65,
-                    ease: "back.out(1.8)",
-                  },
-                  0.25,
-                );
-              const symbol = phrase.querySelector("svg");
-              if (symbol)
-                timeline.from(
-                  symbol,
-                  {
-                    scale: 0,
-                    rotation: -120,
-                    duration: 0.7,
-                    ease: "back.out(2)",
-                  },
-                  0.35,
-                );
-              return timeline;
-            });
-            const revealVisible = () => {
-              const entry = gsap.utils.clamp(
-                0,
-                1,
-                (innerHeight * 0.9 - section.getBoundingClientRect().top) /
-                  (innerHeight * 0.7),
-              );
-              phrases.forEach((phrase, index) => {
-                const progress = gsap.utils.clamp(
-                  0,
-                  1,
-                  (innerWidth * 0.95 - phrase.getBoundingClientRect().left) /
-                    (innerWidth * 0.45),
-                );
-                reveals[index].progress(Math.min(entry, progress));
-              });
-            };
-            ScrollTrigger.create({
-              trigger: section,
-              start: "top bottom",
-              end: "top top",
-              onUpdate: revealVisible,
-              onRefresh: revealVisible,
-            });
-            // Measure the actual content viewport, including both section gutters and rotated sticker overscan.
-            const distance = () => {
-              const css = getComputedStyle(section);
-              return Math.max(
-                0,
-                track.scrollWidth -
-                  section.clientWidth +
-                  parseFloat(css.paddingLeft) +
-                  parseFloat(css.paddingRight) +
-                  80,
-              );
-            };
-            gsap
-              .timeline({
-                scrollTrigger: {
-                  id: "sr-motto",
-                  trigger: section,
-                  pin: true,
-                  start: "top top",
-                  end: () => `+=${distance() + innerHeight * 0.6}`,
-                  scrub: true,
-                  invalidateOnRefresh: true,
-                  refreshPriority: 5,
-                  onUpdate: revealVisible,
-                },
-              })
-              .to(track, { x: () => -distance(), duration: 1, ease: "none" })
-              .to({}, { duration: 0.25 });
-          } else {
-            phrases.forEach((phrase) =>
-              gsap.from(phrase.children, {
-                y: 25,
-                autoAlpha: 0,
-                filter: "blur(6px)",
-                stagger: 0.14,
-                duration: 0.85,
-                ease: "power2.out",
-                scrollTrigger: {
-                  trigger: phrase,
-                  start: "top 85%",
-                  once: true,
-                },
-              }),
-            );
-          }
-          const cleanups: (() => void)[] = [];
-          track
-            .querySelectorAll<HTMLElement>("[data-sticker]")
-            .forEach((sticker) => {
-              const enter = contextSafe!(() =>
-                gsap.to(sticker, {
-                  y: -14,
-                  scale: 1.09,
-                  rotation: 4,
-                  duration: 0.55,
-                  ease: "elastic.out(1,.5)",
-                  overwrite: true,
-                }),
-              );
-              const leave = contextSafe!(() =>
-                gsap.to(sticker, {
-                  y: 0,
-                  scale: 1,
-                  rotation: 0,
-                  duration: 0.7,
-                  ease: "elastic.out(1,.5)",
-                  overwrite: true,
-                }),
-              );
-              const click = contextSafe!(() =>
-                gsap.fromTo(
-                  sticker,
-                  { scale: 0.85, rotation: -8 },
-                  {
-                    scale: 1,
-                    rotation: 0,
-                    duration: 1,
-                    ease: "elastic.out(1,.35)",
-                    overwrite: true,
-                  },
-                ),
-              );
-              sticker.addEventListener("pointerenter", enter);
-              sticker.addEventListener("pointerleave", leave);
-              sticker.addEventListener("click", click);
-              sticker.addEventListener("focus", enter);
-              sticker.addEventListener("blur", leave);
-              cleanups.push(() => {
-                sticker.removeEventListener("pointerenter", enter);
-                sticker.removeEventListener("pointerleave", leave);
-                sticker.removeEventListener("click", click);
-                sticker.removeEventListener("focus", enter);
-                sticker.removeEventListener("blur", leave);
-              });
-            });
-          return () => cleanups.forEach((cleanup) => cleanup());
-        },
-      );
-      return () => mm.revert();
-    },
-    { scope: root },
-  );
-  return (
-    <section
-      ref={root}
-      id="process"
-      className={s.motto}
-      aria-label="Motto Seni Religi"
-    >
-      <div data-motto-track className={s.mottoTrack}>
-        <p>
-          <span>Hidup itu</span> <button data-sticker>Seni.</button>
-          <SrSymbol index={4} />
-        </p>
-        <p>
-          <span>Seni itu</span> <button data-sticker>Indah.</button>
-          <SrSymbol index={5} />
-        </p>
-        <p>
-          <span>Indah itu</span> <button data-sticker>Baik.</button>
-          <SrSymbol index={0} />
-        </p>
-        <p>
-          <span>Yang Baik</span> <button data-sticker>disenangi.</button>
-        </p>
-      </div>
-    </section>
   );
 }
 
@@ -562,25 +313,58 @@ function NewsGallery({
       mm.add(
         "(min-width: 801px) and (prefers-reduced-motion: no-preference)",
         () => {
+          gsap.set(viewport.current, { clearProps: "transform" });
+          viewport.current!.scrollLeft = 0;
           const distance = () =>
             Math.max(
               0,
               track.current!.scrollWidth - viewport.current!.clientWidth,
             );
-          if (distance() < 2) return;
-          gsap.to(track.current, {
-            x: () => -distance(),
-            ease: "none",
-            scrollTrigger: {
-              trigger: root.current,
-              pin: true,
-              start: "top 96px",
-              end: () => `+=${distance()}`,
-              scrub: 0.7,
-              invalidateOnRefresh: true,
-              refreshPriority: id === "projects" ? 3 : 1,
+          gsap.fromTo(
+            track.current,
+            {
+              x: () => viewport.current!.clientWidth + 24,
             },
-          });
+            {
+              x: () => -distance(),
+              ease: "none",
+              scrollTrigger: {
+                trigger: root.current,
+                pin: true,
+                start: "top -96px",
+                end: () =>
+                  `+=${viewport.current!.clientWidth + distance() + 24}`,
+                scrub: 0.7,
+                invalidateOnRefresh: true,
+                refreshPriority: id === "projects" ? 3 : 1,
+              },
+            },
+          );
+        },
+      );
+      mm.add(
+        "(max-width: 800px)",
+        () => {
+          gsap.set(track.current, { clearProps: "transform" });
+          viewport.current!.scrollLeft = 0;
+          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          // Move the viewport, not its scrollable track: transforming the track
+          // changes its scroll bounds and makes native swipe/snap jump on mobile.
+          gsap.fromTo(
+            viewport.current,
+            { x: () => viewport.current!.clientWidth + 24 },
+            {
+              x: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: root.current,
+                start: "top 75%",
+                end: "top 10%",
+                scrub: 0.7,
+                invalidateOnRefresh: true,
+              },
+            },
+          );
         },
       );
       const refresh = requestAnimationFrame(() => {
@@ -595,7 +379,13 @@ function NewsGallery({
     { scope: root, dependencies: [items.length], revertOnUpdate: true },
   );
   return (
-    <section ref={root} id={id} className={`${s.section} ${s.news}`}>
+    <section
+      data-tone="green"
+      data-wave
+      ref={root}
+      id={id}
+      className={`${s.section} ${s.news}`}
+    >
       <SectionTitle title={title}>
         <TextLink href="/aktivitas">Lihat selengkapnya</TextLink>
       </SectionTitle>
@@ -663,9 +453,36 @@ function NewsGallery({
   );
 }
 
+function MobileFields() {
+  return (
+    <div className={s.mobileFields}>
+      <div className={s.mobileFieldIntro}>
+        <p>Delapan bidang, banyak cara berkarya.<br />Ketuk bidang untuk mengenalnya.</p>
+      </div>
+      {[fields.slice(0, 4), fields.slice(4)].map((row, rowIndex) => (
+        <div className={s.fieldMarquee} key={rowIndex}>
+          <div className={s.fieldMarqueeTrack}>
+            {[0, 1].map((copy) => (
+              <div className={s.fieldMarqueeGroup} key={copy} aria-hidden={copy === 1}>
+                {row.map((field, index) => (
+                  <Link key={field.slug} href={`/tentang/bidang/${field.slug}`} tabIndex={copy === 1 ? -1 : undefined}>
+                    <span>{field.name}</span>
+                    <span className={s.marqueeSymbol} aria-hidden="true"><SrSymbol index={rowIndex * 4 + index} /></span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Fields() {
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<number | null>(null);
+  const playground = useFieldPlayground(root);
   useEffect(() => {
     if (active !== null)
       root.current
@@ -748,8 +565,27 @@ function Fields() {
     { scope: root, dependencies: [active] },
   );
   return (
-    <section id="crafts" className={`${s.section} ${s.fields}`}>
-      <SectionTitle title="Temukan minat dan bakat mu" />
+    <section
+      data-tone="cream"
+      data-wave
+      id="crafts"
+      className={`${s.section} ${s.fields}`}
+    >
+      <SectionTitle title="Temukan minat dan bakat mu">
+        <button
+          className={s.resetFields}
+          onClick={() => {
+            setActive(null);
+            playground.reset();
+          }}
+        >
+          Kembalikan susunan <span aria-hidden="true">↺</span>
+        </button>
+      </SectionTitle>
+      <p className={s.fieldHint} id="field-help">
+        Klik dan tahan untuk menarik kartu. Lepaskan untuk menaruhnya, atau klik untuk mengenal bidangnya.
+      </p>
+      <MobileFields />
       <div ref={root} className={s.fieldStage}>
         {fields.map((field, i) => (
           <div
@@ -764,53 +600,71 @@ function Fields() {
               } as CSSProperties
             }
           >
-            <div className={s.fieldInner}>
-              <button
-                className={s.fieldFront}
-                onClick={() => setActive(active === i ? null : i)}
-                aria-expanded={active === i}
-                aria-controls={`field-${i}`}
-                tabIndex={active === i ? -1 : 0}
-                aria-hidden={active === i}
-              >
-                <span className={s.fieldNumber}>0{i + 1}</span>
-                <span data-field-symbol>
-                  <SrSymbol index={i} />
-                </span>
-                <h3>{field.name}</h3>
-                <span className={s.fieldPlus}>
-                  <Plus size={15} />
-                </span>
-              </button>
-              <div
-                id={`field-${i}`}
-                className={s.fieldBack}
-                inert={active !== i}
-                aria-hidden={active !== i}
-              >
+            <div data-field-float className={s.fieldFloat}>
+              <div className={s.fieldInner}>
                 <button
-                  className={s.closeField}
+                  className={s.fieldFront}
                   onClick={() => {
-                    setActive(null);
-                    requestAnimationFrame(() =>
-                      root.current
-                        ?.querySelectorAll<HTMLButtonElement>(
-                          `button.${s.fieldFront}`,
-                        )
-                        [i]?.focus({ preventScroll: true }),
-                    );
+                    if (!playground.suppressClick())
+                      setActive(active === i ? null : i);
                   }}
-                  aria-label={`Tutup ${field.name}`}
+                  aria-describedby="field-help"
+                  onKeyDown={(event) => {
+                    const offsets: Record<string, [number, number]> = {
+                      ArrowLeft: [-24, 0],
+                      ArrowRight: [24, 0],
+                      ArrowUp: [0, -24],
+                      ArrowDown: [0, 24],
+                    };
+                    if (offsets[event.key]) {
+                      event.preventDefault();
+                      playground.move(i, ...offsets[event.key]);
+                    }
+                  }}
+                  aria-expanded={active === i}
+                  aria-controls={`field-${i}`}
+                  tabIndex={active === i ? -1 : 0}
+                  aria-hidden={active === i}
                 >
-                  <X size={18} />
+                  <span className={s.fieldNumber}>0{i + 1}</span>
+                  <span data-field-symbol>
+                    <SrSymbol index={i} />
+                  </span>
+                  <h3>{field.name}</h3>
+                  <span className={s.fieldPlus}>
+                    <Plus size={15} />
+                  </span>
                 </button>
-                <span className={s.fieldNumber}>BIDANG / 0{i + 1}</span>
-                <h3>{field.name}</h3>
-                <p>{field.text}</p>
-                <Link href={`/tentang/bidang/${field.slug}`}>
-                  Lihat detail
-                  <ArrowUpRight size={18} />
-                </Link>
+                <div
+                  id={`field-${i}`}
+                  className={s.fieldBack}
+                  inert={active !== i}
+                  aria-hidden={active !== i}
+                >
+                  <button
+                    className={s.closeField}
+                    onClick={() => {
+                      setActive(null);
+                      requestAnimationFrame(() =>
+                        root.current
+                          ?.querySelectorAll<HTMLButtonElement>(
+                            `button.${s.fieldFront}`,
+                          )
+                          [i]?.focus({ preventScroll: true }),
+                      );
+                    }}
+                    aria-label={`Tutup ${field.name}`}
+                  >
+                    <X size={18} />
+                  </button>
+                  <span className={s.fieldNumber}>BIDANG / 0{i + 1}</span>
+                  <h3>{field.name}</h3>
+                  <p>{field.text}</p>
+                  <Link href={`/tentang/bidang/${field.slug}`}>
+                    Lihat detail
+                    <ArrowUpRight size={18} />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -821,10 +675,12 @@ function Fields() {
 }
 
 function Achievements({
+  tone,
   items,
   loading,
   error,
 }: {
+  tone: "cream" | "green";
   items: SanityPrestasi[];
   loading: boolean;
   error: boolean;
@@ -880,7 +736,12 @@ function Achievements({
     { scope: root, dependencies: [index, items.length] },
   );
   return (
-    <section id="publications" className={`${s.section} ${s.achievements}`}>
+    <section
+      data-tone={tone}
+      data-wave
+      id="publications"
+      className={`${s.section} ${s.achievements}`}
+    >
       <SectionTitle title="Kabar Prestasi terbaru">
         <TextLink href="/prestasi">Semua prestasi</TextLink>
       </SectionTitle>
@@ -1133,7 +994,7 @@ function PopupDialog({
             </h2>
             <p>
               {popup.kind === "privacy"
-                ? "Pilihan tema disimpan di browser Anda. Video YouTube, ketika diputar, dimuat melalui layanan pihak ketiga."
+                ? "Video YouTube, ketika diputar, dimuat melalui layanan pihak ketiga."
                 : "Website ini memuat informasi, karya, dan kegiatan Seni Religi Universitas Brawijaya."}
             </p>
             <p>
@@ -1150,9 +1011,7 @@ function PopupDialog({
 
 export default function SrHome() {
   const root = useRef<HTMLDivElement>(null);
-  const [dark, setDark] = useSiteTheme();
   const [popup, setPopup] = useState<Popup | null>(null);
-  const themeBusy = useRef(false);
   const { data: home } = useHomePage();
   const { data: settings } = useSiteSettings();
   const activities = useAktivitas(),
@@ -1170,72 +1029,20 @@ export default function SrHome() {
       disposed = true;
     };
   }, []);
-  const changeTheme = async (e: MouseEvent<HTMLButtonElement>) => {
-    if (themeBusy.current) return;
-    const r = e.currentTarget.getBoundingClientRect(),
-      x = r.left + r.width / 2,
-      y = r.top + r.height / 2;
-    const update = () => {
-      flushSync(() => setDark(!dark));
-    };
-    if (
-      !document.startViewTransition ||
-      matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      update();
-      return;
-    }
-    themeBusy.current = true;
-    try {
-      const transition = document.startViewTransition(update);
-      await transition.ready;
-      const radius = Math.hypot(
-        Math.max(x, innerWidth - x),
-        Math.max(y, innerHeight - y),
-      );
-      await document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${radius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 750,
-          easing: "cubic-bezier(.2,.7,.2,1)",
-          pseudoElement: "::view-transition-new(root)",
-        },
-      ).finished;
-      await transition.finished;
-    } catch {
-      /* The new theme remains applied when a browser cancels its transition. */
-    } finally {
-      themeBusy.current = false;
-    }
-  };
   useHomeMotion(root, activities.data?.length ?? 0);
   const all = activities.data ?? [];
   return (
-    <div ref={root} className={s.site} data-theme={dark ? "dark" : "light"}>
+    <div ref={root} className={s.site}>
       <a href="#main-content" className={s.skip}>
-        Lewati ke konten
+        Lewati ke kontend
       </a>
-      <Island dark={dark} onTheme={changeTheme} />
+      <Island />
       <main id="main-content" tabIndex={-1}>
-        <section className={s.hero} aria-labelledby="hero-title">
-          <div className={s.heroTop}>
-            <Link href="/" className={s.brand}>
-              <Image
-                src="/logo.png"
-                alt="Logo Seni Religi"
-                width={38}
-                height={38}
-              />
-              <span>
-                SENI RELIGI<small>UNIVERSITAS BRAWIJAYA</small>
-              </span>
-            </Link>
-          </div>
+        <section
+          data-tone="cream"
+          className={s.hero}
+          aria-labelledby="hero-title"
+        >
           <div className={s.heroMain}>
             <HeroWordmark />
           </div>
@@ -1258,7 +1065,12 @@ export default function SrHome() {
         />
         <Fields />
         {!!home?.partners?.length && (
-          <section id="partners" className={s.section}>
+          <section
+            data-tone="green"
+            data-wave
+            id="partners"
+            className={s.section}
+          >
             <SectionTitle
               number="+"
               label="TUMBUH BERSAMA"
@@ -1289,11 +1101,17 @@ export default function SrHome() {
           </section>
         )}
         <Achievements
+          tone={home?.partners?.length ? "cream" : "green"}
           items={achievements.data ?? []}
           loading={achievements.isLoading}
           error={achievements.isError}
         />
-        <section id="contact" className={`${s.section} ${s.contact}`}>
+        <section
+          data-tone={home?.partners?.length ? "green" : "cream"}
+          data-wave
+          id="contact"
+          className={`${s.section} ${s.contact}`}
+        >
           <h2>
             Ada ide?
             <br />
@@ -1324,7 +1142,11 @@ export default function SrHome() {
           </div>
         </section>
       </main>
-      <footer className={s.footer}>
+      <footer
+        data-tone={home?.partners?.length ? "cream" : "green"}
+        data-wave
+        className={s.footer}
+      >
         <div className={s.footerInfo}>
           <Link className={s.brand} href="/">
             <Image src="/logo.png" alt="" width={38} height={43} />

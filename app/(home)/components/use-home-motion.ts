@@ -57,9 +57,7 @@ export function useHomeMotion(
           });
         });
         scope
-          .querySelectorAll(
-            `.${s.fieldStage}, .${s.awardStage}, .${s.partnerGrid}`,
-          )
+          .querySelectorAll(`.${s.awardStage}, .${s.partnerGrid}`)
           .forEach((stage) => {
             gsap.from(stage.children, {
               y: 55,
@@ -70,17 +68,6 @@ export function useHomeMotion(
               scrollTrigger: { trigger: stage, start: "top 88%", once: true },
             });
           });
-        scope.querySelectorAll(`.${s.galleryTrack}`).forEach((track) => {
-          gsap.from(track.children, {
-            y: 65,
-            opacity: 0,
-            rotation: 3,
-            stagger: 0.12,
-            duration: 0.9,
-            ease: "power3.out",
-            scrollTrigger: { trigger: track, start: "top 95%", once: true },
-          });
-        });
         scope.querySelectorAll(`.${s.newsImage}`).forEach((card) => {
           const img = card.querySelector("img, svg"),
             arrow = card.querySelector(`.${s.imageArrow}`);
@@ -240,19 +227,6 @@ export function useHomeMotion(
             ease: "power3.out",
             scrollTrigger: { trigger: contact, start: "top 80%", once: true },
           });
-          listen(heading!, "pointerenter", () =>
-            gsap.fromTo(
-              heading!.querySelector("em"),
-              { letterSpacing: "-.035em" },
-              { letterSpacing: "-.01em", duration: 0.6, ease: "power3.out" },
-            ),
-          );
-          listen(heading!, "pointerleave", () =>
-            gsap.to(heading!.querySelector("em"), {
-              letterSpacing: "-.035em",
-              duration: 0.6,
-            }),
-          );
           const burst = contact.querySelector("[data-contact-play]");
           let spin: gsap.core.Tween | undefined;
           if (burst)

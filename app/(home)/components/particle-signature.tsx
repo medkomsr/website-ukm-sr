@@ -96,6 +96,7 @@ export function ParticleSignature() {
       }
     };
     const setup = () => {
+      if (disposed || !el.isConnected || !el.clientWidth || !el.clientHeight) return;
       width = el.clientWidth;
       height = el.clientHeight;
       const dpr = Math.min(devicePixelRatio, 2);

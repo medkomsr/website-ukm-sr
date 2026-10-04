@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight, Menu, X, Sun, Moon } from "lucide-react";
-import { useSiteTheme } from "@/hooks/useSiteTheme";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 import styles from "./elegant-shell.module.css";
 import { gsap } from "gsap";
@@ -22,7 +21,6 @@ const links = [
 ] as const;
 
 export function ElegantHeader() {
-  const [dark, setDark] = useSiteTheme();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
@@ -125,13 +123,6 @@ export function ElegantHeader() {
             </Link>
           ))}
         </nav>
-        <button
-          className={styles.themeToggle}
-          onClick={() => setDark(!dark)}
-          aria-label={dark ? "Aktifkan tema terang" : "Aktifkan tema gelap"}
-        >
-          {dark ? <Sun size={19} /> : <Moon size={19} />}
-        </button>
         <Link href="/kontak" className={styles.contact}>
           Mari terhubung <ArrowUpRight size={15} />
         </Link>
@@ -174,7 +165,7 @@ export function ElegantFooter() {
     ["YouTube", data?.youtubeUrl],
   ].filter(([, url]) => url && /^https?:\/\//.test(url));
   return (
-    <footer className={styles.footer}>
+    <footer data-tone="green" data-wave className={styles.footer}>
       <div className={styles.footerTop}>
         <div>
           <Link href="/" className={styles.footerBrand}>
