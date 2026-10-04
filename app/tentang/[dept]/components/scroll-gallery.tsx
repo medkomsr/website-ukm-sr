@@ -12,7 +12,7 @@ import s from "./scroll-gallery.module.css";
 gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable);
 export type GalleryItem = { title: string; description: string; image?: string; placeholder?: boolean };
 
-export default function ScrollGallery({ id, title, items, tone, count, last = false }: { id: string; title: string; items: GalleryItem[]; tone: "green" | "cream"; count?: number; last?: boolean }) {
+export default function ScrollGallery({ id, title, items, tone, count, countLabel = "PROGRAM", last = false }: { id: string; title: string; items: GalleryItem[]; tone: "green" | "cream"; count?: number; countLabel?: string; last?: boolean }) {
   const root = useRef<HTMLElement>(null);
   const controls = useRef<(step: number) => void>(() => {});
   const [active, setActive] = useState(0);
@@ -91,7 +91,7 @@ export default function ScrollGallery({ id, title, items, tone, count, last = fa
   return <section ref={root} id={id} className={s.section} aria-labelledby={`${id}-title`} tabIndex={-1}>
     <div data-panel-pin className={s.panelPin}>
     <div data-gallery-stage data-tone={tone} className={`${s.stage} ${count !== undefined ? s.sideLayout : ""}`}>
-      <header className={s.heading}><h2 data-gallery-reveal id={`${id}-title`}>{title}</h2>{count !== undefined && <p data-gallery-reveal className={s.count}><strong>{String(count).padStart(2,"0")}</strong><span>PROGRAM</span></p>}</header>
+      <header className={s.heading}><h2 data-gallery-reveal id={`${id}-title`}>{title}</h2>{count !== undefined && <p data-gallery-reveal className={s.count}><strong>{String(count).padStart(2,"0")}</strong><span>{countLabel}</span></p>}</header>
       <div data-gallery-reveal className={s.gallery}>
       <div className={s.viewport}>
         <ul data-gallery-track id={uid} className={s.track} aria-label={title}>

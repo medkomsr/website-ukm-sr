@@ -32,7 +32,7 @@ export default function Cabinet() {
   });
   const fieldCards = srFields.map(field => {
     const found = fields?.find(f => f.slug === field.slug);
-    return { name: field.name, image: found?.imageUrl, href: found ? `/tentang/bidang/${found.slug}` : undefined };
+    return { name: field.name, image: found?.imageUrl, href: `/tentang/bidang/${field.slug}` };
   });
 
   useGSAP(() => {

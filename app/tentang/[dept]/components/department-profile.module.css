@@ -1,6 +1,16 @@
 .page { font-family: var(--font-geist), sans-serif; overflow: clip; }
 .page { isolation: isolate; background: #123d2a; }
 .panel { position: relative; width: 100%; }
+.panel:focus { outline: none; }
+.fieldDescription { min-height: 100svh; padding: 130px 7vw 90px; display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); align-items: center; gap: 7vw; transform-origin: center; }
+.fieldDescription h2 { font-size: clamp(42px,5.3vw,80px); font-weight: 500; line-height: 1.1; letter-spacing: -.045em; max-width: 8ch; }
+.fieldDescription p { font-size: clamp(20px,2vw,30px); font-weight: 300; line-height: 1.75; white-space: pre-line; overflow-wrap: anywhere; }
+.fieldDescription h2,.fieldDescription p { perspective: 500px; }
+@media(max-width:700px) {
+ .fieldDescription { grid-template-columns: 1fr; align-content: center; gap: 36px; padding: 110px 7vw 70px; }
+ .fieldDescription h2 { font-size: clamp(36px,9vw,56px); max-width: none; }
+ .fieldDescription p { font-size: 20px; }
+}
 .hero,.teamImage { min-height: 100svh; transform-origin: center center; overflow: hidden; }
 .panel > .hero { min-height: 100svh; }
 .page h1,.page h2,.page h3,.page p { margin: 0; }
@@ -34,4 +44,5 @@
  .orbit { width: 115vw; }
  .teamImage { height: 40vh; }
 }
+.title.longTitle { font-size: clamp(48px,8vw,120px); overflow-wrap: normal; }
 @media(prefers-reduced-motion:reduce) { .scroll,.scroll svg { transition:none; } }
