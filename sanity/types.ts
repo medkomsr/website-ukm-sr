@@ -2,6 +2,9 @@ import type { PortableTextBlock } from "@portabletext/react";
 import type { Image, ImageDimensions } from "sanity";
 
 export type SanitySiteSettings = {
+  kabinetNama?: string;
+  kabinetLogoUrl?: string;
+  kabinetPeriode?: string;
   namaOrg: string;
   tagline: string;
   tahunBerdiri: number;
@@ -98,6 +101,7 @@ export type SanityGalleryItem = {
 };
 
 export type SanityDeptMember = {
+  imageUrl?: string;
   name: string;
   role: string;
   fakultas: string;
@@ -111,6 +115,7 @@ export type SanityDeptDivisi = {
 };
 
 export type SanityDepartemenCard = {
+  fullName?: string;
   _id: string;
   slug: string;
   heading: string;
@@ -120,6 +125,7 @@ export type SanityDepartemenCard = {
 };
 
 export type SanityDepartemenDetail = {
+  programImages?: string[];
   _id: string;
   slug: string;
   heading: string;

@@ -11,11 +11,12 @@ export async function getAllDepartemen(): Promise<SanityDepartemenCard[]> {
   cacheTag("departemen")
 
   return client.fetch(
-    groq`*[_type == "departemen"] | order(order asc) {
+    groq`*[_type == "departemen" && coalesce(active, true)] | order(order asc) {
       _id,
       "slug": slug.current,
       heading,
       abbr,
+      fullName,
       "imageUrl": image.asset->url,
       overlay
     }`
@@ -39,8 +40,9 @@ export async function getDepartemenBySlug(slug: string): Promise<SanityDeparteme
       description,
       programs,
       programDescriptions,
-      kepala,
-      divisi
+      "programImages": programImages[].asset->url,
+      kepala { ..., "imageUrl": image.asset->url },
+      divisi[] { ..., kepala { ..., "imageUrl": image.asset->url }, staff[] { ..., "imageUrl": image.asset->url } }
     }`,
     { slug }
   )

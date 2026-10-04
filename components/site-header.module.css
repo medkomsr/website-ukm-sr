@@ -1,0 +1,16 @@
+/* Shared tokens and resets keep the homepage navigation identical in every shell. */
+.root {
+  --bg: var(--sr-bg);
+  --ink: var(--sr-ink);
+  --muted: var(--sr-muted);
+  --line: var(--sr-line);
+  --surface: var(--sr-surface);
+  --nav: var(--sr-surface);
+  color: var(--ink);
+  font-family: var(--font-display), Georgia, serif;
+}
+.root * { box-sizing: border-box; }
+.root a { color: inherit; text-decoration: none; }
+.root button { font: inherit; cursor: pointer; }
+.root :is(a, button) { -webkit-tap-highlight-color: transparent; }
+.root :is(a, button):focus-visible { outline: 2px solid #a28b51; outline-offset: 5px; }

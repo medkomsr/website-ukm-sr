@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity"
 
 const memberFields = [
+  defineField({ name: "image", title: "Foto Pengurus", type: "image", options: { hotspot: true } }),
   defineField({ name: "name", title: "Nama", type: "string" }),
   defineField({ name: "role", title: "Jabatan", type: "string" }),
   defineField({ name: "fakultas", title: "Fakultas", type: "string" }),
@@ -12,6 +13,7 @@ export const departemenSchema = defineType({
   title: "Departemen / Badan",
   type: "document",
   fields: [
+    defineField({ name: "active", title: "Tampilkan dalam kabinet aktif", type: "boolean", initialValue: true, description: "Nonaktifkan untuk menyembunyikan departemen dari daftar kabinet periode aktif." }),
     defineField({ name: "heading", title: "Label (Badan / Departemen)", type: "string", validation: (r) => r.required() }),
     defineField({ name: "abbr", title: "Singkatan", type: "string", validation: (r) => r.required() }),
     defineField({ name: "fullName", title: "Nama Lengkap", type: "string", validation: (r) => r.required() }),
@@ -21,6 +23,7 @@ export const departemenSchema = defineType({
     defineField({ name: "description", title: "Deskripsi", type: "text", rows: 4, validation: (r) => r.required() }),
     defineField({ name: "programs", title: "Program Kerja", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "programDescriptions", title: "Deskripsi Program Kerja", type: "array", of: [{ type: "text" }] }),
+    defineField({ name: "programImages", title: "Foto Program Kerja (sesuai urutan program)", type: "array", of: [{ type: "image", options: { hotspot: true } }] }),
     defineField({
       name: "kepala",
       title: "Kepala Departemen / Badan",

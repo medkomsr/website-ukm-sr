@@ -11,7 +11,8 @@ export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
   cacheTag("siteSettings")
   return client.fetch(
     `*[_type == "siteSettings"][0]{
-      namaOrg, tagline, tahunBerdiri,
+      namaOrg, tagline, tahunBerdiri, kabinetNama, kabinetPeriode,
+      "kabinetLogoUrl": kabinetLogo.asset->url,
       jumlahAnggota, jumlahPenghargaan, jumlahKegiatan,
       alamat, telepon, email,
       instagram, instagramUrl,

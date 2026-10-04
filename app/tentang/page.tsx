@@ -1,27 +1,10 @@
 import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/app/tentang/components/header";
-import AboutSection from "@/app/(home)/components/about";
-import VisiMisiSection from "@/app/tentang/components/visi-misi";
-import StrukturKepengurusanSection from "@/app/tentang/components/struktur-kepengurusan";
-import BidangSeniSection from "@/app/tentang/components/bidang-seni";
+import AboutProfile from "./components/about-profile";
 
 export default function TentangPage() {
   return (
     <SiteLayout>
-      {/* Header */}
-      <HeaderSection />
-
-      {/* About */}
-      <AboutSection variant="image" hideCta />
-
-      {/* Vision & Mission – Flip Cards */}
-      <VisiMisiSection />
-
-      {/* Struktur Kepengurusan */}
-      <StrukturKepengurusanSection />
-
-      {/* Bidang Seni */}
-      <BidangSeniSection />
+      <AboutProfile />
     </SiteLayout>
   );
 }

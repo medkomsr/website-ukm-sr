@@ -125,7 +125,7 @@
 }
 .marks {
   position: absolute;
-  top: -30vh;
+  top: calc(-27vh - 24px - 1rem);
   left: 0;
   right: 0;
   display: flex;

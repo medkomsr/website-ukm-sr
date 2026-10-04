@@ -1,0 +1,54 @@
+.section { position: relative; font-family: var(--font-geist),sans-serif; }
+.panelPin { position: relative; width: 100%; }
+.stage { transform-origin: center center; }
+.section:focus { outline: none; }
+.stage { position: relative; min-height: 100svh; padding: 110px 0 35px; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.heading { width: 86%; display: flex; align-items: center; justify-content: center; gap: 45px; margin-bottom: 25px; }
+.heading h2 { font-size: clamp(40px,5.5vw,80px); line-height: 1.1; letter-spacing: -.045em; font-weight: 500; }
+.count { display: flex; align-items: baseline; gap: 10px; }
+.count strong { font-size: clamp(30px,4vw,56px); font-weight: 400; letter-spacing: -.05em; }
+.count span { font-size: 10px; letter-spacing: .12em; }
+.gallery { width: 100%; min-width: 0; flex: 1; display: flex; flex-direction: column; align-items: center; }
+.viewport { width: 100%; min-width: 0; flex: 1; display: grid; align-items: center; perspective: 1200px; }
+.track { width: 100%; display: flex; gap: 28px; list-style: none; margin: 0; padding: 20px max(7vw,24px); overflow-x: auto; scroll-snap-type: x mandatory; touch-action: pan-y; }
+.card { flex: 0 0 min(72vw,340px); width: min(72vw,340px); background: #fffcf3; color: #123d2a; border: 1px solid #123d2a22; border-radius: 14px; overflow: hidden; scroll-snap-align: center; box-shadow: 0 20px 50px #092b241c; }
+.photo { position: relative; height: clamp(160px,28svh,290px); background: #d8e2d1; }
+.photo img { object-fit: cover; pointer-events: none; }
+.placeholder { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; background: radial-gradient(circle at 80% 0,#f3efd7,transparent 70%); color: #617758; }
+.placeholder span { font-size: 11px; letter-spacing: .08em; }
+.caption { padding: 24px; }
+.caption h3 { font-size: clamp(22px,2.1vw,30px); font-weight: 750; line-height: 1.2; letter-spacing: -.025em; margin: 0; }
+.caption p { font-size: 14px; line-height: 1.6; margin: 12px 0 0 !important; white-space: pre-line; max-height: 6.4em; overflow-y: auto; }
+.stage[data-enhanced] .track { position: relative; width: min(72vw,340px); height: min(56svh,510px); min-height: 340px; margin: auto; padding: 0; overflow: visible; cursor: grab; }
+.stage[data-enhanced] .track:active { cursor: grabbing; }
+.stage[data-enhanced] .card { position: absolute; inset: 0; will-change: transform; transform-origin: center; }
+.actions { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 26px; z-index: 2; }
+.actions button { border: 1px solid currentColor; border-radius: 50%; width: 48px; height: 48px; display: grid; place-items: center; cursor: pointer; transition: background .2s,color .2s; }
+.actions button:hover:enabled { background: #b9c8a3; color: #123d2a; }
+.actions button:disabled { opacity: .25; cursor: default; }
+.actions button:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.actions > span { font-size: 12px; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.hint { font-size: 10px; letter-spacing: .08em; opacity: .7; margin-top: 15px !important; }
+.proxy { position: absolute; visibility: hidden; }
+@media(min-width:901px) {
+ .sideLayout { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 5vw; padding: 130px 7vw 65px; align-items: start; }
+ .sideLayout .heading { width: 100%; flex-direction: column; align-items: flex-start; align-self: center; gap: 26px; margin: 0; }
+ .sideLayout .heading h2 { font-size: clamp(42px,5.3vw,80px); }
+ .sideLayout .count strong { font-size: clamp(60px,6vw,85px); }
+ .sideLayout .gallery { height: 100%; position: relative; left: clamp(16px,2vw,32px); }
+ .sideLayout .viewport { overflow: hidden; padding: 20px 0; }
+ .sideLayout .track,.sideLayout .card { width: min(28vw,340px); }
+ .sideLayout .card { flex-basis: min(28vw,340px); }
+}
+@media(max-width:700px) {
+ .stage { padding-top: 105px; padding-bottom: 30px; }
+ .heading { flex-direction: column; gap: 14px; margin-bottom: 24px; }
+ .heading h2 { font-size: clamp(36px,9vw,56px); text-align: center; }
+ .count strong { font-size: 32px; }
+ .stage[data-enhanced] .track { height: min(52svh,480px); min-height: 330px; }
+ .photo { height: clamp(160px,26svh,260px); }
+ .caption { padding: 20px; }
+ .caption p { font-size: 13px; }
+ .actions { margin-top: 22px; }
+}
+@media(prefers-reduced-motion:reduce) { .stage { min-height: auto; padding-bottom: 70px; } .track { touch-action: auto; } }
