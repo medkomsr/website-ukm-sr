@@ -174,7 +174,7 @@ const { data: activities, isLoading, error } = useAktivitas();
         </div>
       </section>
       {/* Items grid */}
-      <section className="py-10 md:py-14 min-h-[60vh]" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f4faf7 50%, #eaf5ee 100%)" }}>
+      <section className="py-10 md:py-14 min-h-[60vh]" style={{ background: "var(--sr-surface)" }}>
         <div className="max-w-6xl mx-auto px-4 md:px-8">
           <div className="mb-6 text-[13px] text-neutral-400">
             Menampilkan <span className="text-neutral-700 font-semibold">{filtered.length}</span> hasil

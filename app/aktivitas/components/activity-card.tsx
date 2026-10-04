@@ -37,9 +37,9 @@ export default function ActivityCard({ item, delay }: { item: SanityActivity; de
               <Badge
                 className="px-2.5 py-1 rounded-lg text-[11px] font-semibold h-auto backdrop-blur-sm"
                 style={{
-                  background: isEvent ? "rgba(153,27,27,0.9)" : "rgba(255,255,255,0.9)",
+                  background: isEvent ? "rgba(18,61,42,0.9)" : "rgba(255,255,255,0.9)",
                   color: isEvent ? "white" : "#262626",
-                  border: isEvent ? "1px solid rgba(153,27,27,0.5)" : "1px solid rgba(255,255,255,0.5)",
+                  border: isEvent ? "1px solid rgba(18,61,42,0.5)" : "1px solid rgba(255,255,255,0.5)",
                 }}
               >
                 {isEvent ? "Kegiatan" : "Artikel"}

@@ -9,7 +9,7 @@ import { notFound } from "next/navigation";
 function ProgramCard({ title, description, i }: { title: string; description: string; i: number }) {
   const [flipped, setFlipped] = useState(false);
   const isGreen = i % 2 === 0;
-  const frontBg = isGreen ? "linear-gradient(135deg, #0d2a1a 0%, #1a4a2e 100%)" : "linear-gradient(135deg, #420a0a 0%, #7f1d1d 100%)";
+  const frontBg = isGreen ? "linear-gradient(135deg, #0d2a1a 0%, #1a4a2e 100%)" : "linear-gradient(135deg, #123d2a, #356120)";
   const accentColor = isGreen ? "#34d399" : "#fca5a5";
 
   return (
@@ -68,7 +68,7 @@ function ProgramCard({ title, description, i }: { title: string; description: st
               WebkitBackfaceVisibility: "hidden",
               transform: "rotateY(180deg)",
               overflow: "hidden",
-              background: "linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)",
+              background: "var(--sr-surface)",
             }}
           >
             <div
@@ -97,7 +97,7 @@ function ProgramCard({ title, description, i }: { title: string; description: st
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "#0d2a1a",
+                  color: "var(--sr-ink)",
                   opacity: 0.5,
                 }}
               >
@@ -106,7 +106,7 @@ function ProgramCard({ title, description, i }: { title: string; description: st
               <p
                 style={{
                   fontSize: 12.5,
-                  color: "#374151",
+                  color: "var(--sr-muted)",
                   lineHeight: 1.6,
                   flex: 1,
                   display: "flex",
@@ -131,7 +131,7 @@ export default function ProgramKerjaSection({ dept }: { dept: string }) {
   if (!isLoading && !departemen) notFound();
 
   return (
-    <section className="py-14 md:py-20" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }}>
+    <section className="py-14 md:py-20" style={{ background: "var(--sr-surface)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <motion.div {...wivTentangDept(0)} className="mb-10">
           <span className="text-[12px] font-bold tracking-[0.2em] uppercase" style={{ color: "var(--color-maroon-500)" }}>

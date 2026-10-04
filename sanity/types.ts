@@ -135,6 +135,8 @@ export type SanityDepartemenDetail = {
 };
 
 export type SanityPrestasi = {
+  imageUrl?: string;
+  imageAlt?: string;
   _id: string;
   title: string;
   description: string;

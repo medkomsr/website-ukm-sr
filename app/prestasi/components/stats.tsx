@@ -62,7 +62,7 @@ export default function StatsSection() {
               className="flex items-center gap-4 p-5 rounded-2xl bg-neutral-50 border border-neutral-100"
             >
               <div className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: "linear-gradient(135deg,#fef2f2,#fde3e3)" }}>
+                style={{ background: "var(--sr-surface)" }}>
                 <Icon size={20} style={{ color: "var(--color-maroon-500)" }} />
               </div>
               <div>

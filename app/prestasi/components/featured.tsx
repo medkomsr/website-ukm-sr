@@ -6,18 +6,18 @@ import { useFeaturedPrestasi } from "@/hooks/usePrestasi";
 import type { SanityPrestasi } from "@/sanity/types";
 
 const CATEGORY_CONFIG = {
-  Kompetisi:    { label: "Kompetisi",   icon: Trophy,     color: "#166534", bg: "#f0fdf4" },
-  Penghargaan:  { label: "Penghargaan", icon: Star,       color: "#d97706", bg: "#fffbeb" },
-  Kolaborasi:   { label: "Kolaborasi",  icon: Handshake,  color: "#0d7a6e", bg: "#f0fdfa" },
-  "Rekam Jejak":{ label: "Rekam Jejak", icon: BookMarked, color: "#4d7c0f", bg: "#f7fee7" },
+  Kompetisi:    { label: "Kompetisi",   icon: Trophy,     color: "var(--sr-link)", bg: "var(--sr-surface)" },
+  Penghargaan:  { label: "Penghargaan", icon: Star,       color: "var(--sr-link)", bg: "var(--sr-surface)" },
+  Kolaborasi:   { label: "Kolaborasi",  icon: Handshake,  color: "var(--sr-link)", bg: "var(--sr-surface)" },
+  "Rekam Jejak":{ label: "Rekam Jejak", icon: BookMarked, color: "var(--sr-link)", bg: "var(--sr-surface)" },
 };
 
 const LEVEL_CONFIG = {
-  Kampus:        { color: "#525252", bg: "#f5f5f5",  ring: "#d4d4d4" },
-  Kota:          { color: "#0369a1", bg: "#eff6ff",  ring: "#bfdbfe" },
-  Provinsi:      { color: "#059669", bg: "#f0fdf4",  ring: "#bbf7d0" },
-  Nasional:      { color: "#b45309", bg: "#fffbeb",  ring: "#fde68a" },
-  Internasional: { color: "#166534", bg: "#f0fdf4",  ring: "#bbf7d0" },
+  Kampus:        { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Kota:          { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Provinsi:      { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Nasional:      { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Internasional: { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
 };
 
 function FeaturedCard({ item, delay = 0 }: { item: SanityPrestasi; delay?: number }) {
@@ -98,7 +98,7 @@ export default function FeaturedSection() {
   if (isLoading || !featured?.length) return null;
 
   return (
-    <section className="py-12 md:py-16" style={{ background: "linear-gradient(135deg,#f9f9f3 0%,#f3f0e6 100%)" }}>
+    <section className="py-12 md:py-16" style={{ background: "var(--sr-surface)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}

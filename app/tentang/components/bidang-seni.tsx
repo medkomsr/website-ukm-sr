@@ -54,7 +54,7 @@ function BidangCard({ bidang }: { bidang: SanityBidang }) {
               fontSize: 64,
               fontWeight: 400,
               lineHeight: 1.1,
-              color: "#F59E0B",
+              color: "var(--sr-link)",
               textShadow: "0 2px 18px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.30)",
               letterSpacing: "0.01em",
             }}
@@ -94,7 +94,7 @@ export default function BidangSeniSection() {
     <section
       id="bidang-seni"
       className="py-16 md:py-24"
-      style={{ background: "linear-gradient(135deg, #fef2f2 0%, #fde8d8 100%)" }}
+      style={{ background: "var(--sr-surface)" }}
     >
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="text-center mb-12">

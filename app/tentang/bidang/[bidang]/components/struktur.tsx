@@ -47,7 +47,7 @@ function BidangMemberCard({
           width: w,
           height: photoH,
           borderRadius: 16,
-          background: "linear-gradient(160deg, #1e2a3a 0%, #2c3e50 65%, #1a2535 100%)",
+          background: "linear-gradient(160deg, #123d2a, #245b32)",
           border,
           display: "flex",
           alignItems: "center",
@@ -103,7 +103,7 @@ function BidangMemberCard({
           fontStyle: "italic",
           fontWeight: 700,
           fontSize: nameFs,
-          color: "#0d2a1a",
+          color: "var(--sr-ink)",
           marginBottom: 4,
           lineHeight: 1.35,
         }}
@@ -112,12 +112,12 @@ function BidangMemberCard({
       </p>
 
       {/* Role */}
-      <p style={{ fontSize: roleFs, color: "#374151", lineHeight: 1.3, fontWeight: 500 }}>
+      <p style={{ fontSize: roleFs, color: "var(--sr-muted)", lineHeight: 1.3, fontWeight: 500 }}>
         {role}
       </p>
 
       {/* Fakultas – Angkatan */}
-      <p style={{ fontSize: roleFs - 1, color: "#9ca3af", lineHeight: 1.3, marginTop: 2 }}>
+      <p style={{ fontSize: roleFs - 1, color: "var(--sr-muted)", lineHeight: 1.3, marginTop: 2 }}>
         {fakultas} – {angkatan}
       </p>
     </motion.div>

@@ -67,13 +67,13 @@ function GalleryCard({ item, delay }: { item: SanityBidangGalleryItem; delay: nu
 export default function GaleriSection({ slug }: { slug: string }) {
   const { data, isLoading } = useBidangBySlug(slug);
 
-  if (isLoading) return <section className="py-14 md:py-20 min-h-[400px]" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }} />;
+  if (isLoading) return <section className="py-14 md:py-20 min-h-[400px]" style={{ background: "var(--sr-surface)" }} />;
   if (!data) return notFound();
 
   return (
     <section
       className="py-14 md:py-20"
-      style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }}
+      style={{ background: "var(--sr-surface)" }}
     >
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <motion.div {...wivTentangDept(0)} className="mb-10 text-center">

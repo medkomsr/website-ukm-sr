@@ -19,15 +19,15 @@ function InfoPill({ icon: Icon, label, value }: { icon: React.ElementType; label
     >
       <div
         className="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center"
-        style={{ background: "linear-gradient(135deg, #fef2f2 0%, #fde3e3 100%)" }}
+        style={{ background: "var(--sr-surface)" }}
       >
         <Icon size={16} style={{ color: "var(--color-maroon-500)" }} />
       </div>
       <div>
-        <p style={{ fontSize: 11, color: "#9ca3af", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 2 }}>
+        <p style={{ fontSize: 11, color: "var(--sr-muted)", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 2 }}>
           {label}
         </p>
-        <p style={{ fontSize: 14, color: "#111827", fontWeight: 600, lineHeight: 1.4 }}>{value}</p>
+        <p style={{ fontSize: 14, color: "var(--sr-ink)", fontWeight: 600, lineHeight: 1.4 }}>{value}</p>
       </div>
     </motion.div>
   );
@@ -60,14 +60,14 @@ function AgendaSection({ agenda }: { agenda: SanityActivity["agenda"] }) {
             >
               <div
                 className="absolute -left-[calc(2.5rem-2px)] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 flex items-center justify-center"
-                style={{ background: "white", borderColor: "var(--color-maroon-300)" }}
+                style={{ background: "var(--sr-surface)", borderColor: "var(--color-maroon-300)" }}
               >
                 <div className="w-1.5 h-1.5 rounded-full" style={{ background: "var(--color-maroon-500)" }} />
               </div>
               <span className="shrink-0 text-[12px] font-bold tabular-nums" style={{ color: "var(--color-maroon-500)", minWidth: 110 }}>
                 {row.time}
               </span>
-              <span style={{ fontSize: 14, color: "#374151", lineHeight: 1.5 }}>{row.item}</span>
+              <span style={{ fontSize: 14, color: "var(--sr-muted)", lineHeight: 1.5 }}>{row.item}</span>
             </motion.div>
           ))}
         </div>
@@ -132,7 +132,7 @@ export default function ContentSection({ slug }: { slug: string }) {
             <motion.div {...wivGeneral(0)} className="mb-10">
               <p
                 className="text-[17px] md:text-[18px] leading-relaxed"
-                style={{ color: "#374151", borderLeft: "3px solid var(--color-maroon-400)", paddingLeft: 20 }}
+                style={{ color: "var(--sr-muted)", borderLeft: "3px solid var(--color-maroon-400)", paddingLeft: 20 }}
               >
                 {activity.longDescription ?? activity.description}
               </p>
@@ -155,12 +155,12 @@ export default function ContentSection({ slug }: { slug: string }) {
             {/* Tags */}
             {activity.tags && activity.tags.length > 0 && (
               <motion.div {...wivGeneral(0.1)} className="flex flex-wrap items-center gap-2 pt-6 border-t border-neutral-100">
-                <Tag size={13} style={{ color: "#9ca3af" }} />
+                <Tag size={13} style={{ color: "var(--sr-muted)" }} />
                 {activity.tags.map((t) => (
                   <span
                     key={t}
                     className="px-3 py-1 rounded-full text-[12px] font-medium transition-colors duration-200 cursor-default hover:bg-[color-mix(in_srgb,var(--color-maroon-500)_12%,transparent)]"
-                    style={{ background: "#f5f5f5", color: "#525252" }}
+                    style={{ background: "var(--sr-surface)", color: "var(--sr-muted)" }}
                   >
                     {t}
                   </span>
@@ -173,7 +173,7 @@ export default function ContentSection({ slug }: { slug: string }) {
               <motion.div
                 {...wivGeneral(0.12)}
                 className="mt-8 p-5 rounded-2xl flex items-center gap-4"
-                style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #eaf5ee 100%)", border: "1px solid #d1fae5" }}
+                style={{ background: "var(--sr-surface)", border: "1px solid #d1fae5" }}
               >
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
@@ -188,8 +188,8 @@ export default function ContentSection({ slug }: { slug: string }) {
                   </span>
                 </div>
                 <div>
-                  <p style={{ fontSize: 14, fontWeight: 700, color: "#0d2a1a" }}>{activity.author.name}</p>
-                  <p style={{ fontSize: 12, color: "#6b7280" }}>{activity.author.role}</p>
+                  <p style={{ fontSize: 14, fontWeight: 700, color: "var(--sr-ink)" }}>{activity.author.name}</p>
+                  <p style={{ fontSize: 12, color: "var(--sr-muted)" }}>{activity.author.role}</p>
                 </div>
               </motion.div>
             )}
@@ -216,7 +216,7 @@ export default function ContentSection({ slug }: { slug: string }) {
                 <p style={{ fontSize: 13, color: "rgba(255,255,255,0.75)", marginBottom: 12 }}>Jangan lewatkan acara ini!</p>
                 <button
                   className="w-full py-3 rounded-xl text-[13px] font-bold cursor-pointer border-none transition-all duration-300 hover:brightness-110 active:scale-95"
-                  style={{ background: "linear-gradient(135deg, var(--color-maroon-600) 0%, var(--color-maroon-500) 100%)", color: "white" }}
+                  style={{ background: "var(--sr-metal)", color: "#173b28" }}
                 >
                   Daftar Sekarang
                 </button>
@@ -227,9 +227,9 @@ export default function ContentSection({ slug }: { slug: string }) {
             )}
 
             {isEvent && activity.status === "completed" && (
-              <motion.div {...wivGeneral(0.1)} className="p-5 rounded-2xl flex items-center gap-3" style={{ background: "#f5f5f5" }}>
-                <CheckCircle2 size={18} style={{ color: "#9ca3af" }} />
-                <p style={{ fontSize: 13, color: "#6b7280", fontWeight: 500 }}>Acara ini telah selesai diselenggarakan.</p>
+              <motion.div {...wivGeneral(0.1)} className="p-5 rounded-2xl flex items-center gap-3" style={{ background: "var(--sr-surface)" }}>
+                <CheckCircle2 size={18} style={{ color: "var(--sr-muted)" }} />
+                <p style={{ fontSize: 13, color: "var(--sr-muted)", fontWeight: 500 }}>Acara ini telah selesai diselenggarakan.</p>
               </motion.div>
             )}
 
@@ -237,7 +237,7 @@ export default function ContentSection({ slug }: { slug: string }) {
               <motion.div
                 {...wivGeneral(0.1)}
                 className="p-5 rounded-2xl flex items-center gap-3"
-                style={{ background: "linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)", border: "1px solid #fde68a" }}
+                style={{ background: "var(--sr-surface)", border: "1px solid #fde68a" }}
               >
                 <Circle size={14} className="animate-pulse" style={{ color: "#d97706", fill: "#fbbf24" }} />
                 <p style={{ fontSize: 13, color: "#92400e", fontWeight: 600 }}>Sedang berlangsung</p>
@@ -248,7 +248,7 @@ export default function ContentSection({ slug }: { slug: string }) {
             <Link
               href="/aktivitas"
               className="no-underline flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-semibold border-2 transition-all duration-300 hover:bg-(--color-neutral-1000) hover:text-white hover:border-(--color-neutral-1000)"
-              style={{ borderColor: "#e5e5e5", color: "#525252" }}
+              style={{ borderColor: "#e5e5e5", color: "var(--sr-muted)" }}
             >
               <ArrowLeft size={14} />
               Kembali ke Aktivitas

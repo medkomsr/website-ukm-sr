@@ -61,7 +61,7 @@ function FlipCard({
               width: 60,
               height: 60,
               borderRadius: 16,
-              background: "#F59E0B",
+              background: "var(--sr-yellow)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -92,7 +92,7 @@ function FlipCard({
             WebkitBackfaceVisibility: "hidden",
             transform: `rotateY(${backInitial}deg)`,
             overflow: "hidden",
-            background: "linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)",
+            background: "var(--sr-surface)",
             userSelect: "none",
           }}
         >
@@ -124,7 +124,7 @@ export default function VisiMisiSection() {
   const visi = visiMisi?.visi 
   const misi = visiMisi?.misi
   return (
-    <section className="py-16 md:py-20" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f0f9f4 100%)" }}>
+    <section className="py-16 md:py-20" style={{ background: "var(--sr-surface)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <motion.div {...wivTentang(0)} className="text-center mb-10">
           <p className="text-[12px] uppercase tracking-[0.2em] font-bold mb-2" style={{ color: "var(--color-maroon-500)" }}>
@@ -143,11 +143,11 @@ export default function VisiMisiSection() {
             title="Visi"
             back={
               <>
-                <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "#0d2a1a", marginBottom: 12 }}>Visi Kami</p>
-                <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7 }}>
+                <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "var(--sr-ink)", marginBottom: 12 }}>Visi Kami</p>
+                <p style={{ fontSize: 14, color: "var(--sr-muted)", lineHeight: 1.7 }}>
                 {visi}
                 </p>
-                <div style={{ marginTop: 20, height: 2, width: 40, background: "#F59E0B", borderRadius: 2 }} />
+                <div style={{ marginTop: 20, height: 2, width: 40, background: "var(--sr-yellow)", borderRadius: 2 }} />
               </>
             }
           />
@@ -155,16 +155,16 @@ export default function VisiMisiSection() {
           {/* Misi – flips to the right */}
           <FlipCard
             direction="right"
-            frontBg="linear-gradient(135deg, #420a0a 0%, #7f1d1d 100%)"
+            frontBg="linear-gradient(135deg, #123d2a, #356120)"
             icon={<Award size={26} color="#420a0a" strokeWidth={2.5} />}
             title="Misi"
             back={
               <>
-                <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "#420a0a", marginBottom: 14 }}>Misi Kami</p>
+                <p style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 22, color: "var(--sr-ink)", marginBottom: 14 }}>Misi Kami</p>
                 <ul style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                   {misi?.map((m, i) => (
-                    <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: "#374151", lineHeight: 1.6 }}>
-                      <span style={{ minWidth: 20, height: 20, borderRadius: "50%", background: "#991b1b", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, marginTop: 1 }}>
+                    <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 13, color: "var(--sr-muted)", lineHeight: 1.6 }}>
+                      <span style={{ minWidth: 20, height: 20, borderRadius: "50%", background: "#176333", color: "white", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, marginTop: 1 }}>
                         {i + 1}
                       </span>
                       {m}

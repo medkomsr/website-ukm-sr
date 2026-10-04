@@ -13,7 +13,7 @@ export default function HeaderSection() {
   return (
     <section
       className="pt-12 pb-14 border-b border-neutral-200 relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #fcfbe6 0%, #f6f1c8 50%, #f0eaa8 100%)" }}
+      style={{ background: "var(--sr-surface)" }}
     >
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="flex items-center gap-2 text-[12px] text-neutral-400 mb-6">

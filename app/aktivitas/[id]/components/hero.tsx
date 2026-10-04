@@ -53,7 +53,7 @@ export default function HeroSection({ slug }: { slug: string}) {
           <span
             className="px-3 py-1 rounded-full text-[11px] font-bold backdrop-blur-sm"
             style={{
-              background: isEvent ? "rgba(153,27,27,0.85)" : "rgba(255,255,255,0.2)",
+              background: isEvent ? "rgba(18,61,42,0.85)" : "rgba(255,255,255,0.2)",
               color: "white",
               border: "1px solid rgba(255,255,255,0.3)",
             }}

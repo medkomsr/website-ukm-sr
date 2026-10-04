@@ -10,18 +10,18 @@ type Category = SanityPrestasi["category"];
 type Level    = SanityPrestasi["level"];
 
 const CATEGORY_CONFIG: Record<Category, { label: string; icon: React.ElementType; color: string; bg: string }> = {
-  Kompetisi:    { label: "Kompetisi",   icon: Trophy,     color: "#166534", bg: "#f0fdf4" },
-  Penghargaan:  { label: "Penghargaan", icon: Star,       color: "#d97706", bg: "#fffbeb" },
-  Kolaborasi:   { label: "Kolaborasi",  icon: Handshake,  color: "#0d7a6e", bg: "#f0fdfa" },
-  "Rekam Jejak":{ label: "Rekam Jejak", icon: BookMarked, color: "#4d7c0f", bg: "#f7fee7" },
+  Kompetisi:    { label: "Kompetisi",   icon: Trophy,     color: "var(--sr-link)", bg: "var(--sr-surface)" },
+  Penghargaan:  { label: "Penghargaan", icon: Star,       color: "var(--sr-link)", bg: "var(--sr-surface)" },
+  Kolaborasi:   { label: "Kolaborasi",  icon: Handshake,  color: "var(--sr-link)", bg: "var(--sr-surface)" },
+  "Rekam Jejak":{ label: "Rekam Jejak", icon: BookMarked, color: "var(--sr-link)", bg: "var(--sr-surface)" },
 };
 
 const LEVEL_CONFIG: Record<Level, { color: string; bg: string; ring: string }> = {
-  Kampus:        { color: "#525252", bg: "#f5f5f5",  ring: "#d4d4d4" },
-  Kota:          { color: "#0369a1", bg: "#eff6ff",  ring: "#bfdbfe" },
-  Provinsi:      { color: "#059669", bg: "#f0fdf4",  ring: "#bbf7d0" },
-  Nasional:      { color: "#b45309", bg: "#fffbeb",  ring: "#fde68a" },
-  Internasional: { color: "#166534", bg: "#f0fdf4",  ring: "#bbf7d0" },
+  Kampus:        { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Kota:          { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Provinsi:      { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Nasional:      { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
+  Internasional: { color: "var(--sr-link)", bg: "var(--sr-surface)",  ring: "var(--sr-line)" },
 };
 
 const POSITION_STYLE: Record<string, { bg: string; color: string }> = {
@@ -48,7 +48,7 @@ function AchievementCard({ item, delay = 0 }: { item: SanityPrestasi; delay?: nu
       className="group relative bg-white rounded-2xl border border-neutral-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-400 flex flex-col h-full"
     >
       {/* Top accent bar */}
-      <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${cat.color}99 0%, ${cat.color} 60%, transparent 100%)` }} />
+      <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, transparent 0%, ${cat.color} 60%, transparent 100%)` }} />
 
       <div className="p-5 flex flex-col flex-1 gap-3">
         {/* Badge row */}
@@ -166,8 +166,8 @@ export default function TimelineSection() {
                     className="px-3 py-1.5 rounded-lg text-[12px] cursor-pointer border transition-all duration-200 inline-flex items-center gap-1.5"
                     style={{
                       fontWeight: active ? 700 : 500,
-                      background: active ? (cfg ? cfg.color : "#0d2a1a") : "white",
-                      color: active ? "white" : "#525252",
+                      background: active ? "var(--sr-yellow)" : "var(--sr-surface)",
+                      color: active ? "#173b28" : "var(--sr-muted)",
                       borderColor: active ? (cfg ? cfg.color : "#0d2a1a") : "#e5e5e5",
                     }}
                   >
@@ -189,8 +189,8 @@ export default function TimelineSection() {
                     className="px-3 py-1.5 rounded-lg text-[12px] cursor-pointer border transition-all duration-200"
                     style={{
                       fontWeight: active ? 700 : 500,
-                      background: active ? (lvcfg ? lvcfg.color : "#0d2a1a") : "white",
-                      color: active ? "white" : "#525252",
+                      background: active ? "var(--sr-yellow)" : "var(--sr-surface)",
+                      color: active ? "#173b28" : "var(--sr-muted)",
                       borderColor: active ? (lvcfg ? lvcfg.ring : "#0d2a1a") : "#e5e5e5",
                     }}
                   >
@@ -232,7 +232,7 @@ export default function TimelineSection() {
                 <div key={year} className="mb-12">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 font-extrabold text-[15px]"
-                      style={{ background: "linear-gradient(135deg,#0d2a1a,#1a4a2e)", color: "#F59E0B" }}>
+                      style={{ background: "linear-gradient(135deg,#0d2a1a,#1a4a2e)", color: "var(--sr-link)" }}>
                       {String(year).slice(2)}
                     </div>
                     <div>

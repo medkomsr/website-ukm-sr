@@ -1,4 +1,4 @@
-import ReplicaHome from "./components/replica-home";
+import SrHome from "./components/sr-home";
 export default function Home() {
-  return <ReplicaHome />;
+  return <SrHome />;
 }

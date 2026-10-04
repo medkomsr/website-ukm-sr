@@ -9,7 +9,7 @@ export default function CatalogHeader() {
       className="relative overflow-hidden border-b border-neutral-200 pt-12 pb-14"
       style={{
         background:
-          "linear-gradient(135deg, #fcfbe6 0%, #f6f1c8 50%, #f0eaa8 100%)",
+          "var(--sr-surface)",
       }}
       aria-labelledby="catalog-title"
     >

@@ -1,10 +1,18 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 export const prestasiSchema = defineType({
   name: "prestasi",
   title: "Prestasi",
   type: "document",
   fields: [
+    defineField({
+      name: "image",
+      title: "Foto Kabar Prestasi",
+      type: "image",
+      options: { hotspot: true },
+      description: "Foto utama untuk kartu kabar prestasi di beranda.",
+      fields: [{ name: "alt", title: "Deskripsi foto", type: "string" }],
+    }),
     defineField({
       name: "title",
       title: "Judul Prestasi",
@@ -76,14 +84,16 @@ export const prestasiSchema = defineType({
       title: "Tampilkan di Unggulan",
       type: "boolean",
       initialValue: false,
-      description: "Jika diaktifkan, prestasi ini akan ditampilkan di bagian unggulan halaman prestasi",
+      description:
+        "Jika diaktifkan, prestasi ini akan ditampilkan di bagian unggulan halaman prestasi",
     }),
     defineField({
       name: "article",
       title: "Artikel Terkait",
       type: "reference",
       to: [{ type: "artikel" }, { type: "event" }],
-      description: "Hubungkan dengan artikel atau event yang terkait (opsional)",
+      description:
+        "Hubungkan dengan artikel atau event yang terkait (opsional)",
     }),
     defineField({
       name: "order",
@@ -114,7 +124,7 @@ export const prestasiSchema = defineType({
       return {
         title,
         subtitle: `${subtitle} · ${description}`,
-      }
+      };
     },
   },
-})
+});

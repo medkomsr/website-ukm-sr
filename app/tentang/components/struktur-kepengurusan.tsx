@@ -48,7 +48,7 @@ function DeptCard({
               fontSize: featured ? 82 : 64,
               fontWeight: 400,
               lineHeight: 1.1,
-              color: "#F59E0B",
+              color: "var(--sr-link)",
               textShadow: "0 2px 18px rgba(0,0,0,0.45), 0 1px 4px rgba(0,0,0,0.30)",
               letterSpacing: "0.01em",
             }}
@@ -61,7 +61,7 @@ function DeptCard({
         <Link
           href={`/tentang/${slug}`}
           className="px-7 py-2.5 rounded-full text-[13px] font-semibold border-2 no-underline transition-all duration-300 inline-block"
-          style={{ borderColor: "#0d2a1a", color: "#0d2a1a", background: "transparent" }}
+          style={{ borderColor: "var(--sr-ink)", color: "var(--sr-ink)", background: "transparent" }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLElement;
             el.style.background = "#0d2a1a";
@@ -116,7 +116,7 @@ export default function StrukturKepengurusanSection() {
 
     const { data: allDepartemen, isLoading, error } = useDepartemen();
   return (
-    <section className="py-16 md:py-24" style={{ background: "linear-gradient(135deg, #f9f9f3 0%, #f3f0e6 100%)" }}>
+    <section className="py-16 md:py-24" style={{ background: "var(--sr-surface)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <div className="text-center mb-12">
           <motion.span

@@ -16,7 +16,7 @@ export default function FAQSection() {
   const faqs = (faq?.length ?? 0) > 0 ? faq! : DEFAULT_FAQS;
 
   return (
-    <section className="py-12 md:py-16" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f0f9f4 100%)" }}>
+    <section className="py-12 md:py-16" style={{ background: "var(--sr-surface)" }}>
       <div className="max-w-3xl mx-auto px-4 md:px-8">
         <div className="text-center mb-10">
           <span className="inline-block text-[12px] font-bold tracking-[0.2em] uppercase mb-3 text-lime-600">FAQ</span>

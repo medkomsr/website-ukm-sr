@@ -8,7 +8,7 @@ import type { SanityActivity } from "../types"
 const activityProjection = groq`{
   _id,
   "slug": slug.current,
-  "type": _type,
+  "type": select(_type == "artikel" => "article", _type),
   title,
   description,
   longDescription,

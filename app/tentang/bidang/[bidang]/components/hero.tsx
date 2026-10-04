@@ -47,7 +47,7 @@ export default function HeroSection({ slug }: { slug: string }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="inline-block text-[12px] font-bold tracking-[0.2em] uppercase mb-4"
-          style={{ color: "#F59E0B" }}
+          style={{ color: "var(--sr-yellow)" }}
         >
           {data.heading} Seni
         </motion.span>

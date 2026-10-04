@@ -27,7 +27,7 @@ function RelatedCard({ item }: { item: SanityActivity }) {
             <Badge
               className="px-2 py-0.5 rounded-md text-[10px] font-semibold h-auto backdrop-blur-sm"
               style={{
-                background: isEvent ? "rgba(153,27,27,0.9)" : "rgba(255,255,255,0.9)",
+                background: isEvent ? "rgba(18,61,42,0.9)" : "rgba(255,255,255,0.9)",
                 color: isEvent ? "white" : "#262626",
                 border: "none",
               }}
@@ -67,7 +67,7 @@ export default function RelatedSection({ slug }: { slug: string }) {
   if (!isLoading && (!related || related.length === 0)) return null;
 
   return (
-    <section className="py-12 md:py-16 border-t border-neutral-100" style={{ background: "linear-gradient(135deg, #f9fdfb 0%, #f0f9f4 100%)" }}>
+    <section className="py-12 md:py-16 border-t border-neutral-100" style={{ background: "var(--sr-surface)" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <motion.div {...wivGeneral(0)} className="mb-8">
           <span className="text-[12px] font-bold tracking-[0.2em] uppercase" style={{ color: "var(--color-maroon-500)" }}>

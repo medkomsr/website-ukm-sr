@@ -9,7 +9,7 @@ export default function BackSection() {
         <Link
           href="/tentang"
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-[13px] font-semibold no-underline transition-all duration-300 border-2"
-          style={{ borderColor: "#0d2a1a", color: "#0d2a1a", background: "transparent" }}
+          style={{ borderColor: "var(--sr-ink)", color: "var(--sr-ink)", background: "transparent" }}
           onMouseEnter={(e) => {
             const el = e.currentTarget as HTMLElement;
             el.style.background = "#0d2a1a";
