@@ -142,6 +142,15 @@ export type SanityDepartemenDetail = {
 };
 
 export type SanityPrestasi = {
+  field?: string;
+  articleSlug?: string;
+  participants?: Array<{
+    _key: string;
+    name: string;
+    faculty?: string;
+    imageUrl?: string;
+    quote?: string;
+  }>;
   imageUrl?: string;
   imageAlt?: string;
   _id: string;

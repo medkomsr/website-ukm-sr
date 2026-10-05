@@ -13,7 +13,7 @@ const nav = [
   ["Beranda", "/#main-content"],
   ["Tentang kami", "/tentang"],
   ["Berita & acara", "/aktivitas"],
-  ["Prestasi", "/#publications"],
+  ["Prestasi", "/prestasi"],
   ["Hubungi kami", "/kontak"],
 ];
 

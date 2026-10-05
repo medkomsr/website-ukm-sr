@@ -13,6 +13,9 @@ export async function getAllPrestasi(): Promise<SanityPrestasi[]> {
   return client.fetch(
     groq`*[_type == "prestasi"] | order(year desc, order asc) {
       _id,
+      field,
+      "articleSlug": article->slug.current,
+      "participants": participants[]{ _key, name, faculty, quote, "imageUrl": image.asset->url },
       title,
       "imageUrl": image.asset->url,
       "imageAlt": image.alt,
@@ -37,6 +40,9 @@ export async function getFeaturedPrestasi(): Promise<SanityPrestasi[]> {
   return client.fetch(
     groq`*[_type == "prestasi" && featured == true] | order(year desc) {
       _id,
+      field,
+      "articleSlug": article->slug.current,
+      "participants": participants[]{ _key, name, faculty, quote, "imageUrl": image.asset->url },
       title,
       "imageUrl": image.asset->url,
       "imageAlt": image.alt,
@@ -63,6 +69,9 @@ export async function getPrestasiByYear(
   return client.fetch(
     groq`*[_type == "prestasi" && year == $year] | order(order asc) {
       _id,
+      field,
+      "articleSlug": article->slug.current,
+      "participants": participants[]{ _key, name, faculty, quote, "imageUrl": image.asset->url },
       title,
       "imageUrl": image.asset->url,
       "imageAlt": image.alt,
