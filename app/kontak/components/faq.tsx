@@ -1,46 +1,39 @@
 "use client";
 
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useFaq } from "@/hooks/useFaq";
-import { SanityFaq } from "@/sanity/types";
-import { motion } from "framer-motion";
+import s from "./contact.module.css";
 
-const DEFAULT_FAQS: SanityFaq[] = [
-  { _id: "1", pertanyaan: "Apakah harus memiliki pengalaman seni sebelumnya?", jawaban: "Tidak. Kami menerima semua mahasiswa yang berminat, baik pemula maupun yang sudah berpengalaman. Setiap divisi memiliki program pelatihan dari dasar." },
-  { _id: "2", pertanyaan: "Di mana lokasi sekretariat UKM?", jawaban: "Sekretariat kami berada di Gedung PKM Lantai 2, Universitas Brawijaya. Silakan datang pada jam operasional untuk informasi lebih lanjut." },
-  { _id: "3", pertanyaan: "Bagaimana jika saya ingin mengundang UKM untuk tampil di acara?", jawaban: "Silakan isi formulir kontak di halaman ini atau hubungi kami melalui WhatsApp. Tim kami akan merespons dalam 1×24 jam kerja." },
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+const DEFAULT_FAQS = [
+  { _id: "collaboration", pertanyaan: "Bagaimana cara mengajukan kerja sama?", jawaban: "Pilih keperluan Kerja sama, lalu ceritakan ide, nama instansi atau komunitas, dan rencana waktunya. Kirim request melalui formulir. Tim Seni Religi akan meninjau pesan dan menghubungi Anda melalui email yang dicantumkan." },
+  { _id: "media", pertanyaan: "Apa yang perlu disiapkan untuk media partner?", jawaban: "Sertakan nama dan gambaran acara, tanggal pelaksanaan, akun media sosial, serta bentuk publikasi yang diharapkan. Jika sudah ada proposal, Anda dapat menyertakan tautannya di pesan atau menambahkannya melalui tombol lampiran." },
+  { _id: "performance", pertanyaan: "Bisakah mengundang Seni Religi untuk tampil?", jawaban: "Anda dapat menyampaikan undangan melalui pilihan Undangan tampil. Jelaskan konsep acara, lokasi, tanggal, dan bidang yang ingin diundang agar tim dapat meninjau kebutuhan serta ketersediaannya." },
 ];
 
 export default function FAQSection() {
-  const { data: faq, isLoading: isLoadingSiteSettings, error: errorSiteSettings } = useFaq();
-  const faqs = (faq?.length ?? 0) > 0 ? faq! : DEFAULT_FAQS;
-
-  return (
-    <section className="py-12 md:py-16" style={{ background: "var(--sr-surface)" }}>
-      <div className="max-w-3xl mx-auto px-4 md:px-8">
-        <div className="text-center mb-10">
-          <span className="inline-block text-[12px] font-bold tracking-[0.2em] uppercase mb-3 text-lime-600">FAQ</span>
-          <h2 className="text-[24px] md:text-[32px] font-bold text-(--color-neutral-1000)" style={{ fontFamily: "var(--font-display)" }}>
-            Pertanyaan yang Sering Diajukan
-          </h2>
-        </div>
-        <Accordion type="single" collapsible className="space-y-3">
-          {faqs.map((faq, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-            >
-              <AccordionItem value={`faq-${i}`} className="bg-white rounded-2xl border border-neutral-100 px-5 not-last:border-b-0">
-                <AccordionTrigger className="text-[14px] font-semibold text-(--color-neutral-1000) hover:no-underline py-4">{faq.pertanyaan}</AccordionTrigger>
-                <AccordionContent className="text-[14px] text-neutral-600 leading-relaxed">{faq.jawaban}</AccordionContent>
-              </AccordionItem>
-            </motion.div>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  );
+  const root = useRef<HTMLElement>(null);
+  const { data } = useFaq();
+  const faqs = data?.length ? data : DEFAULT_FAQS;
+  useGSAP(() => {
+    const media = gsap.matchMedia();
+    media.add("(prefers-reduced-motion: no-preference)", () => {
+      gsap.from("[data-faq-reveal]", { y: 24, autoAlpha: 0, duration: .8, stagger: .1, ease: "power3.out",
+        scrollTrigger: { trigger: root.current, start: "top 85%", once: true } });
+    });
+    return () => media.revert();
+  }, { scope: root });
+  return <section ref={root} className={s.faq} data-tone="cream" aria-labelledby="contact-faq-title">
+    <div className={s.faqTitle} data-faq-reveal><h2 id="contact-faq-title">FAQ</h2></div>
+    <Accordion type="single" collapsible className={s.accordion}>
+      {faqs.map((faq, index) => <AccordionItem key={faq._id} value={faq._id} className={s.faqItem} data-faq-reveal>
+        <AccordionTrigger className={s.faqTrigger}><span className={s.faqNumber}>0{index + 1}</span><span>{faq.pertanyaan}</span></AccordionTrigger>
+        <AccordionContent className={s.faqAnswer}>{faq.jawaban}</AccordionContent>
+      </AccordionItem>)}
+    </Accordion>
+  </section>;
 }
