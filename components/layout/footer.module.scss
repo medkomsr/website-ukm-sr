@@ -1,0 +1,58 @@
+.root {
+  font-family: var(--font-display), Georgia, serif;
+}
+.root a {
+  text-decoration: none;
+}
+.root button {
+  cursor: pointer;
+  font: inherit;
+}
+.root :is(a, button):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+.dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(560px, calc(100vw - 32px));
+  max-height: 85dvh;
+  border: 0;
+  border-radius: 24px;
+  padding: 40px;
+  background: #fffcf3;
+  color: #123d2a;
+  font-family: var(--font-geist), sans-serif;
+}
+.dialog::backdrop {
+  background: #08271dcc;
+  backdrop-filter: blur(6px);
+}
+.dialog h2 {
+  font-size: 28px;
+  margin: 16px 0 24px;
+}
+.dialog p {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+.dialog a {
+  display: inline-flex;
+  gap: 16px;
+  align-items: center;
+  border-bottom: 1px solid;
+  padding-bottom: 6px;
+}
+.close {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  padding: 8px;
+}
+@media (max-width: 600px) {
+  .dialog {
+    padding: 36px 24px;
+  }
+}

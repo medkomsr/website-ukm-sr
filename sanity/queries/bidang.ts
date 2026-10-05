@@ -1,14 +1,14 @@
 "use server";
 
-import { groq } from "next-sanity"
-import { client } from "../client"
-import { cacheLife, cacheTag } from "next/cache"
-import type { SanityBidang } from "../types"
+import { groq } from "next-sanity";
+import { client } from "@/sanity/client";
+import { cacheLife, cacheTag } from "next/cache";
+import type { SanityBidang } from "@/sanity/types";
 
 export async function getAllBidang(): Promise<SanityBidang[]> {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("bidang")
+  "use cache";
+  cacheLife("hours");
+  cacheTag("bidang");
 
   return client.fetch(
     groq`*[_type == "bidang"] | order(order asc) {
@@ -28,14 +28,14 @@ export async function getAllBidang(): Promise<SanityBidang[]> {
       ketuaBidang,
       wakilKetuaBidang,
       order
-    }`
-  )
+    }`,
+  );
 }
 
 export async function getBidangBySlug(slug: string): Promise<SanityBidang | null> {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("bidang", `bidang-${slug}`)
+  "use cache";
+  cacheLife("hours");
+  cacheTag("bidang", `bidang-${slug}`);
 
   return client.fetch(
     groq`*[_type == "bidang" && slug.current == $slug][0] {
@@ -56,6 +56,6 @@ export async function getBidangBySlug(slug: string): Promise<SanityBidang | null
       wakilKetuaBidang,
       order
     }`,
-    { slug }
-  )
+    { slug },
+  );
 }

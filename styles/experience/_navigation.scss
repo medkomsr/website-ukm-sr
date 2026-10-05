@@ -1,0 +1,144 @@
+// Emitted in experience.module.scss; order is part of the approved design.
+@mixin styles {
+  /* Full-width header and geometric hero, following the revised composition. */
+  .island {
+    top: 0;
+    left: 0;
+    right: 0;
+    translate: none;
+    width: 100%;
+    height: 76px;
+    padding: 0 5vw;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: blur(16px);
+    box-shadow: none;
+    justify-content: space-between;
+    overflow: visible;
+    font-family: var(--font-geist), var(--font-sans), sans-serif;
+  }
+  .islandBrand {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    gap: 11px;
+  }
+  .islandBrand b {
+    font-size: 14px;
+  }
+  .islandBrand span {
+    font-size: 9px;
+  }
+  .islandBrand img {
+    width: 34px;
+    height: 34px;
+  }
+  .islandButtons {
+    align-items: center;
+    gap: 24px;
+  }
+  .islandButtons > .iconButton:first-child {
+    border: 1px solid var(--line);
+    width: 36px;
+    height: 36px;
+  }
+  .menuButton {
+    width: auto;
+    border-radius: 8px;
+    display: flex;
+    gap: 18px;
+    font:
+      11px var(--font-geist),
+      sans-serif !important;
+    letter-spacing: 0.04em;
+  }
+  .menuAnchor {
+    left: auto;
+    right: 5vw;
+    top: 88px;
+    transform: none;
+  }
+  .menuPanel {
+    transform-origin: top right;
+  }
+  .hero {
+    padding: 76px 5vw 0;
+    min-height: min(900px, 100svh);
+    justify-content: flex-start;
+  }
+  .heroMain {
+    padding: 70px 0 48px;
+    flex: 1;
+    min-height: 0;
+  }
+  .heroBottom {
+    padding: 15px 0 55px;
+    justify-content: center;
+    flex-direction: row;
+  }
+  .heroScroll {
+    background: transparent;
+    color: var(--ink) !important;
+  }
+  .heroScroll:before {
+    background: conic-gradient(var(--sr-yellow), var(--sr-green), var(--sr-yellow));
+  }
+  .heroScroll > span {
+    background: var(--bg);
+    color: var(--ink);
+    transition:
+      background 0.2s,
+      color 0.2s;
+    font-family: var(--font-geist), var(--font-sans), sans-serif;
+    font-size: 14px;
+  }
+  .heroScroll:is(:hover, :focus-visible) > span {
+    background: var(--metal);
+    color: #173b28;
+  }
+  .fieldFront {
+    --symbol-cut: var(--field-face);
+  }
+  .contact em {
+    letter-spacing: -0.035em;
+  }
+  @media (max-width: 800px) {
+    .island {
+      height: 68px;
+      padding: 0 6vw;
+    }
+    .islandButtons {
+      gap: 14px;
+    }
+    .islandBrand b {
+      font-size: 12px;
+    }
+    .islandBrand span {
+      font-size: 8px;
+    }
+    .menuButton {
+      gap: 10px;
+    }
+    .hero {
+      padding: 68px 6vw 0;
+      min-height: 90svh;
+    }
+    .heroMain {
+      padding: 75px 0 50px;
+    }
+    .heroBottom {
+      padding: 35px 0 45px;
+    }
+    .menuAnchor {
+      right: 16px;
+      top: 80px;
+    }
+    .heroScroll > span {
+      padding: 16px 23px;
+      font-size: 13px;
+    }
+  }
+}

@@ -1,11 +1,11 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 const memberFields = [
-  defineField({ name: "name",     title: "Nama",     type: "string" }),
-  defineField({ name: "role",     title: "Jabatan",  type: "string" }),
+  defineField({ name: "name", title: "Nama", type: "string" }),
+  defineField({ name: "role", title: "Jabatan", type: "string" }),
   defineField({ name: "fakultas", title: "Fakultas", type: "string" }),
   defineField({ name: "angkatan", title: "Angkatan", type: "string" }),
-]
+];
 
 export const bidangSchema = defineType({
   name: "bidang",
@@ -51,7 +51,8 @@ export const bidangSchema = defineType({
       name: "overlay",
       title: "CSS Overlay Gradient",
       type: "string",
-      description: "Gradient CSS untuk overlay kartu, contoh: linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.92) 100%)",
+      description:
+        "Gradient CSS untuk overlay kartu, contoh: linear-gradient(to bottom, rgba(13,42,26,0.15) 0%, rgba(13,42,26,0.92) 100%)",
     }),
     defineField({
       name: "description",
@@ -68,9 +69,14 @@ export const bidangSchema = defineType({
         {
           type: "object",
           fields: [
-            defineField({ name: "image",   title: "Foto",        type: "image", options: { hotspot: true } }),
-            defineField({ name: "alt",     title: "Alt Text",    type: "string" }),
-            defineField({ name: "caption", title: "Keterangan",  type: "string" }),
+            defineField({
+              name: "image",
+              title: "Foto",
+              type: "image",
+              options: { hotspot: true },
+            }),
+            defineField({ name: "alt", title: "Alt Text", type: "string" }),
+            defineField({ name: "caption", title: "Keterangan", type: "string" }),
           ],
           preview: {
             select: { title: "caption", media: "image" },
@@ -107,4 +113,4 @@ export const bidangSchema = defineType({
   preview: {
     select: { title: "fullName", media: "image", subtitle: "abbr" },
   },
-})
+});
