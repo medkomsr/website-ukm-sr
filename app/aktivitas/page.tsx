@@ -1,6 +1,6 @@
-import SiteLayout from "@/components/site-layout";
+import SiteLayout from "@/components/layout/site-layout";
 import type { Metadata } from "next";
-import Newsroom from "./components/newsroom";
+import Newsroom from "@/features/activities/components/newsroom";
 
 export const metadata: Metadata = {
   title: "Berita & Acara | Seni Religi UB",

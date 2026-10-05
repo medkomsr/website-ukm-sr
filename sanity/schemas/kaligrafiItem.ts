@@ -1,11 +1,11 @@
-import { defineField, defineType } from "sanity"
-import { apiVersion } from "../env"
+import { defineField, defineType } from "sanity";
+import { apiVersion } from "@/sanity/env";
 
 const rupiahFormatter = new Intl.NumberFormat("id-ID", {
   style: "currency",
   currency: "IDR",
   maximumFractionDigits: 0,
-})
+});
 
 export const kaligrafiItemSchema = defineType({
   name: "kaligrafiItem",
@@ -25,17 +25,17 @@ export const kaligrafiItemSchema = defineType({
       description: "Kode unik karya. Contoh: KLG-001.",
       validation: (rule) =>
         rule.required().custom(async (code, context) => {
-          if (typeof code !== "string") return true
+          if (typeof code !== "string") return true;
 
           if (code.trim() !== code || code.length === 0) {
-            return "Kode barang tidak boleh kosong atau memiliki spasi di awal/akhir."
+            return "Kode barang tidak boleh kosong atau memiliki spasi di awal/akhir.";
           }
 
           if (!/^[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(code)) {
-            return "Gunakan hanya huruf, angka, titik, garis bawah, garis miring, atau tanda hubung."
+            return "Gunakan hanya huruf, angka, titik, garis bawah, garis miring, atau tanda hubung.";
           }
 
-          const documentId = context.document?._id?.replace(/^drafts\./, "") ?? ""
+          const documentId = context.document?._id?.replace(/^drafts\./, "") ?? "";
           const isUnique = await context.getClient({ apiVersion }).fetch<boolean>(
             `count(*[
               _type == "kaligrafiItem" &&
@@ -46,10 +46,10 @@ export const kaligrafiItemSchema = defineType({
               code,
               publishedId: documentId,
               draftId: `drafts.${documentId}`,
-            }
-          )
+            },
+          );
 
-          return isUnique || "Kode barang sudah digunakan oleh karya lain."
+          return isUnique || "Kode barang sudah digunakan oleh karya lain.";
         }),
     }),
     defineField({
@@ -100,9 +100,9 @@ export const kaligrafiItemSchema = defineType({
       },
       validation: (rule) =>
         rule.required().custom((status) => {
-          if (status === undefined) return true
+          if (status === undefined) return true;
 
-          return status === "available" || status === "sold" || "Status karya tidak valid."
+          return status === "available" || status === "sold" || "Status karya tidak valid.";
         }),
     }),
     defineField({
@@ -113,10 +113,10 @@ export const kaligrafiItemSchema = defineType({
       validation: (rule) =>
         rule.custom((soldAt, context) => {
           if (context.document?.status === "sold" && !soldAt) {
-            return "Tanggal terjual wajib diisi ketika status karya Terjual."
+            return "Tanggal terjual wajib diisi ketika status karya Terjual.";
           }
 
-          return true
+          return true;
         }),
     }),
     defineField({
@@ -153,14 +153,15 @@ export const kaligrafiItemSchema = defineType({
       media: "image",
     },
     prepare({ title, code, status, category, price, media }) {
-      const availability = status === "sold" ? "Terjual" : "Tersedia"
-      const formattedPrice = typeof price === "number" ? rupiahFormatter.format(price) : "Harga belum diisi"
+      const availability = status === "sold" ? "Terjual" : "Tersedia";
+      const formattedPrice =
+        typeof price === "number" ? rupiahFormatter.format(price) : "Harga belum diisi";
 
       return {
         title,
         subtitle: [code, category, formattedPrice, availability].filter(Boolean).join(" · "),
         media,
-      }
+      };
     },
   },
-})
+});

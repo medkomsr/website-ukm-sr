@@ -1,0 +1,241 @@
+.page {
+  font-family: var(--font-geist), sans-serif;
+  overflow: clip;
+}
+.page h1,
+.page h2,
+.page p {
+  margin: 0;
+}
+.page a {
+  text-decoration: none;
+  color: inherit;
+}
+.hero {
+  min-height: calc(100svh - 88px);
+  position: relative;
+  display: grid;
+  align-items: center;
+  padding: 100px 24px;
+  isolation: isolate;
+}
+.heroCopy {
+  width: min(780px, 66vw);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+.label {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  margin-bottom: 24px !important;
+}
+.hero h1 {
+  font-size: clamp(52px, 5.5vw, 86px);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.06em;
+  margin-bottom: 28px;
+}
+.lead {
+  max-width: 590px;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.65;
+  color: var(--muted);
+}
+.scrollLink {
+  display: inline-flex;
+  gap: 28px;
+  align-items: center;
+  font-size: 13px;
+  margin-top: 36px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  transition:
+    border-color 0.3s,
+    gap 0.3s;
+}
+.scrollLink svg {
+  transition: transform 0.35s ease;
+}
+.scrollLink:hover {
+  border-color: currentColor;
+  gap: 34px;
+}
+.scrollLink:hover svg {
+  transform: translateY(4px);
+}
+.ornaments {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.ornament {
+  position: absolute;
+  width: clamp(58px, 8vw, 120px);
+  color: #176333;
+  animation: drift 7s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -1.1s);
+}
+.ornament svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ornament:nth-child(1) {
+  top: 8%;
+  left: 7%;
+  width: 64px;
+}
+.ornament:nth-child(2) {
+  top: 30%;
+  left: 5%;
+}
+.ornament:nth-child(3) {
+  right: 4%;
+  top: 10%;
+}
+.ornament:nth-child(4) {
+  right: 5%;
+  bottom: 19%;
+  width: 95px;
+}
+.ornament:nth-child(5) {
+  left: 8%;
+  bottom: 8%;
+  width: 140px;
+}
+.ornament:nth-child(6) {
+  right: 0;
+  top: 45%;
+  width: 90px;
+}
+@keyframes drift {
+  from {
+    transform: translateY(-10px) rotate(-10deg);
+  }
+  to {
+    transform: translateY(12px) rotate(10deg);
+  }
+}
+.purpose {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: clamp(120px, 13vh, 180px) 7vw;
+}
+.purposeCopy {
+  width: min(100%, 1140px);
+  text-align: center;
+}
+.purposeLabel {
+  font-size: clamp(40px, 5.5vw, 80px);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  margin-bottom: clamp(32px, 5vh, 64px) !important;
+}
+.purposeText {
+  font-size: clamp(28px, 4vw, 62px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.line {
+  will-change: transform;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.missions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(24px, 4vh, 48px);
+}
+.missions .purposeText {
+  font-size: clamp(24px, 3vw, 46px);
+}
+.missionNumber {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.page a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 5px;
+}
+.purpose:focus {
+  outline: none;
+}
+@media (max-width: 800px) {
+  .hero {
+    min-height: calc(90svh - 76px);
+    padding: 150px 7vw 135px;
+  }
+  .heroCopy {
+    width: 100%;
+    max-width: 540px;
+  }
+  .hero h1 {
+    font-size: clamp(46px, 11vw, 76px);
+  }
+  .hero .label {
+    font-size: 10px;
+  }
+  .ornament:nth-child(1) {
+    top: 4%;
+    left: 9%;
+    width: 45px;
+  }
+  .ornament:nth-child(2) {
+    top: 5%;
+    left: 42%;
+    width: 48px;
+  }
+  .ornament:nth-child(3) {
+    top: 4%;
+    right: 9%;
+    width: 45px;
+  }
+  .ornament:nth-child(4) {
+    bottom: 4%;
+    right: 12%;
+    width: 52px;
+  }
+  .ornament:nth-child(5) {
+    bottom: 4%;
+    left: 12%;
+    width: 48px;
+  }
+  .ornament:nth-child(6) {
+    top: auto;
+    bottom: 4%;
+    right: 43%;
+    width: 48px;
+  }
+  .purpose {
+    padding: 120px 7vw 90px;
+  }
+  .purposeText {
+    font-size: clamp(28px, 7vw, 42px);
+  }
+  .missions .purposeText {
+    font-size: clamp(24px, 5.8vw, 34px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ornament {
+    animation: none;
+  }
+  .scrollLink,
+  .scrollLink svg {
+    transition: none;
+  }
+}

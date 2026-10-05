@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 export const kaligrafiCategorySchema = defineType({
   name: "kaligrafiCategory",
@@ -40,4 +40,4 @@ export const kaligrafiCategorySchema = defineType({
   preview: {
     select: { title: "name", subtitle: "slug.current" },
   },
-})
+});

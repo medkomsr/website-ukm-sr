@@ -1,4 +1,4 @@
-import SrHome from "./components/sr-home";
+import SrHome from "@/features/home/components/sr-home";
 export default function Home() {
   return <SrHome />;
 }

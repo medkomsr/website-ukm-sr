@@ -6,26 +6,65 @@ export const prestasiSchema = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "field", title: "Bidang SR", type: "string",
-      options: { list: ["Fahmil", "Syarhil", "Hifdzil", "Tilawah & Tartil", "KTDAQ", "Banjari & Nasyid", "Khattil", "Debat Ilmiah"] },
+      name: "field",
+      title: "Bidang SR",
+      type: "string",
+      options: {
+        list: [
+          "Fahmil",
+          "Syarhil",
+          "Hifdzil",
+          "Tilawah & Tartil",
+          "KTDAQ",
+          "Banjari & Nasyid",
+          "Khattil",
+          "Debat Ilmiah",
+        ],
+      },
       description: "Bidang yang mewakili SR dalam pencapaian ini.",
     }),
     defineField({
-      name: "participants", title: "Para Juara / Anggota Tim", type: "array",
-      description: "Nama peserta untuk daftar arsip, serta profil dan foto yang ditampilkan di detail prestasi.",
-      of: [{ type: "object", name: "achievementParticipant", fields: [
-        defineField({ name: "name", title: "Nama lengkap", type: "string", validation: r => r.required() }),
-        defineField({ name: "faculty", title: "Fakultas / program studi", type: "string" }),
-        defineField({ name: "image", title: "Foto peserta", type: "image", options: { hotspot: true } }),
-        defineField({ name: "quote", title: "Pesan / cerita singkat peserta", type: "text", rows: 3 }),
-      ], preview: { select: { title: "name", subtitle: "faculty", media: "image" } } }],
+      name: "participants",
+      title: "Para Juara / Anggota Tim",
+      type: "array",
+      description:
+        "Nama peserta untuk daftar arsip, serta profil dan foto yang ditampilkan di detail prestasi.",
+      of: [
+        {
+          type: "object",
+          name: "achievementParticipant",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Nama lengkap",
+              type: "string",
+              validation: (r) => r.required(),
+            }),
+            defineField({ name: "faculty", title: "Fakultas / program studi", type: "string" }),
+            defineField({
+              name: "image",
+              title: "Foto peserta",
+              type: "image",
+              options: { hotspot: true },
+            }),
+            defineField({
+              name: "quote",
+              title: "Pesan / cerita singkat peserta",
+              type: "text",
+              rows: 3,
+            }),
+          ],
+          preview: { select: { title: "name", subtitle: "faculty", media: "image" } },
+        },
+      ],
     }),
     defineField({
       name: "image",
       title: "Foto Kejuaraan",
       type: "image",
       options: { hotspot: true },
-      description: "Dokumentasi pemenang, tim memegang piala, atau penyerahan penghargaan. Ditampilkan pada detail prestasi dan kabar prestasi di beranda.",
+      description:
+        "Dokumentasi pemenang, tim memegang piala, atau penyerahan penghargaan. Ditampilkan pada detail prestasi dan kabar prestasi di beranda.",
       fields: [{ name: "alt", title: "Deskripsi foto", type: "string" }],
     }),
     defineField({
@@ -107,8 +146,7 @@ export const prestasiSchema = defineType({
       title: "Artikel Terkait",
       type: "reference",
       to: [{ type: "artikel" }, { type: "event" }],
-      description:
-        "Hubungkan dengan artikel atau event yang terkait (opsional)",
+      description: "Hubungkan dengan artikel atau event yang terkait (opsional)",
     }),
     defineField({
       name: "order",

@@ -1,9 +1,8 @@
 "use server";
 
-import { cacheLife } from "next/dist/server/use-cache/cache-life";
-import { cacheTag } from "next/dist/server/use-cache/cache-tag";
-import { client } from "../client";
-import type { SanityHomePage } from "../types";
+import { client } from "@/sanity/client";
+import type { SanityHomePage } from "@/sanity/types";
+import { cacheLife, cacheTag } from "next/cache";
 
 export async function getHomePage(): Promise<SanityHomePage | null> {
   "use cache";

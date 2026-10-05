@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 const memberFields = [
   defineField({ name: "image", title: "Foto Pengurus", type: "image", options: { hotspot: true } }),
@@ -6,24 +6,78 @@ const memberFields = [
   defineField({ name: "role", title: "Jabatan", type: "string" }),
   defineField({ name: "fakultas", title: "Fakultas", type: "string" }),
   defineField({ name: "angkatan", title: "Angkatan", type: "string" }),
-]
+];
 
 export const departemenSchema = defineType({
   name: "departemen",
   title: "Departemen / Badan",
   type: "document",
   fields: [
-    defineField({ name: "active", title: "Tampilkan dalam kabinet aktif", type: "boolean", initialValue: true, description: "Nonaktifkan untuk menyembunyikan departemen dari daftar kabinet periode aktif." }),
-    defineField({ name: "heading", title: "Label (Badan / Departemen)", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "abbr", title: "Singkatan", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "fullName", title: "Nama Lengkap", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "abbr" }, validation: (r) => r.required() }),
-    defineField({ name: "image", title: "Foto Hero", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
+    defineField({
+      name: "active",
+      title: "Tampilkan dalam kabinet aktif",
+      type: "boolean",
+      initialValue: true,
+      description: "Nonaktifkan untuk menyembunyikan departemen dari daftar kabinet periode aktif.",
+    }),
+    defineField({
+      name: "heading",
+      title: "Label (Badan / Departemen)",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "abbr",
+      title: "Singkatan",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "fullName",
+      title: "Nama Lengkap",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "abbr" },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "image",
+      title: "Foto Hero",
+      type: "image",
+      options: { hotspot: true },
+      validation: (r) => r.required(),
+    }),
     defineField({ name: "overlay", title: "CSS Overlay Gradient", type: "string" }),
-    defineField({ name: "description", title: "Deskripsi", type: "text", rows: 4, validation: (r) => r.required() }),
-    defineField({ name: "programs", title: "Program Kerja", type: "array", of: [{ type: "string" }] }),
-    defineField({ name: "programDescriptions", title: "Deskripsi Program Kerja", type: "array", of: [{ type: "text" }] }),
-    defineField({ name: "programImages", title: "Foto Program Kerja (sesuai urutan program)", type: "array", of: [{ type: "image", options: { hotspot: true } }] }),
+    defineField({
+      name: "description",
+      title: "Deskripsi",
+      type: "text",
+      rows: 4,
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "programs",
+      title: "Program Kerja",
+      type: "array",
+      of: [{ type: "string" }],
+    }),
+    defineField({
+      name: "programDescriptions",
+      title: "Deskripsi Program Kerja",
+      type: "array",
+      of: [{ type: "text" }],
+    }),
+    defineField({
+      name: "programImages",
+      title: "Foto Program Kerja (sesuai urutan program)",
+      type: "array",
+      of: [{ type: "image", options: { hotspot: true } }],
+    }),
     defineField({
       name: "kepala",
       title: "Kepala Departemen / Badan",
@@ -39,7 +93,12 @@ export const departemenSchema = defineType({
           type: "object",
           fields: [
             defineField({ name: "name", title: "Nama Divisi", type: "string" }),
-            defineField({ name: "kepala", title: "Kepala Divisi", type: "object", fields: memberFields }),
+            defineField({
+              name: "kepala",
+              title: "Kepala Divisi",
+              type: "object",
+              fields: memberFields,
+            }),
             defineField({
               name: "staff",
               title: "Staff",
@@ -56,4 +115,4 @@ export const departemenSchema = defineType({
   preview: {
     select: { title: "fullName", media: "image", subtitle: "abbr" },
   },
-})
+});

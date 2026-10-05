@@ -1,5 +1,5 @@
-import { defineField, defineType } from "sanity"
-import { activityGalleryField } from "./activity-gallery"
+import { defineField, defineType } from "sanity";
+import { activityGalleryField } from "@/sanity/schemas/activity-gallery";
 
 export const artikelSchema = defineType({
   name: "artikel",
@@ -7,9 +7,27 @@ export const artikelSchema = defineType({
   type: "document",
   fields: [
     defineField({ name: "title", title: "Judul", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (r) => r.required() }),
-    defineField({ name: "description", title: "Ringkasan", type: "text", rows: 3, validation: (r) => r.required() }),
-    defineField({ name: "image", title: "Gambar", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title" },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Ringkasan",
+      type: "text",
+      rows: 3,
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "image",
+      title: "Gambar",
+      type: "image",
+      options: { hotspot: true },
+      validation: (r) => r.required(),
+    }),
     activityGalleryField,
     defineField({
       name: "category",
@@ -18,7 +36,12 @@ export const artikelSchema = defineType({
       options: { list: ["Prestasi", "Liputan", "Pengumuman", "Berita"] },
       validation: (r) => r.required(),
     }),
-    defineField({ name: "date", title: "Tanggal Terbit", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "date",
+      title: "Tanggal Terbit",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
     defineField({ name: "readTime", title: "Estimasi Waktu Baca", type: "string" }),
     defineField({
       name: "author",
@@ -40,4 +63,4 @@ export const artikelSchema = defineType({
   preview: {
     select: { title: "title", media: "image", subtitle: "category" },
   },
-})
+});

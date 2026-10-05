@@ -1,9 +1,9 @@
-"use server"
+"use server";
 
-import { groq } from "next-sanity"
-import { client } from "../client"
-import { cacheLife, cacheTag } from "next/cache"
-import type { SanityActivity } from "../types"
+import { groq } from "next-sanity";
+import { client } from "@/sanity/client";
+import { cacheLife, cacheTag } from "next/cache";
+import type { SanityActivity } from "@/sanity/types";
 
 const activityProjection = groq`{
   _id,
@@ -26,36 +26,25 @@ const activityProjection = groq`{
   maxParticipants,
   author,
   body
-}`
+}`;
 
 export async function getAllAktivitas(): Promise<SanityActivity[]> {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("aktivitas")
+  "use cache";
+  cacheLife("hours");
+  cacheTag("aktivitas");
 
   return client.fetch(
-    groq`*[_type == "event" || _type == "artikel"] | order(date desc) ${activityProjection}`
-  )
+    groq`*[_type == "event" || _type == "artikel"] | order(date desc) ${activityProjection}`,
+  );
 }
 
 export async function getAktivitasBySlug(slug: string): Promise<SanityActivity | null> {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("aktivitas", `aktivitas-${slug}`)
+  "use cache";
+  cacheLife("hours");
+  cacheTag("aktivitas", `aktivitas-${slug}`);
 
   return client.fetch(
     groq`*[(_type == "event" || _type == "artikel") && slug.current == $slug][0] ${activityProjection}`,
-    { slug }
-  )
-}
-
-export async function getRelatedAktivitas(slug: string, category: string): Promise<SanityActivity[]> {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("aktivitas")
-
-  return client.fetch(
-    groq`*[(_type == "event" || _type == "artikel") && slug.current != $slug && category == $category] | order(date desc)[0..2] ${activityProjection}`,
-    { slug, category }
-  )
+    { slug },
+  );
 }

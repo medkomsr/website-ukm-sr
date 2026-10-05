@@ -2,8 +2,8 @@
 
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { useEffect } from "react";
-import SiteLayout from "@/components/site-layout";
-import CatalogHeader from "./_components/catalog-header";
+import SiteLayout from "@/components/layout/site-layout";
+import CatalogHeader from "@/features/catalog/components/catalog-header";
 
 export default function CatalogError({
   error,
@@ -25,12 +25,9 @@ export default function CatalogError({
             <span className="mb-5 inline-flex size-14 items-center justify-center rounded-2xl bg-white text-red-500 shadow-sm">
               <AlertTriangle aria-hidden="true" className="size-6" />
             </span>
-            <h2 className="text-xl font-bold text-neutral-900">
-              Katalog belum dapat dimuat
-            </h2>
+            <h2 className="text-xl font-bold text-neutral-900">Katalog belum dapat dimuat</h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-neutral-600">
-              Terjadi kendala saat mengambil data karya. Silakan coba kembali
-              dalam beberapa saat.
+              Terjadi kendala saat mengambil data karya. Silakan coba kembali dalam beberapa saat.
             </p>
             <button
               type="button"

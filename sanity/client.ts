@@ -1,4 +1,4 @@
-import { createClient } from "next-sanity"
-import { sanityConfig } from "./config"
+import { createClient } from "next-sanity";
+import { sanityConfig } from "@/sanity/config";
 
-export const client = createClient(sanityConfig)
+export const client = createClient(sanityConfig);

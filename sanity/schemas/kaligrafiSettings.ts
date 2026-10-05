@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 export const kaligrafiSettingsSchema = defineType({
   name: "kaligrafiSettings",
@@ -9,7 +9,8 @@ export const kaligrafiSettingsSchema = defineType({
       name: "whatsappNumber",
       title: "Nomor WhatsApp Admin",
       type: "string",
-      description: "Gunakan format internasional tanpa tanda +, spasi, atau tanda baca. Contoh: 6281234567890.",
+      description:
+        "Gunakan format internasional tanpa tanda +, spasi, atau tanda baca. Contoh: 6281234567890.",
       validation: (rule) =>
         rule
           .required()
@@ -22,7 +23,7 @@ export const kaligrafiSettingsSchema = defineType({
   ],
   preview: {
     prepare() {
-      return { title: "Pengaturan Katalog Kaligrafi" }
+      return { title: "Pengaturan Katalog Kaligrafi" };
     },
   },
-})
+});
