@@ -6,10 +6,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import StoryImage from "./story-image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { SanityActivity } from "@/sanity/types";
 import s from "./newsroom.module.css";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function FeaturedStories({ items }: { items: SanityActivity[] }) {
   const root = useRef<HTMLElement>(null);
@@ -54,6 +55,21 @@ export default function FeaturedStories({ items }: { items: SanityActivity[] }) 
   }
 
   useGSAP(() => {
+    const media = gsap.matchMedia();
+    media.add("(max-width: 700px) and (prefers-reduced-motion: no-preference)", () => {
+      gsap.fromTo(root.current, { opacity: 0 }, {
+        opacity: 1, duration: .55, ease: "power2.out",
+        scrollTrigger: {
+          trigger: root.current,
+          start: () => Math.max(1, root.current!.getBoundingClientRect().top + window.scrollY - innerHeight * .92),
+          once: true,
+        },
+      });
+    });
+    return () => media.revert();
+  }, { scope: root });
+
+  useGSAP(() => {
     const slides = gsap.utils.toArray<HTMLElement>("[data-story]", root.current);
     const previous = current.current;
     current.current = active;
@@ -75,6 +91,11 @@ export default function FeaturedStories({ items }: { items: SanityActivity[] }) 
       gsap.set(outgoing, { autoAlpha: 0 });
       animating.current = false;
     } });
+    if (matchMedia("(max-width: 700px)").matches) {
+      timeline.fromTo(next, { autoAlpha: 0 }, { autoAlpha: 1, duration: .65, ease: "power2.inOut" }, 0)
+        .to(outgoing, { autoAlpha: 0, duration: .65, ease: "power2.inOut" }, 0);
+      return () => { animating.current = false; };
+    }
     timeline
       .fromTo(next, { xPercent: step * 100 }, { xPercent: 0, duration: 1.15, ease: "power3.inOut" }, 0)
       .to(outgoing, { xPercent: -step * 24, duration: 1.15, ease: "power3.inOut" }, 0)

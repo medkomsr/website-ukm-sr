@@ -26,7 +26,9 @@ export default function NewsTitle() {
     document.fonts.ready.then(() => {
       if (disposed) return;
       if (restartOnReload) window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-      media.add("(prefers-reduced-motion: no-preference)", () => {
+      media.add({ motion: "(prefers-reduced-motion: no-preference)", mobile: "(max-width: 700px)" }, context => {
+        if (!context.conditions?.motion) return;
+        const page = root.current!.closest(`.${s.page}`);
         const split = SplitText.create(title.current!, { type: "chars,words", charsClass: "news-title-char", aria: "auto" });
         // Hover uses an inner layer so it never overwrites scroll rotation/position.
         const glyphs = split.chars.map(char => {
@@ -40,16 +42,22 @@ export default function NewsTitle() {
         gsap.set(split.chars, { autoAlpha: 0, scale: .45, transformOrigin: "50% 100%" });
         // Scroll controls the scattered layout; entry controls visibility and scale independently.
         const scrollTimeline = gsap.timeline({ scrollTrigger: {
-          trigger: root.current, start: "clamp(top 100px)",
-          end: () => `+=${Math.min(600, Math.max(260, innerWidth * .42))}`,
+          trigger: root.current, start: () => innerWidth <= 900 ? "clamp(top 76px)" : "clamp(top 88px)",
+          end: () => `+=${Math.min(400, Math.max(200, innerWidth * .3))}`,
           pin: true, scrub: .6, invalidateOnRefresh: true,
         } });
-        scrollTimeline.fromTo(title.current, { xPercent: 15 }, { xPercent: 0, ease: "none", duration: 1 }, 0)
-          .fromTo(split.chars, {
+        scrollTimeline.fromTo(split.chars, {
             yPercent: (i) => i % 2 ? 85 : -85,
             rotation: (i) => i % 2 ? 18 : -18,
           }, { yPercent: 0, rotation: 0, duration: .55, stagger: .035, ease: "back.out(1.2)" }, 0)
           .to({}, { duration: .18 });
+        if (context.conditions.mobile) {
+          // Undo the mobile overlap at the top, including after the one-time fade.
+          // Share the title's progress so returning upward restores the opening layout.
+          scrollTimeline.fromTo(page, { "--news-return-progress": 1 }, {
+            "--news-return-progress": 0, duration: scrollTimeline.duration(), ease: "none",
+          }, 0);
+        }
         gsap.set(title.current, { visibility: "visible" });
         gsap.to(split.chars, {
           autoAlpha: 1, scale: 1,
@@ -69,8 +77,9 @@ export default function NewsTitle() {
         const heading = title.current!;
         heading.addEventListener("pointerover", onOver);
         heading.addEventListener("pointerout", onOut);
+        root.current!.dataset.titlePinned = "true";
         ScrollTrigger.refresh();
-        return () => { heading.removeEventListener("pointerover", onOver); heading.removeEventListener("pointerout", onOut); gsap.killTweensOf([...split.chars, ...glyphs]); split.revert(); };
+        return () => { delete root.current?.dataset.titlePinned; heading.removeEventListener("pointerover", onOver); heading.removeEventListener("pointerout", onOut); gsap.killTweensOf([...split.chars, ...glyphs]); split.revert(); };
       });
     });
     return () => {

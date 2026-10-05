@@ -45,7 +45,7 @@ export default function Newsroom() {
 
   useLayoutEffect(() => {
     const media = gsap.matchMedia();
-    media.add("(prefers-reduced-motion: no-preference)", () => {
+    media.add("(min-width: 701px) and (prefers-reduced-motion: no-preference)", () => {
       const targets = Array.from(archive.current?.querySelectorAll<HTMLElement>("[data-archive-pop]") || [])
         .filter(element => !element.dataset.archiveRevealed && element.offsetParent !== null);
       gsap.set(targets, { autoAlpha: 0, y: 28, scale: .94, transformOrigin: "50% 100%" });
@@ -57,6 +57,14 @@ export default function Newsroom() {
         },
       });
       return () => { gsap.killTweensOf(targets); };
+    });
+    media.add("(max-width: 700px) and (prefers-reduced-motion: no-preference)", () => {
+      const targets = Array.from(archive.current?.querySelectorAll<HTMLElement>("[data-archive-pop]") || [])
+        .filter(element => !element.dataset.archiveRevealed && element.offsetParent !== null);
+      targets.forEach(element => gsap.fromTo(element, { opacity: 0 }, {
+        opacity: 1, duration: .5, ease: "power2.out",
+        scrollTrigger: { trigger: element, start: "top 92%", once: true, onEnter: () => { element.dataset.archiveRevealed = "true"; } },
+      }));
     });
     return () => media.revert();
   }, [activities, filtered, expanded, limit]);
