@@ -1,6 +1,6 @@
-import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/app/galeri/components/header";
-import GalleryWrapper from "@/app/galeri/components/gallery-wrapper";
+import SiteLayout from "@/components/layout/site-layout";
+import HeaderSection from "@/features/gallery/components/header";
+import GalleryWrapper from "@/features/gallery/components/gallery-wrapper";
 
 export default function GaleriPage() {
   return (

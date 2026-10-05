@@ -1,175 +1,233 @@
-import type { PortableTextBlock } from "@portabletext/react"
+import type { PortableTextBlock } from "@portabletext/react";
+import type { Image, ImageDimensions } from "sanity";
 
 export type SanitySiteSettings = {
-  namaOrg: string
-  tagline: string
-  tahunBerdiri: number
-  jumlahAnggota: string
-  jumlahPenghargaan: string
-  jumlahKegiatan: string
-  alamat: string
-  telepon: string
-  email: string
-  instagram: string
-  instagramUrl: string
-  youtube: string
-  youtubeUrl: string
-  facebook: string
-  facebookUrl: string
-}
+  kabinetNama?: string;
+  kabinetLogoUrl?: string;
+  kabinetPeriode?: string;
+  namaOrg: string;
+  tagline: string;
+  tahunBerdiri: number;
+  jumlahAnggota: string;
+  jumlahPenghargaan: string;
+  jumlahKegiatan: string;
+  alamat: string;
+  telepon: string;
+  email: string;
+  instagram: string;
+  instagramUrl: string;
+  youtube: string;
+  youtubeUrl: string;
+  facebook: string;
+  facebookUrl: string;
+};
 
 export type SanityHomePage = {
+  companyVideoUrl?: string;
+  companyVideoPosterUrl?: string;
+  partners?: Array<{ name: string; logoUrl?: string; url?: string }>;
   hero: {
-    judul1: string
-    judulHighlight: string
-    judul2: string
-    deskripsi: string
-    ctaText: string
-  }
+    judul1: string;
+    judulHighlight: string;
+    judul2: string;
+    deskripsi: string;
+    ctaText: string;
+  };
   about: {
-    judul1: string
-    judulHighlight: string
-    deskripsi1: string
-    deskripsi2: string
-    highlights: string[]
-  }
+    judul1: string;
+    judulHighlight: string;
+    deskripsi1: string;
+    deskripsi2: string;
+    highlights: string[];
+  };
   divisions: {
-    heading: string
-    subheading: string
-  }
-}
+    heading: string;
+    subheading: string;
+  };
+};
 
 export type SanityVisiMisi = {
-  visi: string
-  misi: string[]
-}
+  visi: string;
+  misi: string[];
+};
 
 export type SanityDivisi = {
-  _id: string
-  nama: string
-  subtitle: string
-  deskripsi: string
-  jumlahAnggota: number
-  ikon: string
-  accent: string
-  imageUrl: string | null
-}
+  _id: string;
+  nama: string;
+  subtitle: string;
+  deskripsi: string;
+  jumlahAnggota: number;
+  ikon: string;
+  accent: string;
+  imageUrl: string | null;
+};
 
 export type SanityFaq = {
-  _id: string
-  pertanyaan: string
-  jawaban: string
-}
+  _id: string;
+  pertanyaan: string;
+  jawaban: string;
+};
 
-export type EventStatus = "upcoming" | "ongoing" | "completed"
+export type EventStatus = "upcoming" | "ongoing" | "completed";
 
 export type SanityActivity = {
-  _id: string
-  slug: string
-  type: "event" | "article"
-  title: string
-  description: string
-  imageUrl: string
-  category: string
-  date: string
-  status?: EventStatus
-  time?: string
-  location?: string
-  readTime?: string
-  longDescription?: string
-  tags?: string[]
-  agenda?: Array<{ time: string; item: string }>
-  organizer?: string
-  maxParticipants?: number
-  author?: { name: string; role: string }
-  body?: PortableTextBlock[]
-}
+  _id: string;
+  slug: string;
+  type: "event" | "article";
+  title: string;
+  description: string;
+  imageUrl: string;
+  gallery?: Array<{ _key: string; imageUrl: string; alt?: string; caption?: string }>;
+  category: string;
+  date: string;
+  status?: EventStatus;
+  time?: string;
+  location?: string;
+  readTime?: string;
+  longDescription?: string;
+  tags?: string[];
+  agenda?: Array<{ time: string; item: string }>;
+  organizer?: string;
+  maxParticipants?: number;
+  author?: { name: string; role: string };
+  body?: PortableTextBlock[];
+};
 
 export type SanityGalleryItem = {
-  _id: string
-  imageUrl: string
-  alt: string
-  caption: string
-  category?: string
-}
+  _id: string;
+  imageUrl: string;
+  alt: string;
+  caption: string;
+  category?: string;
+};
 
 export type SanityDeptMember = {
-  name: string
-  role: string
-  fakultas: string
-  angkatan: string
-}
+  imageUrl?: string;
+  name: string;
+  role: string;
+  fakultas: string;
+  angkatan: string;
+};
 
 export type SanityDeptDivisi = {
-  name: string
-  kepala: SanityDeptMember
-  staff: SanityDeptMember[]
-}
+  name: string;
+  kepala: SanityDeptMember;
+  staff: SanityDeptMember[];
+};
 
 export type SanityDepartemenCard = {
-  _id: string
-  slug: string
-  heading: string
-  abbr: string
-  imageUrl: string
-  overlay: string
-}
+  fullName?: string;
+  _id: string;
+  slug: string;
+  heading: string;
+  abbr: string;
+  imageUrl: string;
+  overlay: string;
+};
 
 export type SanityDepartemenDetail = {
-  _id: string
-  slug: string
-  heading: string
-  abbr: string
-  fullName: string
-  imageUrl: string
-  overlay: string
-  description: string
-  programs: string[]
-  programDescriptions: string[]
-  kepala: SanityDeptMember
-  divisi: SanityDeptDivisi[]
-}
+  programImages?: string[];
+  _id: string;
+  slug: string;
+  heading: string;
+  abbr: string;
+  fullName: string;
+  imageUrl: string;
+  overlay: string;
+  description: string;
+  programs: string[];
+  programDescriptions: string[];
+  kepala: SanityDeptMember;
+  divisi: SanityDeptDivisi[];
+};
 
 export type SanityPrestasi = {
-  _id: string
-  title: string
-  description: string
-  year: number
-  category: "Kompetisi" | "Penghargaan" | "Kolaborasi" | "Rekam Jejak"
-  level: "Kampus" | "Kota" | "Provinsi" | "Nasional" | "Internasional"
-  position?: string
-  organizer: string
-  location: string
-  featured?: boolean
-  order?: number
-}
+  field?: string;
+  articleSlug?: string;
+  participants?: Array<{
+    _key: string;
+    name: string;
+    faculty?: string;
+    imageUrl?: string;
+    quote?: string;
+  }>;
+  imageUrl?: string;
+  imageAlt?: string;
+  _id: string;
+  title: string;
+  description: string;
+  year: number;
+  category: "Kompetisi" | "Penghargaan" | "Kolaborasi" | "Rekam Jejak";
+  level: "Kampus" | "Kota" | "Provinsi" | "Nasional" | "Internasional";
+  position?: string;
+  organizer: string;
+  location: string;
+  featured?: boolean;
+  order?: number;
+};
 
 export type SanityBidangMember = {
-  name: string
-  role: string
-  fakultas: string
-  angkatan: string
-}
+  name: string;
+  role: string;
+  fakultas: string;
+  angkatan: string;
+};
 
 export type SanityBidangGalleryItem = {
-  imageUrl: string
-  alt: string
-  caption: string
-}
+  imageUrl: string;
+  alt: string;
+  caption: string;
+};
 
 export type SanityBidang = {
-  _id: string
-  slug: string
-  heading: string
-  abbr: string
-  fullName: string
-  imageUrl: string
-  overlay?: string
-  description: string
-  gallery: SanityBidangGalleryItem[]
-  ketuaBidang: SanityBidangMember
-  wakilKetuaBidang: SanityBidangMember
-  order?: number
-}
+  _id: string;
+  slug: string;
+  heading: string;
+  abbr: string;
+  fullName: string;
+  imageUrl: string;
+  overlay?: string;
+  description: string;
+  gallery: SanityBidangGalleryItem[];
+  ketuaBidang: SanityBidangMember;
+  wakilKetuaBidang: SanityBidangMember;
+  order?: number;
+};
 
+export type SanityKaligrafiStatus = "available" | "sold";
 
+export type SanityKaligrafiCategory = {
+  _id: string;
+  name: string;
+  slug: string;
+  displayOrder: number;
+};
+
+export type SanityKaligrafiItem = {
+  _id: string;
+  title: string;
+  code: string;
+  image: Image;
+  alt: string;
+  category: SanityKaligrafiCategory;
+  price: number;
+  description?: string;
+  status: SanityKaligrafiStatus;
+  soldAt?: string;
+  displayOrder: number;
+  imageLqip: string | null;
+  imageDimensions: ImageDimensions | null;
+};
+
+export type SanityKaligrafiCatalogPage = {
+  items: SanityKaligrafiItem[];
+  total: number;
+  page: number;
+  pageSize: number;
+  totalPages: number;
+};
+
+export type SanityKaligrafiCatalogMeta = {
+  categories: SanityKaligrafiCategory[];
+  whatsappNumber: string | null;
+};
