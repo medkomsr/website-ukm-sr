@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import { flushSync } from "react-dom";
+import { createPortal, flushSync } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, X } from "lucide-react";
@@ -62,7 +62,9 @@ export default function StoryPreview({ selection, onClose }: { selection: Previe
     entrance.timeScale(1.25).reverse();
   };
   const item = selection?.item;
-  return <dialog ref={dialog} className={s.modal} aria-labelledby="story-preview-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
+  if (!item) return null;
+  // Keep both entry points independent of their page typography and transformed galleries.
+  return createPortal(<dialog ref={dialog} className={s.modal} aria-labelledby="story-preview-title" onCancel={event => { event.preventDefault(); close(); }} onClick={event => { if (event.target === event.currentTarget) close(); }}>
     {item && <div className={s.modalContent}>
       <button className={s.closeModal} aria-label="Tutup pratinjau" onClick={close} autoFocus><X size={22}/></button>
       <div ref={photo} className={s.modalImage} data-flip-id={`preview-${item._id}`}>
@@ -76,6 +78,6 @@ export default function StoryPreview({ selection, onClose }: { selection: Previe
         <Link className={s.previewCta} href={`/aktivitas/${item.slug}`} onNavigate={onClose}><span>Lihat selengkapnya <ArrowRight size={19}/></span></Link>
       </div>
     </div>}
-  </dialog>;
+  </dialog>, document.body);
 }
 

@@ -13,6 +13,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, X, Plus } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Flip } from "gsap/Flip";
+import StoryPreview, { type PreviewSelection } from "@/app/aktivitas/components/story-preview";
 import { Motto } from "./motto";
 import { HeroWordmark, HeroScrollButton } from "./hero-wordmark";
 import { CompanyReel } from "./company-reel";
@@ -31,7 +33,7 @@ import Footer from "@/components/footer";
 import SiteHeader from "@/components/site-header";
 import s from "./sr-home.module.css";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable);
+gsap.registerPlugin(useGSAP, ScrollTrigger, Draggable, Flip);
 const accents = ["#e9e4cb", "#d8e2d1", "#f0ead8", "#c7d6c3"];
 
 
@@ -104,19 +106,23 @@ function NewsGallery({
   items,
   loading,
   error,
-  onSelect,
   title,
 }: {
   id: string;
   items: SanityActivity[];
   loading: boolean;
   error: boolean;
-  onSelect: (a: SanityActivity) => void;
   title: string;
 }) {
+  const [selection, setSelection] = useState<PreviewSelection | null>(null);
   const root = useRef<HTMLElement>(null),
     track = useRef<HTMLDivElement>(null),
     viewport = useRef<HTMLDivElement>(null);
+  const selectStory = (item: SanityActivity, origin: HTMLButtonElement) => {
+    const image = origin.closest("article")?.querySelector<HTMLButtonElement>("[data-home-preview-image]");
+    if (!image) return;
+    setSelection({ item, origin, snapshot: Flip.getState(image) });
+  };
   useGSAP(
     () => {
       if (!items.length) return;
@@ -211,7 +217,10 @@ function NewsGallery({
             <article key={a._id} className={s.newsCard}>
               <button
                 className={s.newsImage}
-                onClick={() => onSelect(a)}
+                data-home-preview-image
+                data-flip-id={`preview-${a._id}`}
+                style={{ visibility: selection?.item._id === a._id ? "hidden" : undefined }}
+                onClick={event => selectStory(a, event.currentTarget)}
                 aria-label={`Baca ringkasan ${a.title}`}
               >
                 <NewsCover key={a.imageUrl} src={a.imageUrl} index={i} />
@@ -224,12 +233,12 @@ function NewsGallery({
                 <span>
                   {a.category || (a.type === "event" ? "Acara" : "Cerita")}
                 </span>
-                <button onClick={() => onSelect(a)}>
+                <button onClick={event => selectStory(a, event.currentTarget)}>
                   {a.status ? statusConfig[a.status]?.label : "Baca cerita"}
                   <Plus size={12} />
                 </button>
               </div>
-              <button className={s.newsTitle} onClick={() => onSelect(a)}>
+              <button className={s.newsTitle} onClick={event => selectStory(a, event.currentTarget)}>
                 {a.title}
               </button>
               <p className={s.newsDescription}>{a.description}</p>
@@ -260,6 +269,7 @@ function NewsGallery({
           Gulir atau geser untuk menjelajahi <ArrowRight size={16} />
         </p>
       )}
+      <StoryPreview selection={selection} onClose={() => setSelection(null)} />
     </section>
   );
 }
@@ -658,9 +668,7 @@ function Achievements({
   );
 }
 
-type Popup =
-  | { kind: "news"; item: SanityActivity }
-  | { kind: "video" | "privacy" | "terms" };
+type Popup = { kind: "video" | "privacy" | "terms" };
 function videoSource(url?: string) {
   if (!url) return null;
   try {
@@ -750,27 +758,7 @@ function PopupDialog({
         >
           <X />
         </button>
-        {popup.kind === "news" ? (
-          <>
-            <span className={s.eyebrow}>
-              {popup.item.category}{" "}
-              {popup.item.status &&
-                ` / ${statusConfig[popup.item.status]?.label}`}
-            </span>
-            <h2 id="popup-title">{popup.item.title}</h2>
-            <p>
-              {popup.item.description ||
-                "Baca cerita lengkap dan informasi kegiatan ini di halaman detail."}
-            </p>
-            {popup.item.location && (
-              <p className={s.dialogLocation}>{popup.item.location}</p>
-            )}
-            <Link className={s.pillCta} href={`/aktivitas/${popup.item.slug}`}>
-              Lihat selengkapnya
-              <ArrowUpRight size={18} />
-            </Link>
-          </>
-        ) : popup.kind === "video" ? (
+        {popup.kind === "video" ? (
           <>
             <h2 id="popup-title">Seni Religi — Company profile</h2>
             {video ? (
@@ -871,7 +859,6 @@ export default function SrHome() {
           items={all}
           loading={activities.isLoading}
           error={activities.isError}
-          onSelect={(item) => setPopup({ kind: "news", item })}
           title="Berita & Acara"
         />
         <Fields />
