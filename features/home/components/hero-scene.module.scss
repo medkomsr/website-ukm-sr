@@ -1,0 +1,164 @@
+.scene {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  color: var(--ink);
+}
+.composition {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.rowOne,
+.rowTwo {
+  display: flex;
+  align-items: center;
+}
+.rowOne {
+  gap: clamp(40px, 10vw, 80px);
+  justify-content: center;
+}
+.word {
+  display: inline-flex;
+  flex-shrink: 0;
+  font-family: var(--font-geist), sans-serif;
+  font-size: clamp(80px, 11vw, 168px);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 1.05;
+}
+.emblems {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  gap: 22px;
+  align-items: center;
+  max-width: 550px;
+}
+.emblem {
+  width: clamp(60px, 6.8vw, 98px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  color: #123d2a;
+  --symbol-cut: var(--bg);
+}
+.emblem > span {
+  display: block;
+  width: 100%;
+}
+.emblem svg {
+  width: 100%;
+  height: 100%;
+}
+.rowTwo {
+  gap: 22px;
+}
+.religiGroup {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 32px);
+  flex-shrink: 0;
+}
+.logoWrap {
+  width: clamp(70px, 7vw, 100px);
+  flex-shrink: 0;
+}
+.ktdaqLogo {
+  width: clamp(60px, 6vw, 86px);
+  flex-shrink: 0;
+}
+.ktdaqLogo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.srLogo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+.arrow {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  height: clamp(120px, 12vw, 168px);
+  margin-top: -40px;
+  margin-right: 0;
+  align-self: flex-start;
+}
+.university {
+  text-align: center;
+  margin-top: 10px;
+  font-family: var(--font-geist), sans-serif;
+  font-size: clamp(28px, 4vw, 56px);
+  letter-spacing: -0.035em;
+}
+.dotOne,
+.dotTwo {
+  display: none;
+}
+@media (max-width: 800px) {
+  .scene {
+    max-width: 360px;
+  }
+  .composition {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    gap: 12px 16px;
+  }
+  /* Flatten the desktop rows so the same six assets form two mobile rows. */
+  .rowOne,
+  .rowTwo,
+  .religiGroup,
+  .emblems {
+    display: contents;
+  }
+  .emblem {
+    grid-row: 1;
+    width: clamp(44px, 13vw, 60px);
+    margin-bottom: 18px;
+  }
+  .emblem:nth-child(4) {
+    grid-row: 4;
+    grid-column: 1;
+    margin: 18px 0 0;
+  }
+  .word {
+    grid-column: 1 / -1;
+    font-size: clamp(80px, 24vw, 112px);
+    line-height: 0.96;
+    text-align: center;
+  }
+  .rowOne > .word {
+    grid-row: 2;
+  }
+  .religiGroup > .word {
+    grid-row: 3;
+  }
+  .ktdaqLogo,
+  .logoWrap {
+    grid-row: 4;
+    width: clamp(44px, 13vw, 60px);
+    margin-top: 18px;
+  }
+  .ktdaqLogo {
+    grid-column: 2;
+  }
+  .logoWrap {
+    grid-column: 3;
+  }
+  .arrow {
+    display: none;
+  }
+  .university {
+    grid-row: 5;
+    grid-column: 1 / -1;
+    margin-top: 24px;
+    font-size: clamp(21px, 5.8vw, 30px);
+    letter-spacing: -0.04em;
+  }
+}

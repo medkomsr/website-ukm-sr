@@ -1,0 +1,235 @@
+.section {
+  position: relative;
+  padding: 160px 5vw 100px;
+  background: var(--bg);
+  color: var(--ink);
+  overflow: clip;
+  font-family: var(--font-geist), sans-serif;
+}
+.ribbon {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 100%;
+  height: clamp(840px, 76vw, 1120px);
+  pointer-events: none;
+  color: #43815b;
+  opacity: 0.8;
+}
+.intro {
+  position: relative;
+  z-index: 1;
+}
+.label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  margin: 0 17% 30px 0 !important;
+  color: var(--muted);
+  text-align: right;
+}
+.heading {
+  font-size: clamp(48px, 7.1vw, 112px);
+  font-weight: 450;
+  letter-spacing: -0.06em;
+  line-height: 1.16;
+  margin: 0;
+}
+.titleLine {
+  display: block;
+  text-align: right;
+}
+.titleLine:first-child {
+  margin-right: 13%;
+}
+.word {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.word:not(:last-child) {
+  margin-right: 0.22em;
+}
+.word > span {
+  display: inline-block;
+}
+.copy {
+  width: min(520px, 43%);
+  margin: 80px 0 50px 5%;
+  font-size: clamp(17px, 1.5vw, 23px);
+  line-height: 1.55;
+  letter-spacing: -0.015em;
+}
+.copy a {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 26px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 10px;
+}
+.stage {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: min(46vw, 650px);
+}
+.frame {
+  position: relative;
+  display: block;
+  margin-left: auto;
+  width: 100%;
+  aspect-ratio: 1.9;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 0;
+  cursor: pointer;
+  background: var(--surface);
+  transform-origin: top right;
+}
+.frame img {
+  object-fit: cover;
+}
+.frame:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 20%, #092713b3);
+}
+.play {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  white-space: nowrap;
+  padding: 18px 24px;
+  border-radius: 999px;
+  background: #fff8de;
+  color: #123d2a;
+  font-size: 16px;
+}
+.caption {
+  position: absolute;
+  z-index: 1;
+  left: 24px;
+  bottom: 22px;
+  color: #fff8de;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.marks {
+  position: absolute;
+  top: calc(-27vh - 24px - 1rem);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  color: #123d2a;
+}
+.marks svg {
+  width: 24px;
+  height: 24px;
+}
+@media (min-width: 801px) and (prefers-reduced-motion: no-preference) {
+  .stage {
+    margin-top: -80px;
+  }
+  .frame {
+    width: 44%;
+  }
+}
+@media (max-width: 800px) {
+  .section {
+    padding: 110px 6vw 80px;
+  }
+  .heading {
+    font-size: clamp(38px, 9vw, 68px);
+  }
+  .titleLine:first-child {
+    margin-right: 7%;
+  }
+  .titleLine + .titleLine {
+    margin-top: 12px;
+  }
+  .label {
+    font-size: 9px;
+    margin-right: 0 !important;
+    margin-bottom: 24px !important;
+  }
+  .copy {
+    width: 94%;
+    margin: 38px 0;
+    font-size: 17px;
+  }
+  .stage {
+    height: auto;
+  }
+  .frame {
+    aspect-ratio: 1.45;
+    border-radius: 16px;
+  }
+  .play {
+    font-size: 12px;
+    padding: 13px 16px;
+    gap: 8px;
+  }
+  .play svg {
+    width: 18px;
+  }
+  .caption {
+    font-size: 7px;
+    left: 14px;
+    bottom: 14px;
+  }
+  .ribbon {
+    top: 80px;
+    opacity: 0.55;
+    height: 850px;
+  }
+  .marks {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marks {
+    display: none;
+  }
+}
+
+.stage {
+  perspective: 1000px;
+}
+.frame {
+  transform-style: preserve-3d;
+}
+.media {
+  position: absolute;
+  inset: -4%;
+}
+.tint {
+  position: absolute;
+  inset: 0;
+  background: #123d2a;
+  mix-blend-mode: color;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.filterDefs {
+  position: absolute;
+  pointer-events: none;
+}
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .media {
+    filter: none !important;
+  }
+  .tint {
+    display: none;
+  }
+}

@@ -1,22 +1,22 @@
 "use server";
 
-import { cacheLife } from "next/dist/server/use-cache/cache-life"
-import { cacheTag } from "next/dist/server/use-cache/cache-tag"
-import { client } from "../client"
-import type { SanitySiteSettings } from "../types"
+import { client } from "@/sanity/client";
+import type { SanitySiteSettings } from "@/sanity/types";
+import { cacheLife, cacheTag } from "next/cache";
 
 export async function getSiteSettings(): Promise<SanitySiteSettings | null> {
-  "use cache"
-  cacheLife("hours")
-  cacheTag("siteSettings")
+  "use cache";
+  cacheLife("hours");
+  cacheTag("siteSettings");
   return client.fetch(
     `*[_type == "siteSettings"][0]{
-      namaOrg, tagline, tahunBerdiri,
+      namaOrg, tagline, tahunBerdiri, kabinetNama, kabinetPeriode,
+      "kabinetLogoUrl": kabinetLogo.asset->url,
       jumlahAnggota, jumlahPenghargaan, jumlahKegiatan,
       alamat, telepon, email,
       instagram, instagramUrl,
       youtube, youtubeUrl,
       facebook, facebookUrl
-    }`
-  )
+    }`,
+  );
 }
