@@ -1,4 +1,4 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 export const homePageSchema = defineType({
   name: "homePage",
@@ -6,15 +6,76 @@ export const homePageSchema = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "companyVideoUrl",
+      title: "Video company profile (YouTube / MP4)",
+      type: "url",
+      validation: (Rule) => Rule.uri({ scheme: ["https"] }),
+    }),
+    defineField({
+      name: "companyVideoPoster",
+      title: "Sampul video company profile",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "partners",
+      title: "Rekan kolaborasi",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "name",
+              title: "Nama",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({ name: "logo", title: "Logo", type: "image" }),
+            defineField({
+              name: "url",
+              title: "Tautan",
+              type: "url",
+              validation: (Rule) => Rule.uri({ scheme: ["https"] }),
+            }),
+          ],
+        },
+      ],
+    }),
+    defineField({
       name: "hero",
       title: "Hero Section",
       type: "object",
       fields: [
-        defineField({ name: "judul1", title: "Judul Baris 1 (sebelum highlight)", type: "string", description: "Contoh: Seni yang " }),
-        defineField({ name: "judulHighlight", title: "Kata Highlight (warna emas)", type: "string", description: "Contoh: Menginspirasi" }),
-        defineField({ name: "judul2", title: "Judul Baris 2", type: "string", description: "Contoh: Iman yang Menguatkan" }),
-        defineField({ name: "deskripsi", title: "Deskripsi", type: "text", rows: 2 }),
-        defineField({ name: "ctaText", title: "Teks Tombol CTA", type: "string" }),
+        defineField({
+          name: "judul1",
+          title: "Judul Baris 1 (sebelum highlight)",
+          type: "string",
+          description: "Contoh: Seni yang ",
+        }),
+        defineField({
+          name: "judulHighlight",
+          title: "Kata Highlight (warna emas)",
+          type: "string",
+          description: "Contoh: Menginspirasi",
+        }),
+        defineField({
+          name: "judul2",
+          title: "Judul Baris 2",
+          type: "string",
+          description: "Contoh: Iman yang Menguatkan",
+        }),
+        defineField({
+          name: "deskripsi",
+          title: "Deskripsi",
+          type: "text",
+          rows: 2,
+        }),
+        defineField({
+          name: "ctaText",
+          title: "Teks Tombol CTA",
+          type: "string",
+        }),
       ],
     }),
     defineField({
@@ -22,10 +83,30 @@ export const homePageSchema = defineType({
       title: "About Section",
       type: "object",
       fields: [
-        defineField({ name: "judul1", title: "Judul (sebelum highlight)", type: "string", description: "Contoh: Berkarya dengan tulus, " }),
-        defineField({ name: "judulHighlight", title: "Kata Highlight", type: "string", description: "Contoh: Inovasi tanpa batas" }),
-        defineField({ name: "deskripsi1", title: "Paragraf 1", type: "text", rows: 3 }),
-        defineField({ name: "deskripsi2", title: "Paragraf 2", type: "text", rows: 3 }),
+        defineField({
+          name: "judul1",
+          title: "Judul (sebelum highlight)",
+          type: "string",
+          description: "Contoh: Berkarya dengan tulus, ",
+        }),
+        defineField({
+          name: "judulHighlight",
+          title: "Kata Highlight",
+          type: "string",
+          description: "Contoh: Inovasi tanpa batas",
+        }),
+        defineField({
+          name: "deskripsi1",
+          title: "Paragraf 1",
+          type: "text",
+          rows: 3,
+        }),
+        defineField({
+          name: "deskripsi2",
+          title: "Paragraf 2",
+          type: "text",
+          rows: 3,
+        }),
         defineField({
           name: "highlights",
           title: "Poin Keunggulan",
@@ -40,9 +121,18 @@ export const homePageSchema = defineType({
       title: "Divisi Section",
       type: "object",
       fields: [
-        defineField({ name: "heading", title: "Judul Section", type: "string" }),
-        defineField({ name: "subheading", title: "Subjudul Section", type: "text", rows: 2 }),
+        defineField({
+          name: "heading",
+          title: "Judul Section",
+          type: "string",
+        }),
+        defineField({
+          name: "subheading",
+          title: "Subjudul Section",
+          type: "text",
+          rows: 2,
+        }),
       ],
     }),
   ],
-})
+});

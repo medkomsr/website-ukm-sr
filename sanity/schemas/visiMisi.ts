@@ -1,11 +1,17 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 export const visiMisiSchema = defineType({
   name: "visiMisi",
   title: "Visi & Misi",
   type: "document",
   fields: [
-    defineField({ name: "visi", title: "Visi", type: "text", rows: 4, validation: (r) => r.required() }),
+    defineField({
+      name: "visi",
+      title: "Visi",
+      type: "text",
+      rows: 4,
+      validation: (r) => r.required(),
+    }),
     defineField({
       name: "misi",
       title: "Misi",
@@ -14,4 +20,4 @@ export const visiMisiSchema = defineType({
       validation: (r) => r.required().min(1),
     }),
   ],
-})
+});

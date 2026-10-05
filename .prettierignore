@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+build
+coverage
+public
+tmp
+package-lock.json
+next-env.d.ts
+*.tsbuildinfo
+tests/fixtures
+.claude
+AGENTS.md
+CLAUDE.md
