@@ -13,6 +13,7 @@ const activityProjection = groq`{
   description,
   longDescription,
   "imageUrl": image.asset->url,
+  "gallery": gallery[]{ _key, "imageUrl": asset->url, alt, caption },
   category,
   date,
   status,

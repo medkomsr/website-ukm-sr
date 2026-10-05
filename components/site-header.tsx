@@ -12,8 +12,7 @@ gsap.registerPlugin(useGSAP);
 const nav = [
   ["Beranda", "/#main-content"],
   ["Tentang kami", "/tentang"],
-  ["Berita & acara", "/#projects"],
-  ["Delapan bidang", "/#crafts"],
+  ["Berita & acara", "/aktivitas"],
   ["Prestasi", "/#publications"],
   ["Hubungi kami", "/kontak"],
 ];

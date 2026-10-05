@@ -10,7 +10,7 @@ import { useAktivitasBySlug } from "@/hooks/useAktivitas";
 export default function HeroSection({ slug }: { slug: string}) {
 
   
-    const { data: activity, isLoading, error } = useAktivitasBySlug(slug);
+    const { data: activity } = useAktivitasBySlug(slug);
   
     const isEvent = activity?.type === "event";
   const st = activity?.status ? statusConfig[activity?.status] : null;
@@ -21,7 +21,7 @@ export default function HeroSection({ slug }: { slug: string}) {
 
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 480 }}>
-      <Image src={activity?.imageUrl || ''} alt={activity?.title || ''} fill className="object-cover" priority />
+      {activity?.imageUrl && <Image src={activity.imageUrl} alt={activity.title || ''} fill sizes="100vw" className="object-cover" loading="eager" />}
       <div className="absolute inset-0" style={{ background: overlayGradient }} />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-8 pt-10 pb-16 flex flex-col h-full" style={{ minHeight: 480 }}>
@@ -37,7 +37,7 @@ export default function HeroSection({ slug }: { slug: string}) {
           </Link>
           <ChevronRight size={12} />
           <Link href="/aktivitas" className="text-white/60 hover:text-white no-underline transition-colors">
-            Kegiatan &amp; Aktivitas
+            Berita &amp; Acara
           </Link>
           <ChevronRight size={12} />
           <span className="text-white/90 line-clamp-1 max-w-[200px]">{activity?.title}</span>
@@ -58,7 +58,7 @@ export default function HeroSection({ slug }: { slug: string}) {
               border: "1px solid rgba(255,255,255,0.3)",
             }}
           >
-            {isEvent ? "Kegiatan" : "Artikel"}
+            {isEvent ? "Acara" : "Berita"}
           </span>
           <span
             className="px-3 py-1 rounded-full text-[11px] font-semibold backdrop-blur-sm"

@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+import { activityGalleryField } from "./activity-gallery"
 
 export const eventSchema = defineType({
   name: "event",
@@ -10,6 +11,7 @@ export const eventSchema = defineType({
     defineField({ name: "description", title: "Deskripsi Singkat", type: "text", rows: 3, validation: (r) => r.required() }),
     defineField({ name: "longDescription", title: "Deskripsi Lengkap", type: "text", rows: 6 }),
     defineField({ name: "image", title: "Gambar", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
+    activityGalleryField,
     defineField({ name: "category", title: "Kategori", type: "string", options: { list: ["Festival", "Workshop", "Lomba", "Rutin", "Pengumuman"] }, validation: (r) => r.required() }),
     defineField({ name: "date", title: "Tanggal", type: "string", validation: (r) => r.required() }),
     defineField({ name: "time", title: "Waktu", type: "string" }),

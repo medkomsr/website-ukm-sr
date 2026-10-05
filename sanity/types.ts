@@ -77,6 +77,7 @@ export type SanityActivity = {
   title: string;
   description: string;
   imageUrl: string;
+  gallery?: Array<{ _key: string; imageUrl: string; alt?: string; caption?: string }>;
   category: string;
   date: string;
   status?: EventStatus;

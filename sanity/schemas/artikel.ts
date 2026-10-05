@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity"
+import { activityGalleryField } from "./activity-gallery"
 
 export const artikelSchema = defineType({
   name: "artikel",
@@ -9,6 +10,7 @@ export const artikelSchema = defineType({
     defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "title" }, validation: (r) => r.required() }),
     defineField({ name: "description", title: "Ringkasan", type: "text", rows: 3, validation: (r) => r.required() }),
     defineField({ name: "image", title: "Gambar", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
+    activityGalleryField,
     defineField({
       name: "category",
       title: "Kategori",
