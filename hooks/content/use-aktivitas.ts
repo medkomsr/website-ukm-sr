@@ -1,5 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAktivitasBySlug, getAllAktivitas } from "@/sanity/queries/aktivitas";
+import {
+  getAktivitasBySlug,
+  getAllAktivitas,
+  getBerandaAktivitas,
+} from "@/sanity/queries/aktivitas";
 import type { SanityActivity } from "@/sanity/types";
 import { CONTENT_STALE_TIME } from "@/lib/query/constants";
 
@@ -9,6 +13,15 @@ export function useAktivitas() {
     queryKey: ["aktivitas"],
     queryFn: getAllAktivitas,
     staleTime: CONTENT_STALE_TIME, // 1 jam (sesuai cache di query)
+  });
+}
+
+// Homepage selection: editor picks first, then the latest stories (max 3)
+export function useBerandaAktivitas() {
+  return useQuery<SanityActivity[]>({
+    queryKey: ["aktivitas-beranda"],
+    queryFn: getBerandaAktivitas,
+    staleTime: CONTENT_STALE_TIME,
   });
 }
 

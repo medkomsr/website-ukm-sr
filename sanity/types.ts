@@ -4,6 +4,7 @@ import type { Image, ImageDimensions } from "sanity";
 export type SanitySiteSettings = {
   kabinetNama?: string;
   kabinetLogoUrl?: string;
+  /** Not managed in the CMS; the profile eyebrow shows the cabinet name only. */
   kabinetPeriode?: string;
   namaOrg: string;
   tagline: string;
@@ -25,25 +26,8 @@ export type SanitySiteSettings = {
 export type SanityHomePage = {
   companyVideoUrl?: string;
   companyVideoPosterUrl?: string;
+  /** Partner section is not managed in the CMS for now, so the homepage keeps it hidden. */
   partners?: Array<{ name: string; logoUrl?: string; url?: string }>;
-  hero: {
-    judul1: string;
-    judulHighlight: string;
-    judul2: string;
-    deskripsi: string;
-    ctaText: string;
-  };
-  about: {
-    judul1: string;
-    judulHighlight: string;
-    deskripsi1: string;
-    deskripsi2: string;
-    highlights: string[];
-  };
-  divisions: {
-    heading: string;
-    subheading: string;
-  };
 };
 
 export type SanityVisiMisi = {
@@ -83,13 +67,10 @@ export type SanityActivity = {
   status?: EventStatus;
   time?: string;
   location?: string;
-  readTime?: string;
+  /** Legacy field; no longer projected, so the detail page falls back to `description`. */
   longDescription?: string;
   tags?: string[];
   agenda?: Array<{ time: string; item: string }>;
-  organizer?: string;
-  maxParticipants?: number;
-  author?: { name: string; role: string };
   body?: PortableTextBlock[];
 };
 
@@ -105,13 +86,13 @@ export type SanityDeptMember = {
   imageUrl?: string;
   name: string;
   role: string;
-  fakultas: string;
-  angkatan: string;
+  fakultas?: string;
+  angkatan?: string;
 };
 
 export type SanityDeptDivisi = {
   name: string;
-  kepala: SanityDeptMember;
+  kepala?: SanityDeptMember;
   staff: SanityDeptMember[];
 };
 
@@ -119,37 +100,36 @@ export type SanityDepartemenCard = {
   fullName?: string;
   _id: string;
   slug: string;
-  heading: string;
   abbr: string;
-  imageUrl: string;
-  overlay: string;
+  imageUrl?: string;
 };
 
+/** CMS members arrive as one ordered list in `divisi[0].staff`; `heading`/`overlay` are UI-only. */
 export type SanityDepartemenDetail = {
   programImages?: string[];
   _id: string;
   slug: string;
-  heading: string;
+  heading?: string;
   abbr: string;
-  fullName: string;
-  imageUrl: string;
-  overlay: string;
-  description: string;
-  programs: string[];
-  programDescriptions: string[];
-  kepala: SanityDeptMember;
+  fullName?: string;
+  imageUrl?: string;
+  overlay?: string;
+  description?: string;
+  programs?: string[];
+  programDescriptions?: string[];
+  kepala?: SanityDeptMember;
   divisi: SanityDeptDivisi[];
 };
 
 export type SanityPrestasi = {
   field?: string;
+  /** Read by the achievement dialog; not managed in the CMS, so it is never set. */
   articleSlug?: string;
   participants?: Array<{
     _key: string;
     name: string;
     faculty?: string;
     imageUrl?: string;
-    quote?: string;
   }>;
   imageUrl?: string;
   imageAlt?: string;
@@ -160,17 +140,16 @@ export type SanityPrestasi = {
   category: "Kompetisi" | "Penghargaan" | "Kolaborasi" | "Rekam Jejak";
   level: "Kampus" | "Kota" | "Provinsi" | "Nasional" | "Internasional";
   position?: string;
-  organizer: string;
-  location: string;
-  featured?: boolean;
-  order?: number;
+  organizer?: string;
+  location?: string;
 };
 
 export type SanityBidangMember = {
+  imageUrl?: string;
   name: string;
   role: string;
-  fakultas: string;
-  angkatan: string;
+  fakultas?: string;
+  angkatan?: string;
 };
 
 export type SanityBidangGalleryItem = {
@@ -182,16 +161,15 @@ export type SanityBidangGalleryItem = {
 export type SanityBidang = {
   _id: string;
   slug: string;
-  heading: string;
+  heading?: string;
   abbr: string;
-  fullName: string;
-  imageUrl: string;
+  fullName?: string;
+  imageUrl?: string;
   overlay?: string;
-  description: string;
-  gallery: SanityBidangGalleryItem[];
-  ketuaBidang: SanityBidangMember;
-  wakilKetuaBidang: SanityBidangMember;
-  order?: number;
+  description?: string;
+  gallery?: SanityBidangGalleryItem[];
+  ketuaBidang?: SanityBidangMember;
+  wakilKetuaBidang?: SanityBidangMember;
 };
 
 export type SanityKaligrafiStatus = "available" | "sold";
