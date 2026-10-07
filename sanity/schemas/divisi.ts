@@ -1,14 +1,32 @@
-import { defineField, defineType } from "sanity"
+import { defineField, defineType } from "sanity";
 
 export const divisiSchema = defineType({
   name: "divisi",
   title: "Divisi Seni",
   type: "document",
-  orderings: [{ title: "Urutan Tampil", name: "urutanAsc", by: [{ field: "urutan", direction: "asc" }] }],
+  orderings: [
+    { title: "Urutan Tampil", name: "urutanAsc", by: [{ field: "urutan", direction: "asc" }] },
+  ],
   fields: [
-    defineField({ name: "nama", title: "Nama Divisi", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "subtitle", title: "Subtitle", type: "string", description: "Contoh: Seni Tulis Arab" }),
-    defineField({ name: "deskripsi", title: "Deskripsi Singkat", type: "text", rows: 3, validation: (r) => r.required() }),
+    defineField({
+      name: "nama",
+      title: "Nama Divisi",
+      type: "string",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "subtitle",
+      title: "Subtitle",
+      type: "string",
+      description: "Contoh: Seni Tulis Arab",
+    }),
+    defineField({
+      name: "deskripsi",
+      title: "Deskripsi Singkat",
+      type: "text",
+      rows: 3,
+      validation: (r) => r.required(),
+    }),
     defineField({ name: "jumlahAnggota", title: "Jumlah Anggota", type: "number" }),
     defineField({
       name: "ikon",
@@ -27,8 +45,23 @@ export const divisiSchema = defineType({
         ],
       },
     }),
-    defineField({ name: "accent", title: "Warna Aksen (hex)", type: "string", description: "Contoh: #059669" }),
-    defineField({ name: "gambar", title: "Gambar Latar", type: "image", options: { hotspot: true } }),
-    defineField({ name: "urutan", title: "Urutan Tampil", type: "number", description: "Angka kecil tampil lebih awal" }),
+    defineField({
+      name: "accent",
+      title: "Warna Aksen (hex)",
+      type: "string",
+      description: "Contoh: #059669",
+    }),
+    defineField({
+      name: "gambar",
+      title: "Gambar Latar",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "urutan",
+      title: "Urutan Tampil",
+      type: "number",
+      description: "Angka kecil tampil lebih awal",
+    }),
   ],
-})
+});

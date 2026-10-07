@@ -1,9 +1,4 @@
-import { createClient } from "next-sanity"
-import { apiVersion, dataset, projectId } from "./env"
+import { createClient } from "next-sanity";
+import { sanityConfig } from "@/sanity/config";
 
-export const client = createClient({
-  projectId,
-  dataset,
-  apiVersion,
-  useCdn: process.env.NODE_ENV === "production",
-})
+export const client = createClient(sanityConfig);

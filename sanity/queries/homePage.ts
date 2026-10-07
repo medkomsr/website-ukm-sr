@@ -1,18 +1,17 @@
-"use cache"
+"use server";
 
-import { cacheLife } from "next/dist/server/use-cache/cache-life"
-import { cacheTag } from "next/dist/server/use-cache/cache-tag"
-import { client } from "../client"
-import type { SanityHomePage } from "../types"
+import { client } from "@/sanity/client";
+import type { SanityHomePage } from "@/sanity/types";
+import { cacheLife, cacheTag } from "next/cache";
 
 export async function getHomePage(): Promise<SanityHomePage | null> {
-  cacheLife("hours")
-  cacheTag("homePage")
+  "use cache";
+  cacheLife("hours");
+  cacheTag("homePage");
   return client.fetch(
     `*[_type == "homePage"][0]{
-      hero{ judul1, judulHighlight, judul2, deskripsi, ctaText },
-      about{ judul1, judulHighlight, deskripsi1, deskripsi2, highlights },
-      divisions{ heading, subheading }
-    }`
-  )
+      "companyVideoUrl": coalesce(companyVideoFile.asset->url, companyVideoUrl),
+      "companyVideoPosterUrl": companyVideoPoster.asset->url
+    }`,
+  );
 }

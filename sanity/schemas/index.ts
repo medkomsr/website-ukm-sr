@@ -1,21 +1,31 @@
-import { eventSchema } from "./event"
-import { artikelSchema } from "./artikel"
-import { galeriSchema } from "./galeri"
-import { departemenSchema } from "./departemen"
-import { siteSettingsSchema } from "./siteSettings"
-import { homePageSchema } from "./homePage"
-import { visiMisiSchema } from "./visiMisi"
-import { divisiSchema } from "./divisi"
-import { faqSchema } from "./faq"
+import { beritaAcaraSchema } from "@/sanity/schemas/beritaAcara";
+import { galeriSchema } from "@/sanity/schemas/galeri";
+import { departemenSchema } from "@/sanity/schemas/departemen";
+import { siteSettingsSchema } from "@/sanity/schemas/siteSettings";
+import { homePageSchema } from "@/sanity/schemas/homePage";
+import { visiMisiSchema } from "@/sanity/schemas/visiMisi";
+import { kabinetSchema } from "@/sanity/schemas/kabinet";
+import { divisiSchema } from "@/sanity/schemas/divisi";
+import { faqSchema } from "@/sanity/schemas/faq";
+import { prestasiSchema } from "@/sanity/schemas/prestasi";
+import { bidangSchema } from "@/sanity/schemas/bidang";
+import { kaligrafiCategorySchema } from "@/sanity/schemas/kaligrafiCategory";
+import { kaligrafiItemSchema } from "@/sanity/schemas/kaligrafiItem";
+import { kaligrafiSettingsSchema } from "@/sanity/schemas/kaligrafiSettings";
 
 export const schemaTypes = [
   siteSettingsSchema,
   homePageSchema,
   visiMisiSchema,
-  eventSchema,
-  artikelSchema,
+  kabinetSchema,
+  beritaAcaraSchema,
   divisiSchema,
   galeriSchema,
   departemenSchema,
   faqSchema,
-]
+  prestasiSchema,
+  bidangSchema,
+  kaligrafiCategorySchema,
+  kaligrafiItemSchema,
+  kaligrafiSettingsSchema,
+];

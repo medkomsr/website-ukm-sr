@@ -1,56 +1,94 @@
-import { defineField, defineType } from "sanity"
-
-const memberFields = [
-  defineField({ name: "name", title: "Nama", type: "string" }),
-  defineField({ name: "role", title: "Jabatan", type: "string" }),
-  defineField({ name: "fakultas", title: "Fakultas", type: "string" }),
-  defineField({ name: "angkatan", title: "Angkatan", type: "string" }),
-]
+import { defineField, defineType } from "sanity";
 
 export const departemenSchema = defineType({
   name: "departemen",
-  title: "Departemen / Badan",
+  title: "Kepengurusan Inti",
   type: "document",
   fields: [
-    defineField({ name: "heading", title: "Label (Badan / Departemen)", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "abbr", title: "Singkatan", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "fullName", title: "Nama Lengkap", type: "string", validation: (r) => r.required() }),
-    defineField({ name: "slug", title: "Slug", type: "slug", options: { source: "abbr" }, validation: (r) => r.required() }),
-    defineField({ name: "image", title: "Foto Hero", type: "image", options: { hotspot: true }, validation: (r) => r.required() }),
-    defineField({ name: "overlay", title: "CSS Overlay Gradient", type: "string" }),
-    defineField({ name: "description", title: "Deskripsi", type: "text", rows: 4, validation: (r) => r.required() }),
-    defineField({ name: "programs", title: "Program Kerja", type: "array", of: [{ type: "string" }] }),
-    defineField({ name: "programDescriptions", title: "Deskripsi Program Kerja", type: "array", of: [{ type: "text" }] }),
     defineField({
-      name: "kepala",
-      title: "Kepala Departemen / Badan",
-      type: "object",
-      fields: memberFields,
+      name: "abbr",
+      title: "Nama singkat",
+      type: "string",
+      description:
+        "Judul besar di halaman detail. Kartu di Tentang Kami memakai BKRT, Minba, PSDM, dan Medkom.",
+      validation: (r) => r.required(),
     }),
     defineField({
-      name: "divisi",
-      title: "Divisi",
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      description:
+        "Alamat halaman /tentang/<slug>. Agar tersambung ke kartu, gunakan bkrt, minba, psdm, atau medkom.",
+      options: { source: "abbr" },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "fullName",
+      title: "Nama lengkap (opsional)",
+      type: "string",
+      description: "Tampil di bawah judul halaman detail.",
+    }),
+    defineField({
+      name: "description",
+      title: "Deskripsi (opsional)",
+      type: "text",
+      rows: 4,
+      description: "Kosongkan untuk memakai kalimat bawaan.",
+    }),
+    defineField({
+      name: "image",
+      title: "Foto pengurus",
+      type: "image",
+      description: "Foto kartu di Tentang Kami sekaligus foto kebersamaan di halaman detail.",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "programKerja",
+      title: "Program kerja",
       type: "array",
       of: [
         {
           type: "object",
+          name: "programKerja",
           fields: [
-            defineField({ name: "name", title: "Nama Divisi", type: "string" }),
-            defineField({ name: "kepala", title: "Kepala Divisi", type: "object", fields: memberFields }),
+            defineField({ name: "foto", title: "Foto", type: "image", options: { hotspot: true } }),
             defineField({
-              name: "staff",
-              title: "Staff",
-              type: "array",
-              of: [{ type: "object", fields: memberFields }],
+              name: "nama",
+              title: "Nama program kerja",
+              type: "string",
+              validation: (r) => r.required(),
             }),
+            defineField({ name: "detail", title: "Detail program kerja", type: "text", rows: 3 }),
           ],
-          preview: { select: { title: "name" } },
+          preview: { select: { title: "nama", subtitle: "detail", media: "foto" } },
         },
       ],
     }),
-    defineField({ name: "order", title: "Urutan Tampil", type: "number" }),
+    defineField({
+      name: "pengurus",
+      title: "Pengurus",
+      description: "Urutan tampil mengikuti urutan di sini.",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "pengurus",
+          fields: [
+            defineField({ name: "foto", title: "Foto", type: "image", options: { hotspot: true } }),
+            defineField({
+              name: "nama",
+              title: "Nama",
+              type: "string",
+              validation: (r) => r.required(),
+            }),
+            defineField({ name: "jabatan", title: "Jabatan", type: "string" }),
+          ],
+          preview: { select: { title: "nama", subtitle: "jabatan", media: "foto" } },
+        },
+      ],
+    }),
   ],
   preview: {
-    select: { title: "fullName", media: "image", subtitle: "abbr" },
+    select: { title: "abbr", subtitle: "fullName", media: "image" },
   },
-})
+});

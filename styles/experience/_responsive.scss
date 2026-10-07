@@ -1,0 +1,545 @@
+// Emitted in experience.module.scss; order is part of the approved design.
+@mixin styles {
+  @media (min-width: 1600px) {
+    .hero,
+    .section,
+    .motto,
+    .footer {
+      padding-left: max(5vw, calc((100vw - 1440px) / 2));
+      padding-right: max(5vw, calc((100vw - 1440px) / 2));
+    }
+  }
+  @media (max-width: 1050px) {
+    .heroMain {
+      grid-template-columns: 1.5fr 0.7fr;
+      gap: 20px;
+    }
+    .hero h1 {
+      font-size: 8vw;
+    }
+    .heroLocation {
+      max-width: 150px;
+    }
+    .fieldStage {
+      gap: 35px 2%;
+    }
+    .fieldInner {
+      height: 290px;
+    }
+    .fieldBack {
+      padding: 24px 15px;
+    }
+    .fieldBack p {
+      font-size: 11px;
+    }
+    .fieldFront h3 {
+      font-size: 15px;
+    }
+    .fieldFront > span[data-field-symbol] {
+      width: 60px;
+      height: 60px;
+    }
+    .scrollLink {
+      max-width: 110px;
+      font-size: 8px;
+      line-height: 1.6;
+    }
+    .sectionTitle > p {
+      max-width: 240px;
+    }
+    .footerInfo > div {
+      gap: 15px;
+    }
+  }
+  @media (max-width: 800px) {
+    .hero {
+      min-height: auto;
+      padding: 26px 24px 0;
+    }
+    .heroTop {
+      min-height: 48px;
+    }
+    .brand > span {
+      font-size: 11px;
+    }
+    .brand small {
+      font-size: 7px;
+    }
+    .heroTop .brand {
+      gap: 8px;
+    }
+    .heroTop .brand img {
+      width: 28px;
+      height: 32px;
+    }
+    .heroLocation {
+      display: none;
+    }
+    .island {
+      left: auto;
+      right: 20px;
+      translate: 0 0;
+      top: 20px;
+    }
+    .menuPanel {
+      left: auto;
+      right: 16px;
+      translate: 0 0;
+    }
+    .heroMain {
+      grid-template-columns: 1fr;
+      padding: 64px 0 12px;
+      gap: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(50px, 10.8vw, 82px);
+      line-height: 1.03;
+      margin-top: 20px;
+    }
+    .eyebrow {
+      font-size: 8px;
+      gap: 10px;
+      letter-spacing: 0.06em;
+    }
+    .morphMark {
+      width: clamp(190px, 52vw, 340px);
+      justify-self: end;
+      margin: 0;
+    }
+    .morphMark > span {
+      font-size: 7px;
+      gap: 6px;
+      margin-top: 12px;
+    }
+    .heroBottom {
+      flex-wrap: wrap;
+      padding: 26px 0 32px;
+      gap: 24px;
+    }
+    .heroBottom p {
+      font-size: 12px;
+      line-height: 1.7;
+      width: 100%;
+    }
+    .desktopBreak {
+      display: none;
+    }
+    .pillCta {
+      font-size: 12px;
+      padding: 15px 20px;
+      gap: 22px;
+    }
+    .scrollLink {
+      max-width: none;
+      margin-left: auto;
+      gap: 10px;
+      font-size: 7px;
+      max-width: 100px;
+    }
+    .heroRule {
+      font-size: 7px;
+      letter-spacing: 0;
+      gap: 16px;
+      line-height: 1.5;
+    }
+    .motto {
+      min-height: 0;
+      height: auto;
+      max-height: none;
+      padding: 48px 24px 38px;
+      gap: 25px;
+    }
+    .mottoTrack {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      gap: 30px;
+      padding: 25px 0;
+    }
+    .mottoTrack p {
+      font-size: clamp(25px, 6.5vw, 52px);
+      white-space: normal;
+      flex-wrap: wrap;
+      gap: 12px;
+      line-height: 1.25;
+    }
+    .mottoTrack [data-sticker] {
+      padding: 1px 10px 5px;
+      box-shadow: 3px 3px 0 #0002;
+    }
+    .mottoTrack svg {
+      width: 35px;
+      height: 35px;
+    }
+    .mottoNote {
+      font-size: 10px;
+      padding-top: 18px;
+    }
+    .mottoNote > svg {
+      rotate: 90deg;
+      width: 23px;
+    }
+    .section {
+      padding: 56px 24px;
+    }
+    .sectionTitle {
+      display: block;
+      margin-bottom: 30px;
+    }
+    .sectionTitle h2 {
+      font-size: clamp(31px, 6.5vw, 48px);
+      margin-top: 18px;
+    }
+    .sectionTitle > .textLink {
+      margin-top: 18px;
+    }
+    .sectionTitle > p {
+      max-width: none;
+      margin-top: 20px;
+      font-size: 12px;
+    }
+    .reelIntro {
+      display: block;
+      margin-bottom: 28px;
+    }
+    .reelIntro h2 {
+      margin: 24px 0;
+      font-size: clamp(29px, 6.4vw, 43px);
+    }
+    .reelIntro > div > p {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .videoFrame {
+      aspect-ratio: 1.6;
+    }
+    .videoKicker {
+      top: 18px;
+      left: 18px;
+      font-size: 6px;
+      letter-spacing: 0.06em;
+    }
+    .videoPlay {
+      font-size: clamp(22px, 5vw, 40px);
+      gap: 12px;
+    }
+    .videoPlay > svg {
+      padding: 12px;
+      width: 18px;
+      height: 18px;
+    }
+    .videoCaption {
+      bottom: 16px;
+      left: 18px;
+      right: 18px;
+      font-size: 7px;
+    }
+    .videoCaption > svg {
+      width: 17px;
+    }
+    .galleryViewport {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+      scrollbar-color: var(--muted) transparent;
+      padding-bottom: 14px;
+    }
+    .galleryTrack {
+      gap: 18px;
+    }
+    .newsCard {
+      width: 78vw;
+      max-width: 460px;
+      scroll-snap-align: start;
+    }
+    .newsTitle {
+      font-size: 23px !important;
+    }
+    .newsMeta {
+      font-size: 8px;
+      margin-top: 16px;
+    }
+    .newsDescription {
+      font-size: 11px;
+    }
+    .galleryHint {
+      font-size: 8px;
+      margin-top: 12px !important;
+      justify-content: flex-start;
+    }
+    .emptyNews {
+      padding: 28px;
+      min-height: 260px;
+      width: calc(100vw - 48px);
+    }
+    .emptyNews h3 {
+      font-size: 23px;
+    }
+    .fieldStage {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 25px 16px;
+      padding: 18px 0;
+    }
+    .field {
+      rotate: 0deg;
+    }
+    .field:nth-child(even) {
+      top: 12px;
+    }
+    .fieldInner {
+      height: 255px;
+    }
+    .fieldFront {
+      background: var(--field-face);
+      border-color: var(--line);
+      gap: 24px;
+      padding: 15px 10px;
+    }
+    .fieldFront h3 {
+      font-size: 15px;
+    }
+    .fieldFront > span[data-field-symbol] {
+      width: 60px;
+      height: 60px;
+    }
+    .fieldBack {
+      padding: 24px 13px 18px;
+      gap: 9px;
+    }
+    .fieldBack h3 {
+      font-size: 20px;
+      margin-top: 7px;
+    }
+    .fieldBack p {
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .fieldNumber {
+      font-size: 7px;
+    }
+    .fieldBack > a {
+      font-size: 10px;
+      padding-top: 10px;
+    }
+    .closeField {
+      top: 5px;
+      right: 4px;
+    }
+    .fieldFootnote {
+      font-size: 10px;
+      line-height: 1.6;
+      margin-top: 35px !important;
+    }
+    .awardStage {
+      height: 455px;
+      margin-top: 35px;
+    }
+    .awardCard {
+      width: 270px;
+      height: 435px;
+      margin-left: -135px;
+      padding: 24px;
+    }
+    .awardCard > svg {
+      width: 80px;
+      height: 80px;
+      margin: 12px 0;
+    }
+    .awardGhost {
+      width: 250px;
+      height: 380px;
+      left: calc(50% - 300px);
+    }
+    .awardGhost:nth-child(2) {
+      left: calc(50% + 50px);
+    }
+    .awardCard h3 {
+      font-size: 23px;
+    }
+    .awardCard p {
+      font-size: 11px;
+    }
+    .contact h2 {
+      font-size: clamp(54px, 11.8vw, 92px);
+      margin-top: 30px;
+    }
+    .contact h2 > svg {
+      right: 0;
+      top: 7%;
+      width: 70px;
+      height: 70px;
+    }
+    .contact > div {
+      align-items: flex-start;
+      flex-direction: column;
+      margin-top: 30px;
+      gap: 24px;
+    }
+    .contact > div p {
+      font-size: 12px;
+    }
+    .footer {
+      padding: 40px 24px 25px;
+    }
+    .footerInfo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px 20px;
+    }
+    .footerInfo > .brand {
+      grid-column: 1/-1;
+    }
+    .footerInfo > div {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .footerInfo > div a,
+    .footerInfo p {
+      font-size: 11px;
+    }
+    .signature {
+      margin: 25px 0 10px;
+    }
+    .signature > canvas {
+      height: 150px;
+    }
+    .signature > span {
+      font-size: 8px;
+      margin: 0 0 25px;
+    }
+    .legal {
+      display: block;
+      font-size: 8px;
+      line-height: 1.6;
+      padding-top: 20px;
+    }
+    .legal > div {
+      margin-top: 18px;
+      gap: 18px;
+      justify-content: space-between;
+    }
+    .legal button {
+      font-size: 8px;
+    }
+    .dialogContent {
+      padding: 46px 24px 28px;
+    }
+    .dialog h2 {
+      font-size: 28px;
+    }
+    .dialog p {
+      font-size: 12px;
+    }
+    .textLink {
+      font-size: 11px;
+    }
+    .dialog .eyebrow {
+      padding-right: 18px;
+    }
+  }
+  @media (max-width: 370px) {
+    .hero,
+    .section {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .heroMain {
+      padding-top: 55px;
+    }
+    .hero h1 {
+      font-size: 10.7vw;
+    }
+    .heroTop .brand > span {
+      font-size: 9px;
+    }
+    .heroTop .brand small {
+      font-size: 5px;
+    }
+    .island {
+      width: 96px;
+      right: 16px;
+    }
+    .iconButton {
+      width: 39px;
+    }
+    .heroBottom .pillCta {
+      gap: 12px;
+      padding: 14px 17px;
+      font-size: 11px;
+    }
+    .scrollLink {
+      max-width: 80px;
+      font-size: 6px;
+    }
+    .mottoTrack p {
+      font-size: 6.4vw;
+      gap: 8px;
+    }
+    .mottoTrack svg {
+      width: 25px;
+      height: 25px;
+    }
+    .fieldStage {
+      gap: 22px 10px;
+    }
+    .fieldInner {
+      height: 275px;
+    }
+    .fieldBack {
+      padding: 25px 11px 15px;
+    }
+    .fieldBack p {
+      font-size: 10px;
+      line-height: 1.55;
+    }
+    .fieldFront h3 {
+      font-size: 13px;
+    }
+    .fieldFront > span[data-field-symbol] {
+      width: 50px;
+      height: 50px;
+    }
+    .fieldBack h3 {
+      font-size: 18px;
+    }
+    .contact h2 > svg {
+      width: 52px;
+      height: 52px;
+    }
+    .awardCard {
+      width: 244px;
+      margin-left: -122px;
+    }
+    .emptyNews {
+      width: calc(100vw - 40px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site * {
+      scroll-behavior: auto !important;
+      animation: none !important;
+      transition: none !important;
+    }
+    .motto {
+      height: auto;
+      min-height: 0;
+      max-height: none;
+    }
+    .mottoTrack {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+    .mottoTrack p {
+      white-space: normal;
+      font-size: clamp(25px, 5vw, 70px);
+      flex-wrap: wrap;
+    }
+    .galleryViewport {
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+  }
+}

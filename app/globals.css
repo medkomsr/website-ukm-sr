@@ -43,18 +43,18 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  /* Custom maroon palette */
-  --color-maroon-50: #fef2f2;
-  --color-maroon-100: #fde3e3;
-  --color-maroon-200: #fbcbcb;
-  --color-maroon-300: #f7a3a3;
-  --color-maroon-400: #f06969;
-  --color-maroon-500: #991b1b;
-  --color-maroon-600: #7f1d1d;
-  --color-maroon-700: #6b1111;
-  --color-maroon-800: #560d0d;
-  --color-maroon-900: #420a0a;
-  --color-maroon-950: #2d0505;
+  /* Custom green palette (remapped from maroon) */
+  --color-maroon-50: #f0fdf4;
+  --color-maroon-100: #dcfce7;
+  --color-maroon-200: #bbf7d0;
+  --color-maroon-300: #86efac;
+  --color-maroon-400: #4ade80;
+  --color-maroon-500: #166534;
+  --color-maroon-600: #15803d;
+  --color-maroon-700: #166534;
+  --color-maroon-800: #14532d;
+  --color-maroon-900: #0d2a1a;
+  --color-maroon-950: #052e16;
 
   /* neutral-1000 */
   --color-neutral-1000: #0a0a0a;

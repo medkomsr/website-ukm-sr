@@ -1,15 +1,16 @@
-import SiteLayout from "@/components/site-layout";
-import HeaderSection from "@/app/aktivitas/components/header";
-import ItemsGridSection from "@/app/aktivitas/components/items-grid";
-import { getAllAktivitas } from "@/sanity/queries/aktivitas";
+import SiteLayout from "@/components/layout/site-layout";
+import type { Metadata } from "next";
+import Newsroom from "@/features/activities/components/newsroom";
 
-export default async function AktivitasPage() {
-  const items = await getAllAktivitas();
+export const metadata: Metadata = {
+  title: "Berita & Acara | Seni Religi UB",
+  description: "Cerita, karya, dan agenda terbaru dari Seni Religi Universitas Brawijaya.",
+};
 
+export default function AktivitasPage() {
   return (
     <SiteLayout>
-      <HeaderSection />
-      <ItemsGridSection items={items} />
+      <Newsroom />
     </SiteLayout>
   );
 }

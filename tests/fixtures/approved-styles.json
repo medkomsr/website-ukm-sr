@@ -1,0 +1,85 @@
+{
+  "description": "Approved styling before architecture refactor. Sass normalizes equivalent CSS notation; rule/declaration order remains significant.",
+  "baselineCommit": "67be166a16784b9c2addc710069ab8c63b0ae2cb",
+  "styles": {
+    "styles/brand-theme.scss": {
+      "source": "app/brand-theme.css",
+      "sha256": "f4470e996cbc429a71c84667af65c1be74940bba16cc4787b40400e8065d4bad"
+    },
+    "features/activities/components/newsroom.module.scss": {
+      "source": "app/aktivitas/components/newsroom.module.css",
+      "sha256": "be29687c24d2dc671b7cd01d3830a771720b4658cf256e113ae7afaa5506cc71"
+    },
+    "features/home/components/motto.module.scss": {
+      "source": "app/(home)/components/motto.module.css",
+      "sha256": "e57b892e650d2ce50769457fca42285d0f7c0e75064bcf37253a836c5588c75e"
+    },
+    "styles/experience.module.scss": {
+      "source": "app/(home)/components/sr-home.module.css",
+      "sha256": "bc4cd163eb53bd1ae2a15ab69b83cb570ff2c5c19560d246fe5822cc74677632"
+    },
+    "features/home/components/hero-scene.module.scss": {
+      "source": "app/(home)/components/hero-scene.module.css",
+      "sha256": "da66434694c5838f661c0cc1368fb6769e8a3ea946c2fdb64acb6ea5d63cad5a"
+    },
+    "features/home/components/company-reel.module.scss": {
+      "source": "app/(home)/components/company-reel.module.css",
+      "sha256": "8aaa737dd0c23e1efe3ec33e9a2f77a3f3512f9a74bff221473daab034865102",
+      "revision": "2026-10-07: user-requested embedded company reel and cinematic video dialog"
+    },
+    "components/layout/footer.module.scss": {
+      "source": "components/footer.module.css",
+      "sha256": "dd2c5de7b23f88889ea1815d183e604dedc242457be239de080402d9fcb6f421"
+    },
+    "components/layout/site-header.module.scss": {
+      "source": "components/site-header.module.css",
+      "sha256": "f551b4a27576859347416890c83614efe1303df7f77d36951d5dc685fee96cfe"
+    },
+    "components/layout/site-shell.module.scss": {
+      "source": "components/elegant-shell.module.css",
+      "sha256": "59aa5e3dcbc088248d7695f77696dc0e2a303e1243a9f8f61958bc58d1db993d",
+      "retainedSelectors": [
+        ".skip",
+        ".skip:focus"
+      ],
+      "note": "The only selectors referenced by the active shell; legacy header/footer selectors removed. Digest derived from these rules in baselineCommit."
+    },
+    "features/contact/components/contact.module.scss": {
+      "source": "app/kontak/components/contact.module.css",
+      "sha256": "eb777e5b129ed1371e4b05a2679c859cf7f6b96195bf72850fc07c33881694f2"
+    },
+    "features/achievements/components/achievements.module.scss": {
+      "source": "app/prestasi/components/achievements.module.css",
+      "sha256": "a23ff8c077194edf05b81f590c7e1af7a1bde32d6f3004f065f0194df35318c2"
+    },
+    "features/about/components/about-profile.module.scss": {
+      "source": "app/tentang/components/about-profile.module.css",
+      "sha256": "f1d5b147f18c677f5f5373947eedf7314d701797a9b724c779a6ca14bd3b4235"
+    },
+    "features/about/components/cabinet.module.scss": {
+      "source": "app/tentang/components/cabinet.module.css",
+      "sha256": "004c93f11034e673269fbb2d808b4fd5be9893495f9a2b523ae331a4634d5b6e"
+    },
+    "features/activities/components/detail/story-detail.module.scss": {
+      "source": "app/aktivitas/[id]/components/story-detail.module.css",
+      "sha256": "16054a805f5b7f6fa8de6b5c537a0f01e81a86b0202f74bdd9aba5284408e0fd"
+    },
+    "features/departments/components/scroll-gallery.module.scss": {
+      "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
+      "sha256": "a500a5af43918dfc033bbf6a9d9f546bdcdc10309ccf26bea308fa3e3921d0de"
+    },
+    "features/departments/components/department-profile.module.scss": {
+      "source": "app/tentang/[dept]/components/department-profile.module.css",
+      "sha256": "725c2082e10dc2de11e9fcabfb2d4b2c2cfc0623853f1d6848c5e01c67e4324b"
+    },
+    "features/art-fields/components/documentation-collage.module.scss": {
+      "source": "app/tentang/bidang/[bidang]/components/documentation-collage.module.css",
+      "sha256": "b41d871d3235cd73aee1007999c7b1f96127583194924738b02fba76c9af8bf3"
+    },
+    "features/home/components/company-video.module.scss": {
+      "source": "features/home/components/company-video.module.scss",
+      "sha256": "48292ba2fa6d49fadb355be3ca6cbb5a4b4a63185ba24fe4d074a1ca466e3ad1",
+      "revision": "2026-10-07: user-requested floating close button without header, cream buttons with green icons, and expanded video area"
+    }
+  }
+}
