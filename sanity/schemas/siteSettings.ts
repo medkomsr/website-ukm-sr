@@ -5,19 +5,6 @@ export const siteSettingsSchema = defineType({
   title: "Pengaturan Situs",
   type: "document",
   fields: [
-    defineField({ name: "kabinetNama", title: "Nama Kabinet Aktif", type: "string" }),
-    defineField({
-      name: "kabinetLogo",
-      title: "Logo Kabinet",
-      type: "image",
-      options: { hotspot: true },
-    }),
-    defineField({
-      name: "kabinetPeriode",
-      title: "Periode Kabinet Aktif",
-      type: "string",
-      description: "Contoh: 2026/2027. Sesuaikan dengan periode resmi kepengurusan.",
-    }),
     defineField({
       name: "namaOrg",
       title: "Nama Organisasi",

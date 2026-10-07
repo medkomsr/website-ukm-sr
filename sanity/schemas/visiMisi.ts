@@ -15,9 +15,12 @@ export const visiMisiSchema = defineType({
     defineField({
       name: "misi",
       title: "Misi",
+      description:
+        "Satu butir per misi. Nomor 01, 02, 03 dibuat otomatis sesuai urutan; seret untuk mengubah urutan.",
       type: "array",
-      of: [{ type: "string" }],
+      of: [{ type: "text", rows: 2 }],
       validation: (r) => r.required().min(1),
     }),
   ],
+  preview: { prepare: () => ({ title: "Visi & Misi" }) },
 });

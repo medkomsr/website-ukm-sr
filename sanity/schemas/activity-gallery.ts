@@ -4,7 +4,7 @@ export const activityGalleryField = defineField({
   name: "gallery",
   title: "Galeri Dokumentasi",
   description:
-    "Foto tambahan untuk tampilan bento dan galeri horizontal pada halaman detail. Gambar utama tetap menjadi foto pembuka.",
+    "Foto tambahan untuk galeri Dokumentasi pada halaman detail. Foto utama otomatis menjadi foto pertama, jadi tidak perlu diunggah ulang di sini.",
   type: "array",
   of: [
     {
