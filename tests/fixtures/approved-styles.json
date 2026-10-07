@@ -24,7 +24,8 @@
     },
     "features/home/components/company-reel.module.scss": {
       "source": "app/(home)/components/company-reel.module.css",
-      "sha256": "a13e3d0da4327d241671e198d507a06d999670309cdb55f14f094c118f5ca1b9"
+      "sha256": "8aaa737dd0c23e1efe3ec33e9a2f77a3f3512f9a74bff221473daab034865102",
+      "revision": "2026-10-07: user-requested embedded company reel and cinematic video dialog"
     },
     "components/layout/footer.module.scss": {
       "source": "components/footer.module.css",
@@ -74,6 +75,11 @@
     "features/art-fields/components/documentation-collage.module.scss": {
       "source": "app/tentang/bidang/[bidang]/components/documentation-collage.module.css",
       "sha256": "b41d871d3235cd73aee1007999c7b1f96127583194924738b02fba76c9af8bf3"
+    },
+    "features/home/components/company-video.module.scss": {
+      "source": "features/home/components/company-video.module.scss",
+      "sha256": "48292ba2fa6d49fadb355be3ca6cbb5a4b4a63185ba24fe4d074a1ca466e3ad1",
+      "revision": "2026-10-07: user-requested floating close button without header, cream buttons with green icons, and expanded video area"
     }
   }
 }
