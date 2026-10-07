@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -21,14 +21,12 @@ import s from "@/styles/experience.module.scss";
 
 import { Achievements } from "./achievements";
 import { Fields } from "./fields";
-import { PopupDialog, type Popup } from "./home-dialog";
 import { NewsGallery } from "./news-gallery";
 import { SectionTitle } from "./section-heading";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SrHome() {
   const root = useRef<HTMLDivElement>(null);
-  const [popup, setPopup] = useState<Popup | null>(null);
   const { data: home } = useHomePage();
 
   const activities = useAktivitas(),
@@ -66,7 +64,7 @@ export default function SrHome() {
         <Motto />
         <CompanyReel
           poster={home?.companyVideoPosterUrl || IMAGES.stage}
-          onPlay={() => setPopup({ kind: "video" })}
+          videoUrl={home?.companyVideoUrl}
         />
         <NewsGallery
           id="projects"
@@ -141,9 +139,6 @@ export default function SrHome() {
         </section>
       </main>
       <Footer />
-      {popup && (
-        <PopupDialog popup={popup} close={() => setPopup(null)} videoUrl={home?.companyVideoUrl} />
-      )}
     </div>
   );
 }

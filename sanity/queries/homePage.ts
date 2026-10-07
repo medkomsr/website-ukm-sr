@@ -10,12 +10,8 @@ export async function getHomePage(): Promise<SanityHomePage | null> {
   cacheTag("homePage");
   return client.fetch(
     `*[_type == "homePage"][0]{
-      hero{ judul1, judulHighlight, judul2, deskripsi, ctaText },
-      about{ judul1, judulHighlight, deskripsi1, deskripsi2, highlights },
-      divisions{ heading, subheading },
-      companyVideoUrl,
-      "companyVideoPosterUrl": companyVideoPoster.asset->url,
-      partners[]{ name, url, "logoUrl": logo.asset->url }
+      "companyVideoUrl": coalesce(companyVideoFile.asset->url, companyVideoUrl),
+      "companyVideoPosterUrl": companyVideoPoster.asset->url
     }`,
   );
 }

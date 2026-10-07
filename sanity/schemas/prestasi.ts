@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { srFields } from "@/lib/constants/art-fields";
 
 export const prestasiSchema = defineType({
   name: "prestasi",
@@ -6,29 +7,80 @@ export const prestasiSchema = defineType({
   type: "document",
   fields: [
     defineField({
-      name: "field",
-      title: "Bidang SR",
-      type: "string",
-      options: {
-        list: [
-          "Fahmil",
-          "Syarhil",
-          "Hifdzil",
-          "Tilawah & Tartil",
-          "KTDAQ",
-          "Banjari & Nasyid",
-          "Khattil",
-          "Debat Ilmiah",
-        ],
-      },
-      description: "Bidang yang mewakili SR dalam pencapaian ini.",
+      name: "year",
+      title: "Tahun",
+      type: "number",
+      validation: (r) => r.required().integer().min(2000).max(2100),
     }),
     defineField({
-      name: "participants",
-      title: "Para Juara / Anggota Tim",
-      type: "array",
+      name: "title",
+      title: "Prestasi / Kompetisi",
+      type: "string",
+      description: "Contoh: Musabaqah Tilawatil Qur'an Mahasiswa Nasional",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "level",
+      title: "Tingkat",
+      type: "string",
+      options: {
+        list: ["Kampus", "Kota", "Provinsi", "Nasional", "Internasional"],
+        layout: "radio",
+        direction: "horizontal",
+      },
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "position",
+      title: "Pencapaian",
+      type: "string",
+      description: "Contoh: Juara 1, Runner Up, Penampil Terbaik, UKM Terbaik",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "category",
+      title: "Kategori",
+      type: "string",
+      description: "Dipakai sebagai pilihan filter di arsip prestasi.",
+      options: {
+        list: ["Kompetisi", "Penghargaan", "Kolaborasi", "Rekam Jejak"],
+        layout: "radio",
+        direction: "horizontal",
+      },
+      initialValue: "Kompetisi",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "field",
+      title: "Bidang (opsional)",
+      type: "string",
+      description: "Bidang yang mewakili Seni Religi. Tampil sebagai label kecil di atas judul.",
+      options: { list: srFields.map(({ name }) => name) },
+    }),
+    defineField({
+      name: "description",
+      title: "Deskripsi",
+      type: "text",
+      rows: 5,
+      description: "Cerita pencapaian. Tampil di popup detail dan kartu prestasi di beranda.",
+      validation: (r) => r.required(),
+    }),
+    defineField({
+      name: "image",
+      title: "Foto kejuaraan",
+      type: "image",
+      options: { hotspot: true },
       description:
-        "Nama peserta untuk daftar arsip, serta profil dan foto yang ditampilkan di detail prestasi.",
+        "Dokumentasi pemenang, tim memegang piala, atau penyerahan penghargaan. Tampil di popup detail dan beranda.",
+      fields: [{ name: "alt", title: "Deskripsi foto", type: "string" }],
+    }),
+    defineField({ name: "organizer", title: "Penyelenggara (opsional)", type: "string" }),
+    defineField({ name: "location", title: "Lokasi (opsional)", type: "string" }),
+    defineField({
+      name: "participants",
+      title: "Peserta / anggota tim",
+      type: "array",
+      description: "Nama tampil di arsip; foto dan fakultas tampil di popup detail.",
       of: [
         {
           type: "object",
@@ -43,141 +95,32 @@ export const prestasiSchema = defineType({
             defineField({ name: "faculty", title: "Fakultas / program studi", type: "string" }),
             defineField({
               name: "image",
-              title: "Foto peserta",
+              title: "Foto",
               type: "image",
               options: { hotspot: true },
-            }),
-            defineField({
-              name: "quote",
-              title: "Pesan / cerita singkat peserta",
-              type: "text",
-              rows: 3,
             }),
           ],
           preview: { select: { title: "name", subtitle: "faculty", media: "image" } },
         },
       ],
     }),
-    defineField({
-      name: "image",
-      title: "Foto Kejuaraan",
-      type: "image",
-      options: { hotspot: true },
-      description:
-        "Dokumentasi pemenang, tim memegang piala, atau penyerahan penghargaan. Ditampilkan pada detail prestasi dan kabar prestasi di beranda.",
-      fields: [{ name: "alt", title: "Deskripsi foto", type: "string" }],
-    }),
-    defineField({
-      name: "title",
-      title: "Judul Prestasi",
-      type: "string",
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "description",
-      title: "Deskripsi",
-      type: "text",
-      rows: 4,
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "year",
-      title: "Tahun",
-      type: "number",
-      validation: (r) => r.required().min(2000).max(2100),
-    }),
-    defineField({
-      name: "category",
-      title: "Kategori",
-      type: "string",
-      options: {
-        list: [
-          { title: "Kompetisi", value: "Kompetisi" },
-          { title: "Penghargaan", value: "Penghargaan" },
-          { title: "Kolaborasi", value: "Kolaborasi" },
-          { title: "Rekam Jejak", value: "Rekam Jejak" },
-        ],
-      },
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "level",
-      title: "Tingkat",
-      type: "string",
-      options: {
-        list: [
-          { title: "Kampus", value: "Kampus" },
-          { title: "Kota", value: "Kota" },
-          { title: "Provinsi", value: "Provinsi" },
-          { title: "Nasional", value: "Nasional" },
-          { title: "Internasional", value: "Internasional" },
-        ],
-      },
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "position",
-      title: "Posisi / Gelar",
-      type: "string",
-      description: "Contoh: Juara 1, Runner Up, Penampil Terbaik, UKM Terbaik",
-    }),
-    defineField({
-      name: "organizer",
-      title: "Penyelenggara",
-      type: "string",
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "location",
-      title: "Lokasi",
-      type: "string",
-      validation: (r) => r.required(),
-    }),
-    defineField({
-      name: "featured",
-      title: "Tampilkan di Unggulan",
-      type: "boolean",
-      initialValue: false,
-      description:
-        "Jika diaktifkan, prestasi ini akan ditampilkan di bagian unggulan halaman prestasi",
-    }),
-    defineField({
-      name: "article",
-      title: "Artikel Terkait",
-      type: "reference",
-      to: [{ type: "artikel" }, { type: "event" }],
-      description: "Hubungkan dengan artikel atau event yang terkait (opsional)",
-    }),
-    defineField({
-      name: "order",
-      title: "Urutan",
-      type: "number",
-      description: "Angka lebih kecil ditampilkan lebih awal",
-    }),
   ],
   orderings: [
     {
-      title: "Tahun Terbaru",
+      title: "Tahun terbaru",
       name: "yearDesc",
-      by: [{ field: "year", direction: "desc" }],
-    },
-    {
-      title: "Tahun Terlama",
-      name: "yearAsc",
-      by: [{ field: "year", direction: "asc" }],
+      by: [
+        { field: "year", direction: "desc" },
+        { field: "_createdAt", direction: "desc" },
+      ],
     },
   ],
   preview: {
-    select: {
-      title: "title",
-      subtitle: "year",
-      description: "level",
-    },
-    prepare({ title, subtitle, description }) {
-      return {
-        title,
-        subtitle: `${subtitle} · ${description}`,
-      };
-    },
+    select: { title: "title", year: "year", level: "level", position: "position", media: "image" },
+    prepare: ({ title, year, level, position, media }) => ({
+      title,
+      media,
+      subtitle: [year, level, position].filter(Boolean).join(" · "),
+    }),
   },
 });
