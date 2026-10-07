@@ -1,13 +1,17 @@
 "use client";
-import { useId, useRef } from "react";
+import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, Pause, Play } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SrSymbol } from "@/components/brand/art-symbol";
 import r from "@/features/home/components/company-reel.module.scss";
+
+import { CompanyVideo } from "./company-video";
+import { CompanyVideoDialog, type VideoOrigin } from "./company-video-dialog";
+import { companyVideoSource } from "../lib/company-video";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 const description =
@@ -23,8 +27,43 @@ function Words({ text }: { text: string }) {
     </>
   );
 }
-export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => void }) {
+export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: string }) {
   const root = useRef<HTMLElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [origin, setOrigin] = useState<VideoOrigin | null>(null);
+  const [visible, setVisible] = useState(false);
+  const [previewLoaded, setPreviewLoaded] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const source = companyVideoSource(videoUrl);
+  useEffect(() => {
+    const preference = matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setPreviewLoaded(true);
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(frameRef.current!);
+    return () => {
+      observer.disconnect();
+      preference.removeEventListener("change", update);
+    };
+  }, []);
+  const openVideo = (event: MouseEvent<HTMLButtonElement>) => {
+    const rect = frameRef.current!.getBoundingClientRect();
+    setOrigin({
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+      trigger: event.currentTarget,
+    });
+  };
   const warpId = `reel-warp-${useId().replace(/:/g, "")}`;
   useGSAP(
     () => {
@@ -288,29 +327,62 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
         </div>
       </div>
       <div data-reel-stage className={r.stage}>
-        <button
+        <div
+          ref={frameRef}
           data-reel-frame
           style={{ clipPath: `url(#${warpId}-clip)` }}
           className={r.frame}
-          onClick={onPlay}
-          aria-label="Putar video company profile Seni Religi"
         >
           <div className={r.media} style={{ filter: `url(#${warpId})` }}>
             <Image src={poster} alt="" fill sizes="90vw" />
+            {source && previewLoaded && !reduced && (
+              <CompanyVideo
+                key={videoUrl}
+                url={videoUrl!}
+                preview
+                active={visible && !origin && !paused}
+              />
+            )}
           </div>
           <span data-reel-tint className={r.tint} aria-hidden="true" />
-          <span data-reel-play className={r.play}>
-            <Play size={24} fill="currentColor" />
-            Putar company profile
-          </span>
+          <button
+            className={r.playSurface}
+            onClick={openVideo}
+            disabled={!source}
+            aria-label="Putar video company profile Seni Religi"
+          >
+            <span className={r.playPosition}>
+              <span data-reel-play className={r.play}>
+                <span>PUTAR</span>
+                <span className={r.playIcon}>
+                  <Play size={24} fill="currentColor" />
+                </span>
+                <span>VIDEO</span>
+              </span>
+            </span>
+          </button>
+          {source && !reduced && (
+            <button
+              className={r.previewToggle}
+              aria-label={paused ? "Putar preview video" : "Jeda preview video"}
+              aria-pressed={paused}
+              onClick={() => setPaused(!paused)}
+            >
+              {paused ? <Play size={13} /> : <Pause size={13} />}
+              <span>PREVIEW</span>
+            </button>
+          )}
           <span className={r.caption}>SENI RELIGI · UNIVERSITAS BRAWIJAYA</span>
-        </button>
+        </div>
         <div data-reel-marks className={r.marks} aria-hidden="true">
           {[0, 2, 4, 5, 6].map((index) => (
             <SrSymbol key={index} index={index} />
           ))}
         </div>
       </div>
+      {origin && source && videoUrl && (
+        <CompanyVideoDialog url={videoUrl} origin={origin} close={() => setOrigin(null)} />
+      )}
     </section>
   );
 }

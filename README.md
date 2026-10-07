@@ -189,3 +189,9 @@ Backup CMS di `tmp` bukan source code dan tidak diperlukan untuk build.
 Komponen eksperimen lama yang tidak terhubung ke route aktif telah dihapus;
 versi sebelumnya tetap tersedia di riwayat Git. Aset publik dan dokumen CMS
 tidak dihapus dalam refactor.
+
+### Video company profile
+
+`CompanyReel` memuat preview tanpa suara saat frame terlihat. Preview berhenti saat keluar dari layar, tab tidak aktif, atau player layar penuh dibuka; preferensi reduced motion menggunakan poster statis. Sumber tetap berasal dari `companyVideoUrl` di Sanity (YouTube HTTPS, MP4, atau WebM). Tidak ada video pihak lain yang disalin.
+
+`CompanyVideo` menyatukan kontrol pemutaran, waktu, seek, dan suara untuk YouTube IFrame API maupun HTML video. SDK YouTube dimuat sekali melalui `features/home/lib/youtube-player.ts`. `CompanyVideoDialog` menangani animasi GSAP dari frame ke layar penuh, Escape, penguncian scroll, serta pengembalian fokus. Bila layanan video gagal, player menampilkan tautan ke sumber aslinya.
