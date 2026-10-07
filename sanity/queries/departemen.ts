@@ -11,38 +11,37 @@ export async function getAllDepartemen(): Promise<SanityDepartemenCard[]> {
   cacheTag("departemen");
 
   return client.fetch(
-    groq`*[_type == "departemen" && coalesce(active, true)] | order(order asc) {
+    groq`*[_type == "departemen" && defined(slug.current) && defined(abbr)] | order(_createdAt asc) {
       _id,
       "slug": slug.current,
-      heading,
       abbr,
       fullName,
-      "imageUrl": image.asset->url,
-      overlay
+      "imageUrl": image.asset->url
     }`,
   );
 }
 
+// Program and member lists are mapped to the shape the profile page already renders.
 export async function getDepartemenBySlug(slug: string): Promise<SanityDepartemenDetail | null> {
   "use cache";
   cacheLife("hours");
   cacheTag("departemen", `departemen-${slug}`);
 
   return client.fetch(
-    groq`*[_type == "departemen" && slug.current == $slug][0] {
+    groq`*[_type == "departemen" && slug.current == $slug && defined(abbr)][0] {
       _id,
       "slug": slug.current,
-      heading,
       abbr,
       fullName,
-      "imageUrl": image.asset->url,
-      overlay,
       description,
-      programs,
-      programDescriptions,
-      "programImages": programImages[].asset->url,
-      kepala { ..., "imageUrl": image.asset->url },
-      divisi[] { ..., kepala { ..., "imageUrl": image.asset->url }, staff[] { ..., "imageUrl": image.asset->url } }
+      "imageUrl": image.asset->url,
+      "programs": programKerja[]{ "v": coalesce(nama, "") }.v,
+      "programDescriptions": programKerja[]{ "v": coalesce(detail, "") }.v,
+      "programImages": programKerja[]{ "v": coalesce(foto.asset->url, "") }.v,
+      "divisi": [{
+        "name": "Pengurus",
+        "staff": pengurus[]{ "name": nama, "role": jabatan, "imageUrl": foto.asset->url }
+      }]
     }`,
     { slug },
   );

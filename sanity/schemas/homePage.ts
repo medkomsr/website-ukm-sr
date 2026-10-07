@@ -4,135 +4,73 @@ export const homePageSchema = defineType({
   name: "homePage",
   title: "Halaman Beranda",
   type: "document",
+  fieldsets: [
+    {
+      name: "companyProfile",
+      title: "Video Company Profile",
+      description:
+        "Kartu video di beranda selalu tampil. Jika video dikosongkan, tombol putar menampilkan pesan bahwa video belum tersedia; jika sampul dikosongkan, gambar bawaan dipakai.",
+      options: { collapsible: true, collapsed: false },
+    },
+    {
+      name: "news",
+      title: "Berita & Acara di Beranda",
+      description:
+        "Beranda menampilkan 3 berita. Berita pilihan tampil lebih dulu sesuai urutan; slot yang kosong otomatis diisi berita terbaru.",
+      options: { collapsible: true, collapsed: false },
+    },
+    {
+      name: "achievements",
+      title: "Prestasi di Beranda",
+      description:
+        "Beranda menampilkan 3 prestasi. Prestasi pilihan tampil lebih dulu sesuai urutan; slot yang kosong otomatis diisi prestasi terbaru.",
+      options: { collapsible: true, collapsed: false },
+    },
+  ],
   fields: [
     defineField({
+      name: "companyVideoFile",
+      title: "Unggah video (MP4)",
+      description:
+        "Diutamakan bila terisi. Kompres video terlebih dahulu agar cepat dimuat. Hapus file untuk kembali memakai tautan di bawah.",
+      type: "file",
+      fieldset: "companyProfile",
+      options: { accept: "video/mp4" },
+    }),
+    defineField({
       name: "companyVideoUrl",
-      title: "Video company profile (YouTube / MP4)",
+      title: "Tautan video (YouTube / MP4)",
+      description:
+        "Dipakai bila tidak ada video yang diunggah. Contoh: https://youtu.be/xxxxxxxxxxx",
       type: "url",
+      fieldset: "companyProfile",
       validation: (Rule) => Rule.uri({ scheme: ["https"] }),
     }),
     defineField({
       name: "companyVideoPoster",
-      title: "Sampul video company profile",
+      title: "Sampul video",
+      description: "Gambar pada kartu video. Kosongkan untuk memakai gambar bawaan.",
       type: "image",
+      fieldset: "companyProfile",
       options: { hotspot: true },
     }),
     defineField({
-      name: "partners",
-      title: "Rekan kolaborasi",
+      name: "sorotanBerita",
+      title: "Sorotan berita (opsional)",
+      description: "Pilih maksimal 3. Kosongkan untuk menampilkan 3 berita terbaru.",
       type: "array",
-      of: [
-        {
-          type: "object",
-          fields: [
-            defineField({
-              name: "name",
-              title: "Nama",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            }),
-            defineField({ name: "logo", title: "Logo", type: "image" }),
-            defineField({
-              name: "url",
-              title: "Tautan",
-              type: "url",
-              validation: (Rule) => Rule.uri({ scheme: ["https"] }),
-            }),
-          ],
-        },
-      ],
+      fieldset: "news",
+      of: [{ type: "reference", to: [{ type: "beritaAcara" }], weak: true }],
+      validation: (Rule) => Rule.max(3).unique(),
     }),
     defineField({
-      name: "hero",
-      title: "Hero Section",
-      type: "object",
-      fields: [
-        defineField({
-          name: "judul1",
-          title: "Judul Baris 1 (sebelum highlight)",
-          type: "string",
-          description: "Contoh: Seni yang ",
-        }),
-        defineField({
-          name: "judulHighlight",
-          title: "Kata Highlight (warna emas)",
-          type: "string",
-          description: "Contoh: Menginspirasi",
-        }),
-        defineField({
-          name: "judul2",
-          title: "Judul Baris 2",
-          type: "string",
-          description: "Contoh: Iman yang Menguatkan",
-        }),
-        defineField({
-          name: "deskripsi",
-          title: "Deskripsi",
-          type: "text",
-          rows: 2,
-        }),
-        defineField({
-          name: "ctaText",
-          title: "Teks Tombol CTA",
-          type: "string",
-        }),
-      ],
-    }),
-    defineField({
-      name: "about",
-      title: "About Section",
-      type: "object",
-      fields: [
-        defineField({
-          name: "judul1",
-          title: "Judul (sebelum highlight)",
-          type: "string",
-          description: "Contoh: Berkarya dengan tulus, ",
-        }),
-        defineField({
-          name: "judulHighlight",
-          title: "Kata Highlight",
-          type: "string",
-          description: "Contoh: Inovasi tanpa batas",
-        }),
-        defineField({
-          name: "deskripsi1",
-          title: "Paragraf 1",
-          type: "text",
-          rows: 3,
-        }),
-        defineField({
-          name: "deskripsi2",
-          title: "Paragraf 2",
-          type: "text",
-          rows: 3,
-        }),
-        defineField({
-          name: "highlights",
-          title: "Poin Keunggulan",
-          type: "array",
-          of: [{ type: "string" }],
-          description: "Contoh: 150+ Anggota dari Seluruh Fakultas",
-        }),
-      ],
-    }),
-    defineField({
-      name: "divisions",
-      title: "Divisi Section",
-      type: "object",
-      fields: [
-        defineField({
-          name: "heading",
-          title: "Judul Section",
-          type: "string",
-        }),
-        defineField({
-          name: "subheading",
-          title: "Subjudul Section",
-          type: "text",
-          rows: 2,
-        }),
-      ],
+      name: "sorotanPrestasi",
+      title: "Sorotan prestasi (opsional)",
+      description: "Pilih maksimal 3. Kosongkan untuk menampilkan 3 prestasi terbaru.",
+      type: "array",
+      fieldset: "achievements",
+      of: [{ type: "reference", to: [{ type: "prestasi" }], weak: true }],
+      validation: (Rule) => Rule.max(3).unique(),
     }),
   ],
 });
