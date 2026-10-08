@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import n from "@/features/activities/components/newsroom.module.scss";
 import s from "@/features/achievements/components/achievements.module.scss";
+import FilterSelect from "./filter-select";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 type Values = { year: string; field: string; category: string; search: string };
@@ -85,7 +86,7 @@ export default function AchievementFilters({
             );
           })}
         </div>
-        <div data-filter-pop className={n.search}>
+        <div data-filter-pop className={`${n.search} ${s.archiveSearch}`}>
           <Search size={18} />
           <input
             aria-label="Cari prestasi atau peserta"
@@ -118,27 +119,24 @@ export default function AchievementFilters({
         id="achievement-filters"
       >
         <div className={n.filters}>
-          <label>
-            Tahun
-            <select value={values.year} onChange={(event) => update({ year: event.target.value })}>
-              <option value="all">Semua tahun</option>
-              {years.map((year) => (
-                <option key={year}>{year}</option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Bidang
-            <select
-              value={values.field}
-              onChange={(event) => update({ field: event.target.value })}
-            >
-              <option value="all">Semua bidang</option>
-              {fields.map((field) => (
-                <option key={field}>{field}</option>
-              ))}
-            </select>
-          </label>
+          <FilterSelect
+            label="Tahun"
+            value={values.year}
+            onChange={(year) => update({ year })}
+            options={[
+              { value: "all", label: "Semua tahun" },
+              ...years.map((year) => ({ value: String(year), label: String(year) })),
+            ]}
+          />
+          <FilterSelect
+            label="Bidang"
+            value={values.field}
+            onChange={(field) => update({ field })}
+            options={[
+              { value: "all", label: "Semua bidang" },
+              ...fields.map((field) => ({ value: field, label: field })),
+            ]}
+          />
           {hasFilters && (
             <button className={n.reset} onClick={reset}>
               Reset filter <X size={14} />

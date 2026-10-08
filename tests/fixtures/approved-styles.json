@@ -8,7 +8,8 @@
     },
     "features/activities/components/newsroom.module.scss": {
       "source": "app/aktivitas/components/newsroom.module.css",
-      "sha256": "be29687c24d2dc671b7cd01d3830a771720b4658cf256e113ae7afaa5506cc71"
+      "sha256": "5bc32597d111e55346642b60d27b2994acdfee4c4950eef3d4f8bb4beb098e0f",
+      "revision": "2026-10-07: requested reel CTA, card-sized empty state, alternating profile tones with curved scrolling edges, and borderless filter toolbar"
     },
     "features/home/components/motto.module.scss": {
       "source": "app/(home)/components/motto.module.css",
@@ -16,7 +17,8 @@
     },
     "styles/experience.module.scss": {
       "source": "app/(home)/components/sr-home.module.css",
-      "sha256": "bc4cd163eb53bd1ae2a15ab69b83cb570ff2c5c19560d246fe5822cc74677632"
+      "sha256": "c1f35ac5dbec78b7eeadc9bc34417ddab34b56497d88b97ad6b039f1e4b8eca8",
+      "revision": "2026-10-07: user-requested centered empty-news card"
     },
     "features/home/components/hero-scene.module.scss": {
       "source": "app/(home)/components/hero-scene.module.css",
@@ -24,8 +26,8 @@
     },
     "features/home/components/company-reel.module.scss": {
       "source": "app/(home)/components/company-reel.module.css",
-      "sha256": "8aaa737dd0c23e1efe3ec33e9a2f77a3f3512f9a74bff221473daab034865102",
-      "revision": "2026-10-07: user-requested embedded company reel and cinematic video dialog"
+      "sha256": "d0d91a8d61f466b0bc596f8036c5d1ca18bf8ab37d5192c936e6afecf7072a5f",
+      "revision": "2026-10-07: user-requested icon-only play button and removal of preview toggle"
     },
     "components/layout/footer.module.scss": {
       "source": "components/footer.module.css",
@@ -50,7 +52,8 @@
     },
     "features/achievements/components/achievements.module.scss": {
       "source": "app/prestasi/components/achievements.module.css",
-      "sha256": "a23ff8c077194edf05b81f590c7e1af7a1bde32d6f3004f065f0194df35318c2"
+      "sha256": "eb885c875da5b95b50edbc273eb5955e7ca6d3c5ccc1c61e240491f8a548d85f",
+      "revision": "2026-10-07: restore profile colors retaining waves, dark activity-detail hero, and borderless achievement search focus"
     },
     "features/about/components/about-profile.module.scss": {
       "source": "app/tentang/components/about-profile.module.css",
@@ -62,19 +65,23 @@
     },
     "features/activities/components/detail/story-detail.module.scss": {
       "source": "app/aktivitas/[id]/components/story-detail.module.css",
-      "sha256": "16054a805f5b7f6fa8de6b5c537a0f01e81a86b0202f74bdd9aba5284408e0fd"
+      "sha256": "1d194609d10df83f91bb80a83020cc931a33bdd16e5b415c439236c5077b8350",
+      "revision": "2026-10-07: restore profile colors retaining waves, dark activity-detail hero, and borderless achievement search focus"
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
-      "sha256": "a500a5af43918dfc033bbf6a9d9f546bdcdc10309ccf26bea308fa3e3921d0de"
+      "sha256": "c0de3a3ac1dccad575a5774c6e11ede2187c726b516420bff37a8af1d5477b5e",
+      "revision": "2026-10-07: requested reel CTA, card-sized empty state, alternating profile tones with curved scrolling edges, and borderless filter toolbar"
     },
     "features/departments/components/department-profile.module.scss": {
       "source": "app/tentang/[dept]/components/department-profile.module.css",
-      "sha256": "725c2082e10dc2de11e9fcabfb2d4b2c2cfc0623853f1d6848c5e01c67e4324b"
+      "sha256": "6fe578b2716372048da780fa18f3a6da66871a0894dba1a8b006b6ad3a369356",
+      "revision": "2026-10-07: restore profile colors retaining waves, dark activity-detail hero, and borderless achievement search focus"
     },
     "features/art-fields/components/documentation-collage.module.scss": {
       "source": "app/tentang/bidang/[bidang]/components/documentation-collage.module.css",
-      "sha256": "b41d871d3235cd73aee1007999c7b1f96127583194924738b02fba76c9af8bf3"
+      "sha256": "2aaf9d81669360659d43ec919f761b4414b9efc3a40af1b32c1d23fe2ed5f596",
+      "revision": "2026-10-07: restore profile colors retaining waves, dark activity-detail hero, and borderless achievement search focus"
     },
     "features/home/components/company-video.module.scss": {
       "source": "features/home/components/company-video.module.scss",

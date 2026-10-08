@@ -263,7 +263,7 @@ export function ProfileContent({
         </section>
       </div>
       {data.imageUrl && (
-        <div data-profile-panel className={s.panel}>
+        <div data-profile-panel className={`${s.panel} ${s.overlap}`}>
           <div className={s.teamImage}>
             <Image
               src={data.imageUrl}
@@ -276,7 +276,12 @@ export function ProfileContent({
         </div>
       )}
       {fieldDescription !== undefined ? (
-        <div data-description-track id={activityId} className={s.panel} tabIndex={-1}>
+        <div
+          data-description-track
+          id={activityId}
+          className={`${s.panel} ${s.overlap}`}
+          tabIndex={-1}
+        >
           <div data-description-panel className={s.panel}>
             <section
               data-tone="green"

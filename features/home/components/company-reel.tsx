@@ -2,7 +2,7 @@
 import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Pause, Play } from "lucide-react";
+import { ArrowUpRight, Play } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -33,7 +33,6 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
   const [origin, setOrigin] = useState<VideoOrigin | null>(null);
   const [visible, setVisible] = useState(false);
   const [previewLoaded, setPreviewLoaded] = useState(false);
-  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const source = companyVideoSource(videoUrl);
   useEffect(() => {
@@ -336,12 +335,7 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
           <div className={r.media} style={{ filter: `url(#${warpId})` }}>
             <Image src={poster} alt="" fill sizes="90vw" />
             {source && previewLoaded && !reduced && (
-              <CompanyVideo
-                key={videoUrl}
-                url={videoUrl!}
-                preview
-                active={visible && !origin && !paused}
-              />
+              <CompanyVideo key={videoUrl} url={videoUrl!} preview active={visible && !origin} />
             )}
           </div>
           <span data-reel-tint className={r.tint} aria-hidden="true" />
@@ -353,26 +347,12 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
           >
             <span className={r.playPosition}>
               <span data-reel-play className={r.play}>
-                <span>PUTAR</span>
-                <span className={r.playIcon}>
+                <span className={r.playIcon} aria-hidden="true">
                   <Play size={24} fill="currentColor" />
                 </span>
-                <span>VIDEO</span>
               </span>
             </span>
           </button>
-          {source && !reduced && (
-            <button
-              className={r.previewToggle}
-              aria-label={paused ? "Putar preview video" : "Jeda preview video"}
-              aria-pressed={paused}
-              onClick={() => setPaused(!paused)}
-            >
-              {paused ? <Play size={13} /> : <Pause size={13} />}
-              <span>PREVIEW</span>
-            </button>
-          )}
-          <span className={r.caption}>SENI RELIGI · UNIVERSITAS BRAWIJAYA</span>
         </div>
         <div data-reel-marks className={r.marks} aria-hidden="true">
           {[0, 2, 4, 5, 6].map((index) => (

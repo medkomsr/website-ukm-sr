@@ -267,7 +267,7 @@ function Experience({ activity }: { activity: SanityActivity }) {
   );
 
   return (
-    <div ref={root} className={s.page}>
+    <div ref={root} className={s.page} data-tone="green">
       <div ref={frame} className={s.frame} aria-label="Foto utama berita dan acara">
         <HeroEmblems />
         <div ref={bento} className={s.bento}>
@@ -304,6 +304,7 @@ function Experience({ activity }: { activity: SanityActivity }) {
         id="isi-cerita"
         className={s.article}
         data-tone="cream"
+        data-wave
         aria-label="Isi berita dan acara"
       >
         <div className={s.prose}>

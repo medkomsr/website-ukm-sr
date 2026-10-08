@@ -658,8 +658,13 @@
     color: var(--muted);
   }
   .emptyNews {
-    width: 100%;
-    min-height: 300px;
+    width: min(36vw, 590px);
+    margin-inline: auto;
+    flex: none;
+    min-height: 360px;
+    aspect-ratio: 1;
+    justify-content: center;
+    background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 42px;

@@ -270,7 +270,7 @@
     .emptyNews {
       padding: 28px;
       min-height: 260px;
-      width: calc(100vw - 48px);
+      width: min(78vw, 460px);
     }
     .emptyNews h3 {
       font-size: 23px;
@@ -512,7 +512,7 @@
       margin-left: -122px;
     }
     .emptyNews {
-      width: calc(100vw - 40px);
+      width: min(78vw, 460px);
     }
   }
   @media (prefers-reduced-motion: reduce) {

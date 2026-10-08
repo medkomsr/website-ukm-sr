@@ -183,7 +183,14 @@ export default function ScrollGallery({
   );
 
   return (
-    <section ref={root} id={id} className={s.section} aria-labelledby={`${id}-title`} tabIndex={-1}>
+    <section
+      data-gallery-section
+      ref={root}
+      id={id}
+      className={s.section}
+      aria-labelledby={`${id}-title`}
+      tabIndex={-1}
+    >
       <div data-panel-pin className={s.panelPin}>
         <div
           data-gallery-stage

@@ -1324,6 +1324,14 @@
 .archiveControls {
   color: #123d2a;
 }
+.archiveSearch input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.archiveSearch:focus-within > svg {
+  color: #24583e;
+  stroke-width: 2.5;
+}
 .filterDrawer {
   height: 0;
   opacity: 0;

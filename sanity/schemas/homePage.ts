@@ -30,16 +30,16 @@ export const homePageSchema = defineType({
   fields: [
     defineField({
       name: "companyVideoFile",
-      title: "Unggah video (MP4)",
+      title: "Unggah video (MP4 / WebM)",
       description:
         "Diutamakan bila terisi. Kompres video terlebih dahulu agar cepat dimuat. Hapus file untuk kembali memakai tautan di bawah.",
       type: "file",
       fieldset: "companyProfile",
-      options: { accept: "video/mp4" },
+      options: { accept: "video/mp4,video/webm" },
     }),
     defineField({
       name: "companyVideoUrl",
-      title: "Tautan video (YouTube / MP4)",
+      title: "Tautan video (YouTube / MP4 / WebM)",
       description:
         "Dipakai bila tidak ada video yang diunggah. Contoh: https://youtu.be/xxxxxxxxxxx",
       type: "url",
