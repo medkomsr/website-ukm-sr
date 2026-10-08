@@ -20,6 +20,13 @@
 .preview .media video {
   object-fit: cover;
 }
+.preview .media iframe {
+  position: absolute;
+  top: 50%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  transform: translateY(-50%);
+}
 .player {
   background: #0c1210;
 }

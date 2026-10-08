@@ -12,6 +12,10 @@
   @include wave.edges;
   transform-origin: center center;
 }
+.stage[data-last] {
+  // The footer owns the final wave, avoiding a second edge against its cream backing.
+  @include wave.edges($bottom: false);
+}
 .section:focus {
   outline: none;
 }
@@ -222,10 +226,9 @@
   .sideLayout .gallery {
     height: 100%;
     position: relative;
-    left: clamp(16px, 2vw, 32px);
   }
   .sideLayout .viewport {
-    overflow: hidden;
+    overflow: visible;
     padding: 20px 0;
   }
   .sideLayout .track,

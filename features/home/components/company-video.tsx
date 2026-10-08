@@ -46,13 +46,12 @@ export function CompanyVideo({
     const readyTimeout = setTimeout(error, 20000);
     if (source.kind === "file") {
       video = document.createElement("video");
-      video.src = source.url;
       video.muted = preview;
+      video.defaultMuted = preview;
       video.loop = preview;
       video.playsInline = true;
-      video.preload = "metadata";
+      video.preload = preview ? "auto" : "metadata";
       video.setAttribute("aria-label", "Company profile Seni Religi");
-      container.append(video);
       const media = video;
       controls.current = {
         play: () => {
@@ -97,6 +96,10 @@ export function CompanyVideo({
         };
       media.onplaying = ready;
       media.onerror = error;
+      // Attach listeners and muted/inline settings before starting the media request.
+      video.src = source.url;
+      container.append(video);
+      if (shouldPlay()) controls.current.play();
     } else {
       void loadYouTube()
         .then((YT) => {

@@ -49,7 +49,7 @@ export function useHomeMotion(root: RefObject<HTMLDivElement | null>, contentCou
             });
           });
         });
-        scope.querySelectorAll(`.${s.awardStage}, .${s.partnerGrid}`).forEach((stage) => {
+        scope.querySelectorAll(`.${s.partnerGrid}`).forEach((stage) => {
           gsap.from(stage.children, {
             y: 55,
             opacity: 0,

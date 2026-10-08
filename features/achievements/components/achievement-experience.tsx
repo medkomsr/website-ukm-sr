@@ -150,14 +150,15 @@ export default function AchievementExperience({ previewData }: { previewData?: S
           });
         });
         gsap.utils.toArray<HTMLElement>("[data-count]", root.current).forEach((element) => {
-          const total = Number(element.dataset.count);
+          const total = Math.min(10, Number(element.dataset.count));
+          const suffix = Number(element.dataset.count) > 10 ? "+" : "";
           const counter = { value: 0 };
           gsap.to(counter, {
             value: total,
             duration: 1.7,
             ease: "power2.out",
             onUpdate: () => {
-              element.textContent = twoDigits(Math.round(counter.value));
+              element.textContent = `${twoDigits(Math.round(counter.value))}${suffix}`;
             },
             scrollTrigger: { trigger: element, start: "top 95%", once: true },
           });
@@ -310,7 +311,7 @@ export default function AchievementExperience({ previewData }: { previewData?: S
           </div>
           <div className={s.recordTotal} data-reveal>
             <span className={s.bigNumber} data-count={data.length}>
-              {twoDigits(data.length)}
+              {data.length > 10 ? "10+" : twoDigits(data.length)}
             </span>
             <div>
               <button

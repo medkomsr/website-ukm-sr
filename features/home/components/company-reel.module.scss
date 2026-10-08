@@ -81,7 +81,8 @@
   display: block;
   margin-left: auto;
   width: 100%;
-  aspect-ratio: 1.9;
+  // The SR film's picture is 1920 x 780 inside a letterboxed 1080p source.
+  aspect-ratio: 32 / 13;
   border-radius: 22px;
   overflow: hidden;
   border: 0;
@@ -91,12 +92,6 @@
 }
 .frame img {
   object-fit: cover;
-}
-.frame:after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(transparent 20%, #092713b3);
 }
 .playSurface {
   position: absolute;
@@ -195,7 +190,6 @@
     height: auto;
   }
   .frame {
-    aspect-ratio: 1.45;
     border-radius: 16px;
   }
   .playIcon {
@@ -228,25 +222,9 @@
 }
 .media {
   position: absolute;
-  inset: -4%;
-}
-.tint {
-  position: absolute;
   inset: 0;
-  background: #123d2a;
-  mix-blend-mode: color;
-  opacity: 0.6;
-  pointer-events: none;
 }
 .filterDefs {
   position: absolute;
   pointer-events: none;
-}
-@media (max-width: 800px), (prefers-reduced-motion: reduce) {
-  .media {
-    filter: none !important;
-  }
-  .tint {
-    display: none;
-  }
 }

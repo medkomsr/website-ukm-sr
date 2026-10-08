@@ -44,8 +44,9 @@ export default function SrHome() {
       disposed = true;
     };
   }, []);
-  useHomeMotion(root, activities.data?.length ?? 0);
-  const all = activities.data ?? [];
+  const homeActivities = (activities.data ?? []).slice(0, 3);
+  const homeAchievements = (achievements.data ?? []).slice(0, 5);
+  useHomeMotion(root, homeActivities.length);
   return (
     <div ref={root} className={s.site}>
       <a href="#main-content" className={s.skip}>
@@ -68,7 +69,7 @@ export default function SrHome() {
         />
         <NewsGallery
           id="projects"
-          items={all}
+          items={homeActivities}
           loading={activities.isLoading}
           error={activities.isError}
           title="Berita & Acara"
@@ -98,7 +99,7 @@ export default function SrHome() {
         )}
         <Achievements
           tone={home?.partners?.length ? "cream" : "green"}
-          items={achievements.data ?? []}
+          items={homeAchievements}
           loading={achievements.isLoading}
           error={achievements.isError}
         />

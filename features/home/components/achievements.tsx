@@ -48,28 +48,7 @@ export function Achievements({
     },
     { dependencies: [items.length] },
   );
-  useGSAP(
-    () => {
-      const cards = root.current!.querySelectorAll("[data-award]");
-      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const gap = Math.min(innerWidth * 0.48, 295);
-      cards.forEach((card, i) => {
-        let offset = (i - index + items.length) % items.length;
-        if (offset > items.length / 2) offset -= items.length;
-        gsap.to(card, {
-          x: offset * gap,
-          scale: offset === 0 ? 1 : 0.82,
-          rotation: offset * 5,
-          opacity: Math.abs(offset) > 2 ? 0 : offset === 0 ? 1 : 0.4,
-          zIndex: 10 - Math.abs(offset),
-          duration: reduced ? 0 : 0.65,
-          ease: "power3.out",
-          overwrite: true,
-        });
-      });
-    },
-    { scope: root, dependencies: [index, items.length] },
-  );
+  const activeIndex = items.length ? index % items.length : 0;
   return (
     <section
       data-tone={tone}
@@ -95,36 +74,48 @@ export function Achievements({
         }}
       >
         {items.length ? (
-          items.map((a, i) => (
-            <article
-              key={a._id}
-              data-award
-              className={s.awardCard}
-              aria-hidden={i !== index}
-              inert={i !== index}
-              style={{ "--accent": accents[i % 4] } as CSSProperties}
-            >
-              <div className={s.awardTop}>
-                <span>{String(i + 1).padStart(2, "0")}</span>
-                <span>{a.year}</span>
-              </div>
-              <div className={s.awardPhoto}>
-                {a.imageUrl ? (
-                  <Image
-                    src={a.imageUrl}
-                    alt={a.imageAlt || a.title}
-                    fill
-                    sizes="(max-width: 800px) 70vw, 300px"
-                  />
-                ) : (
-                  <span>Dokumentasi prestasi</span>
-                )}
-              </div>
-              <h3>{a.title}</h3>
-              <p>{a.description}</p>
-              <TextLink href="/prestasi">Lihat prestasi</TextLink>
-            </article>
-          ))
+          items.map((a, i) => {
+            let offset = (i - activeIndex + items.length) % items.length;
+            if (offset > items.length / 2) offset -= items.length;
+            return (
+              <article
+                key={a._id}
+                data-award
+                className={s.awardCard}
+                aria-hidden={i !== activeIndex}
+                inert={i !== activeIndex}
+                style={
+                  {
+                    "--accent": accents[i % 4],
+                    "--award-offset": offset,
+                    "--award-scale": offset === 0 ? 1 : 0.82,
+                    opacity: Math.abs(offset) > 2 ? 0 : offset === 0 ? 1 : 0.4,
+                    zIndex: 10 - Math.abs(offset),
+                  } as CSSProperties
+                }
+              >
+                <div className={s.awardTop}>
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                  <span>{a.year}</span>
+                </div>
+                <div className={s.awardPhoto}>
+                  {a.imageUrl ? (
+                    <Image
+                      src={a.imageUrl}
+                      alt={a.imageAlt || a.title}
+                      fill
+                      sizes="(max-width: 800px) 70vw, 300px"
+                    />
+                  ) : (
+                    <span>Dokumentasi prestasi</span>
+                  )}
+                </div>
+                <h3>{a.title}</h3>
+                <p>{a.description}</p>
+                <TextLink href="/prestasi">Lihat prestasi</TextLink>
+              </article>
+            );
+          })
         ) : (
           <>
             <div className={s.awardGhost} aria-hidden="true">
@@ -165,7 +156,7 @@ export function Achievements({
             <ArrowLeft size={20} />
           </button>
           <span aria-live="polite">
-            {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+            {String(activeIndex + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
           </span>
           <button
             aria-label="Prestasi berikutnya"

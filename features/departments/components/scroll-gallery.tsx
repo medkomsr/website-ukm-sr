@@ -42,9 +42,11 @@ export default function ScrollGallery({
     () => {
       const section = root.current!;
       const stage = section.querySelector<HTMLElement>("[data-gallery-stage]")!;
-      const pin = section.querySelector<HTMLElement>("[data-panel-pin]")!;
       const track = section.querySelector<HTMLElement>("[data-gallery-track]")!;
       const cards = Array.from(section.querySelectorAll<HTMLElement>("[data-gallery-card]"));
+      const viewport = track.parentElement!;
+      if (!cards.length) return;
+      const clampIndex = gsap.utils.clamp(0, cards.length - 1);
       const proxy = section.querySelector<HTMLElement>("[data-drag-proxy]")!;
       const media = gsap.matchMedia();
       media.add("(prefers-reduced-motion: no-preference)", () => {
@@ -52,31 +54,34 @@ export default function ScrollGallery({
         const playhead = { value: 0 };
         let target = 0;
         let selected = -1;
-        let previousProgress = 0;
-        const wrap = gsap.utils.wrap(-cards.length / 2, cards.length / 2);
         const paint = () => {
-          const next = gsap.utils.wrap(0, cards.length, Math.round(playhead.value));
+          const next = clampIndex(Math.round(playhead.value));
           if (next !== selected) {
             selected = next;
             setActive(next);
           }
+          // Keep neighboring cards inside the available column, including during a slide.
+          const cardWidth = cards[0].offsetWidth;
+          const spread = Math.max(
+            0,
+            Math.min(cardWidth * 1.12, (viewport.clientWidth - cardWidth * 0.84) / 2 - 16),
+          );
           cards.forEach((card, i) => {
-            const offset = cards.length === 1 ? 0 : wrap(i - playhead.value);
+            const offset = i - playhead.value;
             const distance = Math.abs(offset);
             gsap.set(card, {
-              xPercent: offset * 112,
-              scale: Math.max(0.65, 1 - distance * 0.16),
-              rotationY: offset * -9,
-              opacity: Math.max(0, 1 - distance * 0.38),
+              x: gsap.utils.clamp(-1, 1, offset) * spread,
+              scale: 1 - Math.min(distance, 1) * 0.16,
+              opacity: Math.max(0, 1 - distance * 0.6),
               zIndex: Math.round(100 - distance * 10),
-              visibility: distance > 2 ? "hidden" : "visible",
+              visibility: distance >= 1 / 0.6 ? "hidden" : "visible",
             });
           });
         };
         const move = (value: number) => {
-          target = value;
+          target = clampIndex(value);
           gsap.to(playhead, {
-            value,
+            value: target,
             duration: 0.55,
             ease: "power3.out",
             overwrite: true,
@@ -85,6 +90,8 @@ export default function ScrollGallery({
         };
         controls.current = (step) => move(Math.round(target) + step);
         paint();
+        const resize = new ResizeObserver(paint);
+        resize.observe(viewport);
         let startOffset = 0;
         const drag =
           cards.length > 1
@@ -93,11 +100,13 @@ export default function ScrollGallery({
                 trigger: track,
                 allowNativeTouchScrolling: true,
                 onPress() {
-                  startOffset = target;
+                  startOffset = playhead.value;
                   gsap.killTweensOf(playhead);
                 },
                 onDrag() {
-                  target = startOffset + (this.startX - this.x) / (cards[0].offsetWidth * 1.12);
+                  target = clampIndex(
+                    startOffset + (this.startX - this.x) / (cards[0].offsetWidth * 1.12),
+                  );
                   playhead.value = target;
                   paint();
                 },
@@ -105,41 +114,6 @@ export default function ScrollGallery({
                   move(Math.round(target));
                 },
               })[0]
-            : undefined;
-        const travel = () =>
-          cards.length > 1 ? Math.max(600, (cards.length - 1) * innerHeight * 0.65) : 0;
-        const measure = () => {
-          section.style.paddingBottom = `${travel()}px`;
-        };
-        measure();
-        ScrollTrigger.addEventListener("refreshInit", measure);
-        // Read tall content normally first, explore the cards, then shrink the outgoing panel.
-        // One pin owns both phases, preventing competing nested gallery/section pins.
-        const transition = gsap.timeline({ paused: true });
-        if (!last)
-          transition
-            .to(stage, { scale: 0.7, opacity: 0.5, duration: 0.9, ease: "none" })
-            .to(stage, { opacity: 0, duration: 0.1, ease: "none" });
-        const trigger =
-          !last || cards.length > 1
-            ? ScrollTrigger.create({
-                trigger: pin,
-                start: "clamp(bottom bottom)",
-                end: () => `+=${travel() + (last ? 0 : innerHeight)}`,
-                pin,
-                pinSpacing: false,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-                onUpdate(self) {
-                  const elapsed = self.progress * (self.end - self.start);
-                  const progress = travel() ? Math.min(1, elapsed / travel()) : 0;
-                  const delta = progress - previousProgress;
-                  previousProgress = progress;
-                  if (!drag?.isDragging && delta) move(target + delta * (cards.length - 1));
-                  if (!last)
-                    transition.progress(gsap.utils.clamp(0, 1, (elapsed - travel()) / innerHeight));
-                },
-              })
             : undefined;
         gsap.from(section.querySelectorAll("[data-gallery-reveal]"), {
           y: 65,
@@ -153,33 +127,50 @@ export default function ScrollGallery({
             toggleActions: "play none none reverse",
           },
         });
-        const snap = () => {
-          if (trigger?.isActive && !drag?.isDragging) move(Math.round(target));
-        };
-        ScrollTrigger.addEventListener("scrollEnd", snap);
         return () => {
-          trigger?.kill();
-          transition.kill();
+          resize.disconnect();
           drag?.kill();
           gsap.killTweensOf(playhead);
-          ScrollTrigger.removeEventListener("scrollEnd", snap);
-          ScrollTrigger.removeEventListener("refreshInit", measure);
-          section.style.removeProperty("padding-bottom");
           delete stage.dataset.enhanced;
           controls.current = () => {};
         };
       });
       media.add("(prefers-reduced-motion: reduce)", () => {
         let index = 0;
-        controls.current = (step) => {
-          index = gsap.utils.wrap(0, cards.length, index + step);
-          track.scrollTo({ left: cards[index].offsetLeft - track.offsetLeft, behavior: "instant" });
+        setActive(0);
+        const updateActive = () => {
+          const center = track.getBoundingClientRect().left + track.clientWidth / 2;
+          let nearest = Infinity;
+          cards.forEach((card, i) => {
+            const rect = card.getBoundingClientRect();
+            const distance = Math.abs(rect.left + rect.width / 2 - center);
+            if (distance < nearest) {
+              nearest = distance;
+              index = i;
+            }
+          });
           setActive(index);
+        };
+        controls.current = (step) => {
+          index = clampIndex(index + step);
+          const card = cards[index];
+          const center = track.getBoundingClientRect().left + track.clientWidth / 2;
+          const rect = card.getBoundingClientRect();
+          track.scrollTo({
+            left: track.scrollLeft + rect.left + rect.width / 2 - center,
+            behavior: "instant",
+          });
+          setActive(index);
+        };
+        track.addEventListener("scroll", updateActive, { passive: true });
+        return () => {
+          track.removeEventListener("scroll", updateActive);
+          controls.current = () => {};
         };
       });
       return () => media.revert();
     },
-    { scope: root, dependencies: [items.length, last], revertOnUpdate: true },
+    { scope: root, dependencies: [items.length, count], revertOnUpdate: true },
   );
 
   return (
@@ -194,6 +185,7 @@ export default function ScrollGallery({
       <div data-panel-pin className={s.panelPin}>
         <div
           data-gallery-stage
+          data-last={last || undefined}
           data-tone={tone}
           className={`${s.stage} ${count !== undefined ? s.sideLayout : ""}`}
         >
@@ -239,7 +231,7 @@ export default function ScrollGallery({
             </div>
             <div className={s.actions}>
               <button
-                disabled={items.length < 2}
+                disabled={items.length < 2 || active === 0}
                 aria-label={`${title} sebelumnya`}
                 aria-controls={uid}
                 onClick={() => controls.current(-1)}
@@ -250,7 +242,7 @@ export default function ScrollGallery({
                 {String(active + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
               </span>
               <button
-                disabled={items.length < 2}
+                disabled={items.length < 2 || active === items.length - 1}
                 aria-label={`${title} berikutnya`}
                 aria-controls={uid}
                 onClick={() => controls.current(1)}
@@ -258,7 +250,9 @@ export default function ScrollGallery({
                 <ArrowRight size={20} />
               </button>
             </div>
-            {items.length > 1 && <p className={s.hint}>Gulir atau geser untuk menjelajahi</p>}
+            {items.length > 1 && (
+              <p className={s.hint}>Geser atau gunakan panah untuk menjelajahi</p>
+            )}
           </div>
           <div data-drag-proxy className={s.proxy} />
         </div>
