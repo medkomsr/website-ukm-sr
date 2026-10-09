@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SiteLayout from "@/components/layout/site-layout";
+import ContentSkeleton from "@/components/content/content-skeleton";
 import { useBidangBySlug } from "@/hooks/content/use-bidang";
 import { srFields } from "@/lib/constants/art-fields";
 import type { SanityDepartemenDetail } from "@/sanity/types";
@@ -14,23 +14,14 @@ export default function BidangContent({ slug }: { slug: string }) {
   const { data, isPending, isError, refetch } = useBidangBySlug(slug);
   const field = srFields.find((item) => item.slug === slug);
 
-  if (isPending)
-    return (
-      <SiteLayout>
-        <div data-tone="cream" className={s.status} role="status">
-          Menyiapkan cerita bidang…
-        </div>
-      </SiteLayout>
-    );
+  if (isPending) return <ContentSkeleton />;
   if (isError)
     return (
-      <SiteLayout>
-        <div data-tone="cream" className={s.status}>
-          <h1>Halaman belum dapat dimuat.</h1>
-          <button onClick={() => refetch()}>Coba lagi</button>
-          <Link href="/tentang#field-team-title">Kembali ke pengurus bidang</Link>
-        </div>
-      </SiteLayout>
+      <div data-tone="cream" className={s.status}>
+        <h1>Halaman belum dapat dimuat.</h1>
+        <button onClick={() => refetch()}>Coba lagi</button>
+        <Link href="/tentang#field-team-title">Kembali ke pengurus bidang</Link>
+      </div>
     );
   if (!data && !field) notFound();
 
@@ -64,14 +55,12 @@ export default function BidangContent({ slug }: { slug: string }) {
   const description = data?.description || field?.description || profile.description;
 
   return (
-    <SiteLayout footerWave={false}>
-      <ProfileContent
-        key={JSON.stringify(data || slug)}
-        data={profile}
-        fieldDescription={description}
-      >
-        <DocumentationCollage key={slug} name={profile.abbr} items={data?.gallery || []} />
-      </ProfileContent>
-    </SiteLayout>
+    <ProfileContent
+      key={JSON.stringify(data || slug)}
+      data={profile}
+      fieldDescription={description}
+    >
+      <DocumentationCollage key={slug} name={profile.abbr} items={data?.gallery || []} />
+    </ProfileContent>
   );
 }

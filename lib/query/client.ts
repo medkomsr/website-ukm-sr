@@ -1,5 +1,6 @@
 import { QueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
+import { CONTENT_STALE_TIME } from "./constants";
 
 export function createQueryClient() {
   return new QueryClient({
@@ -7,8 +8,8 @@ export function createQueryClient() {
       queries: {
         // Kapan perlu refresh data
         staleTime: 5 * 60 * 1000, // 5 minutes
-        // Seberapa lama data di-cache
-        gcTime: 10 * 60 * 1000, // 10 minutes
+        // Keep inactive content for its full freshness window when navigating back.
+        gcTime: CONTENT_STALE_TIME,
         retry: (failureCount, error) => {
           if (
             error instanceof AxiosError &&
