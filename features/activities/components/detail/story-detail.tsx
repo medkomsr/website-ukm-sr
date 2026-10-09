@@ -1,5 +1,7 @@
 "use client";
 
+import ContentSkeleton from "@/components/content/content-skeleton";
+
 import { useRef, type CSSProperties } from "react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -301,13 +303,7 @@ function Experience({ activity }: { activity: SanityActivity }) {
 
 export default function StoryDetail({ slug }: { slug: string }) {
   const { data: activity, isLoading, error, refetch } = useAktivitasBySlug(slug);
-  if (isLoading)
-    return (
-      <div className={s.loading} role="status">
-        <Rosette />
-        <p>Memuat cerita…</p>
-      </div>
-    );
+  if (isLoading) return <ContentSkeleton />;
   if (error)
     return (
       <div className={s.loading} role="alert">

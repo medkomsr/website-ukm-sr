@@ -1,5 +1,7 @@
 "use client";
 
+import ContentSkeleton from "@/components/content/content-skeleton";
+
 import { useRef, type MouseEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -306,12 +308,7 @@ export function ProfileContent({
 
 export default function DepartmentProfile({ slug }: { slug: string }) {
   const { data, isPending, isError, refetch } = useDepartemenBySlug(slug);
-  if (isPending)
-    return (
-      <div data-tone="cream" className={s.status} role="status">
-        <p>Menyiapkan cerita kepengurusan…</p>
-      </div>
-    );
+  if (isPending) return <ContentSkeleton />;
   if (isError)
     return (
       <div data-tone="cream" className={s.status}>

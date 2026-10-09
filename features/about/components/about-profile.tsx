@@ -1,5 +1,7 @@
 "use client";
 
+import { TextSkeleton } from "@/components/content/content-skeleton";
+
 import { useRef, type CSSProperties, type MouseEvent } from "react";
 import { ArrowDown } from "lucide-react";
 import { gsap } from "gsap";
@@ -13,7 +15,15 @@ import Cabinet from "@/features/about/components/cabinet";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
-function PurposePanel({ kind, texts }: { kind: "visi" | "misi"; texts: string[] }) {
+function PurposePanel({
+  kind,
+  texts,
+  pending = false,
+}: {
+  kind: "visi" | "misi";
+  texts: string[];
+  pending?: boolean;
+}) {
   const panel = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -52,17 +62,17 @@ function PurposePanel({ kind, texts }: { kind: "visi" | "misi"; texts: string[] 
         </h2>
         {kind === "visi" ? (
           <p data-purpose-text className={s.purposeText}>
-            {texts[0]}
+            {pending ? <TextSkeleton /> : texts[0]}
           </p>
         ) : (
           <ol className={s.missions}>
-            {texts.map((text, index) => (
+            {(pending ? [""] : texts).map((text, index) => (
               <li key={index}>
                 <span data-purpose-text className={s.missionNumber} aria-hidden="true">
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <p data-purpose-text className={s.purposeText}>
-                  {text}
+                  {pending ? <TextSkeleton /> : text}
                 </p>
               </li>
             ))}
@@ -77,10 +87,10 @@ export default function AboutProfile() {
   const root = useRef<HTMLDivElement>(null);
   const { data: purpose, isPending, isError } = useVisiMisi();
   const vision = isPending
-    ? "Memuat visi..."
+    ? ""
     : purpose?.visi || (isError ? "Visi belum dapat dimuat." : "Visi belum dipublikasikan.");
   const missions = isPending
-    ? ["Memuat misi..."]
+    ? []
     : purpose?.misi?.length
       ? purpose.misi
       : [isError ? "Misi belum dapat dimuat." : "Misi belum dipublikasikan."];
@@ -146,8 +156,13 @@ export default function AboutProfile() {
         </div>
       </section>
       {/* Restart the entrance when the published CMS content changes. */}
-      <PurposePanel key={vision} kind="visi" texts={[vision]} />
-      <PurposePanel key={JSON.stringify(missions)} kind="misi" texts={missions} />
+      <PurposePanel key={vision} kind="visi" pending={isPending} texts={[vision]} />
+      <PurposePanel
+        key={JSON.stringify(missions)}
+        kind="misi"
+        pending={isPending}
+        texts={missions}
+      />
       <Cabinet />
     </div>
   );
