@@ -252,7 +252,7 @@ export default function FeaturedStories({ items }: { items: SanityActivity[] }) 
       </div>
       <div className={s.waveBoundary} aria-hidden="true">
         <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-          <path d="M0 58C260 -18 450 6 760 58S1210 118 1440 38V100H0Z" fill="#fffcf3" />
+          <path d="M0 58C260 -18 450 6 760 58S1210 118 1440 38V0H0Z" fill="#123d2a" />
         </svg>
       </div>
       <span className={s.srOnly} aria-live={running ? "off" : "polite"}>

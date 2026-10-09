@@ -55,14 +55,14 @@
   position: relative;
   margin: 0 5vw;
   overflow: hidden;
-  border-radius: clamp(25px, 4vw, 58px);
+  border-radius: clamp(25px, 4vw, 58px) clamp(25px, 4vw, 58px) 0 0;
   color: #fff8de;
   isolation: isolate;
 }
 @supports (corner-shape: squircle) {
   .featured {
     corner-shape: squircle;
-    border-radius: clamp(38px, 5vw, 78px);
+    border-radius: clamp(38px, 5vw, 78px) clamp(38px, 5vw, 78px) 0 0;
   }
 }
 .stage {
@@ -198,7 +198,7 @@
   position: relative;
   height: clamp(54px, 6vw, 86px);
   margin-top: 0;
-  background: #123d2a;
+  background: #fffcf3;
 }
 .waveBoundary svg {
   position: absolute;
@@ -732,7 +732,7 @@
   }
   .featured {
     margin-inline: 4vw;
-    border-radius: 26px;
+    border-radius: 26px 26px 0 0;
   }
   .stage {
     height: 510px;

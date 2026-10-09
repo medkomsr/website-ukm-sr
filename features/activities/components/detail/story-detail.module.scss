@@ -20,12 +20,16 @@
   outline: 2px solid currentColor;
   outline-offset: 6px;
 }
+.heroPin {
+  padding-top: 24px;
+  width: 100%;
+}
 .frame {
   position: relative;
   width: calc(100% - 6vw);
   height: calc(100svh - 175px);
   min-height: 540px;
-  margin: 24px auto 0;
+  margin: 0 auto;
   border-radius: 24px;
   overflow: hidden;
 }

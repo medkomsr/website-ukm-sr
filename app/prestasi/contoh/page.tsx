@@ -38,9 +38,14 @@ const previewAchievements: SanityPrestasi[] = [
 ];
 
 export default function PrestasiPreviewPage() {
+  const twelveAchievements = Array.from({ length: 12 }, (_, index) => ({
+    ...previewAchievements[0],
+    _id: `preview-prestasi-${index + 1}`,
+    title: `[Contoh ${index + 1}] ${previewAchievements[0].title}`,
+  }));
   return (
     <SiteLayout footerWave={false}>
-      <AchievementExperience previewData={previewAchievements} />
+      <AchievementExperience previewData={twelveAchievements} />
     </SiteLayout>
   );
 }

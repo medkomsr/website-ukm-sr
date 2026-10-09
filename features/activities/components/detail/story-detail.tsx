@@ -95,6 +95,7 @@ function HeroEmblems() {
 function Experience({ activity }: { activity: SanityActivity }) {
   const root = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
+  const heroPin = useRef<HTMLDivElement>(null);
   const bento = useRef<HTMLDivElement>(null);
   const photos = [
     ...(activity.imageUrl
@@ -133,10 +134,10 @@ function Experience({ activity }: { activity: SanityActivity }) {
               gallery.classList.remove(s.bentoFinal);
               const zoom = gsap.timeline({
                 scrollTrigger: {
-                  trigger: frame.current,
-                  start: "top 88px",
+                  trigger: heroPin.current,
+                  start: "top 64px",
                   end: () => `+=${Math.max(550, innerHeight * 1.15)}`,
-                  pin: frame.current,
+                  pin: heroPin.current,
                   scrub: 0.75,
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
@@ -220,35 +221,37 @@ function Experience({ activity }: { activity: SanityActivity }) {
 
   return (
     <div ref={root} className={s.page} data-tone="green">
-      <div ref={frame} className={s.frame} aria-label="Foto utama berita dan acara">
-        <HeroEmblems />
-        <div ref={bento} className={s.bento}>
-          <div data-bento-cell className={`${s.cell} ${s.lead}`}>
-            <div className={s.leadVisual}>
-              {activity.imageUrl ? (
-                <Image
-                  src={activity.imageUrl}
-                  alt={activity.title}
-                  fill
-                  sizes="100vw"
-                  loading="eager"
-                  className={s.cover}
-                />
-              ) : (
-                <div className={s.coverFallback}>
-                  <Rosette />
+      <div ref={heroPin} className={s.heroPin}>
+        <div ref={frame} className={s.frame} aria-label="Foto utama berita dan acara">
+          <HeroEmblems />
+          <div ref={bento} className={s.bento}>
+            <div data-bento-cell className={`${s.cell} ${s.lead}`}>
+              <div className={s.leadVisual}>
+                {activity.imageUrl ? (
+                  <Image
+                    src={activity.imageUrl}
+                    alt={activity.title}
+                    fill
+                    sizes="100vw"
+                    loading="eager"
+                    className={s.cover}
+                  />
+                ) : (
+                  <div className={s.coverFallback}>
+                    <Rosette />
+                  </div>
+                )}
+                <div className={s.coverShade} />
+                <div className={s.coverText}>
+                  <p>{activity.category}</p>
+                  <h1 data-cover-title>{activity.title}</h1>
                 </div>
-              )}
-              <div className={s.coverShade} />
-              <div className={s.coverText}>
-                <p>{activity.category}</p>
-                <h1 data-cover-title>{activity.title}</h1>
               </div>
             </div>
+            <span data-scroll-cue className={s.scrollCue}>
+              Gulir untuk membaca <ArrowDown size={16} />
+            </span>
           </div>
-          <span data-scroll-cue className={s.scrollCue}>
-            Gulir untuk membaca <ArrowDown size={16} />
-          </span>
         </div>
       </div>
 

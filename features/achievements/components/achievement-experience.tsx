@@ -151,14 +151,13 @@ export default function AchievementExperience({ previewData }: { previewData?: S
         });
         gsap.utils.toArray<HTMLElement>("[data-count]", root.current).forEach((element) => {
           const total = Math.min(10, Number(element.dataset.count));
-          const suffix = Number(element.dataset.count) > 10 ? "+" : "";
           const counter = { value: 0 };
           gsap.to(counter, {
             value: total,
             duration: 1.7,
             ease: "power2.out",
             onUpdate: () => {
-              element.textContent = `${twoDigits(Math.round(counter.value))}${suffix}`;
+              element.textContent = twoDigits(Math.round(counter.value));
             },
             scrollTrigger: { trigger: element, start: "top 95%", once: true },
           });
@@ -310,8 +309,9 @@ export default function AchievementExperience({ previewData }: { previewData?: S
             <h2 id="records-title">TRACK RECORD</h2>
           </div>
           <div className={s.recordTotal} data-reveal>
-            <span className={s.bigNumber} data-count={data.length}>
-              {data.length > 10 ? "10+" : twoDigits(data.length)}
+            <span className={s.bigNumber} data-compact={data.length > 10 || undefined}>
+              <span data-count={data.length}>{twoDigits(Math.min(10, data.length))}</span>
+              {data.length > 10 && <span className={s.countPlus}>+</span>}
             </span>
             <div>
               <button
@@ -359,8 +359,8 @@ export default function AchievementExperience({ previewData }: { previewData?: S
             <p>
               <strong>PRATINJAU · DATA CONTOH</strong>
               <span>
-                Satu contoh untuk melihat tampilan arsip. Klik baris prestasi untuk membuka
-                detailnya.
+                {previewData.length} data fiktif untuk melihat tampilan 10+ dan arsip. Klik baris
+                prestasi untuk membuka detailnya.
               </span>
             </p>
             <Link href="/prestasi#rekam-prestasi">

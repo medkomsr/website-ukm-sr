@@ -202,7 +202,8 @@
   .ribbon {
     top: 80px;
     opacity: 0.55;
-    height: 850px;
+    // Fit the complete loop inside the section, above the next section's wave.
+    height: calc(100% - 80px);
   }
   .marks {
     display: none;

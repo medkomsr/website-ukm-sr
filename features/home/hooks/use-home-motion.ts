@@ -4,10 +4,9 @@ import type { RefObject } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
 import s from "@/styles/experience.module.scss";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Scoped effects: separate targets keep entrance, hover, flip and scroll transforms independent. */
 export function useHomeMotion(root: RefObject<HTMLDivElement | null>, contentCount: number) {
@@ -23,30 +22,12 @@ export function useHomeMotion(root: RefObject<HTMLDivElement | null>, contentCou
           cleanups.push(() => el.removeEventListener(name, safe));
         };
         scope.querySelectorAll(`.${s.sectionTitle} h2`).forEach((heading) => {
-          const split = SplitText.create(heading, {
-            type: "words,chars",
-            aria: "auto",
-            reduceWhiteSpace: false,
-          });
-          gsap.from(split.chars, {
-            opacity: 0,
-            yPercent: 70,
-            rotationX: -45,
-            stagger: 0.018,
+          // Keep the text readable throughout the entrance, including fast touch scrolling.
+          gsap.from(heading, {
+            y: 24,
             duration: 0.8,
             ease: "power3.out",
             scrollTrigger: { trigger: heading, start: "top 93%", once: true },
-          });
-          listen(heading, "pointerenter", () => {
-            gsap.to(split.chars, {
-              keyframes: [
-                { y: -5, duration: 0.16 },
-                { y: 0, duration: 0.45 },
-              ],
-              stagger: 0.018,
-              overwrite: true,
-              ease: "power2.out",
-            });
           });
         });
         scope.querySelectorAll(`.${s.partnerGrid}`).forEach((stage) => {

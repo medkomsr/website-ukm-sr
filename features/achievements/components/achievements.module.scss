@@ -221,12 +221,23 @@
   margin-top: 30px;
 }
 .bigNumber {
+  display: inline-flex;
   font-size: clamp(170px, 38vw, 650px);
   font-weight: 600;
   line-height: 0.92;
   letter-spacing: -0.105em;
   margin-left: -0.045em;
   font-variant-numeric: tabular-nums;
+}
+.bigNumber[data-compact] {
+  font-size: clamp(140px, 30vw, 520px);
+}
+.countPlus {
+  font-size: 0.45em;
+  align-self: flex-start;
+  margin-top: 0.12em;
+  margin-left: 0.14em;
+  letter-spacing: 0;
 }
 .recordTotal h3 {
   font-size: clamp(20px, 3.6vw, 60px);
@@ -943,6 +954,9 @@
   }
   .bigNumber {
     font-size: 42vw;
+  }
+  .bigNumber[data-compact] {
+    font-size: 34vw;
   }
   .recordTotal h3 {
     font-size: 4.5vw;
