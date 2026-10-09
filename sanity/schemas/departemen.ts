@@ -29,17 +29,11 @@ export const departemenSchema = defineType({
       description: "Tampil di bawah judul halaman detail.",
     }),
     defineField({
-      name: "description",
-      title: "Deskripsi (opsional)",
-      type: "text",
-      rows: 4,
-      description: "Kosongkan untuk memakai kalimat bawaan.",
-    }),
-    defineField({
       name: "image",
-      title: "Foto pengurus",
+      title: "Thumbnail kartu",
       type: "image",
-      description: "Foto kartu di Tentang Kami sekaligus foto kebersamaan di halaman detail.",
+      description:
+        "Foto untuk kartu di Tentang Kami. Tidak ditampilkan sebagai gambar besar di detail.",
       options: { hotspot: true },
     }),
     defineField({

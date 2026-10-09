@@ -16,6 +16,7 @@ export default function AchievementFilters({
   fields,
   categories,
   count,
+  loading = false,
   onChange,
 }: {
   values: Values;
@@ -23,6 +24,7 @@ export default function AchievementFilters({
   fields: string[];
   categories: string[];
   count: number;
+  loading?: boolean;
   onChange: (next: Values) => void;
 }) {
   const root = useRef<HTMLDivElement>(null);
@@ -145,7 +147,7 @@ export default function AchievementFilters({
         </div>
       </div>
       <div data-filter-pop className={n.results} aria-live="polite">
-        {count} prestasi ditemukan
+        {loading ? "Memuat prestasi…" : `${count} prestasi ditemukan`}
         {hasFilters && !expanded && (
           <button onClick={reset}>
             Reset filter <X size={12} />

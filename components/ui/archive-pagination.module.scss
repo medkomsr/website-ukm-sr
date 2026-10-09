@@ -1,0 +1,43 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+  color: inherit;
+  button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    &[aria-current="page"] {
+      background: #103e2b;
+      color: #fffdf3;
+      border-color: #103e2b;
+    }
+    &:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+    }
+  }
+  > span {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  p {
+    width: 100%;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+}

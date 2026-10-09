@@ -2,7 +2,6 @@
 
 import { useRef, type MouseEvent, type ReactNode } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowDown } from "lucide-react";
 import { gsap } from "gsap";
@@ -253,7 +252,9 @@ export function ProfileContent({
             </p>
           )}
           <p data-intro className={s.description}>
-            {data.description || `Kenali program kerja dan pengurus ${data.abbr}.`}
+            {fieldDescription !== undefined
+              ? data.description
+              : `Kenali peran ${data.abbr}, program kerja, dan orang-orang yang menjalankannya.`}
           </p>
           <a data-intro className={s.scroll} href={`#${activityId}`} onClick={explorePrograms}>
             <span>
@@ -262,19 +263,6 @@ export function ProfileContent({
           </a>
         </section>
       </div>
-      {data.imageUrl && (
-        <div data-profile-panel className={`${s.panel} ${s.overlap}`}>
-          <div className={s.teamImage}>
-            <Image
-              src={data.imageUrl}
-              alt={`Kebersamaan ${data.abbr}`}
-              fill
-              sizes="100vw"
-              priority
-            />
-          </div>
-        </div>
-      )}
       {fieldDescription !== undefined ? (
         <div
           data-description-track

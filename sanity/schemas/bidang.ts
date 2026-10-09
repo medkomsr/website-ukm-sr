@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { validateFieldDescription } from "../../lib/content/field-description";
 
 const memberFields = [
   defineField({ name: "image", title: "Foto", type: "image", options: { hotspot: true } }),
@@ -35,16 +36,19 @@ export const bidangSchema = defineType({
     }),
     defineField({
       name: "description",
-      title: "Deskripsi bidang (opsional)",
+      title: "Deskripsi bidang",
       type: "text",
       rows: 5,
-      description: "Kosongkan untuk memakai deskripsi bawaan.",
+      description:
+        "Wajib diisi. Maksimal 50 kata dan 350 karakter termasuk spasi, dalam satu paragraf tanpa Enter. Isi bagian Deskripsi Bidang; teks pembuka tetap memakai kalimat bawaan.",
+      validation: (rule) => rule.required().custom(validateFieldDescription),
     }),
     defineField({
       name: "image",
-      title: "Foto pengurus",
+      title: "Thumbnail kartu",
       type: "image",
-      description: "Foto kartu di Tentang Kami sekaligus foto kebersamaan di halaman detail.",
+      description:
+        "Foto untuk kartu di Tentang Kami. Tidak ditampilkan sebagai gambar besar di detail.",
       options: { hotspot: true },
     }),
     defineField({
