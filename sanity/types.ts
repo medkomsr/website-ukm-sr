@@ -1,27 +1,6 @@
 import type { PortableTextBlock } from "@portabletext/react";
-import type { Image, ImageDimensions } from "sanity";
 
-export type SanitySiteSettings = {
-  kabinetNama?: string;
-  kabinetLogoUrl?: string;
-  /** Not managed in the CMS; the profile eyebrow shows the cabinet name only. */
-  kabinetPeriode?: string;
-  namaOrg: string;
-  tagline: string;
-  tahunBerdiri: number;
-  jumlahAnggota: string;
-  jumlahPenghargaan: string;
-  jumlahKegiatan: string;
-  alamat: string;
-  telepon: string;
-  email: string;
-  instagram: string;
-  instagramUrl: string;
-  youtube: string;
-  youtubeUrl: string;
-  facebook: string;
-  facebookUrl: string;
-};
+export type SanityKabinet = { nama?: string; logoUrl?: string };
 
 export type SanityHomePage = {
   companyVideoUrl?: string;
@@ -33,17 +12,6 @@ export type SanityHomePage = {
 export type SanityVisiMisi = {
   visi: string;
   misi: string[];
-};
-
-export type SanityDivisi = {
-  _id: string;
-  nama: string;
-  subtitle: string;
-  deskripsi: string;
-  jumlahAnggota: number;
-  ikon: string;
-  accent: string;
-  imageUrl: string | null;
 };
 
 export type SanityFaq = {
@@ -72,14 +40,6 @@ export type SanityActivity = {
   tags?: string[];
   agenda?: Array<{ time: string; item: string }>;
   body?: PortableTextBlock[];
-};
-
-export type SanityGalleryItem = {
-  _id: string;
-  imageUrl: string;
-  alt: string;
-  caption: string;
-  category?: string;
 };
 
 export type SanityDeptMember = {
@@ -171,41 +131,7 @@ export type SanityBidang = {
   ketuaBidang?: SanityBidangMember;
   wakilKetuaBidang?: SanityBidangMember;
 };
-
-export type SanityKaligrafiStatus = "available" | "sold";
-
-export type SanityKaligrafiCategory = {
-  _id: string;
-  name: string;
-  slug: string;
-  displayOrder: number;
-};
-
-export type SanityKaligrafiItem = {
-  _id: string;
-  title: string;
-  code: string;
-  image: Image;
-  alt: string;
-  category: SanityKaligrafiCategory;
-  price: number;
-  description?: string;
-  status: SanityKaligrafiStatus;
-  soldAt?: string;
-  displayOrder: number;
-  imageLqip: string | null;
-  imageDimensions: ImageDimensions | null;
-};
-
-export type SanityKaligrafiCatalogPage = {
-  items: SanityKaligrafiItem[];
-  total: number;
-  page: number;
-  pageSize: number;
-  totalPages: number;
-};
-
-export type SanityKaligrafiCatalogMeta = {
-  categories: SanityKaligrafiCategory[];
-  whatsappNumber: string | null;
-};
+export type SanityBidangCard = Pick<
+  SanityBidang,
+  "_id" | "slug" | "abbr" | "fullName" | "imageUrl"
+>;

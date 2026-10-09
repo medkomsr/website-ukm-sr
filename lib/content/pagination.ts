@@ -11,17 +11,29 @@ export type ArchiveFilters = {
 };
 export type ArchivePage<T> = { items: T[]; total: number; page: number; pages: number };
 
-export function archiveParams(input: ArchiveFilters = {}) {
-  const page = Number.isFinite(input.page) ? Math.max(1, Math.floor(input.page!)) : 1;
+export function archiveParams(value: unknown = {}) {
+  // Server Actions receive runtime data; TypeScript annotations do not validate requests.
+  const input =
+    value && typeof value === "object" && !Array.isArray(value)
+      ? (value as Record<string, unknown>)
+      : {};
+  const text = (value: unknown, fallback: string) =>
+    typeof value === "string" ? value.slice(0, 200) || fallback : fallback;
+  const page =
+    typeof input.page === "number" && Number.isFinite(input.page)
+      ? Math.max(1, Math.floor(input.page))
+      : 1;
   return {
     page,
     pageSize: input.pageSize === 5 ? 5 : ARCHIVE_PAGE_SIZE,
-    search: (input.search ?? "").trim().toLocaleLowerCase("id").slice(0, 200),
-    category: input.category || "all",
-    year: input.year || "all",
-    field: input.field || "all",
-    status: input.status || "all",
-    types: (input.types ?? ["article", "event"]).filter((t) => ["article", "event"].includes(t)),
+    search: text(input.search, "").trim().toLocaleLowerCase("id"),
+    category: text(input.category, "all"),
+    year: text(input.year, "all"),
+    field: text(input.field, "all"),
+    status: text(input.status, "all"),
+    types: Array.isArray(input.types)
+      ? [...new Set(input.types.filter((t): t is string => t === "article" || t === "event"))]
+      : ["article", "event"],
   };
 }
 

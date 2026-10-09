@@ -12,7 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { SplitText } from "gsap/SplitText";
 import { useDepartemenBySlug } from "@/hooks/content/use-departemen";
-import { useSiteSettings } from "@/hooks/content/use-site-settings";
+import { useKabinet } from "@/hooks/content/use-kabinet";
 import type { SanityDepartemenDetail, SanityDeptMember } from "@/sanity/types";
 import ScrollGallery from "@/features/departments/components/scroll-gallery";
 import s from "@/features/departments/components/department-profile.module.scss";
@@ -52,7 +52,7 @@ export function ProfileContent({
   children?: ReactNode;
 }) {
   const root = useRef<HTMLDivElement>(null);
-  const { data: settings } = useSiteSettings();
+  const { data: settings } = useKabinet();
   const members = [
     data.kepala,
     ...(data.divisi || []).flatMap((group) => [group.kepala, ...(group.staff || [])]),
@@ -233,13 +233,7 @@ export function ProfileContent({
             <span />
           </div>
           <p data-intro className={s.eyebrow}>
-            {settings?.kabinetNama || "Kabinet Arkhasena"}
-            {settings?.kabinetPeriode && (
-              <>
-                {" "}
-                <span> / </span> {settings.kabinetPeriode}
-              </>
-            )}
+            {settings?.nama || "Kabinet Arkhasena"}
           </p>
           <h1
             data-intro

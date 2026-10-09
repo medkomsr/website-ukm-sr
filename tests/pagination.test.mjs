@@ -14,6 +14,21 @@ const dataset = Array.from({ length: 113 }, (_, i) => ({
   title: i === 112 ? "Cerita halaman terakhir" : `Cerita ${i}`,
   description: "Latihan bersama",
 }));
+test("untrusted archive arguments cannot crash the server action parser", () => {
+  for (const value of [
+    null,
+    42,
+    [],
+    { search: 42 },
+    { types: "event" },
+    { category: {} },
+    { page: "2" },
+  ]) {
+    assert.doesNotThrow(() => archiveParams(value));
+  }
+  assert.equal(archiveParams({ search: 42 }).search, "");
+  assert.deepEqual(archiveParams({ types: ["event", "event", null, "other"] }).types, ["event"]);
+});
 async function query(source, params, docs = dataset) {
   return (await evaluate(parse(source, { params }), { dataset: docs, params })).get();
 }

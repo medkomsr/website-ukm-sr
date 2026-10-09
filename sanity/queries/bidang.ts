@@ -3,7 +3,8 @@
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
-import type { SanityBidang } from "@/sanity/types";
+import type { SanityBidang, SanityBidangCard } from "@/sanity/types";
+import { BIDANG_CARDS_QUERY } from "./selectors";
 
 const bidangProjection = groq`{
   _id,
@@ -21,14 +22,12 @@ const bidangProjection = groq`{
   wakilKetuaBidang{ name, role, "imageUrl": image.asset->url }
 }`;
 
-export async function getAllBidang(): Promise<SanityBidang[]> {
+export async function getAllBidang(): Promise<SanityBidangCard[]> {
   "use cache";
   cacheLife("hours");
   cacheTag("bidang");
 
-  return client.fetch(
-    groq`*[_type == "bidang" && defined(slug.current)] | order(_createdAt asc) ${bidangProjection}`,
-  );
+  return client.fetch(BIDANG_CARDS_QUERY);
 }
 
 export async function getBidangBySlug(slug: string): Promise<SanityBidang | null> {

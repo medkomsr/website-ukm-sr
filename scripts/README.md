@@ -38,3 +38,13 @@ Arsip berita dan prestasi mengambil maksimal 9 dokumen per halaman desktop. Pada
 `remove-department-intro.ts` membersihkan field deskripsi pembuka lama pada empat departemen, termasuk draft terkait. Default hanya menampilkan rencana; gunakan `--apply --backup <file-baru>` melalui Sanity CLI untuk menerapkan. Dokumen dicadangkan terlebih dahulu dan revision diperiksa agar perubahan editor tidak tertimpa. Thumbnail, foto pengurus, program kerja, dan deskripsi bidang tetap disimpan.
 
 Deskripsi bidang wajib berisi satu paragraf, maksimal 50 kata dan 350 karakter termasuk spasi. `shorten-demo-field-descriptions.ts` merapikan hanya teks yang sama persis dengan seed lama; perubahan editor dilewati. Jalankan melalui Sanity CLI dengan `--apply --backup <file-baru>` untuk menerapkan setelah pencadangan.
+
+## Audit dan pembersihan backend
+
+`audit-sanity.ts` memeriksa jumlah dokumen, slug ganda, dokumen singleton, serta referensi ke tipe lama. Hanya membaca data.
+
+`cleanup-legacy-sanity.ts` menghapus tipe yang sudah dihentikan: `artikel`, `event`, `galeri`, `divisi`, `kaligrafiItem`, `kaligrafiCategory`, `kaligrafiSettings`, dan `siteSettings`. Jalankan tanpa `--apply` untuk melihat rencana. Penerapan memerlukan `--apply --backup <file-baru.ndjson>` melalui Sanity CLI. Cadangan lengkap disimpan sebelum transaksi; referensi dari dokumen aktif membatalkan operasi; revisi yang berubah tidak dihapus. Aset gambar/video tetap disimpan. NDJSON dapat diimpor kembali jika perlu pemulihan.
+
+Skrip `seed-demo-profiles.mjs` dihentikan karena memakai ID nonbaku untuk BKRT/KTDAQ. Gunakan `seed-about-demo.ts`. Identitas kabinet sekarang dibaca langsung oleh `getKabinet`, tanpa query `siteSettings` lama.
+
+Temuan tersisa: query dan hidrasi memakai cache `hours`, sedangkan cache React Query memakai `CONTENT_STALE_TIME` satu jam. Belum ada endpoint/webhook revalidasi setelah publish. Pembaruan CMS tidak dijamin langsung terlihat; integrasi invalidasi perlu dikonfigurasi sebelum mengharapkan publish instan.

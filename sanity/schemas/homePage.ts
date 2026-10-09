@@ -23,7 +23,7 @@ export const homePageSchema = defineType({
       name: "achievements",
       title: "Prestasi di Beranda",
       description:
-        "Beranda menampilkan 3 prestasi. Prestasi pilihan tampil lebih dulu sesuai urutan; slot yang kosong otomatis diisi prestasi terbaru.",
+        "Beranda menampilkan 5 prestasi. Prestasi pilihan tampil lebih dulu sesuai urutan; slot yang kosong otomatis diisi prestasi terbaru.",
       options: { collapsible: true, collapsed: false },
     },
   ],
@@ -66,11 +66,11 @@ export const homePageSchema = defineType({
     defineField({
       name: "sorotanPrestasi",
       title: "Sorotan prestasi (opsional)",
-      description: "Pilih maksimal 3. Kosongkan untuk menampilkan 3 prestasi terbaru.",
+      description: "Pilih maksimal 5. Kosongkan untuk menampilkan 5 prestasi terbaru.",
       type: "array",
       fieldset: "achievements",
       of: [{ type: "reference", to: [{ type: "prestasi" }], weak: true }],
-      validation: (Rule) => Rule.max(3).unique(),
+      validation: (Rule) => Rule.max(5).unique(),
     }),
   ],
 });
