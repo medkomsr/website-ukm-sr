@@ -2,13 +2,13 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowRight, ArrowUpRight, Plus, X } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, X } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { Flip } from "gsap/Flip";
-import { usePrestasi } from "@/hooks/content/use-prestasi";
+import { usePrestasiPage, usePrestasiMeta } from "@/hooks/content/use-prestasi";
 import type { SanityPrestasi } from "@/sanity/types";
 import MedalJourney from "@/features/achievements/components/medal-journey";
 import PrestasiIntro from "@/features/achievements/components/prestasi-intro";
@@ -16,6 +16,10 @@ import AchievementFilters from "@/features/achievements/components/achievement-f
 import h from "@/styles/experience.module.scss";
 import AchievementDialog from "@/features/achievements/components/achievement-dialog";
 import { SrSymbol } from "@/components/brand/art-symbol";
+import ArchiveLoadMore from "@/components/ui/archive-load-more";
+import { useMobileArchive } from "@/hooks/content/use-mobile-archive";
+import ArchivePagination from "@/components/ui/archive-pagination";
+import { useDebouncedSearch } from "@/hooks/content/use-debounced-search";
 import s from "@/features/achievements/components/achievements.module.scss";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, Flip);
@@ -39,7 +43,7 @@ function TransitionSymbols({ placement }: { placement: "statement" | "hero" }) {
   );
 }
 
-export default function AchievementExperience({ previewData }: { previewData?: SanityPrestasi[] }) {
+export default function AchievementExperience() {
   const root = useRef<HTMLDivElement>(null);
   const hero = useRef<HTMLElement>(null);
   const journey = useRef<HTMLDivElement>(null);
@@ -48,11 +52,6 @@ export default function AchievementExperience({ previewData }: { previewData?: S
   const filterAnimation = useRef<gsap.core.Timeline | null>(null);
   const previousHeight = useRef(0);
   const { contextSafe } = useGSAP({ scope: root });
-  const prestasi = usePrestasi();
-  const data = previewData ?? prestasi.data ?? emptyAchievements;
-  const isLoading = !previewData && prestasi.isLoading;
-  const isError = !previewData && prestasi.isError;
-  const { refetch } = prestasi;
   const [filters, setFilters] = useState({
     year: "all",
     field: "all",
@@ -60,26 +59,31 @@ export default function AchievementExperience({ previewData }: { previewData?: S
     search: "",
   });
   const { year, field, category, search } = filters;
-  const [limit, setLimit] = useState(6);
+  const [page, setPage] = useState(1);
+  const debouncedSearch = useDebouncedSearch(search);
+  const mobile = useMobileArchive();
+  const prestasi = usePrestasiPage({ ...filters, search: debouncedSearch, page }, mobile);
+  const meta = usePrestasiMeta();
+  const data = prestasi.data?.items ?? emptyAchievements;
+  const isLoading = prestasi.isLoading;
+  const isError = prestasi.isError || meta.isError;
+  const pending = prestasi.isFetching || search !== debouncedSearch;
+  const refetch = () => {
+    void prestasi.refetch();
+    void meta.refetch();
+  };
+  const totalRecords = meta.data?.total ?? 0;
   const [selection, setSelection] = useState<{
     item: SanityPrestasi;
     origin: HTMLButtonElement;
   } | null>(null);
-  const years = [...new Set(data.map((item) => item.year))].sort((a, b) => b - a);
-  const fields = [
-    ...new Set(data.map((item) => item.field).filter((name): name is string => !!name)),
-  ];
-  const categories = [...new Set(data.map((item) => item.category))];
-  const filtered = data.filter(
-    (item) =>
-      (year === "all" || String(item.year) === year) &&
-      (field === "all" || item.field === field) &&
-      (category === "all" || item.category === category) &&
-      `${item.title} ${item.description} ${(item.participants || []).map((person) => person.name).join(" ")}`
-        .toLocaleLowerCase("id")
-        .includes(search.trim().toLocaleLowerCase("id")),
-  );
-  const shown = new Set(filtered.slice(0, limit).map((item) => item._id));
+  const years = [...(meta.data?.years ?? [])].sort((a, b) => b - a);
+  const fields = meta.data?.fields ?? [];
+  const categories = meta.data?.categories ?? [];
+  const total = prestasi.data?.total ?? 0;
+  const pages = prestasi.data?.pages ?? 1;
+  const currentPage = prestasi.data?.page ?? page;
+  const shown = new Set(data.map((item) => item._id));
 
   useGSAP(
     () => {
@@ -166,7 +170,7 @@ export default function AchievementExperience({ previewData }: { previewData?: S
       ScrollTrigger.refresh();
       return () => media.revert();
     },
-    { scope: root, dependencies: [data], revertOnUpdate: true },
+    { scope: root, dependencies: [totalRecords], revertOnUpdate: true },
   );
 
   useGSAP(
@@ -205,7 +209,7 @@ export default function AchievementExperience({ previewData }: { previewData?: S
     },
     {
       scope: root,
-      dependencies: [data, year, field, category, search, limit],
+      dependencies: [data, year, field, category, search, page],
       revertOnUpdate: true,
     },
   );
@@ -216,7 +220,7 @@ export default function AchievementExperience({ previewData }: { previewData?: S
       snapshot.current = Flip.getState(results.current.querySelectorAll("[data-result]"));
     }
     setFilters(next);
-    setLimit(6);
+    setPage(1);
   };
   const reset = () => changeFilters({ year: "all", field: "all", category: "all", search: "" });
   const explore = contextSafe(() => {
@@ -309,9 +313,9 @@ export default function AchievementExperience({ previewData }: { previewData?: S
             <h2 id="records-title">TRACK RECORD</h2>
           </div>
           <div className={s.recordTotal} data-reveal>
-            <span className={s.bigNumber} data-compact={data.length > 10 || undefined}>
-              <span data-count={data.length}>{twoDigits(Math.min(10, data.length))}</span>
-              {data.length > 10 && <span className={s.countPlus}>+</span>}
+            <span className={s.bigNumber} data-compact={totalRecords > 10 || undefined}>
+              <span data-count={totalRecords}>{twoDigits(Math.min(10, totalRecords))}</span>
+              {totalRecords > 10 && <span className={s.countPlus}>+</span>}
             </span>
             <div>
               <button
@@ -354,26 +358,13 @@ export default function AchievementExperience({ previewData }: { previewData?: S
         <div className={s.archiveIntro} data-reveal>
           <h2 id="archive-title">ARSIP PRESTASI</h2>
         </div>
-        {previewData && (
-          <div className={s.previewNotice}>
-            <p>
-              <strong>PRATINJAU · DATA CONTOH</strong>
-              <span>
-                {previewData.length} data fiktif untuk melihat tampilan 10+ dan arsip. Klik baris
-                prestasi untuk membuka detailnya.
-              </span>
-            </p>
-            <Link href="/prestasi#rekam-prestasi">
-              Keluar pratinjau <ArrowUpRight size={16} />
-            </Link>
-          </div>
-        )}
         <AchievementFilters
           values={filters}
           years={years}
           fields={fields}
           categories={categories}
-          count={filtered.length}
+          count={total}
+          loading={pending}
           onChange={changeFilters}
         />
         <div className={s.resultLabels} aria-hidden="true">
@@ -383,7 +374,7 @@ export default function AchievementExperience({ previewData }: { previewData?: S
           <span>PENCAPAIAN</span>
           <span />
         </div>
-        <div ref={results} className={s.results}>
+        <div ref={results} className={s.results} aria-busy={pending} inert={pending}>
           {data.map((item) => (
             <button
               key={item._id}
@@ -425,17 +416,17 @@ export default function AchievementExperience({ previewData }: { previewData?: S
             </button>
           </div>
         ) : (
-          !filtered.length && (
+          !data.length && (
             <div className={s.empty}>
               <h3>
-                {data.length ? "Belum ada hasil yang cocok." : "Jejak baik, segera hadir di sini."}
+                {totalRecords ? "Belum ada hasil yang cocok." : "Jejak baik, segera hadir di sini."}
               </h3>
               <p>
-                {data.length
+                {totalRecords
                   ? "Coba pilihan tahun atau bidang lainnya."
                   : "Arsip pencapaian dan kisah para juara sedang dirangkai."}
               </p>
-              {data.length ? (
+              {totalRecords ? (
                 <button className={s.pill} onClick={reset}>
                   Lihat semua prestasi <X size={16} />
                 </button>
@@ -449,12 +440,31 @@ export default function AchievementExperience({ previewData }: { previewData?: S
             </div>
           )
         )}
-        {filtered.length > limit && (
-          <div className={s.more}>
-            <button className={s.pill} onClick={() => setLimit((value) => value + 6)}>
-              Lebih banyak pencapaian <Plus size={18} />
-            </button>
-          </div>
+        {mobile ? (
+          <ArchiveLoadMore
+            busy={pending}
+            canExpand={prestasi.canExpand}
+            canCollapse={prestasi.canCollapse}
+            onMore={() => void prestasi.loadMore()}
+            onLess={() => {
+              prestasi.collapse();
+              root.current
+                ?.querySelector("#rekam-prestasi")
+                ?.scrollIntoView({ behavior: "instant", block: "start" });
+            }}
+          />
+        ) : (
+          <ArchivePagination
+            page={currentPage}
+            pages={pages}
+            busy={pending}
+            onChange={(next) => {
+              setPage(next);
+              root.current
+                ?.querySelector("#rekam-prestasi")
+                ?.scrollIntoView({ behavior: "instant", block: "start" });
+            }}
+          />
         )}
       </section>
 

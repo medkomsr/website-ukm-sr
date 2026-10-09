@@ -33,8 +33,6 @@ export async function getDepartemenBySlug(slug: string): Promise<SanityDeparteme
       "slug": slug.current,
       abbr,
       fullName,
-      description,
-      "imageUrl": image.asset->url,
       "programs": programKerja[]{ "v": coalesce(nama, "") }.v,
       "programDescriptions": programKerja[]{ "v": coalesce(detail, "") }.v,
       "programImages": programKerja[]{ "v": coalesce(foto.asset->url, "") }.v,

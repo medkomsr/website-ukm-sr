@@ -1,9 +1,12 @@
 "use server";
 
+import { activityFilter } from "@/sanity/queries/archive-filters";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
 import type { SanityActivity } from "@/sanity/types";
+
+import { archiveParams, fetchArchivePage, type ArchiveFilters } from "@/lib/content/pagination";
 
 const HOME_NEWS_LIMIT = 3;
 
@@ -39,15 +42,42 @@ function withDateLabel(activity: SanityActivity): SanityActivity {
   return Number.isNaN(date.getTime()) ? activity : { ...activity, date: dateLabel.format(date) };
 }
 
-export async function getAllAktivitas(): Promise<SanityActivity[]> {
+const activityCardProjection = groq`{
+  _id, "slug": slug.current, "type": select(jenis == "acara" => "event", "article"),
+  title, description, "imageUrl": image.asset->url, category, date,
+  "status": select(jenis == "acara" => status),
+  "time": select(jenis == "acara" => time), "location": select(jenis == "acara" => location)
+}`;
+
+export async function getAktivitasPage(input: ArchiveFilters = {}) {
   "use cache";
   cacheLife("hours");
   cacheTag("aktivitas");
-
-  const items = await client.fetch<SanityActivity[]>(
-    groq`*[_type == "beritaAcara"] | order(date desc, _createdAt desc) ${activityProjection}`,
+  const params = archiveParams(input);
+  const total = await client.fetch<number>(`count(*[${activityFilter}])`, params);
+  return fetchArchivePage(
+    total,
+    params.page,
+    async (start, end) => {
+      const items = await client.fetch<SanityActivity[]>(
+        `*[${activityFilter}] | order(date desc, _createdAt desc, _id asc) [$start...$end] ${activityCardProjection}`,
+        { ...params, start, end },
+      );
+      return items.map(withDateLabel);
+    },
+    params.pageSize,
   );
-  return items.map(withDateLabel);
+}
+
+export async function getAktivitasMeta() {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("aktivitas");
+  const result = await client.fetch<{ categories: string[]; featured: SanityActivity[] }>(groq`{
+    "categories": array::unique(*[_type == "beritaAcara" && defined(slug.current) && defined(category)].category),
+    "featured": *[_type == "beritaAcara" && defined(slug.current)] | order(date desc, _createdAt desc, _id asc) [0...5] ${activityCardProjection}
+  }`);
+  return { ...result, featured: result.featured.map(withDateLabel) };
 }
 
 /** Homepage picks first (in editor order), then the latest stories fill the remaining slots. */
@@ -61,8 +91,8 @@ export async function getBerandaAktivitas(): Promise<SanityActivity[]> {
     latest: SanityActivity[];
   }>(
     groq`{
-      "picked": *[_type == "homePage" && _id == "homePage"][0].sorotanBerita[]-> ${activityProjection},
-      "latest": *[_type == "beritaAcara"] | order(date desc, _createdAt desc) [0...$limit] ${activityProjection}
+      "picked": *[_type == "homePage" && _id == "homePage"][0].sorotanBerita[0...6]-> ${activityCardProjection},
+      "latest": *[_type == "beritaAcara"] | order(date desc, _createdAt desc) [0...$limit] ${activityCardProjection}
     }`,
     { limit: HOME_NEWS_LIMIT * 2 },
   );

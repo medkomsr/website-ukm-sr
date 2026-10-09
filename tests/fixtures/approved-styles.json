@@ -9,7 +9,7 @@
     },
     "features/activities/components/newsroom.module.scss": {
       "source": "app/aktivitas/components/newsroom.module.css",
-      "sha256": "5f8e2f7904ef9adc2886f7cc804b159b8aebb4b568809b58a20bff46bd714ce1",
+      "sha256": "2f238348dad9f739d2e574fb4173ccfb6a2ba2f4d35560587e2ca1d0be120c23",
       "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
     },
     "features/home/components/motto.module.scss": {

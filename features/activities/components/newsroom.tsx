@@ -1,11 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
-import { ArrowDownRight, ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useAktivitas } from "@/hooks/content/use-aktivitas";
+import { useAktivitasPage, useAktivitasMeta } from "@/hooks/content/use-aktivitas";
 import FilterSelect from "@/features/achievements/components/filter-select";
 import FeaturedStories from "@/features/activities/components/featured-stories";
 import NewsTitle from "@/features/activities/components/news-title";
@@ -13,17 +13,13 @@ import StoryImage from "@/features/activities/components/story-image";
 import StoryPreview, {
   type PreviewSelection,
 } from "@/features/activities/components/story-preview";
+import ArchiveLoadMore from "@/components/ui/archive-load-more";
+import { useMobileArchive } from "@/hooks/content/use-mobile-archive";
+import ArchivePagination from "@/components/ui/archive-pagination";
+import { useDebouncedSearch } from "@/hooks/content/use-debounced-search";
 import s from "@/features/activities/components/newsroom.module.scss";
 
 gsap.registerPlugin(Flip, ScrollTrigger);
-const mobileQuery = "(max-width: 700px)";
-const subscribeViewport = (notify: () => void) => {
-  const media = window.matchMedia(mobileQuery);
-  media.addEventListener("change", notify);
-  return () => media.removeEventListener("change", notify);
-};
-const getMobileSnapshot = () => window.matchMedia(mobileQuery).matches;
-const getServerSnapshot = () => false;
 const statuses: Record<string, string> = {
   upcoming: "Akan datang",
   ongoing: "Berlangsung",
@@ -31,7 +27,6 @@ const statuses: Record<string, string> = {
 };
 
 export default function Newsroom() {
-  const { data, isLoading, error, refetch } = useAktivitas();
   const grid = useRef<HTMLDivElement>(null);
   const resultsArea = useRef<HTMLDivElement>(null);
   const resultsContent = useRef<HTMLDivElement>(null);
@@ -41,33 +36,32 @@ export default function Newsroom() {
   const [status, setStatus] = useState("all");
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState(false);
-  const mobile = useSyncExternalStore(subscribeViewport, getMobileSnapshot, getServerSnapshot);
+  const mobile = useMobileArchive();
   const [page, setPage] = useState(1);
-  const limit = mobile ? Infinity : page * 9;
+  const debouncedSearch = useDebouncedSearch(search);
+  const archiveData = useAktivitasPage(
+    {
+      page,
+      types,
+      category,
+      status,
+      search: debouncedSearch,
+    },
+    mobile,
+  );
+  const { data, isLoading, error, refetch, isFetching } = archiveData;
+  const meta = useAktivitasMeta();
+  const pending = isFetching || search !== debouncedSearch;
+  const currentPage = data?.page ?? page;
   const [selection, setSelection] = useState<PreviewSelection | null>(null);
   const snapshot = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const gridHeight = useRef(0);
   const animation = useRef<gsap.core.Timeline | null>(null);
-  const activities = useMemo(() => (data || []).filter((item) => item.slug), [data]);
-  const featured = useMemo(() => activities.slice(0, 5), [activities]);
-  const categories = useMemo(
-    () => [...new Set(activities.map((item) => item.category).filter(Boolean))],
-    [activities],
-  );
-  const filtered = useMemo(
-    () =>
-      activities.filter(
-        (item) =>
-          types.includes(item.type) &&
-          (category === "all" || item.category === category) &&
-          (status === "all" || (item.type === "event" && item.status === status)) &&
-          `${item.title} ${item.description || ""} ${item.category || ""}`
-            .toLocaleLowerCase("id")
-            .includes(search.trim().toLocaleLowerCase("id")),
-      ),
-    [activities, types, category, status, search],
-  );
-  const shown = new Set(filtered.slice(0, limit).map((item) => item._id));
+  const activities = useMemo(() => data?.items ?? [], [data]);
+  const featured = meta.data?.featured ?? [];
+  const categories = meta.data?.categories ?? [];
+  const total = data?.total ?? 0;
+  const shown = new Set(activities.map((item) => item._id));
   const hasFilters = types.length !== 2 || category !== "all" || status !== "all" || search !== "";
 
   useLayoutEffect(() => {
@@ -124,7 +118,7 @@ export default function Newsroom() {
       );
     });
     return () => media.revert();
-  }, [activities, filtered, expanded, limit]);
+  }, [activities, expanded]);
 
   function change(update: () => void, resetScroll = true) {
     const container = grid.current;
@@ -207,20 +201,20 @@ export default function Newsroom() {
     return () => {
       timeline.kill();
     };
-  }, [types, category, status, search, limit, activities]);
+  }, [types, category, status, search, page, activities]);
 
   return (
     <div className={s.page}>
       <NewsTitle />
-      {isLoading ? (
+      {meta.isLoading ? (
         <div className={s.loadingHero} role="status">
           Memuat kabar Seni Religi…
         </div>
-      ) : error ? (
+      ) : meta.error ? (
         <div className={s.message} role="alert">
           <h2>Kabar belum dapat dimuat.</h2>
           <p>Silakan coba kembali sebentar lagi.</p>
-          <button onClick={() => refetch()}>
+          <button onClick={() => meta.refetch()}>
             Coba lagi <ArrowUpRight size={17} />
           </button>
         </div>
@@ -362,23 +356,22 @@ export default function Newsroom() {
           </div>
         )}
         <div data-archive-pop className={s.results} aria-live="polite">
-          {isLoading ? "Memuat kabar…" : `${filtered.length} kabar ditemukan`}
+          {pending ? "Memuat kabar…" : `${total} kabar ditemukan`}
           {hasFilters && !expanded && (
             <button onClick={reset}>
               Reset filter <X size={12} />
             </button>
           )}
         </div>
-        {shown.size > 1 && <p className={s.swipeHint}>Geser ke samping untuk melihat cerita</p>}
-        <div ref={resultsArea} className={s.resultsArea}>
+        {error && (
+          <div role="alert" className={s.message}>
+            <p>Kabar belum dapat dimuat.</p>
+            <button onClick={() => refetch()}>Coba lagi</button>
+          </div>
+        )}
+        <div ref={resultsArea} className={s.resultsArea} aria-busy={pending} inert={pending}>
           <div ref={resultsContent}>
-            <div
-              ref={grid}
-              className={s.grid}
-              role={mobile ? "region" : undefined}
-              aria-label={mobile ? "Daftar berita dan acara, geser ke samping" : undefined}
-              tabIndex={mobile && shown.size > 0 ? 0 : undefined}
-            >
+            <div ref={grid} className={s.grid} role="region" aria-label="Daftar berita dan acara">
               {activities.map((item) => (
                 <article
                   data-news-card
@@ -452,15 +445,28 @@ export default function Newsroom() {
             )}
           </div>
         </div>
-        {!mobile && filtered.length > limit && (
-          <div data-archive-pop className={s.more}>
-            <button onClick={() => change(() => setPage(page + 1), false)}>
-              Lebih banyak cerita <ArrowDownRight size={20} />
-            </button>
-            <p>
-              {shown.size} dari {filtered.length} kabar
-            </p>
-          </div>
+        {mobile ? (
+          <ArchiveLoadMore
+            busy={pending}
+            canExpand={archiveData.canExpand}
+            canCollapse={archiveData.canCollapse}
+            onMore={() => void archiveData.loadMore()}
+            onLess={() => {
+              archiveData.collapse();
+              archive.current?.scrollIntoView({ behavior: "instant", block: "start" });
+            }}
+          />
+        ) : (
+          <ArchivePagination
+            page={currentPage}
+            pages={data?.pages ?? 1}
+            busy={pending}
+            onChange={(next) => {
+              setPage(next);
+              archive.current?.scrollIntoView({ behavior: "instant", block: "start" });
+              grid.current?.scrollTo({ left: 0, behavior: "instant" });
+            }}
+          />
         )}
       </section>
       <StoryPreview selection={selection} onClose={() => setSelection(null)} />
