@@ -1,5 +1,7 @@
 .section {
   position: relative;
+  // Overlap the pinned motto's composited edge so no subpixel gap can show through.
+  margin-top: -2px;
   padding: 160px 5vw 100px;
   background: var(--bg);
   color: var(--ink);
