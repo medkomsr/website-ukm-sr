@@ -13,8 +13,10 @@ import { apiVersion, dataset, projectId } from "@/sanity/env";
 import { schema } from "@/sanity/schemaTypes/index";
 import { structure } from "@/sanity/structure";
 
-const singletonTypes = new Set(["kaligrafiSettings"]);
+const singletonTypes = new Set(["kaligrafiSettings", "homePage", "visiMisi", "kabinet", "faq"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
+// Only types reachable from the sidebar may be created; extend as each page is reorganised.
+const creatableTypes = new Set(["beritaAcara", "departemen", "bidang", "prestasi"]);
 
 export default defineConfig({
   basePath: "/studio",
@@ -23,7 +25,23 @@ export default defineConfig({
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema: {
     ...schema,
-    templates: (templates) => templates.filter(({ schemaType }) => !singletonTypes.has(schemaType)),
+    templates: (templates) => [
+      ...templates.filter(({ schemaType }) => !singletonTypes.has(schemaType)),
+      // Used by the ready-made cabinet and art-field items in the sidebar.
+      ...(["departemen", "bidang"] as const).map((schemaType) => ({
+        id: `${schemaType}-preset`,
+        title: schemaType === "departemen" ? "Kepengurusan Inti" : "Pengurus Bidang",
+        schemaType,
+        parameters: [
+          { name: "abbr", type: "string" },
+          { name: "slug", type: "string" },
+        ],
+        value: ({ abbr, slug }: { abbr: string; slug: string }) => ({
+          abbr,
+          slug: { _type: "slug", current: slug },
+        }),
+      })),
+    ],
   },
   document: {
     actions: (actions, context) =>
@@ -31,7 +49,7 @@ export default defineConfig({
         ? actions.filter(({ action }) => action && singletonActions.has(action))
         : actions,
     newDocumentOptions: (options) =>
-      options.filter(({ templateId }) => !singletonTypes.has(templateId)),
+      options.filter(({ templateId }) => creatableTypes.has(templateId)),
   },
   plugins: [
     structureTool({ structure }),

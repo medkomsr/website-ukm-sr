@@ -1,11 +1,12 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { ArrowDownRight, ArrowUpRight, Search, SlidersHorizontal, X } from "lucide-react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAktivitas } from "@/hooks/content/use-aktivitas";
+import FilterSelect from "@/features/achievements/components/filter-select";
 import FeaturedStories from "@/features/activities/components/featured-stories";
 import NewsTitle from "@/features/activities/components/news-title";
 import StoryImage from "@/features/activities/components/story-image";
@@ -15,7 +16,14 @@ import StoryPreview, {
 import s from "@/features/activities/components/newsroom.module.scss";
 
 gsap.registerPlugin(Flip, ScrollTrigger);
-const PAGE_SIZE = 9;
+const mobileQuery = "(max-width: 700px)";
+const subscribeViewport = (notify: () => void) => {
+  const media = window.matchMedia(mobileQuery);
+  media.addEventListener("change", notify);
+  return () => media.removeEventListener("change", notify);
+};
+const getMobileSnapshot = () => window.matchMedia(mobileQuery).matches;
+const getServerSnapshot = () => false;
 const statuses: Record<string, string> = {
   upcoming: "Akan datang",
   ongoing: "Berlangsung",
@@ -33,7 +41,9 @@ export default function Newsroom() {
   const [status, setStatus] = useState("all");
   const [search, setSearch] = useState("");
   const [expanded, setExpanded] = useState(false);
-  const [limit, setLimit] = useState(PAGE_SIZE);
+  const mobile = useSyncExternalStore(subscribeViewport, getMobileSnapshot, getServerSnapshot);
+  const [page, setPage] = useState(1);
+  const limit = mobile ? Infinity : page * 9;
   const [selection, setSelection] = useState<PreviewSelection | null>(null);
   const snapshot = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const gridHeight = useRef(0);
@@ -116,9 +126,17 @@ export default function Newsroom() {
     return () => media.revert();
   }, [activities, filtered, expanded, limit]);
 
-  function change(update: () => void) {
+  function change(update: () => void, resetScroll = true) {
     const container = grid.current;
     const area = resultsArea.current;
+    if (mobile) {
+      animation.current?.progress(1).kill();
+      snapshot.current = null;
+      if (area) area.style.removeProperty("height");
+      if (resetScroll) container?.scrollTo({ left: 0, behavior: "instant" });
+      update();
+      return;
+    }
     if (container && area && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
       // Capture the visible frame before finishing a previous filter transition.
       gridHeight.current = area.getBoundingClientRect().height;
@@ -146,7 +164,7 @@ export default function Newsroom() {
       setCategory("all");
       setStatus("all");
       setSearch("");
-      setLimit(PAGE_SIZE);
+      setPage(1);
     });
 
   useLayoutEffect(() => {
@@ -254,7 +272,7 @@ export default function Newsroom() {
                               : types.filter((type) => type !== tag.value),
                         );
                         setStatus("all");
-                        setLimit(PAGE_SIZE);
+                        setPage(1);
                       })
                     }
                   />
@@ -275,7 +293,7 @@ export default function Newsroom() {
               onChange={(event) =>
                 change(() => {
                   setSearch(event.target.value);
-                  setLimit(PAGE_SIZE);
+                  setPage(1);
                 })
               }
             />
@@ -285,7 +303,7 @@ export default function Newsroom() {
                 onClick={() =>
                   change(() => {
                     setSearch("");
-                    setLimit(PAGE_SIZE);
+                    setPage(1);
                   })
                 }
               >
@@ -306,45 +324,35 @@ export default function Newsroom() {
         </div>
         {expanded && (
           <div data-archive-pop id="news-filters" className={s.filters}>
-            <label>
-              Kategori
-              <select
-                value={category}
-                onChange={(event) =>
+            <FilterSelect
+              label="Kategori"
+              value={category}
+              options={[
+                { value: "all", label: "Semua kategori" },
+                ...categories.map((name) => ({ value: name!, label: name! })),
+              ]}
+              onChange={(value) =>
+                change(() => {
+                  setCategory(value);
+                  setPage(1);
+                })
+              }
+            />
+            {types.includes("event") && (
+              <FilterSelect
+                label="Status acara"
+                value={status}
+                options={[
+                  { value: "all", label: "Semua status" },
+                  ...Object.entries(statuses).map(([value, label]) => ({ value, label })),
+                ]}
+                onChange={(value) =>
                   change(() => {
-                    setCategory(event.target.value);
-                    setLimit(PAGE_SIZE);
+                    setStatus(value);
+                    setPage(1);
                   })
                 }
-              >
-                <option value="all">Semua kategori</option>
-                {categories.map((name) => (
-                  <option key={name} value={name}>
-                    {name}
-                  </option>
-                ))}
-              </select>
-            </label>
-            {types.includes("event") && (
-              <label>
-                Status acara
-                <select
-                  value={status}
-                  onChange={(event) =>
-                    change(() => {
-                      setStatus(event.target.value);
-                      setLimit(PAGE_SIZE);
-                    })
-                  }
-                >
-                  <option value="all">Semua status</option>
-                  {Object.entries(statuses).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              />
             )}
             {hasFilters && (
               <button className={s.reset} onClick={reset}>
@@ -361,9 +369,16 @@ export default function Newsroom() {
             </button>
           )}
         </div>
+        {shown.size > 1 && <p className={s.swipeHint}>Geser ke samping untuk melihat cerita</p>}
         <div ref={resultsArea} className={s.resultsArea}>
           <div ref={resultsContent}>
-            <div ref={grid} className={s.grid}>
+            <div
+              ref={grid}
+              className={s.grid}
+              role={mobile ? "region" : undefined}
+              aria-label={mobile ? "Daftar berita dan acara, geser ke samping" : undefined}
+              tabIndex={mobile && shown.size > 0 ? 0 : undefined}
+            >
               {activities.map((item) => (
                 <article
                   data-news-card
@@ -437,9 +452,9 @@ export default function Newsroom() {
             )}
           </div>
         </div>
-        {filtered.length > limit && (
+        {!mobile && filtered.length > limit && (
           <div data-archive-pop className={s.more}>
-            <button onClick={() => change(() => setLimit(limit + PAGE_SIZE))}>
+            <button onClick={() => change(() => setPage(page + 1), false)}>
               Lebih banyak cerita <ArrowDownRight size={20} />
             </button>
             <p>

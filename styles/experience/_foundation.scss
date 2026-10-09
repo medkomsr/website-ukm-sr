@@ -658,8 +658,13 @@
     color: var(--muted);
   }
   .emptyNews {
-    width: 100%;
-    min-height: 300px;
+    width: min(36vw, 590px);
+    margin-inline: auto;
+    flex: none;
+    min-height: 360px;
+    aspect-ratio: 1;
+    justify-content: center;
+    background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 42px;
@@ -821,18 +826,19 @@
   }
   .awardStage {
     position: relative;
-    height: 500px;
+    display: grid;
+    justify-items: center;
+    min-height: 500px;
+    padding-block: 16px;
     touch-action: pan-y;
     margin-top: 50px;
   }
   .awardCard {
     --accent: #b9b98c;
-    position: absolute;
-    left: 50%;
-    margin-left: -150px;
-    top: 0;
+    position: relative;
+    grid-area: 1 / 1;
     width: 300px;
-    height: 470px;
+    min-height: 470px;
     padding: 26px;
     border: 1px solid var(--line);
     border-radius: 12px;
@@ -842,6 +848,13 @@
     gap: 14px;
     transform-origin: center center;
     color: var(--ink);
+  }
+  .awardCard[data-award] {
+    transform: translateX(calc(var(--award-offset) * min(48vw, 295px))) scale(var(--award-scale))
+      rotate(calc(var(--award-offset) * 5deg));
+    transition:
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.65s;
   }
   .awardTop {
     display: flex;
@@ -924,6 +937,7 @@
     color: var(--line);
   }
   .carouselControls {
+    margin-top: 24px;
     display: flex;
     gap: 22px;
     justify-content: center;

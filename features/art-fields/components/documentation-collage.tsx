@@ -7,7 +7,6 @@ import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import type { SanityBidangGalleryItem } from "@/sanity/types";
 import s from "@/features/art-fields/components/documentation-collage.module.scss";
 
 gsap.registerPlugin(Flip, ScrollTrigger, useGSAP);
@@ -15,9 +14,13 @@ gsap.registerPlugin(Flip, ScrollTrigger, useGSAP);
 export default function DocumentationCollage({
   name,
   items,
+  title = "Galeri",
+  tone = "green",
 }: {
   name: string;
-  items: SanityBidangGalleryItem[];
+  title?: string;
+  tone?: "green" | "cream";
+  items: { imageUrl: string; alt?: string; caption?: string }[];
 }) {
   const photos = items.filter((item) => !!item.imageUrl);
   const [active, setActive] = useState<number | null>(null);
@@ -112,9 +115,9 @@ export default function DocumentationCollage({
   };
 
   return (
-    <section ref={root} data-tone="green" className={s.section} aria-labelledby={`${uid}-title`}>
+    <section ref={root} data-tone={tone} className={s.section} aria-labelledby={`${uid}-title`}>
       <header data-documentation-intro className={s.heading}>
-        <h2 id={`${uid}-title`}>Galeri</h2>
+        <h2 id={`${uid}-title`}>{title}</h2>
       </header>
       {photos.length ? (
         <div className={s.collage}>
@@ -137,7 +140,6 @@ export default function DocumentationCollage({
               <span className={s.expand} aria-hidden>
                 <Expand size={20} />
               </span>
-              {item.caption && <span className={s.caption}>{item.caption}</span>}
             </button>
           ))}
         </div>
@@ -164,7 +166,7 @@ export default function DocumentationCollage({
           close();
         }}
         onClick={(event) => {
-          if (event.target === event.currentTarget) close();
+          if (!(event.target instanceof HTMLImageElement)) close();
         }}
       >
         <button className={s.close} onClick={close} aria-label="Tutup foto" autoFocus>
@@ -176,11 +178,11 @@ export default function DocumentationCollage({
               <Image
                 src={selected.imageUrl}
                 alt={selected.alt || `Dokumentasi ${name}`}
-                fill
+                width={1600}
+                height={1000}
                 sizes="90vw"
               />
             </div>
-            {selected.caption && <figcaption>{selected.caption}</figcaption>}
           </figure>
         )}
       </dialog>

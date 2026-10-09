@@ -8,7 +8,8 @@
     },
     "features/activities/components/newsroom.module.scss": {
       "source": "app/aktivitas/components/newsroom.module.css",
-      "sha256": "be29687c24d2dc671b7cd01d3830a771720b4658cf256e113ae7afaa5506cc71"
+      "sha256": "5f8e2f7904ef9adc2886f7cc804b159b8aebb4b568809b58a20bff46bd714ce1",
+      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
     },
     "features/home/components/motto.module.scss": {
       "source": "app/(home)/components/motto.module.css",
@@ -16,7 +17,8 @@
     },
     "styles/experience.module.scss": {
       "source": "app/(home)/components/sr-home.module.css",
-      "sha256": "bc4cd163eb53bd1ae2a15ab69b83cb570ff2c5c19560d246fe5822cc74677632"
+      "sha256": "e7444a0e4f075431735525fd36ed9376423b4f6097e16245f68ca36638c4db42",
+      "revision": "2026-10-08: stable achievement carousel with content-sized cards and spaced controls"
     },
     "features/home/components/hero-scene.module.scss": {
       "source": "app/(home)/components/hero-scene.module.css",
@@ -24,7 +26,8 @@
     },
     "features/home/components/company-reel.module.scss": {
       "source": "app/(home)/components/company-reel.module.css",
-      "sha256": "a13e3d0da4327d241671e198d507a06d999670309cdb55f14f094c118f5ca1b9"
+      "sha256": "d2c0fe5be72daa5b3878044d8692611296d9fb2e7cfd4f1b75d45e69f3046fc3",
+      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
     },
     "components/layout/footer.module.scss": {
       "source": "components/footer.module.css",
@@ -49,7 +52,8 @@
     },
     "features/achievements/components/achievements.module.scss": {
       "source": "app/prestasi/components/achievements.module.css",
-      "sha256": "a23ff8c077194edf05b81f590c7e1af7a1bde32d6f3004f065f0194df35318c2"
+      "sha256": "3e364d6f972c68b1f38632ad2cd5a962184ea4301d17bc97a81bb47501944a4e",
+      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
     },
     "features/about/components/about-profile.module.scss": {
       "source": "app/tentang/components/about-profile.module.css",
@@ -61,19 +65,28 @@
     },
     "features/activities/components/detail/story-detail.module.scss": {
       "source": "app/aktivitas/[id]/components/story-detail.module.css",
-      "sha256": "16054a805f5b7f6fa8de6b5c537a0f01e81a86b0202f74bdd9aba5284408e0fd"
+      "sha256": "941a0b577e7f6d3ffb160d7205d3caf16ae9163cbd28b05214ced13de6c7f5f3",
+      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
-      "sha256": "a500a5af43918dfc033bbf6a9d9f546bdcdc10309ccf26bea308fa3e3921d0de"
+      "sha256": "3735b3a3cf537f411c9e35b1a61fa7cf81c5557b625faa81bb0d1a450de1ab05",
+      "revision": "2026-10-08: Unclipped manual galleries, borderless activity cards, caption-free documentation collage."
     },
     "features/departments/components/department-profile.module.scss": {
       "source": "app/tentang/[dept]/components/department-profile.module.css",
-      "sha256": "725c2082e10dc2de11e9fcabfb2d4b2c2cfc0623853f1d6848c5e01c67e4324b"
+      "sha256": "6fe578b2716372048da780fa18f3a6da66871a0894dba1a8b006b6ad3a369356",
+      "revision": "2026-10-07: restore profile colors retaining waves, dark activity-detail hero, and borderless achievement search focus"
     },
     "features/art-fields/components/documentation-collage.module.scss": {
       "source": "app/tentang/bidang/[bidang]/components/documentation-collage.module.css",
-      "sha256": "b41d871d3235cd73aee1007999c7b1f96127583194924738b02fba76c9af8bf3"
+      "sha256": "931f35fbab056ea7006fc25dbd90ddc6bdcc4f6216b9f0fd9d209f3150d0cc93",
+      "revision": "2026-10-08: Unclipped manual galleries, borderless activity cards, caption-free documentation collage."
+    },
+    "features/home/components/company-video.module.scss": {
+      "source": "features/home/components/company-video.module.scss",
+      "sha256": "bd366c6eeeb2230b0e776aa92d48313d0ca74306b03480172461356a9e5620d5",
+      "revision": "2026-10-08: requested autoplay reel with clean cinematic framing and viewport-safe scroll expansion; verified desktop and mobile"
     }
   }
 }

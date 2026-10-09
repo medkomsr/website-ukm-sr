@@ -55,14 +55,14 @@
   position: relative;
   margin: 0 5vw;
   overflow: hidden;
-  border-radius: clamp(25px, 4vw, 58px);
+  border-radius: clamp(25px, 4vw, 58px) clamp(25px, 4vw, 58px) 0 0;
   color: #fff8de;
   isolation: isolate;
 }
 @supports (corner-shape: squircle) {
   .featured {
     corner-shape: squircle;
-    border-radius: clamp(38px, 5vw, 78px);
+    border-radius: clamp(38px, 5vw, 78px) clamp(38px, 5vw, 78px) 0 0;
   }
 }
 .stage {
@@ -198,7 +198,7 @@
   position: relative;
   height: clamp(54px, 6vw, 86px);
   margin-top: 0;
-  background: #123d2a;
+  background: #fffcf3;
 }
 .waveBoundary svg {
   position: absolute;
@@ -208,7 +208,8 @@
   display: block;
 }
 .archive {
-  padding: 24px 7vw 100px;
+  --archive-gutter: 7vw;
+  padding: 24px var(--archive-gutter) 100px;
   scroll-margin-top: 100px;
 }
 .archiveHeading {
@@ -226,7 +227,7 @@
   gap: 26px;
   align-items: center;
   padding: 20px 0;
-  border-block: 1px solid #123d2a33;
+  border: 0;
 }
 .tabs {
   display: flex;
@@ -302,7 +303,6 @@
   background: none;
   border: 0;
   padding: 10px 0 10px 22px;
-  border-left: 1px solid #123d2a33;
   font-size: 12px !important;
 }
 .filters {
@@ -346,6 +346,9 @@
   font-size: 11px;
   color: #53644e;
 }
+.swipeHint {
+  display: none;
+}
 .resultsArea {
   overflow: clip;
   overflow-anchor: none;
@@ -359,9 +362,8 @@
 }
 .card {
   min-width: 0;
-  padding: 9px;
-  border: 1px dashed #123d2a44;
-  border-radius: 22px;
+  padding: 0;
+  border: 0;
 }
 .cardButton {
   position: relative;
@@ -668,6 +670,37 @@
   }
 }
 @media (max-width: 700px) {
+  .resultsArea {
+    margin-inline: calc(-1 * var(--archive-gutter));
+  }
+  .grid {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    gap: 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+    padding: 4px 0;
+    scrollbar-width: none;
+  }
+  .grid::-webkit-scrollbar {
+    display: none;
+  }
+  .card {
+    scroll-snap-align: start;
+  }
+  .grid:focus-visible {
+    outline: 2px solid #617758;
+    outline-offset: -2px;
+  }
+  .swipeHint {
+    display: block;
+    margin: 0 0 12px;
+    font-size: 11px;
+    color: #53644e;
+  }
   .modal[open] {
     align-items: flex-start;
   }
@@ -699,7 +732,7 @@
   }
   .featured {
     margin-inline: 4vw;
-    border-radius: 26px;
+    border-radius: 26px 26px 0 0;
   }
   .stage {
     height: 510px;
@@ -727,7 +760,8 @@
     height: 56px;
   }
   .archive {
-    padding: 20px 6vw 75px;
+    --archive-gutter: 6vw;
+    padding: 20px var(--archive-gutter) 75px;
   }
   .archiveHeading {
     margin-bottom: 26px;
@@ -737,10 +771,6 @@
   }
   .tagButton {
     padding: 10px 20px;
-  }
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 22px;
   }
   .cardCaption strong {
     font-size: 29px;

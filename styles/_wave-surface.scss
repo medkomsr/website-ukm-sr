@@ -1,0 +1,17 @@
+// Mask the moving surface itself so its edges stay curved during pinned transitions.
+@mixin edges($top: true, $bottom: true) {
+  --profile-wave-height: clamp(32px, 5vw, 68px);
+  $top-image: linear-gradient(#000 0 0);
+  $bottom-image: linear-gradient(#000 0 0);
+  @if $top {
+    $top-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='black' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V100H0Z'/%3E%3C/svg%3E");
+  }
+  @if $bottom {
+    $bottom-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='black' d='M0 0H1440V24C1200 115 1030 112 760 56S270 0 0 72Z'/%3E%3C/svg%3E");
+  }
+  mask:
+    $top-image top / 100% var(--profile-wave-height) no-repeat,
+    linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--profile-wave-height) + 2px)
+      no-repeat,
+    $bottom-image bottom / 100% var(--profile-wave-height) no-repeat;
+}

@@ -12,6 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useAktivitasBySlug } from "@/hooks/content/use-aktivitas";
 import type { SanityActivity } from "@/sanity/types";
 import { srFields } from "@/lib/constants/art-fields";
+import DocumentationCollage from "@/features/art-fields/components/documentation-collage";
 import { SrSymbol } from "@/components/brand/art-symbol";
 import s from "@/features/activities/components/detail/story-detail.module.scss";
 
@@ -94,10 +95,8 @@ function HeroEmblems() {
 function Experience({ activity }: { activity: SanityActivity }) {
   const root = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
+  const heroPin = useRef<HTMLDivElement>(null);
   const bento = useRef<HTMLDivElement>(null);
-  const horizontal = useRef<HTMLElement>(null);
-  const track = useRef<HTMLDivElement>(null);
-  const progress = useRef<HTMLSpanElement>(null);
   const photos = [
     ...(activity.imageUrl
       ? [
@@ -135,10 +134,10 @@ function Experience({ activity }: { activity: SanityActivity }) {
               gallery.classList.remove(s.bentoFinal);
               const zoom = gsap.timeline({
                 scrollTrigger: {
-                  trigger: frame.current,
-                  start: "top 88px",
+                  trigger: heroPin.current,
+                  start: "top 64px",
                   end: () => `+=${Math.max(550, innerHeight * 1.15)}`,
-                  pin: frame.current,
+                  pin: heroPin.current,
                   scrub: 0.75,
                   anticipatePin: 1,
                   invalidateOnRefresh: true,
@@ -176,52 +175,6 @@ function Experience({ activity }: { activity: SanityActivity }) {
               );
               zoom.to({}, { duration: 0.15 });
 
-              const seam = root.current!.querySelector("[data-footer-seam]")!;
-              const waveEdges = seam.querySelectorAll("path");
-              const closeWaveEdges = {
-                y: (index: number) => (index === 0 ? 40.5 : -40.5),
-                ease: "none",
-              };
-              const strip = track.current!;
-              if (innerWidth > 700 && strip.scrollWidth > horizontal.current!.clientWidth) {
-                const distance = () =>
-                  Math.max(0, strip.scrollWidth - horizontal.current!.clientWidth);
-                const tour = gsap.timeline({
-                  scrollTrigger: {
-                    trigger: horizontal.current,
-                    start: "top 88px",
-                    end: () => `+=${distance() + innerHeight * 0.35}`,
-                    pin: horizontal.current,
-                    scrub: 0.85,
-                    anticipatePin: 1,
-                    invalidateOnRefresh: true,
-                  },
-                });
-                tour
-                  .to(strip, { x: () => -distance(), duration: 1, ease: "none" }, 0)
-                  .fromTo(
-                    progress.current,
-                    { scaleX: 0 },
-                    { scaleX: 1, duration: 1, ease: "none" },
-                    0,
-                  )
-                  .fromTo(waveEdges, { y: 0 }, { ...closeWaveEdges, duration: 0.35 }, 0.65);
-              } else {
-                gsap.fromTo(
-                  waveEdges,
-                  { y: 0 },
-                  {
-                    ...closeWaveEdges,
-                    scrollTrigger: {
-                      trigger: seam,
-                      start: "top 95%",
-                      end: "center 65%",
-                      scrub: true,
-                      invalidateOnRefresh: true,
-                    },
-                  },
-                );
-              }
               return () => {
                 gsap.set(cells, { clearProps: "all" });
               };
@@ -267,43 +220,45 @@ function Experience({ activity }: { activity: SanityActivity }) {
   );
 
   return (
-    <div ref={root} className={s.page}>
-      <div ref={frame} className={s.frame} aria-label="Foto utama berita dan acara">
-        <HeroEmblems />
-        <div ref={bento} className={s.bento}>
-          <div data-bento-cell className={`${s.cell} ${s.lead}`}>
-            <div className={s.leadVisual}>
-              {activity.imageUrl ? (
-                <Image
-                  src={activity.imageUrl}
-                  alt={activity.title}
-                  fill
-                  sizes="100vw"
-                  loading="eager"
-                  className={s.cover}
-                />
-              ) : (
-                <div className={s.coverFallback}>
-                  <Rosette />
+    <div ref={root} className={s.page} data-tone="green">
+      <div ref={heroPin} className={s.heroPin}>
+        <div ref={frame} className={s.frame} aria-label="Foto utama berita dan acara">
+          <HeroEmblems />
+          <div ref={bento} className={s.bento}>
+            <div data-bento-cell className={`${s.cell} ${s.lead}`}>
+              <div className={s.leadVisual}>
+                {activity.imageUrl ? (
+                  <Image
+                    src={activity.imageUrl}
+                    alt={activity.title}
+                    fill
+                    sizes="100vw"
+                    loading="eager"
+                    className={s.cover}
+                  />
+                ) : (
+                  <div className={s.coverFallback}>
+                    <Rosette />
+                  </div>
+                )}
+                <div className={s.coverShade} />
+                <div className={s.coverText}>
+                  <p>{activity.category}</p>
+                  <h1 data-cover-title>{activity.title}</h1>
                 </div>
-              )}
-              <div className={s.coverShade} />
-              <div className={s.coverText}>
-                <p>{activity.category}</p>
-                <h1 data-cover-title>{activity.title}</h1>
               </div>
             </div>
+            <span data-scroll-cue className={s.scrollCue}>
+              Gulir untuk membaca <ArrowDown size={16} />
+            </span>
           </div>
-          <span data-scroll-cue className={s.scrollCue}>
-            Gulir untuk membaca <ArrowDown size={16} />
-          </span>
         </div>
       </div>
 
       <section
         id="isi-cerita"
         className={s.article}
-        data-tone="cream"
+        data-tone="green"
         aria-label="Isi berita dan acara"
       >
         <div className={s.prose}>
@@ -339,61 +294,7 @@ function Experience({ activity }: { activity: SanityActivity }) {
         </div>
       </section>
 
-      <section
-        ref={horizontal}
-        className={s.horizontal}
-        data-tone="green"
-        data-wave
-        aria-labelledby="documentation-title"
-      >
-        <div className={s.galleryHeading}>
-          <h2 id="documentation-title">Dokumentasi</h2>
-        </div>
-        <div className={s.trackViewport}>
-          <div ref={track} className={s.track}>
-            <div className={s.galleryIntro}>
-              <span>DOKUMENTASI</span>
-              <p>{activity.title}</p>
-              <span className={s.photoCount}>{String(photos.length).padStart(2, "0")} foto</span>
-              <Rosette />
-            </div>
-            {photos.map((photo, index) => (
-              <figure className={s.galleryPhoto} key={photo._key}>
-                <div className={s.galleryImage}>
-                  <Image
-                    src={photo.imageUrl}
-                    alt={photo.alt || activity.title}
-                    fill
-                    sizes="(max-width: 700px) 82vw, 58vw"
-                    className={s.cover}
-                  />
-                </div>
-                <figcaption>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <span>{photo.caption || activity.title}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-        <div className={s.progress} aria-hidden="true">
-          <span ref={progress} />
-        </div>
-        <div data-footer-seam className={s.footerSeam} aria-hidden="true">
-          <svg viewBox="0 0 1440 160" preserveAspectRatio="none">
-            <path
-              data-wave-upper
-              d="M0 45C260 -10 450 0 760 45S1210 95 1440 30V-200H0Z"
-              fill="#123d2a"
-            />
-            <path
-              data-wave-lower
-              d="M0 125C260 70 450 80 760 125S1210 175 1440 110V400H0Z"
-              fill="#123d2a"
-            />
-          </svg>
-        </div>
-      </section>
+      <DocumentationCollage name={activity.title} title="Dokumentasi" tone="cream" items={photos} />
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight, X } from "lucide-react";
-import { useSiteSettings } from "@/hooks/content/use-site-settings";
 import { ParticleSignature } from "@/components/brand/particle-signature";
 import s from "@/styles/experience.module.scss";
 import f from "@/components/layout/footer.module.scss";
@@ -49,12 +48,11 @@ function LegalDialog({ kind, close }: { kind: "privacy" | "terms"; close: () => 
 
 /** Shared by the homepage and every public page layout. */
 export default function Footer({ wave = true }: { wave?: boolean }) {
-  const { data: settings } = useSiteSettings();
   const [legal, setLegal] = useState<"privacy" | "terms" | null>(null);
   const socials = [
-    ["Instagram", settings?.instagramUrl],
-    ["YouTube", settings?.youtubeUrl],
-  ].filter(([, url]) => url && /^https?:\/\//.test(url));
+    ["Instagram", "https://www.instagram.com/senireligi_ub/"],
+    ["YouTube", "https://www.youtube.com/@SeniReligiUB"],
+  ];
   return (
     <footer data-tone="green" data-wave={wave || undefined} className={`${s.footer} ${f.root}`}>
       <div className={s.footerInfo}>

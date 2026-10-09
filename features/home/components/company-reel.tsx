@@ -1,5 +1,5 @@
 "use client";
-import { useId, useRef } from "react";
+import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Play } from "lucide-react";
@@ -8,6 +8,10 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SrSymbol } from "@/components/brand/art-symbol";
 import r from "@/features/home/components/company-reel.module.scss";
+
+import { CompanyVideo } from "./company-video";
+import { CompanyVideoDialog, type VideoOrigin } from "./company-video-dialog";
+import { companyVideoSource } from "../lib/company-video";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 const description =
@@ -23,9 +27,49 @@ function Words({ text }: { text: string }) {
     </>
   );
 }
-export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => void }) {
+export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: string }) {
   const root = useRef<HTMLElement>(null);
-  const warpId = `reel-warp-${useId().replace(/:/g, "")}`;
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [origin, setOrigin] = useState<VideoOrigin | null>(null);
+  const [visible, setVisible] = useState(false);
+  const [previewLoaded, setPreviewLoaded] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  const source = companyVideoSource(videoUrl);
+  useEffect(() => {
+    const preference = matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(preference.matches);
+    update();
+    preference.addEventListener("change", update);
+    // Warm the player before the small card enters the viewport.
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setPreviewLoaded(true);
+          preloadObserver.disconnect();
+        }
+      },
+      { rootMargin: "600px 0px" },
+    );
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    preloadObserver.observe(frameRef.current!);
+    observer.observe(frameRef.current!);
+    return () => {
+      observer.disconnect();
+      preloadObserver.disconnect();
+      preference.removeEventListener("change", update);
+    };
+  }, []);
+  const openVideo = (event: MouseEvent<HTMLButtonElement>) => {
+    const rect = frameRef.current!.getBoundingClientRect();
+    setOrigin({
+      top: rect.top,
+      left: rect.left,
+      width: rect.width,
+      height: rect.height,
+      trigger: event.currentTarget,
+    });
+  };
+  const clipId = `reel-clip-${useId().replace(/:/g, "")}`;
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
@@ -99,15 +143,23 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
       mm.add("(min-width: 801px) and (prefers-reduced-motion: no-preference)", () => {
         const stage = root.current!.querySelector<HTMLElement>("[data-reel-stage]")!;
         const frame = root.current!.querySelector<HTMLElement>("[data-reel-frame]")!;
-        // The right edge stays anchored while both dimensions grow from a thumbnail.
+        const media = root.current!.querySelector<HTMLElement>("[data-reel-media]")!;
+        // Use the CSS preview ratio and leave room around the video on short screens.
+        const previewRatio = () => {
+          const [width, height] = getComputedStyle(frame).aspectRatio.split("/").map(Number);
+          return width / (height || 1);
+        };
+        const expandedWidth = () =>
+          Math.min(stage.clientWidth, innerHeight * 0.76 * previewRatio());
+        // Let the bend travel across the growing film before it gently settles flat.
         const expand = gsap.timeline({
           scrollTrigger: {
             id: "sr-reel",
             trigger: stage,
             start: "top 42%",
-            end: () => `+=${innerHeight * 1.55}`,
+            end: () => `+=${innerHeight * 1.7}`,
             pin: true,
-            scrub: 1,
+            scrub: 1.2,
             anticipatePin: 1,
             invalidateOnRefresh: true,
             refreshPriority: 3,
@@ -119,29 +171,39 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
             { attr: { d: "M0 0 C.33 0 .66 0 1 0 L1 1 C.66 1 .33 1 0 1 Z" } },
             {
               attr: {
-                d: "M0 .04 C.3 .18 .6 0 1 .1 L1 .98 C.7 .82 .3 1 0 .9 Z",
+                d: "M0 .035 C.3 .15 .6 0 1 .07 L1 .985 C.7 .85 .3 1 0 .935 Z",
               },
+              duration: 0.43,
+              ease: "sine.inOut",
+            },
+            0.02,
+          )
+          .to(
+            "[data-reel-curve]",
+            {
+              attr: { d: "M0 .025 C.33 0 .7 .085 1 .015 L1 .97 C.7 1 .3 .92 0 .985 Z" },
               duration: 0.4,
               ease: "sine.inOut",
             },
-            0.05,
+            0.45,
           )
           .to(
             "[data-reel-curve]",
             {
               attr: { d: "M0 0 C.33 0 .66 0 1 0 L1 1 C.66 1 .33 1 0 1 Z" },
-              duration: 0.55,
-              ease: "sine.out",
+              duration: 0.43,
+              ease: "sine.inOut",
             },
-            0.45,
+            0.85,
           )
           .fromTo(
             frame,
-            { width: "44%", y: 0 },
+            { width: () => Math.min(stage.clientWidth * 0.44, expandedWidth()), x: 0, y: 0 },
             {
-              width: "100%",
+              width: expandedWidth,
+              x: () => -(stage.clientWidth - expandedWidth()) / 2,
               y: () => -innerHeight * 0.27,
-              duration: 1,
+              duration: 1.28,
               ease: "sine.inOut",
             },
             0,
@@ -152,7 +214,7 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
               rotationY: -18,
               rotationZ: -3,
               skewY: 4,
-              duration: 0.35,
+              duration: 0.45,
               ease: "sine.inOut",
             },
             0.05,
@@ -163,10 +225,10 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
               rotationY: 7,
               rotationZ: 2,
               skewY: -3,
-              duration: 0.3,
+              duration: 0.38,
               ease: "sine.inOut",
             },
-            0.4,
+            0.5,
           )
           .to(
             frame,
@@ -174,21 +236,35 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
               rotationY: 0,
               rotationZ: 0,
               skewY: 0,
-              duration: 0.3,
-              ease: "sine.out",
+              duration: 0.4,
+              ease: "sine.inOut",
             },
-            0.7,
+            0.88,
           )
-          .to("[data-reel-warp]", { attr: { scale: 42 }, duration: 0.35, ease: "sine.inOut" }, 0.05)
-          .to("[data-reel-warp]", { attr: { scale: 0 }, duration: 0.6, ease: "sine.out" }, 0.4)
-          .to("[data-reel-tint]", { opacity: 0, duration: 0.7 }, 0.2)
+          // Overscan only while warping, so displacement cannot reveal empty video edges.
+          .set(media, { filter: `url(#${clipId}-warp)` }, 0.02)
+          .fromTo(media, { scale: 1 }, { scale: 1.08, duration: 0.43, ease: "sine.inOut" }, 0.02)
+          .fromTo(
+            "[data-reel-warp]",
+            { attr: { scale: 0 } },
+            {
+              attr: { scale: () => Math.min(18, (expandedWidth() / previewRatio()) * 0.045) },
+              duration: 0.43,
+              ease: "sine.inOut",
+            },
+            0.02,
+          )
+          .to("[data-reel-warp]", { attr: { scale: 7 }, duration: 0.4, ease: "sine.inOut" }, 0.45)
+          .to("[data-reel-warp]", { attr: { scale: 0 }, duration: 0.43, ease: "sine.inOut" }, 0.85)
+          .to(media, { scale: 1, duration: 0.43, ease: "sine.inOut" }, 0.85)
+          .set(media, { filter: "none" }, 1.28)
           .fromTo(
             "[data-reel-play]",
             { autoAlpha: 0, y: 30, scale: 0.85 },
             { autoAlpha: 1, y: 0, scale: 1, duration: 0.2 },
-            0.85,
+            1.1,
           )
-          .from("[data-reel-marks]", { opacity: 0, y: 18, duration: 0.2 }, 0.85)
+          .from("[data-reel-marks]", { opacity: 0, y: 18, duration: 0.2 }, 1.1)
           .to({}, { duration: 0.15 });
       });
       mm.add("(max-width: 800px) and (prefers-reduced-motion: no-preference)", () => {
@@ -222,11 +298,11 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
     >
       <svg width="0" height="0" aria-hidden="true" className={r.filterDefs}>
         <defs>
-          <clipPath id={`${warpId}-clip`} clipPathUnits="objectBoundingBox">
+          <clipPath id={clipId} clipPathUnits="objectBoundingBox">
             <path data-reel-curve d="M0 0 C.33 0 .66 0 1 0 L1 1 C.66 1 .33 1 0 1 Z" />
           </clipPath>
           <filter
-            id={warpId}
+            id={`${clipId}-warp`}
             x="-10%"
             y="-10%"
             width="120%"
@@ -288,29 +364,42 @@ export function CompanyReel({ poster, onPlay }: { poster: string; onPlay: () => 
         </div>
       </div>
       <div data-reel-stage className={r.stage}>
-        <button
+        <div
+          ref={frameRef}
           data-reel-frame
-          style={{ clipPath: `url(#${warpId}-clip)` }}
+          style={{ clipPath: `url(#${clipId})` }}
           className={r.frame}
-          onClick={onPlay}
-          aria-label="Putar video company profile Seni Religi"
         >
-          <div className={r.media} style={{ filter: `url(#${warpId})` }}>
-            <Image src={poster} alt="" fill sizes="90vw" />
+          <div data-reel-media className={r.media}>
+            {(!source || reduced) && <Image src={poster} alt="" fill sizes="90vw" />}
+            {source && previewLoaded && !reduced && (
+              <CompanyVideo key={videoUrl} url={videoUrl!} preview active={visible && !origin} />
+            )}
           </div>
-          <span data-reel-tint className={r.tint} aria-hidden="true" />
-          <span data-reel-play className={r.play}>
-            <Play size={24} fill="currentColor" />
-            Putar company profile
-          </span>
-          <span className={r.caption}>SENI RELIGI · UNIVERSITAS BRAWIJAYA</span>
-        </button>
+          <button
+            className={r.playSurface}
+            onClick={openVideo}
+            disabled={!source}
+            aria-label="Putar video company profile Seni Religi"
+          >
+            <span className={r.playPosition}>
+              <span data-reel-play className={r.play}>
+                <span className={r.playIcon} aria-hidden="true">
+                  <Play size={24} fill="currentColor" />
+                </span>
+              </span>
+            </span>
+          </button>
+        </div>
         <div data-reel-marks className={r.marks} aria-hidden="true">
           {[0, 2, 4, 5, 6].map((index) => (
             <SrSymbol key={index} index={index} />
           ))}
         </div>
       </div>
+      {origin && source && videoUrl && (
+        <CompanyVideoDialog url={videoUrl} origin={origin} close={() => setOrigin(null)} />
+      )}
     </section>
   );
 }

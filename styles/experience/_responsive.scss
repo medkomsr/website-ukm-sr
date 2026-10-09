@@ -270,7 +270,7 @@
     .emptyNews {
       padding: 28px;
       min-height: 260px;
-      width: calc(100vw - 48px);
+      width: min(78vw, 460px);
     }
     .emptyNews h3 {
       font-size: 23px;
@@ -331,13 +331,12 @@
       margin-top: 35px !important;
     }
     .awardStage {
-      height: 455px;
+      min-height: 455px;
       margin-top: 35px;
     }
     .awardCard {
       width: 270px;
-      height: 435px;
-      margin-left: -135px;
+      min-height: 435px;
       padding: 24px;
     }
     .awardCard > svg {
@@ -509,10 +508,9 @@
     }
     .awardCard {
       width: 244px;
-      margin-left: -122px;
     }
     .emptyNews {
-      width: calc(100vw - 40px);
+      width: min(78vw, 460px);
     }
   }
   @media (prefers-reduced-motion: reduce) {

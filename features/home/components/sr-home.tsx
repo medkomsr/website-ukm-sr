@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -21,14 +21,12 @@ import s from "@/styles/experience.module.scss";
 
 import { Achievements } from "./achievements";
 import { Fields } from "./fields";
-import { PopupDialog, type Popup } from "./home-dialog";
 import { NewsGallery } from "./news-gallery";
 import { SectionTitle } from "./section-heading";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function SrHome() {
   const root = useRef<HTMLDivElement>(null);
-  const [popup, setPopup] = useState<Popup | null>(null);
   const { data: home } = useHomePage();
 
   const activities = useAktivitas(),
@@ -46,8 +44,9 @@ export default function SrHome() {
       disposed = true;
     };
   }, []);
-  useHomeMotion(root, activities.data?.length ?? 0);
-  const all = activities.data ?? [];
+  const homeActivities = (activities.data ?? []).slice(0, 3);
+  const homeAchievements = (achievements.data ?? []).slice(0, 5);
+  useHomeMotion(root, homeActivities.length);
   return (
     <div ref={root} className={s.site}>
       <a href="#main-content" className={s.skip}>
@@ -66,11 +65,11 @@ export default function SrHome() {
         <Motto />
         <CompanyReel
           poster={home?.companyVideoPosterUrl || IMAGES.stage}
-          onPlay={() => setPopup({ kind: "video" })}
+          videoUrl={home?.companyVideoUrl}
         />
         <NewsGallery
           id="projects"
-          items={all}
+          items={homeActivities}
           loading={activities.isLoading}
           error={activities.isError}
           title="Berita & Acara"
@@ -100,7 +99,7 @@ export default function SrHome() {
         )}
         <Achievements
           tone={home?.partners?.length ? "cream" : "green"}
-          items={achievements.data ?? []}
+          items={homeAchievements}
           loading={achievements.isLoading}
           error={achievements.isError}
         />
@@ -141,9 +140,6 @@ export default function SrHome() {
         </section>
       </main>
       <Footer />
-      {popup && (
-        <PopupDialog popup={popup} close={() => setPopup(null)} videoUrl={home?.companyVideoUrl} />
-      )}
     </div>
   );
 }

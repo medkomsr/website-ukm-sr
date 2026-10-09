@@ -81,7 +81,8 @@
   display: block;
   margin-left: auto;
   width: 100%;
-  aspect-ratio: 1.9;
+  // The SR film's picture is 1920 x 780 inside a letterboxed 1080p source.
+  aspect-ratio: 32 / 13;
   border-radius: 22px;
   overflow: hidden;
   border: 0;
@@ -92,36 +93,53 @@
 .frame img {
   object-fit: cover;
 }
-.frame:after {
-  content: "";
+.playSurface {
   position: absolute;
   inset: 0;
-  background: linear-gradient(transparent 20%, #092713b3);
-}
-.play {
-  position: absolute;
   z-index: 1;
+  width: 100%;
+  border: 0;
+  color: #fffbed;
+  background: transparent;
+  cursor: pointer;
+}
+.playSurface:focus-visible {
+  outline: 3px solid #fffcf3;
+  outline-offset: -6px;
+}
+.playSurface:disabled {
+  cursor: default;
+}
+.playSurface:disabled .play {
+  display: none;
+}
+.playPosition {
+  position: absolute;
   left: 50%;
   top: 50%;
   translate: -50% -50%;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  white-space: nowrap;
-  padding: 18px 24px;
-  border-radius: 999px;
-  background: #fff8de;
-  color: #123d2a;
-  font-size: 16px;
+  width: max-content;
 }
-.caption {
-  position: absolute;
-  z-index: 1;
-  left: 24px;
-  bottom: 22px;
-  color: #fff8de;
-  font-size: 10px;
-  letter-spacing: 0.1em;
+.play {
+  display: block;
+  border-radius: 50%;
+  box-shadow: 0 12px 40px #09271333;
+}
+.playIcon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #fffcf3;
+  color: #123d2a;
+  transition:
+    transform 0.4s ease,
+    background 0.4s ease;
+}
+.playSurface:hover .playIcon {
+  transform: scale(1.1);
+  background: #eee9d8;
 }
 .marks {
   position: absolute;
@@ -172,26 +190,20 @@
     height: auto;
   }
   .frame {
-    aspect-ratio: 1.45;
     border-radius: 16px;
   }
-  .play {
-    font-size: 12px;
-    padding: 13px 16px;
-    gap: 8px;
+  .playIcon {
+    width: 56px;
+    height: 56px;
   }
-  .play svg {
+  .playIcon svg {
     width: 18px;
-  }
-  .caption {
-    font-size: 7px;
-    left: 14px;
-    bottom: 14px;
   }
   .ribbon {
     top: 80px;
     opacity: 0.55;
-    height: 850px;
+    // Fit the complete loop inside the section, above the next section's wave.
+    height: calc(100% - 80px);
   }
   .marks {
     display: none;
@@ -211,25 +223,9 @@
 }
 .media {
   position: absolute;
-  inset: -4%;
-}
-.tint {
-  position: absolute;
   inset: 0;
-  background: #123d2a;
-  mix-blend-mode: color;
-  opacity: 0.6;
-  pointer-events: none;
 }
 .filterDefs {
   position: absolute;
   pointer-events: none;
-}
-@media (max-width: 800px), (prefers-reduced-motion: reduce) {
-  .media {
-    filter: none !important;
-  }
-  .tint {
-    display: none;
-  }
 }

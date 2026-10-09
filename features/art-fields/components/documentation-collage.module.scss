@@ -1,7 +1,16 @@
+@use "../../../styles/wave-surface" as wave;
+
 .section {
+  @include wave.edges($bottom: false);
+  margin-top: calc(-1 * clamp(32px, 5vw, 68px));
   position: relative;
   padding: 80px 7vw 120px;
   font-family: var(--font-geist), sans-serif;
+}
+.section[data-tone="cream"] {
+  @include wave.edges;
+  margin-top: 0;
+  padding-top: clamp(100px, 9vw, 130px);
 }
 .heading {
   max-width: 1180px;
@@ -29,8 +38,8 @@
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  border: 1px solid #fff8de20;
-  background: #204c36;
+  border: 1px solid var(--sr-line);
+  background: var(--sr-surface);
   padding: 0;
 }
 button.tile {
@@ -77,15 +86,6 @@ button.tile {
 .tile:hover .expand {
   background: #123d2a;
 }
-.caption {
-  position: absolute;
-  inset: auto 0 0;
-  padding: 44px 22px 22px;
-  color: #fff8de;
-  font-size: 15px;
-  line-height: 1.5;
-  background: linear-gradient(transparent, #081f18dd);
-}
 .tile:focus-visible,
 .close:focus-visible {
   outline: 3px solid #e6c565;
@@ -95,7 +95,7 @@ button.tile {
   max-width: 1180px;
   margin: -20px auto 36px;
   line-height: 1.7;
-  color: #c7d6bf;
+  color: var(--sr-muted);
 }
 .placeholder {
   display: grid;
@@ -139,20 +139,17 @@ button.tile {
 }
 .enlarged {
   position: relative;
-  width: 100%;
-  height: min(75dvh, 850px);
-  pointer-events: auto;
+  width: fit-content;
+  margin: auto;
+  pointer-events: none;
 }
 .enlarged img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 75dvh;
   object-fit: contain;
-}
-.figure figcaption {
-  text-align: center;
-  padding: 20px 12px 0;
-  font-size: 15px;
-  line-height: 1.6;
-  max-height: 12dvh;
-  overflow: auto;
   pointer-events: auto;
 }
 .close {
@@ -201,10 +198,6 @@ button.tile {
   .tile:nth-child(6n + 3),
   .tile:nth-child(6n + 4) {
     grid-row: span 1;
-  }
-  .caption {
-    padding: 32px 12px 12px;
-    font-size: 12px;
   }
   .expand {
     width: 30px;

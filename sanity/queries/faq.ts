@@ -8,5 +8,7 @@ export async function getAllFaq(): Promise<SanityFaq[]> {
   "use cache";
   cacheLife("hours");
   cacheTag("faq");
-  return client.fetch(`*[_type == "faq"] | order(urutan asc){ _id, pertanyaan, jawaban }`);
+  return client.fetch(
+    `coalesce(*[_type == "faq" && _id == "faq"][0].items[]{ "_id": _key, pertanyaan, jawaban }, [])`,
+  );
 }
