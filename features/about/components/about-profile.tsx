@@ -6,63 +6,32 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { SplitText } from "gsap/SplitText";
 import { useVisiMisi } from "@/hooks/content/use-visi-misi";
 import { SrSymbol } from "@/components/brand/art-symbol";
 import s from "@/features/about/components/about-profile.module.scss";
 import Cabinet from "@/features/about/components/cabinet";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin, SplitText);
-
-const fallbackVision =
-  "Menjadi ruang untuk mengembangkan potensi, mempertemukan kreativitas dengan nilai religi, dan menghadirkan karya yang membawa kebaikan.";
-const fallbackMissions = [
-  "Melalui pembinaan bidang dan kegiatan bersama, kami merawat proses belajar, membangun kebersamaan, dan memberi ruang bagi karya mahasiswa.",
-];
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollToPlugin);
 
 function PurposePanel({ kind, texts }: { kind: "visi" | "misi"; texts: string[] }) {
   const panel = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
-      let disposed = false;
       const media = gsap.matchMedia();
-
-      // Fonts must settle before measuring lines. autoSplit handles later resizes.
-      document.fonts.ready.then(() => {
-        if (disposed || !panel.current) return;
-        media.add("(prefers-reduced-motion: no-preference)", () => {
-          const blocks = panel.current!.querySelectorAll<HTMLElement>("[data-purpose-text]");
-          const splits = Array.from(blocks, (text) =>
-            SplitText.create(text, {
-              type: "words,lines",
-              mask: "lines",
-              linesClass: s.line,
-              autoSplit: true,
-              onSplit: (instance) =>
-                gsap.from(instance.lines, {
-                  yPercent: 120,
-                  stagger: 0.1,
-                  ease: "none",
-                  scrollTrigger: {
-                    trigger: text,
-                    scrub: 0.6,
-                    // Finish while the text is still comfortably within the viewport.
-                    start: "clamp(top 90%)",
-                    end: "clamp(bottom 65%)",
-                  },
-                }),
-            }),
-          );
-          return () => splits.forEach((split) => split.revert());
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        // Animate the intact text so CMS updates and wrapping never leave clipped lines.
+        panel.current!.querySelectorAll<HTMLElement>("[data-purpose-text]").forEach((text) => {
+          gsap.from(text, {
+            y: 24,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: { trigger: text, start: "top 93%", once: true },
+          });
         });
-        ScrollTrigger.refresh();
       });
-
-      return () => {
-        disposed = true;
-        media.revert();
-      };
+      ScrollTrigger.refresh();
+      return () => media.revert();
     },
     { scope: panel },
   );
@@ -106,9 +75,15 @@ function PurposePanel({ kind, texts }: { kind: "visi" | "misi"; texts: string[] 
 
 export default function AboutProfile() {
   const root = useRef<HTMLDivElement>(null);
-  const { data: purpose } = useVisiMisi();
-  const vision = purpose?.visi || fallbackVision;
-  const missions = purpose?.misi?.length ? purpose.misi : fallbackMissions;
+  const { data: purpose, isPending, isError } = useVisiMisi();
+  const vision = isPending
+    ? "Memuat visi..."
+    : purpose?.visi || (isError ? "Visi belum dapat dimuat." : "Visi belum dipublikasikan.");
+  const missions = isPending
+    ? ["Memuat misi..."]
+    : purpose?.misi?.length
+      ? purpose.misi
+      : [isError ? "Misi belum dapat dimuat." : "Misi belum dipublikasikan."];
 
   const { contextSafe } = useGSAP(
     () => {
@@ -170,7 +145,7 @@ export default function AboutProfile() {
           </a>
         </div>
       </section>
-      {/* Remount on CMS changes so React never reconciles text modified by SplitText. */}
+      {/* Restart the entrance when the published CMS content changes. */}
       <PurposePanel key={vision} kind="visi" texts={[vision]} />
       <PurposePanel key={JSON.stringify(missions)} kind="misi" texts={missions} />
       <Cabinet />

@@ -154,7 +154,8 @@
   --color-maroon-900: var(--sr-ink);
 }
 
-/* Match the color beneath the first pixels of the mask to prevent a seam. */
+/* Underpaint the wave's straight edge in the preceding section's color.
+   Clipping/compositing at fractional scroll pixels must not expose cream below green. */
 [data-tone][data-wave],
 .sr-public main > section + section {
   border-block: 0;
@@ -167,23 +168,21 @@
 
 /* Paint the wave itself, avoiding alpha-mask fringes on fractional scroll pixels. */
 [data-tone="cream"] {
-  --wave-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%23fffcf3' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V100H0Z'/%3E%3C/svg%3E");
+  --wave-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%23123d2a' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V0H0Z'/%3E%3C/svg%3E");
 }
 [data-tone="green"],
 .sr-public main > section:nth-of-type(even) {
-  --wave-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%23123d2a' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V100H0Z'/%3E%3C/svg%3E");
+  --wave-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%23fffcf3' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V0H0Z'/%3E%3C/svg%3E");
 }
 .sr-public main > section:nth-of-type(odd) {
-  --wave-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%23fffcf3' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V100H0Z'/%3E%3C/svg%3E");
-}
-[data-tone][data-wave],
-.sr-public main > section + section {
-  background: var(--sr-bg) !important;
+  --wave-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath fill='%23123d2a' d='M0 72C270 0 490 0 760 56S1200 115 1440 24V0H0Z'/%3E%3C/svg%3E");
 }
 [data-wave]::before,
 .sr-public main > section + section::before {
   top: -2px;
   height: calc(clamp(42px, 6vw, 86px) + 2px);
   mask: none;
-  background: var(--wave-from, #123d2a) var(--wave-image) center / 100% 100% no-repeat;
+  background:
+    var(--wave-image) center / 100% 100% no-repeat,
+    linear-gradient(to bottom, var(--wave-from, #123d2a) 0 3px, var(--sr-bg) 3px);
 }

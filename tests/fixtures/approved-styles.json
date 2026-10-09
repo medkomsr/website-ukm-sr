@@ -4,7 +4,8 @@
   "styles": {
     "styles/brand-theme.scss": {
       "source": "app/brand-theme.css",
-      "sha256": "f4470e996cbc429a71c84667af65c1be74940bba16cc4787b40400e8065d4bad"
+      "sha256": "837129ad6cee228ec6fed05497444cd4997b4aeff3d48b5b711b2999179a50dd",
+      "revision": "2026-10-09: Match wave edge underpainting and overlap the pinned motto seam to prevent fractional-pixel hairlines."
     },
     "features/activities/components/newsroom.module.scss": {
       "source": "app/aktivitas/components/newsroom.module.css",
@@ -26,8 +27,8 @@
     },
     "features/home/components/company-reel.module.scss": {
       "source": "app/(home)/components/company-reel.module.css",
-      "sha256": "d2c0fe5be72daa5b3878044d8692611296d9fb2e7cfd4f1b75d45e69f3046fc3",
-      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
+      "sha256": "ad916f0131e3ff28debeb5adcd5daa3eaffc81bf3562934f984bbc80dab90d79",
+      "revision": "2026-10-09: Match wave edge underpainting and overlap the pinned motto seam to prevent fractional-pixel hairlines."
     },
     "components/layout/footer.module.scss": {
       "source": "components/footer.module.css",
@@ -57,7 +58,8 @@
     },
     "features/about/components/about-profile.module.scss": {
       "source": "app/tentang/components/about-profile.module.css",
-      "sha256": "f1d5b147f18c677f5f5373947eedf7314d701797a9b724c779a6ca14bd3b4235"
+      "sha256": "925d0ecba2cc14bc838436737cde815019c0bdf0f9916f7e339f6ea111ac1eca",
+      "revision": "2026-10-09: Keep CMS vision and mission text intact, preserve paragraph breaks, and remove clipping masks."
     },
     "features/about/components/cabinet.module.scss": {
       "source": "app/tentang/components/cabinet.module.css",
