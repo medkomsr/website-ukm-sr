@@ -72,7 +72,7 @@ export const structure: StructureResolver = (S) =>
                 .title("Kabinet")
                 .id("kabinet")
                 .child(S.document().schemaType("kabinet").documentId("kabinet")),
-              presetGroup(S, "departemen", "Kepengurusan Inti", departemenPresets),
+              presetGroup(S, "departemen", "Pengurus Departemen", departemenPresets),
               presetGroup(S, "bidang", "Pengurus Bidang", bidangPresets),
             ]),
         ),

@@ -4,6 +4,7 @@ export const homePageSchema = defineType({
   name: "homePage",
   title: "Halaman Beranda",
   type: "document",
+  preview: { prepare: () => ({ title: "Beranda" }) },
   fieldsets: [
     {
       name: "companyProfile",
