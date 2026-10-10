@@ -446,12 +446,7 @@ export default function AchievementExperience() {
             canExpand={prestasi.canExpand}
             canCollapse={prestasi.canCollapse}
             onMore={() => void prestasi.loadMore()}
-            onLess={() => {
-              prestasi.collapse();
-              root.current
-                ?.querySelector("#rekam-prestasi")
-                ?.scrollIntoView({ behavior: "instant", block: "start" });
-            }}
+            onLess={prestasi.collapse}
           />
         ) : (
           <ArchivePagination

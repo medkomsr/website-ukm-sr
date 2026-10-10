@@ -451,10 +451,7 @@ export default function Newsroom() {
             canExpand={archiveData.canExpand}
             canCollapse={archiveData.canCollapse}
             onMore={() => void archiveData.loadMore()}
-            onLess={() => {
-              archiveData.collapse();
-              archive.current?.scrollIntoView({ behavior: "instant", block: "start" });
-            }}
+            onLess={archiveData.collapse}
           />
         ) : (
           <ArchivePagination

@@ -50,7 +50,7 @@ export default function SrHome() {
   return (
     <div ref={root} className={s.site}>
       <a href="#main-content" className={s.skip}>
-        Lewati ke kontend
+        Lewati ke konten
       </a>
       <SiteHeader />
       <main id="main-content" tabIndex={-1}>

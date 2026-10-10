@@ -2,11 +2,6 @@ import type { StructureBuilder, StructureResolver } from "sanity/structure";
 import { apiVersion } from "@/sanity/env";
 import { bidangPresets, departemenPresets, presetDocumentId } from "@/sanity/presets";
 
-// Mirrors the public navigation. Groups without items are reorganised page by page;
-// documents of hidden types stay in the dataset and keep serving the website.
-const pendingPage = (S: StructureBuilder, id: string, title: string) =>
-  S.listItem().title(title).id(id).child(S.list().title(title).items([]));
-
 /** Ready-made documents for every public card, plus a list for anything added later. */
 const presetGroup = (
   S: StructureBuilder,
@@ -107,6 +102,4 @@ export const structure: StructureResolver = (S) =>
                 .child(S.document().schemaType("faq").documentId("faq")),
             ]),
         ),
-      S.divider(),
-      pendingPage(S, "pengaturanSitus", "Pengaturan Situs"),
     ]);

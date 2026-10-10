@@ -10,10 +10,10 @@ import { structureTool } from "sanity/structure";
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import { apiVersion, dataset, projectId } from "@/sanity/env";
-import { schema } from "@/sanity/schemaTypes/index";
+import { schemaTypes } from "@/sanity/schemas";
 import { structure } from "@/sanity/structure";
 
-const singletonTypes = new Set(["kaligrafiSettings", "homePage", "visiMisi", "kabinet", "faq"]);
+const singletonTypes = new Set(["homePage", "visiMisi", "kabinet", "faq"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 // Only types reachable from the sidebar may be created; extend as each page is reorganised.
 const creatableTypes = new Set(["beritaAcara", "departemen", "bidang", "prestasi"]);
@@ -22,9 +22,9 @@ export default defineConfig({
   basePath: "/studio",
   projectId,
   dataset,
-  // Add and edit the content schema in the './sanity/schemaTypes' folder
+  // Add and edit the content schema in the './sanity/schemas' folder
   schema: {
-    ...schema,
+    types: schemaTypes,
     templates: (templates) => [
       ...templates.filter(({ schemaType }) => !singletonTypes.has(schemaType)),
       // Used by the ready-made cabinet and art-field items in the sidebar.

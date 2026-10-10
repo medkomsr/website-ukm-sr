@@ -19,6 +19,18 @@ Website tersedia di `http://localhost:3000`, editor konten di `/studio`.
 Produksi: `npm run build`, kemudian `npm start`. Kredensial hanya disimpan di
 environment lokal/hosting, bukan Git atau percakapan.
 
+## Route aktif
+
+Halaman publik: `/`, `/tentang`, `/aktivitas`, `/prestasi`, dan `/kontak`.
+Detail publik: `/aktivitas/[id]`, `/tentang/[dept]`, dan
+`/tentang/bidang/[bidang]`. `/studio/[[...tool]]` adalah editor CMS;
+`/api/contact` melayani formulir kontak.
+
+Route lama `/galeri`, `/katalog`, dan `/prestasi/contoh` sudah dihapus dan
+mengembalikan 404. Komponen, hook, serta query khususnya juga telah dihapus.
+Skema dan dokumen lama di Sanity dipertahankan agar arsip konten tetap bisa
+diakses pengelola; dokumentasi foto pada detail aktivitas dan bidang tetap aktif.
+
 ## System design
 
 ```mermaid
@@ -55,8 +67,6 @@ ditempatkan di lapisan layanan. URL publik tetap sama.
 | `features/activities/`   | Daftar, pratinjau, dan detail berita/acara                     |
 | `features/achievements/` | Medali, arsip, filter, dialog prestasi                         |
 | `features/contact/`      | Form, FAQ, konfigurasi bersama, layanan email server           |
-| `features/gallery/`      | Galeri dan lightbox                                            |
-| `features/catalog/`      | Katalog kaligrafi, pagination, skeleton                        |
 | `components/layout/`     | Header, footer, skip link, shell publik                        |
 | `components/brand/`      | Simbol bidang dan signature partikel bersama                   |
 | `components/ui/`         | Primitive UI Radix/shadcn                                      |
@@ -173,10 +183,10 @@ Formatter tidak mengurutkan utility Tailwind atau mengganti nilai desain.
 ESLint dijalankan tanpa warning yang dibiarkan. Tes menggunakan Node test runner
 dan `tsx`; tes email tidak memerlukan kredensial layanan nyata.
 
-Periksa `/`, `/tentang`, `/aktivitas`, `/galeri`, `/prestasi`, `/prestasi/contoh`,
-`/kontak`, dan `/katalog` pada desktop 1440×900 serta mobile 430×932. Buka satu
+Periksa `/`, `/tentang`, `/aktivitas`, `/prestasi`, dan `/kontak` pada desktop
+1440×900 serta mobile 430×932. Buka satu
 detail aktivitas, bidang, dan departemen. Uji menu, pencarian/filter, carousel,
-dialog, Escape, fokus keyboard, serta form/lampiran. Tunggu data dan font selesai
+dialog, Escape, fokus keyboard, serta form kontak. Tunggu data dan font selesai
 sebelum membandingkan. Animasi dan partikel dapat menghasilkan frame berbeda.
 
 ## Serah terima periode berikutnya

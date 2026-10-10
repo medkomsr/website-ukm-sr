@@ -1,3 +1,4 @@
+import { fixedProfileSlug } from "@/sanity/presets";
 import { defineField, defineType } from "sanity";
 
 export const departemenSchema = defineType({
@@ -20,7 +21,16 @@ export const departemenSchema = defineType({
       description:
         "Alamat halaman /tentang/<slug>. Agar tersambung ke kartu, gunakan bkrt, minba, psdm, atau medkom.",
       options: { source: "abbr" },
-      validation: (r) => r.required(),
+      readOnly: ({ document }) => !!fixedProfileSlug("departemen", document?._id),
+      validation: (r) =>
+        r.required().custom((value, { document }) => {
+          const expected = fixedProfileSlug("departemen", document?._id);
+          return (
+            !expected ||
+            value?.current === expected ||
+            `Slug profil bawaan harus ${expected} agar tetap terhubung ke kartu Tentang Kami.`
+          );
+        }),
     }),
     defineField({
       name: "fullName",

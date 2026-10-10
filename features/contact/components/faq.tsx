@@ -25,7 +25,7 @@ const DEFAULT_FAQS = [
     _id: "media",
     pertanyaan: "Apa yang perlu disiapkan untuk media partner?",
     jawaban:
-      "Sertakan nama dan gambaran acara, tanggal pelaksanaan, akun media sosial, serta bentuk publikasi yang diharapkan. Jika sudah ada proposal, Anda dapat menyertakan tautannya di pesan atau menambahkannya melalui tombol lampiran.",
+      "Sertakan nama dan gambaran acara, tanggal pelaksanaan, akun media sosial, serta bentuk publikasi yang diharapkan. Jika sudah ada proposal, Anda dapat menyertakan tautannya di pesan.",
   },
   {
     _id: "performance",

@@ -3,7 +3,7 @@ import "server-only";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { cacheLife } from "next/cache";
 import { getHomePage } from "@/sanity/queries/homePage";
-import { getSiteSettings } from "@/sanity/queries/siteSettings";
+import { getKabinet } from "@/sanity/queries/kabinet";
 import { getVisiMisi } from "@/sanity/queries/visiMisi";
 import { getAllDepartemen, getDepartemenBySlug } from "@/sanity/queries/departemen";
 import { getAllBidang, getBidangBySlug } from "@/sanity/queries/bidang";
@@ -15,20 +15,11 @@ import {
 } from "@/sanity/queries/aktivitas";
 import { getBerandaPrestasi, getPrestasiMeta, getPrestasiPage } from "@/sanity/queries/prestasi";
 import { getAllFaq } from "@/sanity/queries/faq";
-import { getAllGaleri } from "@/sanity/queries/galeri";
 import { CONTENT_STALE_TIME } from "./constants";
 import { seedArchive } from "./seed-archive";
 
 export type ContentPage =
-  | "home"
-  | "about"
-  | "department"
-  | "field"
-  | "activities"
-  | "story"
-  | "achievements"
-  | "contact"
-  | "gallery";
+  "home" | "about" | "department" | "field" | "activities" | "story" | "achievements" | "contact";
 
 export async function getContentState(page: ContentPage, slug = "") {
   "use cache";
@@ -54,19 +45,19 @@ export async function getContentState(page: ContentPage, slug = "") {
         fetch(["visiMisi"], getVisiMisi),
         fetch(["departemen"], getAllDepartemen),
         fetch(["bidang"], getAllBidang),
-        fetch(["siteSettings"], getSiteSettings),
+        fetch(["kabinet"], getKabinet),
       );
       break;
     case "department":
       requests.push(
         fetch(["departemen", slug], () => getDepartemenBySlug(slug)),
-        fetch(["siteSettings"], getSiteSettings),
+        fetch(["kabinet"], getKabinet),
       );
       break;
     case "field":
       requests.push(
         fetch(["bidang", slug], () => getBidangBySlug(slug)),
-        fetch(["siteSettings"], getSiteSettings),
+        fetch(["kabinet"], getKabinet),
       );
       break;
     case "story":
@@ -96,9 +87,6 @@ export async function getContentState(page: ContentPage, slug = "") {
     }
     case "contact":
       requests.push(fetch(["faq"], getAllFaq));
-      break;
-    case "gallery":
-      requests.push(fetch(["galeri"], getAllGaleri));
       break;
   }
   await Promise.all(requests);

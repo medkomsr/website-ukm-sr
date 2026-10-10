@@ -9,7 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDepartemen } from "@/hooks/content/use-departemen";
 import { useBidang } from "@/hooks/content/use-bidang";
-import { useSiteSettings } from "@/hooks/content/use-site-settings";
+import { useKabinet } from "@/hooks/content/use-kabinet";
 import { srFields } from "@/lib/constants/art-fields";
 import s from "@/features/about/components/cabinet.module.scss";
 
@@ -50,7 +50,7 @@ export default function Cabinet() {
   const root = useRef<HTMLDivElement>(null);
   const { data, isError, refetch } = useDepartemen();
   const { data: fields } = useBidang();
-  const { data: settings } = useSiteSettings();
+  const { data: settings } = useKabinet();
   const teams = structure.map((name) => {
     const found = data?.find(
       (d) => d.abbr.toLowerCase() === name.toLowerCase() || d.slug === name.toLowerCase(),
@@ -141,8 +141,8 @@ export default function Cabinet() {
             <div data-logo-tilt className={s.logoTilt}>
               <div data-logo-float className={s.logoFloat}>
                 <Image
-                  src={settings?.kabinetLogoUrl || "/logo-kabinet-arkhasena-transparent.png"}
-                  alt={`Logo ${settings?.kabinetNama || "Kabinet Arkhasena"}`}
+                  src={settings?.logoUrl || "/logo-kabinet-arkhasena-transparent.png"}
+                  alt={`Logo ${settings?.nama || "Kabinet Arkhasena"}`}
                   fill
                   sizes="(max-width: 733px) 220px, (max-width: 1200px) 30vw, 360px"
                 />
@@ -150,7 +150,7 @@ export default function Cabinet() {
             </div>
           </div>
           <p data-cabinet-reveal className={s.cabinetName}>
-            {settings?.kabinetNama || "Kabinet Arkhasena"}
+            {settings?.nama || "Kabinet Arkhasena"}
           </p>
         </header>
         {isError && (

@@ -1,3 +1,4 @@
+import { fixedProfileSlug } from "@/sanity/presets";
 import { defineField, defineType } from "sanity";
 import { validateFieldDescription } from "../../lib/content/field-description";
 
@@ -26,7 +27,16 @@ export const bidangSchema = defineType({
       description:
         "Alamat halaman /tentang/bidang/<slug>. Agar tersambung ke kartu, gunakan: fahmil-quran, syarhil-quran, hifdzil-quran, ttq, ktdaq, banjari-nasyid, khattil-quran, atau dia.",
       options: { source: "abbr" },
-      validation: (r) => r.required(),
+      readOnly: ({ document }) => !!fixedProfileSlug("bidang", document?._id),
+      validation: (r) =>
+        r.required().custom((value, { document }) => {
+          const expected = fixedProfileSlug("bidang", document?._id);
+          return (
+            !expected ||
+            value?.current === expected ||
+            `Slug profil bawaan harus ${expected} agar tetap terhubung ke kartu Tentang Kami.`
+          );
+        }),
     }),
     defineField({
       name: "fullName",

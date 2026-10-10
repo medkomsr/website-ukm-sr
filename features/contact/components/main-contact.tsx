@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ArrowUpRight, Check, LoaderCircle, Paperclip, Plus, X } from "lucide-react";
+import { ArrowUpRight, Check, LoaderCircle, Plus } from "lucide-react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import home from "@/styles/experience.module.scss";
 import ContactSuccess from "./contact-success";
@@ -9,33 +9,16 @@ import s from "./contact.module.scss";
 
 import { useContactForm } from "../hooks/use-contact-form";
 import { useContactMotion } from "../hooks/use-contact-motion";
-import {
-  CONTACT_FILE_ACCEPT,
-  CONTACT_LIMITS,
-  CONTACT_SUBJECTS as subjects,
-} from "../lib/contact-config";
+import { CONTACT_LIMITS, CONTACT_SUBJECTS as subjects } from "../lib/contact-config";
 
 export default function MainContactSection() {
   const root = useRef<HTMLElement>(null);
-  const {
-    files,
-    fileError,
-    sending,
-    sent,
-    sendError,
-    subject,
-    fileInput,
-    setSent,
-    selectFiles,
-    sendMessage,
-    markChanged,
-    toggleSubject,
-    removeFile,
-  } = useContactForm();
-  // Keep reveal positions in sync with the attachment list and submission state.
+  const { sending, sent, sendError, subject, setSent, sendMessage, markChanged, toggleSubject } =
+    useContactForm();
+  // Keep reveal positions in sync with submission feedback.
   useEffect(() => {
     ScrollTrigger.refresh();
-  }, [files, fileError, sent, sendError]);
+  }, [sent, sendError]);
 
   const { moveButton, resetButton } = useContactMotion(root);
   return (
@@ -139,55 +122,6 @@ export default function MainContactSection() {
               aria-describedby="message-hint"
               placeholder="Halo Seni Religi, saya ingin..."
             />
-          </div>
-
-          <div className={s.attachments} data-contact-reveal>
-            <input
-              ref={fileInput}
-              id="contact-files"
-              className={s.fileInput}
-              type="file"
-              multiple
-              accept={CONTACT_FILE_ACCEPT}
-              onChange={selectFiles}
-              aria-label="Pilih berkas lampiran"
-              aria-describedby="attachment-help attachment-error"
-            />
-            <button
-              type="button"
-              className={s.attachButton}
-              onClick={() => fileInput.current?.click()}
-            >
-              <Paperclip size={21} /> Tambahkan lampiran <span>(opsional)</span>
-            </button>
-            <p id="attachment-help">Maksimal 5 berkas, total 3 MB. PDF, dokumen, atau gambar.</p>
-            <p id="attachment-error" role="status" className={s.fileError}>
-              {fileError}
-            </p>
-            {files.length > 0 && (
-              <ul className={s.fileList}>
-                {files.map((file, index) => (
-                  <li key={`${file.name}-${file.lastModified}-${file.size}`}>
-                    <Paperclip size={16} aria-hidden="true" />
-                    <span>
-                      {file.name}
-                      <small>
-                        {file.size < 1024 * 1024
-                          ? `${Math.ceil(file.size / 1024)} KB`
-                          : `${(file.size / 1024 / 1024).toFixed(1)} MB`}
-                      </small>
-                    </span>
-                    <button
-                      type="button"
-                      aria-label={`Hapus ${file.name}`}
-                      onClick={() => removeFile(index)}
-                    >
-                      <X size={18} />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
 
           <div className={s.sendRow} data-contact-reveal>
