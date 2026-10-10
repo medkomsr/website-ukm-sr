@@ -3,7 +3,7 @@ import { defineField, defineType } from "sanity";
 
 export const departemenSchema = defineType({
   name: "departemen",
-  title: "Kepengurusan Inti",
+  title: "Pengurus Departemen",
   type: "document",
   fields: [
     defineField({

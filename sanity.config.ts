@@ -30,7 +30,7 @@ export default defineConfig({
       // Used by the ready-made cabinet and art-field items in the sidebar.
       ...(["departemen", "bidang"] as const).map((schemaType) => ({
         id: `${schemaType}-preset`,
-        title: schemaType === "departemen" ? "Kepengurusan Inti" : "Pengurus Bidang",
+        title: schemaType === "departemen" ? "Pengurus Departemen" : "Pengurus Bidang",
         schemaType,
         parameters: [
           { name: "abbr", type: "string" },
