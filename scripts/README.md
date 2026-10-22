@@ -1,5 +1,15 @@
 # Data demo Sanity
 
+## Target lingkungan
+
+Lihat [alur lokal, Preview dev, dan production](../README.md#lingkungan-sanity-dan-alur-rilis).
+Lokal dan Preview branch `dev` memakai dataset `development`; production dari
+branch `staging` memakai `production`. Semua perintah contoh penulisan di bawah
+ditujukan untuk development. Periksa `.env.local` dan target CLI sebelum menjalankan
+skrip. Jangan menjalankan seed, cleanup, atau import terhadap production sebagai
+bagian pengujian. Dataset development telah diisi salinan awal pada 22 Oktober 2026;
+tidak perlu menjalankan seed ulang untuk mulai melihat tampilan.
+
 `seed-demo-content.mjs` menambahkan 5 berita, 5 acara, dan 10 prestasi. Setiap berita/acara memiliki 1 foto utama dan 4 foto tambahan, sehingga bagian Dokumentasi menampilkan 5 foto. Lima aset gambar dipakai bergantian di seluruh contoh.
 
 Judul memakai awalan `[Demo]` dan ID memakai `demo-sr-2026-`. Semua cerita, pencapaian, peserta, lokasi, dan jadwal merupakan simulasi. Gambar berasal dari cuplikan company profile SR 2025 dan hanya menjadi ilustrasi, bukan bukti acara atau prestasi.
@@ -69,7 +79,7 @@ Endpoint POST /api/sanity/revalidate memverifikasi signature dari @sanity/webhoo
 4. Projection: {"_id": coalesce(after()._id, before()._id), "_type": coalesce(after()._type, before()._type)}. before() penting untuk penghapusan.
 5. Periksa delivery log Sanity dan respons 200. Jangan menguji dengan menghapus konten asli. Tab pengunjung yang sudah terbuka masih menggunakan React Query staleTime satu jam; reload mengambil payload server terbaru.
 
-Endpoint dan tes sudah tersedia, tetapi konfigurasi dashboard/secret production tidak dibuat otomatis. Tanpa secret, endpoint menolak request dengan 503. CORS yang sudah benar dipertahankan. Token Viewer non-expiring belum dirotasi: identifikasi pemakainya sebelum mengganti credential agar integrasi lama tidak terputus.
+Webhook production sudah aktif sejak 22 Oktober 2026 dengan nama `Website SR — Production cache` (ID `Uw3gI2di1q4HGjND`). Langkah di atas adalah referensi pemulihan, bukan instruksi membuat webhook duplikat. Secret tersimpan hanya di Vercel Production dan Sanity; nilainya tidak dicatat di repositori. Development tidak memakai webhook ini. Tanpa secret, endpoint menolak request dengan 503. CORS yang sudah benar dipertahankan. Token Viewer non-expiring belum dirotasi: identifikasi pemakainya sebelum mengganti credential agar integrasi lama tidak terputus.
 
 ### Formulir kontak tetap nonaktif
 
