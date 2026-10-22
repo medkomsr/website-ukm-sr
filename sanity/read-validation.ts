@@ -45,6 +45,7 @@ export const fieldContent = profileCard.extend({
   description: text,
   ketuaBidang: member.optional().catch(undefined),
   wakilKetuaBidang: member.optional().catch(undefined),
+  wakilKetuaBidangTambahan: member.optional().catch(undefined),
   gallery: listOf(z.object({ imageUrl: image, alt: text, caption: text })),
 });
 export const departmentContent = profileCard.extend({

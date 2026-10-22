@@ -20,7 +20,10 @@ const bidangProjection = groq`{
     caption
   },
   ketuaBidang{ name, role, "imageUrl": image.asset->url },
-  wakilKetuaBidang{ name, role, "imageUrl": image.asset->url }
+  wakilKetuaBidang{ name, role, "imageUrl": image.asset->url },
+  "wakilKetuaBidangTambahan": select(slug.current == "banjari-nasyid" =>
+    wakilKetuaBidangTambahan{ name, role, "imageUrl": image.asset->url }
+  )
 }`;
 
 export async function getAllBidang(): Promise<SanityBidangCard[]> {

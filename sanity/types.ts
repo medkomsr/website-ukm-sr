@@ -130,6 +130,7 @@ export type SanityBidang = {
   gallery?: SanityBidangGalleryItem[];
   ketuaBidang?: SanityBidangMember;
   wakilKetuaBidang?: SanityBidangMember;
+  wakilKetuaBidangTambahan?: SanityBidangMember;
 };
 export type SanityBidangCard = Pick<
   SanityBidang,
