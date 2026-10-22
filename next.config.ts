@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   cacheComponents: true,
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
