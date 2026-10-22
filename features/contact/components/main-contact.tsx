@@ -13,12 +13,21 @@ import { CONTACT_LIMITS, CONTACT_SUBJECTS as subjects } from "../lib/contact-con
 
 export default function MainContactSection() {
   const root = useRef<HTMLElement>(null);
-  const { sending, sent, sendError, subject, setSent, sendMessage, markChanged, toggleSubject } =
-    useContactForm();
+  const {
+    sending,
+    sent,
+    sendError,
+    errors,
+    subject,
+    setSent,
+    sendMessage,
+    markChanged,
+    toggleSubject,
+  } = useContactForm();
   // Keep reveal positions in sync with submission feedback.
   useEffect(() => {
     ScrollTrigger.refresh();
-  }, [sent, sendError]);
+  }, [sent, sendError, errors]);
 
   const { moveButton, resetButton } = useContactMotion(root);
   return (
@@ -32,6 +41,7 @@ export default function MainContactSection() {
       </header>
 
       <form
+        noValidate
         id="tulis-pesan"
         className={s.form}
         onSubmit={sendMessage}
@@ -45,7 +55,11 @@ export default function MainContactSection() {
               <input name="website" tabIndex={-1} autoComplete="off" />
             </label>
           </div>
-          <fieldset className={s.subjects} data-contact-reveal>
+          <fieldset
+            className={s.subjects}
+            data-contact-reveal
+            aria-describedby={errors.subject ? "error-subject" : undefined}
+          >
             <legend>Saya ingin membahas...</legend>
             <div className={s.pills}>
               {subjects.map((item) => (
@@ -67,6 +81,11 @@ export default function MainContactSection() {
                 </button>
               ))}
             </div>
+            {errors.subject && (
+              <p id="error-subject" className={s.sendError} role="alert">
+                {errors.subject}
+              </p>
+            )}
           </fieldset>
 
           <div className={s.fields} data-contact-reveal>
@@ -76,31 +95,52 @@ export default function MainContactSection() {
                 Nama lengkap <span>*</span>
                 <input
                   name="name"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? "error-name" : undefined}
                   autoComplete="name"
                   required
                   maxLength={CONTACT_LIMITS.name}
                   placeholder="Nama Anda"
                 />
+                {errors.name && (
+                  <span id="error-name" className={s.sendError} role="alert">
+                    {errors.name}
+                  </span>
+                )}
               </label>
               <label className={s.field}>
                 Email <span>*</span>
                 <input
                   name="email"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "error-email" : undefined}
                   type="email"
                   autoComplete="email"
                   required
                   maxLength={CONTACT_LIMITS.email}
                   placeholder="nama@email.com"
                 />
+                {errors.email && (
+                  <span id="error-email" className={s.sendError} role="alert">
+                    {errors.email}
+                  </span>
+                )}
               </label>
               <label className={`${s.field} ${s.fullWidth}`}>
                 Instansi / komunitas <span className={s.optional}>(opsional)</span>
                 <input
                   name="organization"
+                  aria-invalid={!!errors.organization}
+                  aria-describedby={errors.organization ? "error-organization" : undefined}
                   autoComplete="organization"
                   maxLength={CONTACT_LIMITS.organization}
                   placeholder="Dari mana cerita Anda bermula?"
                 />
+                {errors.organization && (
+                  <span id="error-organization" className={s.sendError} role="alert">
+                    {errors.organization}
+                  </span>
+                )}
               </label>
             </div>
           </div>
@@ -119,9 +159,15 @@ export default function MainContactSection() {
               required
               maxLength={CONTACT_LIMITS.message}
               rows={3}
-              aria-describedby="message-hint"
+              aria-invalid={!!errors.message}
+              aria-describedby={errors.message ? "message-hint error-message" : "message-hint"}
               placeholder="Halo Seni Religi, saya ingin..."
             />
+            {errors.message && (
+              <p id="error-message" className={s.sendError} role="alert">
+                {errors.message}
+              </p>
+            )}
           </div>
 
           <div className={s.sendRow} data-contact-reveal>

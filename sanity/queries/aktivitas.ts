@@ -2,6 +2,7 @@
 
 import { activityContent, activityMeta, listOf, readOne, isSafeSlug } from "../read-validation";
 import { activityFilter } from "@/sanity/queries/archive-filters";
+import { getValidArchiveIds } from "./archive-index";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
@@ -54,14 +55,17 @@ export async function getAktivitasPage(input: ArchiveFilters = {}) {
   "use cache";
   cacheLife("hours");
   cacheTag("aktivitas");
-  const params = archiveParams(input);
-  const total = await client.fetch<number>(`count(*[${activityFilter}])`, params);
+  const params = { ...archiveParams(input), validIds: await getValidArchiveIds("aktivitas") };
+  const total = await client.fetch<number>(
+    `count(*[${activityFilter} && _id in $validIds])`,
+    params,
+  );
   return fetchArchivePage(
     total,
     params.page,
     async (start, end) => {
       const items = await client.fetch<SanityActivity[]>(
-        `*[${activityFilter}] | order(date desc, _createdAt desc, _id asc) [$start...$end] ${activityCardProjection}`,
+        `*[${activityFilter} && _id in $validIds] | order(date desc, _createdAt desc, _id asc) [$start...$end] ${activityCardProjection}`,
         { ...params, start, end },
       );
       return listOf(activityContent).parse(items).map(withDateLabel);
@@ -74,10 +78,14 @@ export async function getAktivitasMeta() {
   "use cache";
   cacheLife("hours");
   cacheTag("aktivitas");
-  const result = await client.fetch<{ categories: string[]; featured: SanityActivity[] }>(groq`{
-    "categories": array::unique(*[_type == "beritaAcara" && defined(slug.current) && defined(category)].category),
-    "featured": *[_type == "beritaAcara" && defined(slug.current)] | order(date desc, _createdAt desc, _id asc) [0...5] ${activityCardProjection}
-  }`);
+  const validIds = await getValidArchiveIds("aktivitas");
+  const result = await client.fetch<{ categories: string[]; featured: SanityActivity[] }>(
+    groq`{
+    "categories": array::unique(*[_type == "beritaAcara" && _id in $validIds && defined(slug.current) && defined(category)].category),
+    "featured": *[_type == "beritaAcara" && _id in $validIds && defined(slug.current)] | order(date desc, _createdAt desc, _id asc) [0...5] ${activityCardProjection}
+  }`,
+    { validIds },
+  );
   const safe = activityMeta.parse(result ?? {});
   return { ...safe, featured: safe.featured.map(withDateLabel) };
 }
@@ -94,16 +102,16 @@ export async function getBerandaAktivitas(): Promise<SanityActivity[]> {
   }>(
     groq`{
       "picked": *[_type == "homePage" && _id == "homePage"][0].sorotanBerita[0...6]-> ${activityCardProjection},
-      "latest": *[_type == "beritaAcara"] | order(date desc, _createdAt desc) [0...$limit] ${activityCardProjection}
+      "latest": *[_type == "beritaAcara" && _id in $validIds] | order(date desc, _createdAt desc) [0...$limit] ${activityCardProjection}
     }`,
-    { limit: HOME_NEWS_LIMIT * 2 },
+    { limit: HOME_NEWS_LIMIT * 2, validIds: await getValidArchiveIds("aktivitas") },
   );
 
   const items: SanityActivity[] = [];
   for (const item of [...(picked ?? []), ...latest]) {
     if (item?.slug && !items.some(({ _id }) => _id === item._id)) items.push(item);
   }
-  return listOf(activityContent).parse(items.slice(0, HOME_NEWS_LIMIT)).map(withDateLabel);
+  return listOf(activityContent).parse(items).slice(0, HOME_NEWS_LIMIT).map(withDateLabel);
 }
 
 export async function getAktivitasBySlug(slug: string): Promise<SanityActivity | null> {

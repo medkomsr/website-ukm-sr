@@ -51,17 +51,14 @@ function request(changes = {}, files = [], id = randomUUID(), origin = "http://l
     body: form,
   });
 }
-test("SMTP acceptance returns success, keeps recipient fixed and preserves attachment bytes", async () => {
+test("SMTP acceptance keeps recipient fixed and sends text without attachments", async () => {
   const { post, sendMail } = setup();
-  const bytes = Buffer.from("%PDF-1.7\n1 0 obj\n<<>>\nendobj\n%%EOF");
-  const response = await post(
-    request({ to: "untrusted@example.test" }, [new File([bytes], "proposal.pdf")]),
-  );
+  const response = await post(request({ to: "untrusted@example.test" }));
   assert.deepEqual(await response.json(), { ok: true });
   const mail = sendMail.mock.calls[0].arguments[0];
   assert.equal(mail.to, "senireligi@ub.ac.id");
   assert.equal(mail.replyTo.address, "visitor@example.test");
-  assert.deepEqual(mail.attachments[0].content, Buffer.from(bytes));
+  assert.equal("attachments" in mail, false);
 });
 test("missing configuration and SMTP rejection never report success", async () => {
   const { post, sendMail } = setup(async () => ({ accepted: [] }));
@@ -182,4 +179,37 @@ test("renamed binary, incorrect MIME and plain ZIP cannot masquerade as document
   ])
     assert.equal((await post(request({}, [file]))).status, 400);
   assert.equal(sendMail.mock.callCount(), 0);
+});
+
+test("even harmless files and legacy attachment fields are rejected", async () => {
+  const { post, sendMail } = setup();
+  assert.equal((await post(request({}, [new File(["Hello"], "hello.txt")]))).status, 400);
+  assert.equal((await post(request({ attachments: "" }))).status, 400);
+  const form = await request().formData();
+  form.set("otherFile", new File(["Hello"], "hello.txt"));
+  assert.equal(
+    (
+      await post(
+        new Request("http://localhost:3000/api/contact", {
+          method: "POST",
+          body: form,
+          headers: { "Idempotency-Key": randomUUID(), "X-Forwarded-For": "192.0.2.1" },
+        }),
+      )
+    ).status,
+    400,
+  );
+  assert.equal(sendMail.mock.callCount(), 0);
+});
+
+test("contact validation reports whitespace, incomplete emails and duplicate fields", async () => {
+  const { validateContact } = await import("../features/contact/lib/validate-contact.ts");
+  const form = await request({ name: "   ", email: "a@b", message: "   " }).formData();
+  const result = validateContact(form);
+  assert.equal(result.valid, false);
+  assert.deepEqual(Object.keys(result.errors).sort(), ["email", "message", "name"]);
+  const valid = await request().formData();
+  assert.equal(validateContact(valid).valid, true);
+  valid.append("name", "Duplicate");
+  assert.ok(validateContact(valid).errors.name);
 });

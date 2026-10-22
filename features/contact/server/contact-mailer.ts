@@ -3,7 +3,6 @@ export type ContactMessage = {
   email: string;
   subject: string;
   text: string;
-  attachments: Array<{ filename: string; content: Buffer }>;
 };
 
 /** Delivery boundary: false means unconfirmed delivery; adapters handle transport errors. */

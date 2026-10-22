@@ -18,14 +18,26 @@ export function useContactMotion(root: RefObject<HTMLElement | null>) {
         gsap.utils.toArray<HTMLElement>("[data-contact-reveal]").forEach((element) => {
           gsap.from(element, {
             y: 32,
-            autoAlpha: 0,
+            opacity: 0,
             duration: 0.85,
             ease: "power3.out",
             scrollTrigger: { trigger: element, start: "top 94%", once: true },
           });
         });
       });
-      return () => media.revert();
+      const node = root.current;
+      const revealFocused = (event: FocusEvent) => {
+        if (!(event.target instanceof Element)) return;
+        const element = event.target.closest("[data-contact-reveal]");
+        if (!element) return;
+        gsap.killTweensOf(element);
+        gsap.set(element, { opacity: 1, y: 0 });
+      };
+      node?.addEventListener("focusin", revealFocused);
+      return () => {
+        node?.removeEventListener("focusin", revealFocused);
+        media.revert();
+      };
     },
     { scope: root },
   );

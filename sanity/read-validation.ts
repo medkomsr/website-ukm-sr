@@ -1,7 +1,12 @@
 import { z } from "zod";
 
-const text = z.string().catch("");
-const required = z.string().trim().min(1);
+export const isSafeSlug = (value: unknown): value is string =>
+  typeof value === "string" && value.length <= 96 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+const text = z.string().max(8000).catch("");
+const required = z.string().trim().min(1).max(300);
+const slug = z.string().refine(isSafeSlug);
+const shortText = z.string().max(200).catch("");
+const date = z.iso.date().catch("");
 const image = z
   .string()
   .url()
@@ -16,22 +21,22 @@ const image = z
     );
   })
   .catch("");
-export function listOf<T extends z.ZodType>(schema: T) {
+export function listOf<T extends z.ZodType>(schema: T, limit = 200) {
   return z
     .array(z.unknown())
     .catch([])
     .transform((items) =>
-      items.flatMap((item) => {
+      items.slice(0, limit).flatMap((item) => {
         const result = schema.safeParse(item);
         return result.success ? [result.data] : [];
       }),
     );
 }
-const strings = listOf(z.string());
+const strings = listOf(z.string().max(500));
 const member = z.object({ name: required, role: text, imageUrl: image });
 export const profileCard = z.object({
   _id: required,
-  slug: required,
+  slug,
   abbr: required,
   fullName: text,
   imageUrl: image,
@@ -43,17 +48,29 @@ export const fieldContent = profileCard.extend({
   gallery: listOf(z.object({ imageUrl: image, alt: text, caption: text })),
 });
 export const departmentContent = profileCard.extend({
-  programs: z.array(text).catch([]),
-  programDescriptions: z.array(text).catch([]),
-  programImages: z.array(image).catch([]),
+  programs: z
+    .array(text)
+    .catch([])
+    .transform((items) => items.slice(0, 100)),
+  programDescriptions: z
+    .array(text)
+    .catch([])
+    .transform((items) => items.slice(0, 100)),
+  programImages: z
+    .array(image)
+    .catch([])
+    .transform((items) => items.slice(0, 100)),
   divisi: listOf(z.object({ name: text, staff: listOf(member) })),
 });
 const block = z.object({
   _key: text,
   _type: z.literal("block"),
-  style: z.string().optional(),
-  listItem: z.string().optional(),
-  level: z.number().optional(),
+  style: z
+    .enum(["normal", "h1", "h2", "h3", "h4", "h5", "h6", "blockquote"])
+    .optional()
+    .catch(undefined),
+  listItem: z.enum(["bullet", "number"]).optional().catch(undefined),
+  level: z.number().int().min(1).max(6).optional().catch(undefined),
   children: listOf(z.object({ _type: z.literal("span"), _key: text, text, marks: strings })),
   markDefs: listOf(
     z.object({
@@ -61,20 +78,25 @@ const block = z.object({
       _type: required,
       href: z
         .string()
-        .refine((v) => /^(https?:\/\/|mailto:|\/|#)/i.test(v))
+        .max(2048)
+        .refine(
+          (v) => !/[\\\u0000-\u0020\u007f]/.test(v) && /^(https?:\/\/|mailto:|\/(?!\/)|#)/i.test(v),
+        )
         .optional(),
     }),
   ),
 });
-export const activityContent = z.object({
+export const activityIdentity = z.object({
   _id: required,
-  slug: required,
+  slug,
   type: z.enum(["article", "event"]),
   title: required,
+});
+export const activityContent = activityIdentity.extend({
   description: text,
   imageUrl: image,
-  category: text,
-  date: text,
+  category: shortText,
+  date,
   status: z.enum(["upcoming", "ongoing", "completed"]).optional().catch(undefined),
   time: text,
   location: text,
@@ -83,14 +105,16 @@ export const activityContent = z.object({
   agenda: listOf(z.object({ time: text, item: required })),
   gallery: listOf(z.object({ _key: text, imageUrl: image, alt: text, caption: text })),
 });
-export const achievementContent = z.object({
+export const achievementIdentity = z.object({
   _id: required,
   title: required,
-  description: text,
   year: z.number().int().min(2000).max(2100),
   category: z.enum(["Kompetisi", "Penghargaan", "Kolaborasi", "Rekam Jejak"]),
   level: z.enum(["Kampus", "Kota", "Provinsi", "Nasional", "Internasional"]),
-  position: text,
+});
+export const achievementContent = achievementIdentity.extend({
+  description: text,
+  position: shortText,
   field: text,
   organizer: text,
   location: text,
@@ -100,7 +124,11 @@ export const achievementContent = z.object({
 });
 export const visionContent = z.object({ visi: text, misi: strings });
 export const cabinetContent = z.object({ nama: text, logoUrl: image });
-export const faqContent = z.object({ _id: required, pertanyaan: required, jawaban: required });
+export const faqContent = z.object({
+  _id: required,
+  pertanyaan: required,
+  jawaban: z.string().trim().min(1).max(8000),
+});
 export const activityMeta = z.object({ categories: strings, featured: listOf(activityContent) });
 export const achievementMeta = z.object({
   total: z.number().nonnegative().catch(0),
@@ -113,5 +141,3 @@ export function readOne<T extends z.ZodType>(schema: T, value: unknown): z.outpu
   const result = schema.safeParse(value);
   return result.success ? result.data : null;
 }
-export const isSafeSlug = (value: unknown): value is string =>
-  typeof value === "string" && value.length <= 96 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);

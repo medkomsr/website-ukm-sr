@@ -18,14 +18,10 @@ export const CONTACT_SUBJECTS = [
 ];
 
 export const CONTACT_LIMITS = {
-  files: 5,
-  attachmentBytes: 3 * 1024 * 1024,
-  bodyBytes: 4 * 1024 * 1024,
+  bodyBytes: 32 * 1024,
   name: 100,
   email: 200,
   organization: 160,
   message: 4000,
 } as const;
-export const CONTACT_FILE_EXTENSION = /\.(pdf|docx|txt|jpe?g|png|webp)$/i;
-export const CONTACT_FILE_ACCEPT = ".pdf,.docx,.txt,.jpg,.jpeg,.png,.webp";
 export const CONTACT_EMAIL_PATTERN = /^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/;

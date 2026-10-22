@@ -12,8 +12,15 @@ function LegalDialog({ kind, close }: { kind: "privacy" | "terms"; close: () => 
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null;
-    dialog.current?.showModal();
-    return () => previous?.focus({ preventScroll: true });
+    const modal = dialog.current;
+    const previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    modal?.showModal();
+    return () => {
+      modal?.close();
+      document.documentElement.style.overflow = previousOverflow;
+      previous?.focus({ preventScroll: true });
+    };
   }, []);
   return (
     <dialog
@@ -34,10 +41,20 @@ function LegalDialog({ kind, close }: { kind: "privacy" | "terms"; close: () => 
         </h2>
         <p>
           {kind === "privacy"
-            ? "Video YouTube, ketika diputar, dimuat melalui layanan pihak ketiga."
+            ? "Nama, email, instansi (jika diisi), dan pesan pada formulir kontak digunakan untuk menanggapi permintaan Anda melalui email."
             : "Website ini memuat informasi, karya, dan kegiatan Seni Religi Universitas Brawijaya."}
         </p>
-        <p>Dokumen resmi akan dilengkapi oleh pengelola SR sebelum publikasi website.</p>
+        {kind === "privacy" && (
+          <p>
+            Gambar dan video menggunakan layanan pihak ketiga, termasuk Sanity dan YouTube jika
+            video YouTube tersedia. Media dapat dimuat otomatis ketika mendekati area tampilan,
+            sebelum tombol putar ditekan.
+          </p>
+        )}
+        <p>
+          Rincian masa penyimpanan data, penghapusan data, dan dokumen resmi masih perlu dilengkapi
+          oleh pengelola sebelum publikasi. Hubungi pengelola untuk informasi lebih lanjut.
+        </p>
         <Link href="/kontak" onClick={close}>
           Hubungi pengelola <ArrowUpRight size={18} />
         </Link>

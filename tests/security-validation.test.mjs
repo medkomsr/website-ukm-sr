@@ -117,3 +117,37 @@ test("webhook handles deletion payloads and refuses missing configuration/oversi
     413,
   );
 });
+
+test("runtime content rejects unsafe slugs and titles; malformed optional values fall back safely", () => {
+  const item = { _id: "a", slug: "cerita-uji", type: "article", title: "Judul" };
+  for (const slug of ["../kontak?x=1", "//evil.test", "UPPER", "a".repeat(97)])
+    assert.equal(readOne(activityContent, { ...item, slug }), null);
+  assert.equal(readOne(activityContent, { ...item, title: "a".repeat(10000) }), null);
+  assert.equal(readOne(fieldContent, { _id: "f", slug: "../kontak", abbr: "KTDAQ" }), null);
+  for (const date of ["bad-date", "2026-02-30", "2026-13-01"])
+    assert.equal(readOne(activityContent, { ...item, date }).date, "");
+  assert.equal(readOne(activityContent, { ...item, date: "2026-10-22" }).date, "2026-10-22");
+  const bounded = readOne(activityContent, {
+    ...item,
+    description: "a".repeat(10000),
+    tags: Array(1000).fill("tag"),
+  });
+  assert.equal(bounded.description, "");
+  assert.equal(bounded.tags.length, 200);
+});
+
+test("rich text links reject script, protocol-relative and control-character URLs", () => {
+  const item = { _id: "a", slug: "cerita", type: "article", title: "Judul" };
+  for (const href of [
+    "javascript:alert(1)",
+    "//evil.test",
+    "/\\evil.test",
+    "https://example.test/\npath",
+  ]) {
+    const parsed = readOne(activityContent, {
+      ...item,
+      body: [{ _type: "block", children: [], markDefs: [{ _key: "link", _type: "link", href }] }],
+    });
+    assert.deepEqual(parsed.body[0].markDefs, []);
+  }
+});

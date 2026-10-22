@@ -37,17 +37,7 @@ export function createContactHandler(
         return failure("Terlalu banyak percobaan. Silakan coba lagi dalam 10 menit.", 429);
       const parsed = await parseContact(request, contentType);
       if (parsed instanceof Response) return parsed;
-      const fingerprint = createHash("sha256")
-        .update(
-          JSON.stringify({
-            text: parsed.text,
-            attachments: parsed.attachments.map((a) => ({
-              name: a.filename,
-              digest: createHash("sha256").update(a.content).digest("hex"),
-            })),
-          }),
-        )
-        .digest("hex");
+      const fingerprint = createHash("sha256").update(parsed.text).digest("hex");
       const state = await store.claim(id.toLowerCase(), fingerprint);
       if (state === "conflict") return failure("Isian berubah. Silakan kirim kembali.", 409);
       if (state === "sent") return Response.json({ ok: true });
