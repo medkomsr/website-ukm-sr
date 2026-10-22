@@ -26,6 +26,6 @@ export const CONTACT_LIMITS = {
   organization: 160,
   message: 4000,
 } as const;
-export const CONTACT_FILE_EXTENSION = /\.(pdf|docx?|txt|jpe?g|png|webp)$/i;
-export const CONTACT_FILE_ACCEPT = ".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.webp";
+export const CONTACT_FILE_EXTENSION = /\.(pdf|docx|txt|jpe?g|png|webp)$/i;
+export const CONTACT_FILE_ACCEPT = ".pdf,.docx,.txt,.jpg,.jpeg,.png,.webp";
 export const CONTACT_EMAIL_PATTERN = /^[^\s<>@]+@[^\s<>@]+\.[^\s<>@]+$/;

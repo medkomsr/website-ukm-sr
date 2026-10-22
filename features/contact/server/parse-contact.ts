@@ -6,6 +6,7 @@ import {
 } from "../lib/contact-config";
 import type { ContactMessage } from "./contact-mailer";
 import { failure } from "./response";
+import { validAttachment } from "./validate-attachment";
 const maxBody = CONTACT_LIMITS.bodyBytes,
   maxAttachmentBytes = CONTACT_LIMITS.attachmentBytes;
 const subjects = new Set<string>(CONTACT_SUBJECTS.map((item) => item.name));
@@ -81,6 +82,12 @@ export async function parseContact(
       content: Buffer.from(await file.arrayBuffer()),
     })),
   );
+  for (let i = 0; i < uploads.length; i++) {
+    if (!(await validAttachment(uploads[i], attachments[i].content)))
+      return failure(
+        "Isi lampiran tidak sesuai format. Gunakan PDF, DOCX, TXT UTF-8, JPG, PNG, atau WebP yang valid.",
+      );
+  }
   const text = `Keperluan: ${subject}\nNama: ${name}\nEmail: ${email}\nInstansi / komunitas: ${organization || "—"}\n\n${message}`;
   return { name, email, subject, text, attachments };
 }

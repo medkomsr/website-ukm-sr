@@ -16,7 +16,7 @@ import { structure } from "@/sanity/structure";
 const singletonTypes = new Set(["homePage", "visiMisi", "kabinet", "faq"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
 // Only types reachable from the sidebar may be created; extend as each page is reorganised.
-const creatableTypes = new Set(["beritaAcara", "departemen", "bidang", "prestasi"]);
+const creatableTypes = new Set(["beritaAcara", "prestasi"]);
 
 export default defineConfig({
   basePath: "/studio",
@@ -47,7 +47,9 @@ export default defineConfig({
     actions: (actions, context) =>
       singletonTypes.has(context.schemaType)
         ? actions.filter(({ action }) => action && singletonActions.has(action))
-        : actions,
+        : ["departemen", "bidang"].includes(context.schemaType)
+          ? actions.filter(({ action }) => action !== "duplicate")
+          : actions,
     newDocumentOptions: (options) =>
       options.filter(({ templateId }) => creatableTypes.has(templateId)),
   },

@@ -1,3 +1,4 @@
+import { requiredText, optionalText, validSlug, validImage } from "../validation";
 import { defineField, defineType } from "sanity";
 import { activityGalleryField } from "@/sanity/schemas/activity-gallery";
 
@@ -22,16 +23,21 @@ export const beritaAcaraSchema = defineType({
         direction: "horizontal",
       },
       initialValue: "berita",
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 120),
     }),
-    defineField({ name: "title", title: "Judul", type: "string", validation: (r) => r.required() }),
+    defineField({
+      name: "title",
+      title: "Judul",
+      type: "string",
+      validation: (r) => requiredText(r, 120),
+    }),
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
       description: "Alamat halaman detail. Tekan Generate untuk membuat dari judul.",
-      options: { source: "title" },
-      validation: (r) => r.required(),
+      options: { source: "title", maxLength: 96 },
+      validation: (r) => r.required().custom(validSlug).error(),
     }),
     defineField({
       name: "date",
@@ -58,7 +64,7 @@ export const beritaAcaraSchema = defineType({
           "Rutin",
         ],
       },
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 120),
     }),
     defineField({
       name: "image",
@@ -66,8 +72,8 @@ export const beritaAcaraSchema = defineType({
       type: "image",
       description:
         "Tampil di kartu beranda, pratinjau, sampul halaman detail, dan sebagai foto pertama Dokumentasi.",
-      options: { hotspot: true },
-      validation: (r) => r.required(),
+      options: { hotspot: true, accept: "image/jpeg,image/png,image/webp,image/avif" },
+      validation: (r) => r.required().custom(validImage),
     }),
     defineField({
       name: "description",
@@ -75,8 +81,8 @@ export const beritaAcaraSchema = defineType({
       type: "text",
       rows: 3,
       description:
-        "Teks pada kartu dan pratinjau, sekaligus paragraf pembuka (teks sedang) di halaman detail.",
-      validation: (r) => r.required(),
+        "Maksimal 350 karakter. Tampil pada kartu, pratinjau, dan pembuka halaman detail.",
+      validation: (r) => requiredText(r, 350),
     }),
     defineField({
       name: "body",
@@ -84,6 +90,7 @@ export const beritaAcaraSchema = defineType({
       type: "array",
       description: "Isi cerita lengkap (teks kecil) di bawah paragraf pembuka.",
       of: [{ type: "block" }],
+      validation: (r) => r.max(200),
     }),
     activityGalleryField,
     defineField({
@@ -109,31 +116,50 @@ export const beritaAcaraSchema = defineType({
       title: "Waktu",
       type: "string",
       description: "Contoh: 19.00 – 21.00 WIB",
+      validation: (r) => optionalText(r, 50),
       hidden: ({ document }) => !isEvent(document),
     }),
     defineField({
       name: "location",
       title: "Lokasi",
       type: "string",
+      validation: (r) => optionalText(r, 200),
       hidden: ({ document }) => !isEvent(document),
     }),
     defineField({
       name: "agenda",
       title: "Rundown",
       type: "array",
+      validation: (r) => r.max(30),
       hidden: ({ document }) => !isEvent(document),
       of: [
         {
           type: "object",
           fields: [
-            defineField({ name: "time", title: "Waktu", type: "string" }),
-            defineField({ name: "item", title: "Acara", type: "string" }),
+            defineField({
+              name: "time",
+              title: "Waktu",
+              type: "string",
+              validation: (r) => requiredText(r, 50),
+            }),
+            defineField({
+              name: "item",
+              title: "Acara",
+              type: "string",
+              validation: (r) => requiredText(r, 120),
+            }),
           ],
           preview: { select: { title: "time", subtitle: "item" } },
         },
       ],
     }),
-    defineField({ name: "tags", title: "Tag", type: "array", of: [{ type: "string" }] }),
+    defineField({
+      name: "tags",
+      title: "Tag",
+      type: "array",
+      validation: (r) => r.max(10).unique(),
+      of: [{ type: "string", validation: (r) => requiredText(r, 40) }],
+    }),
   ],
   orderings: [
     { title: "Tanggal terbaru", name: "dateDesc", by: [{ field: "date", direction: "desc" }] },

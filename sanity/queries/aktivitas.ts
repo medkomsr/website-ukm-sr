@@ -1,5 +1,6 @@
 "use server";
 
+import { activityContent, activityMeta, listOf, readOne, isSafeSlug } from "../read-validation";
 import { activityFilter } from "@/sanity/queries/archive-filters";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
@@ -63,7 +64,7 @@ export async function getAktivitasPage(input: ArchiveFilters = {}) {
         `*[${activityFilter}] | order(date desc, _createdAt desc, _id asc) [$start...$end] ${activityCardProjection}`,
         { ...params, start, end },
       );
-      return items.map(withDateLabel);
+      return listOf(activityContent).parse(items).map(withDateLabel);
     },
     params.pageSize,
   );
@@ -77,7 +78,8 @@ export async function getAktivitasMeta() {
     "categories": array::unique(*[_type == "beritaAcara" && defined(slug.current) && defined(category)].category),
     "featured": *[_type == "beritaAcara" && defined(slug.current)] | order(date desc, _createdAt desc, _id asc) [0...5] ${activityCardProjection}
   }`);
-  return { ...result, featured: result.featured.map(withDateLabel) };
+  const safe = activityMeta.parse(result ?? {});
+  return { ...safe, featured: safe.featured.map(withDateLabel) };
 }
 
 /** Homepage picks first (in editor order), then the latest stories fill the remaining slots. */
@@ -101,17 +103,19 @@ export async function getBerandaAktivitas(): Promise<SanityActivity[]> {
   for (const item of [...(picked ?? []), ...latest]) {
     if (item?.slug && !items.some(({ _id }) => _id === item._id)) items.push(item);
   }
-  return items.slice(0, HOME_NEWS_LIMIT).map(withDateLabel);
+  return listOf(activityContent).parse(items.slice(0, HOME_NEWS_LIMIT)).map(withDateLabel);
 }
 
 export async function getAktivitasBySlug(slug: string): Promise<SanityActivity | null> {
   "use cache";
   cacheLife("hours");
+  if (!isSafeSlug(slug)) return null;
   cacheTag("aktivitas", `aktivitas-${slug}`);
 
   const item = await client.fetch<SanityActivity | null>(
     groq`*[_type == "beritaAcara" && slug.current == $slug][0] ${activityProjection}`,
     { slug },
   );
-  return item && withDateLabel(item);
+  const safe = readOne(activityContent, item);
+  return safe && withDateLabel(safe);
 }

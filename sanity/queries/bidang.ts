@@ -1,5 +1,6 @@
 "use server";
 
+import { fieldContent, profileCard, listOf, readOne, isSafeSlug } from "../read-validation";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
@@ -27,15 +28,19 @@ export async function getAllBidang(): Promise<SanityBidangCard[]> {
   cacheLife("hours");
   cacheTag("bidang");
 
-  return client.fetch(BIDANG_CARDS_QUERY);
+  return listOf(profileCard).parse(await client.fetch(BIDANG_CARDS_QUERY));
 }
 
 export async function getBidangBySlug(slug: string): Promise<SanityBidang | null> {
   "use cache";
   cacheLife("hours");
+  if (!isSafeSlug(slug)) return null;
   cacheTag("bidang", `bidang-${slug}`);
 
-  return client.fetch(groq`*[_type == "bidang" && slug.current == $slug][0] ${bidangProjection}`, {
-    slug,
-  });
+  return readOne(
+    fieldContent,
+    await client.fetch(groq`*[_type == "bidang" && slug.current == $slug][0] ${bidangProjection}`, {
+      slug,
+    }),
+  );
 }

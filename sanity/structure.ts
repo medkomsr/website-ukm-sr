@@ -43,7 +43,7 @@ const presetGroup = (
                 .apiVersion(apiVersion)
                 .filter(`_type == $type && !(_id in $ids)`)
                 .params({ type, ids })
-                .initialValueTemplates([S.initialValueTemplateItem(type)]),
+                .initialValueTemplates([]),
             ),
         ]),
     );

@@ -47,4 +47,34 @@ Deskripsi bidang wajib berisi satu paragraf, maksimal 50 kata dan 350 karakter t
 
 Skrip `seed-demo-profiles.mjs` dihentikan karena memakai ID nonbaku untuk BKRT/KTDAQ. Gunakan `seed-about-demo.ts`. Identitas kabinet sekarang dibaca langsung oleh `getKabinet`, tanpa query `siteSettings` lama.
 
-Temuan tersisa: query dan hidrasi memakai cache `hours`, sedangkan cache React Query memakai `CONTENT_STALE_TIME` satu jam. Belum ada endpoint/webhook revalidasi setelah publish. Pembaruan CMS tidak dijamin langsung terlihat; integrasi invalidasi perlu dikonfigurasi sebelum mengharapkan publish instan.
+## Keamanan dan validasi CMS
+
+Validator bersama ada di sanity/validation.ts. Batas publikasi: judul 120 karakter, ringkasan 350, nama 100, visi 500, misi 1–10 butir @250, FAQ 150/700, slug 96, galeri bidang 10 dan galeri berita 9 foto tambahan (10 bersama foto utama), program/pengurus/rundown 30, peserta prestasi 50, tag 10. Isi berita maksimal 200 blok. Gambar maksimal 5 MiB, 128–12.000 piksel per sisi, JPG/PNG/WebP/AVIF. Pemeriksaan gambar dilakukan sebelum publish; Sanity mengunggah aset sebelum validasi ini, sehingga bukan pembatas kuota upload di server.
+
+Data lama tidak dimutasi atau dipotong. Deskripsi prestasi demo 01, 04, 05, 07, 08, 09, 10 melewati batas baru; editor harus merangkum sebelum publish ulang. Draft departemen c8dd3137-ca2d-48d9-9278-1f6a981ada8c belum memiliki nama/slug. Company profile (schema, video, sampul, player) dikecualikan dari perubahan. Menu profil tambahan tetap bisa membaca dokumen lama tetapi tidak menawarkan pembuatan/duplikasi profil di luar struktur frontend.
+
+Validasi Studio tidak berlaku untuk mutation API; skrip impor wajib memvalidasi input sendiri dan menjalankan pemeriksaan dataset setelahnya. Jangan menjalankan skrip seed/cleanup untuk menerapkan perubahan keamanan ini. Untuk audit baca saja:
+
+```powershell
+node node_modules/@sanity/cli/bin/run.js documents validate --yes --format ndjson --level info
+```
+
+### Aktivasi webhook setelah deployment
+
+Endpoint POST /api/sanity/revalidate memverifikasi signature dari @sanity/webhook terhadap body asli (maksimal 16 KiB), hanya menerima tipe dokumen yang diizinkan, dan mengabaikan draft/versi rilis. Menggunakan revalidateTag(tag, { expire: 0 }). Pembacaan CMS melewati Sanity API CDN karena Next sudah menyimpan cache hasil; ini mencegah data CDN lama masuk lagi setelah invalidasi.
+
+1. Buat secret acak minimal 32 karakter. Isi SANITY_REVALIDATE_SECRET di environment server Vercel, bukan NEXT_PUBLIC dan jangan commit nilainya.
+2. Deploy aplikasi sebelum mengaktifkan webhook. Tambahkan webhook Sanity menuju https://website-ukm-sr.vercel.app/api/sanity/revalidate, dataset production, metode POST, trigger create/update/delete; drafts dan versions nonaktif. Masukkan secret yang sama pada pengaturan Secret, bukan header bearer.
+3. Filter: coalesce(after()._type, before()._type) in ["beritaAcara", "prestasi", "departemen", "bidang", "visiMisi", "kabinet", "faq", "homePage"].
+4. Projection: {"_id": coalesce(after()._id, before()._id), "_type": coalesce(after()._type, before()._type)}. before() penting untuk penghapusan.
+5. Periksa delivery log Sanity dan respons 200. Jangan menguji dengan menghapus konten asli. Tab pengunjung yang sudah terbuka masih menggunakan React Query staleTime satu jam; reload mengambil payload server terbaru.
+
+Endpoint dan tes sudah tersedia, tetapi konfigurasi dashboard/secret production tidak dibuat otomatis. Tanpa secret, endpoint menolak request dengan 503. CORS yang sudah benar dipertahankan. Token Viewer non-expiring belum dirotasi: identifikasi pemakainya sebelum mengganti credential agar integrasi lama tidak terputus.
+
+### Formulir kontak tetap nonaktif
+
+Sesuai keputusan pengelola, CONTACT_ENABLED tidak diaktifkan. Endpoint menolak pengiriman sampai flag bernilai true, SMTP valid, dan CONTACT_REDIS_REST_URL/TOKEN lengkap. Tidak ada fallback penyimpanan memori. Redis REST menjalankan Lua atomik: 10 percobaan/IP/10 menit, receipt 24 jam. Pisahkan Redis produksi/preview atau gunakan namespace environment. Header IP hanya boleh berasal dari reverse proxy tepercaya (Vercel); hosting lain wajib menimpa X-Forwarded-For.
+
+Receipt menyimpan hash payload/status, bukan isi email. Retry ID yang sama tidak mengirim ulang saat status pending/uncertain. SMTP tidak menjamin exactly-once delivery; pengiriman ambigu harus ditinjau, bukan diulang otomatis. Receipt kedaluwarsa setelah 24 jam. Uji Redis nyata dan SMTP staging sebelum aktivasi; tes saat ini memakai simulasi penyimpanan dan pengiriman. File diperiksa berdasarkan signature dan MIME; DOC lama tidak diterima, gunakan DOCX/PDF. Identifikasi format bukan antivirus.
+
+Override dependency adm-zip menutup advisory ZIP, js-yaml khusus @vercel/frameworks menutup advisory versi 3 lama, dan uuid <11.1.1 diarahkan ke patch yang mendukung CommonJS. braces dan sprintf-js masih memiliki advisory tanpa rilis perbaikan saat audit; jangan menggunakan pola glob/format dari sumber tak tepercaya pada tooling. Jalankan npm audit kembali sebelum deployment. Jangan gunakan npm audit fix --force yang menawarkan downgrade Sanity/Next.

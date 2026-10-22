@@ -4,5 +4,6 @@ export const sanityConfig = {
   projectId,
   dataset,
   apiVersion,
-  useCdn: process.env.NODE_ENV === "production",
+  // Next caches the results; use the origin to avoid recaching stale CDN data after a webhook.
+  useCdn: false,
 };

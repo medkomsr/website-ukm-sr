@@ -1,3 +1,4 @@
+import { requiredText } from "../validation";
 import { defineField, defineType } from "sanity";
 
 export const visiMisiSchema = defineType({
@@ -10,7 +11,7 @@ export const visiMisiSchema = defineType({
       title: "Visi",
       type: "text",
       rows: 4,
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 500),
     }),
     defineField({
       name: "misi",
@@ -18,8 +19,8 @@ export const visiMisiSchema = defineType({
       description:
         "Satu butir per misi. Nomor 01, 02, 03 dibuat otomatis sesuai urutan; seret untuk mengubah urutan.",
       type: "array",
-      of: [{ type: "text", rows: 2 }],
-      validation: (r) => r.required().min(1),
+      of: [{ type: "text", rows: 2, validation: (r) => requiredText(r, 250) }],
+      validation: (r) => r.required().min(1).max(10),
     }),
   ],
   preview: { prepare: () => ({ title: "Visi & Misi" }) },

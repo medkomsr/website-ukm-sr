@@ -1,5 +1,6 @@
 "use server";
 
+import { achievementContent, achievementMeta, listOf } from "../read-validation";
 import { achievementFilter } from "@/sanity/queries/archive-filters";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
@@ -36,10 +37,12 @@ export async function getPrestasiPage(input: ArchiveFilters = {}) {
     total,
     params.page,
     (start, end) =>
-      client.fetch<SanityPrestasi[]>(
-        `*[${achievementFilter}] | order(year desc, _createdAt desc, _id asc) [$start...$end] ${prestasiProjection}`,
-        { ...params, start, end },
-      ),
+      client
+        .fetch<SanityPrestasi[]>(
+          `*[${achievementFilter}] | order(year desc, _createdAt desc, _id asc) [$start...$end] ${prestasiProjection}`,
+          { ...params, start, end },
+        )
+        .then((value) => listOf(achievementContent).parse(value)),
     params.pageSize,
   );
 }
@@ -48,7 +51,7 @@ export async function getPrestasiMeta() {
   "use cache";
   cacheLife("hours");
   cacheTag("prestasi");
-  return client.fetch<{
+  const result = await client.fetch<{
     total: number;
     years: number[];
     fields: string[];
@@ -59,6 +62,7 @@ export async function getPrestasiMeta() {
     "fields": array::unique(*[_type == "prestasi" && defined(field)].field),
     "categories": array::unique(*[_type == "prestasi" && defined(category)].category)
   }`);
+  return achievementMeta.parse(result ?? {});
 }
 
 /** Homepage picks first (in editor order), then the latest achievements fill the remaining slots. */
@@ -82,5 +86,5 @@ export async function getBerandaPrestasi(): Promise<SanityPrestasi[]> {
   for (const item of [...(picked ?? []), ...latest]) {
     if (item && !items.some(({ _id }) => _id === item._id)) items.push(item);
   }
-  return items.slice(0, HOME_ACHIEVEMENT_LIMIT);
+  return listOf(achievementContent).parse(items.slice(0, HOME_ACHIEVEMENT_LIMIT));
 }

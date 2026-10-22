@@ -1,3 +1,4 @@
+import { requiredText } from "../validation";
 import { defineField, defineType } from "sanity";
 
 export const faqSchema = defineType({
@@ -20,14 +21,14 @@ export const faqSchema = defineType({
               name: "pertanyaan",
               title: "Pertanyaan",
               type: "string",
-              validation: (r) => r.required(),
+              validation: (r) => requiredText(r, 150),
             }),
             defineField({
               name: "jawaban",
               title: "Jawaban",
               type: "text",
               rows: 4,
-              validation: (r) => r.required(),
+              validation: (r) => requiredText(r, 700),
             }),
           ],
           preview: { select: { title: "pertanyaan", subtitle: "jawaban" } },
