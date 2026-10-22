@@ -186,12 +186,15 @@ export default function AchievementExperience() {
           ease: "power2.inOut",
           absoluteOnLeave: true,
           onEnter: (items) =>
-            gsap.fromTo(
-              items,
-              { opacity: 0, scale: 0.88 },
-              { opacity: 1, scale: 1, duration: 0.6 },
-            ),
-          onLeave: (items) => gsap.to(items, { opacity: 0, scale: 0.88, duration: 0.3 }),
+            items.length
+              ? gsap.fromTo(
+                  items,
+                  { opacity: 0, scale: 0.88 },
+                  { opacity: 1, scale: 1, duration: 0.6 },
+                )
+              : undefined,
+          onLeave: (items) =>
+            items.length ? gsap.to(items, { opacity: 0, scale: 0.88, duration: 0.3 }) : undefined,
           onComplete: () => {
             gsap.set(results.current, { clearProps: "height" });
             ScrollTrigger.refresh();

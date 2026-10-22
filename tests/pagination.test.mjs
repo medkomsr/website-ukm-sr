@@ -118,3 +118,37 @@ test("invalid and stale page numbers clamp safely; an empty result fetches no it
   });
   assert.deepEqual(empty, { total: 0, page: 1, pages: 1, items: [] });
 });
+
+test("invalid CMS identities are excluded before counting and slicing both archive sizes", async () => {
+  const { activityIdentity, listOf } = await import("../sanity/read-validation.ts");
+  const docs = dataset.map((item, i) =>
+    i % 10 === 0 ? { ...item, slug: { current: "../bad" } } : item,
+  );
+  const projected = await query(
+    `*[_type == "beritaAcara"]{_id, "slug": slug.current, "type": select(jenis == "acara" => "event", "article"), title}`,
+    {},
+    docs,
+  );
+  const validIds = listOf(activityIdentity, Infinity)
+    .parse(projected)
+    .map((item) => item._id);
+  assert.equal(validIds.length, 101);
+  for (const pageSize of [5, 9]) {
+    const seen = [];
+    const params = { ...archiveParams({ pageSize }), validIds };
+    const filter = `${activityFilter} && _id in $validIds`;
+    const total = await query(`count(*[${filter}])`, params, docs);
+    for (let page = 1; page <= Math.ceil(total / pageSize); page++) {
+      const result = await fetchArchivePage(
+        total,
+        page,
+        (start, end) =>
+          query(`*[${filter}] | order(_id asc) [$start...$end]`, { ...params, start, end }, docs),
+        pageSize,
+      );
+      assert.ok(result.items.length > 0);
+      seen.push(...result.items.map((item) => item._id));
+    }
+    assert.deepEqual(seen, validIds);
+  }
+});

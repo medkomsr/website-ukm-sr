@@ -1,24 +1,31 @@
 "use client";
 import { useRef, useState, type FormEvent } from "react";
+import { CONTACT_FIELDS, validateContact, type ContactErrors } from "../lib/validate-contact";
 export function useContactForm() {
   const submissionId = useRef<string | null>(null);
   const submitting = useRef(false);
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState("");
+  const [errors, setErrors] = useState<ContactErrors>({});
   const [subject, setSubject] = useState("");
 
   async function sendMessage(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting.current) return;
     const form = event.currentTarget;
-    if (!subject) {
-      setSendError("Pilih keperluan terlebih dahulu.");
-      form.querySelector<HTMLButtonElement>("[data-subject]")?.focus();
-      return;
-    }
     const payload = new FormData(form);
     payload.set("subject", subject);
+    const validation = validateContact(payload);
+    setErrors(validation.errors);
+    if (!validation.valid) {
+      const first = CONTACT_FIELDS.find((key) => validation.errors[key]);
+      form
+        .querySelector<HTMLElement>(first === "subject" ? "[data-subject]" : `[name="${first}"]`)
+        ?.focus();
+      return;
+    }
+    for (const key of CONTACT_FIELDS) payload.set(key, validation.values[key]);
     submissionId.current ??= crypto.randomUUID();
     submitting.current = true;
     setSending(true);
@@ -59,6 +66,7 @@ export function useContactForm() {
   };
   return {
     sending,
+    errors,
     sent,
     sendError,
     subject,

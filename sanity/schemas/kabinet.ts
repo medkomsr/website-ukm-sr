@@ -1,3 +1,4 @@
+import { optionalText, validImage } from "../validation";
 import { defineField, defineType } from "sanity";
 
 export const kabinetSchema = defineType({
@@ -12,12 +13,15 @@ export const kabinetSchema = defineType({
       title: "Nama kabinet",
       type: "string",
       description: "Contoh: Kabinet Arkhasena",
+      validation: (r) => optionalText(r, 100),
     }),
     defineField({
       name: "logo",
       title: "Logo kabinet",
       type: "image",
       description: "Gunakan PNG berlatar transparan agar menyatu dengan latar hijau.",
+      options: { accept: "image/jpeg,image/png,image/webp,image/avif" },
+      validation: (r) => r.custom(validImage),
     }),
   ],
   preview: {

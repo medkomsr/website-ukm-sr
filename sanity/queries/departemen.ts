@@ -1,5 +1,6 @@
 "use server";
 
+import { departmentContent, profileCard, listOf, readOne, isSafeSlug } from "../read-validation";
 import { groq } from "next-sanity";
 import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
@@ -10,14 +11,16 @@ export async function getAllDepartemen(): Promise<SanityDepartemenCard[]> {
   cacheLife("hours");
   cacheTag("departemen");
 
-  return client.fetch(
-    groq`*[_type == "departemen" && defined(slug.current) && defined(abbr)] | order(_createdAt asc) {
+  return listOf(profileCard).parse(
+    await client.fetch(
+      groq`*[_type == "departemen" && defined(slug.current) && defined(abbr)] | order(_createdAt asc) {
       _id,
       "slug": slug.current,
       abbr,
       fullName,
       "imageUrl": image.asset->url
     }`,
+    ),
   );
 }
 
@@ -25,10 +28,13 @@ export async function getAllDepartemen(): Promise<SanityDepartemenCard[]> {
 export async function getDepartemenBySlug(slug: string): Promise<SanityDepartemenDetail | null> {
   "use cache";
   cacheLife("hours");
+  if (!isSafeSlug(slug)) return null;
   cacheTag("departemen", `departemen-${slug}`);
 
-  return client.fetch(
-    groq`*[_type == "departemen" && slug.current == $slug && defined(abbr)][0] {
+  return readOne(
+    departmentContent,
+    await client.fetch(
+      groq`*[_type == "departemen" && slug.current == $slug && defined(abbr)][0] {
       _id,
       "slug": slug.current,
       abbr,
@@ -41,6 +47,7 @@ export async function getDepartemenBySlug(slug: string): Promise<SanityDeparteme
         "staff": pengurus[]{ "name": nama, "role": jabatan, "imageUrl": foto.asset->url }
       }]
     }`,
-    { slug },
+      { slug },
+    ),
   );
 }

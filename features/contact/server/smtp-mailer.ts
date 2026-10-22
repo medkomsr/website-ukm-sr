@@ -15,7 +15,7 @@ export function createSmtpMailer(
   }
 
   return {
-    send: async ({ name, email, subject, text, attachments }, id) => {
+    send: async ({ name, email, subject, text }, id) => {
       const transport = createTransport({
         host,
         port,
@@ -36,7 +36,6 @@ export function createSmtpMailer(
           subject: `[Hubungi Kami] ${subject} — ${name}`,
           messageId: `<contact-${id}@${from.split("@")[1]}>`,
           text,
-          attachments,
         });
         return result.accepted.some((address) => address.toLowerCase() === recipient);
       } catch {

@@ -45,7 +45,7 @@ flowchart TD
   Features --> Styles[Tailwind dan SCSS Modules]
   Contact[Form Hubungi Kami] --> API[app/api/contact]
   API --> Handler[contact-handler: alur request]
-  Handler --> Validation[parse-contact: validasi dan lampiran]
+  Handler --> Validation[parse-contact: validasi pesan teks]
   Handler --> Port[ContactMailer: kontrak pengiriman]
   Port --> SMTP[smtp-mailer: adapter SMTP]
   SMTP --> Inbox[Email pengurus]
@@ -94,7 +94,7 @@ Komponen dan stylesheet lokal diletakkan berdekatan.
   `Promise<boolean>`. `true` berarti penerima diterima layanan pengiriman,
   bukan jaminan email sudah masuk inbox; adapter menangani kegagalannya.
 - **Interface segregation:** handler hanya membutuhkan operasi `send`, bukan
-  seluruh API Nodemailer. Topik dan batas lampiran memakai konfigurasi bersama.
+  seluruh API Nodemailer. Topik dan batas pesan memakai konfigurasi bersama.
 - **Dependency inversion:** `createContactHandler(getMailer)` menerima adapter
   dari route. Tes menyuntikkan transport palsu tanpa pengiriman email nyata.
 
@@ -143,9 +143,12 @@ Schema yang tidak tampil di website tetap dapat digunakan pengurus di Studio.
 
 ## Form Hubungi Kami
 
-`POST /api/contact` mengirim ke **senireligi@ub.ac.id**, dengan maksimal 5
-lampiran dan total 3 MB. Penerima ditetapkan server; `Reply-To` adalah email
-pengunjung. Lampiran diteruskan, bukan disimpan atau dipublikasikan aplikasi.
+`POST /api/contact` mengirim pesan teks ke **senireligi@ub.ac.id**.
+Penerima ditetapkan server; `Reply-To` adalah email pengunjung. Semua berkas,
+termasuk berkas pada field selain `attachments`, ditolak. Field `attachments`
+lama juga ditolak meski kosong. Batas seluruh body multipart adalah 32 KiB;
+batas isi pesan 4.000 karakter. Validasi field dibagi antara browser dan server.
+Kesalahan tampil di dekat kolom dan fokus diarahkan ke isian pertama yang salah.
 
 Minta konfigurasi pengirim yang diizinkan kepada tim TI kampus. Isi
 `CONTACT_SMTP_HOST`, `CONTACT_SMTP_PORT`, `CONTACT_SMTP_USER`,
@@ -158,10 +161,14 @@ Tanpa konfigurasi, endpoint mengembalikan 503 dan form mempertahankan isian.
 Dialog terima kasih hanya muncul setelah pengiriman diterima. Tidak ada `.eml`
 atau sukses palsu. Lakukan uji nyata yang disetujui setelah konfigurasi tersedia.
 
-Validasi field/origin/ukuran/ekstensi, honeypot, rate limit, dan deduplikasi
-request tersedia. Rate limit dan deduplikasi masih per proses; multi-instance
-memerlukan penyimpanan bersama serta rate limit reverse proxy. SMTP tidak
-menjamin exactly-once ketika koneksi putus.
+Validasi field/origin/ukuran, honeypot, rate limit, dan deduplikasi request tersedia.
+Rate limit dan deduplikasi memakai Redis bersama melalui `CONTACT_REDIS_REST_URL`
+dan `CONTACT_REDIS_REST_TOKEN`; endpoint menolak pengiriman jika storage tidak
+tersedia. Uji lokal menggunakan adapter memori dan SMTP tiruan. Set
+`CONTACT_ENABLED=true` hanya setelah layanan produksi diverifikasi. Proxy hosting
+harus menghapus `X-Forwarded-For` kiriman pengguna dan menyediakan IP tepercaya.
+SMTP tidak menjamin exactly-once ketika koneksi putus; hasil tidak pasti tidak
+dikirim ulang otomatis.
 
 ## Workflow pengembangan dan pemeriksaan
 
@@ -205,3 +212,36 @@ tidak dihapus dalam refactor.
 `CompanyReel` memuat preview tanpa suara saat frame terlihat. Preview berhenti saat keluar dari layar, tab tidak aktif, atau player layar penuh dibuka; preferensi reduced motion menggunakan poster statis. Sumber tetap berasal dari `companyVideoUrl` di Sanity (YouTube HTTPS, MP4, atau WebM). Tidak ada video pihak lain yang disalin.
 
 `CompanyVideo` menyatukan kontrol pemutaran, waktu, seek, dan suara untuk YouTube IFrame API maupun HTML video. SDK YouTube dimuat sekali melalui `features/home/lib/youtube-player.ts`. `CompanyVideoDialog` menangani animasi GSAP dari frame ke layar penuh, Escape, penguncian scroll, serta pengembalian fokus. Bila layanan video gagal, player menampilkan tautan ke sumber aslinya.
+
+## Status penguatan keamanan � 22 Oktober 2026
+
+- Respons memakai `X-Frame-Options: DENY`, `nosniff`, kebijakan referrer dan
+  pembatasan kamera/mikrofon/lokasi. `X-Powered-By` dinonaktifkan.
+- CSP aktif hanya menegakkan `frame-ancestors`, `object-src`, dan `base-uri`.
+  Daftar sumber skrip/style/media masih **Report-Only**; bukan mitigasi XSS ketat.
+  Inline script/style masih diizinkan karena rendering Next dan animasi.
+  Pelanggaran dipantau lewat konsol browser; belum ada endpoint pengumpulan laporan.
+  Verifikasi host media, Studio, autentikasi, dan fitur editor di staging sebelum
+  menegakkan daftar sumber. Nonce dinamis perlu kajian terhadap Cache Components.
+- HSTS belum diaktifkan sampai HTTPS, subdomain, dan konfigurasi hosting diperiksa.
+- Konten CMS divalidasi saat dibaca. Slug/judul/identitas tidak valid dikeluarkan;
+  tanggal dan field opsional rusak memakai fallback. Daftar bersarang dibatasi.
+  Indeks identitas kecil di-cache per jenis konten sebelum count/slice arsip,
+  sehingga data yang ditolak tidak membuat total/paginasi menyesatkan. Full content
+  tetap diambil per halaman. Webhook invalidasi harus bekerja di produksi.
+- `file-type` dan CLI `shadcn` dihapus. Utility CSS accordion yang masih dipakai
+  disimpan lokal dengan lisensi MIT. `npm ls braces sprintf-js --all` masih
+  menemukan `braces@3.0.3` melalui lint/Sanity CLI dan `sprintf-js@1.0.3` melalui
+  Sanity CLI. Advisori [braces](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)
+  dan [sprintf-js](https://github.com/advisories/GHSA-hp3w-g68c-fv3c) belum
+  mencantumkan versi patched pada tanggal pemeriksaan. Tidak ada jalur eksploitasi
+  publik yang dibuktikan dalam audit ini; jangan memproses pola/format tak tepercaya
+  lewat tooling tersebut. Audit penuh perlu diulang: registry npm mengalami timeout
+  dan connection reset pada dua percobaan terakhir. Jangan memakai `audit fix --force`
+  atau downgrade mayor tanpa uji kompatibilitas Studio.
+
+Verifikasi produksi yang masih diperlukan: header di CDN/hosting dan halaman
+error; HTTPS/HSTS; login/role/CORS Sanity; invalidasi cache; Redis lintas instance
+serta header IP proxy; pengiriman SMTP nyata yang disetujui; kompatibilitas CSP
+untuk YouTube dan editor; Safari/iOS dan Android fisik. Pengelola juga perlu
+menetapkan masa penyimpanan serta penghapusan data untuk dokumen privasi resmi.

@@ -1,3 +1,4 @@
+import { requiredText, optionalText, validImage } from "../validation";
 import { defineField, defineType } from "sanity";
 import { srFields } from "@/lib/constants/art-fields";
 
@@ -17,7 +18,7 @@ export const prestasiSchema = defineType({
       title: "Prestasi / Kompetisi",
       type: "string",
       description: "Contoh: Musabaqah Tilawatil Qur'an Mahasiswa Nasional",
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 120),
     }),
     defineField({
       name: "level",
@@ -28,14 +29,14 @@ export const prestasiSchema = defineType({
         layout: "radio",
         direction: "horizontal",
       },
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 120),
     }),
     defineField({
       name: "position",
       title: "Pencapaian",
       type: "string",
       description: "Contoh: Juara 1, Runner Up, Penampil Terbaik, UKM Terbaik",
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 120),
     }),
     defineField({
       name: "category",
@@ -48,7 +49,7 @@ export const prestasiSchema = defineType({
         direction: "horizontal",
       },
       initialValue: "Kompetisi",
-      validation: (r) => r.required(),
+      validation: (r) => requiredText(r, 120),
     }),
     defineField({
       name: "field",
@@ -62,24 +63,43 @@ export const prestasiSchema = defineType({
       title: "Deskripsi",
       type: "text",
       rows: 5,
-      description: "Cerita pencapaian. Tampil di popup detail dan kartu prestasi di beranda.",
-      validation: (r) => r.required(),
+      description: "Maksimal 350 karakter. Tampil di popup detail dan kartu prestasi di beranda.",
+      validation: (r) => requiredText(r, 350),
     }),
     defineField({
       name: "image",
       title: "Foto kejuaraan",
       type: "image",
-      options: { hotspot: true },
+      options: { hotspot: true, accept: "image/jpeg,image/png,image/webp,image/avif" },
+      validation: (r) => r.custom(validImage),
       description:
         "Dokumentasi pemenang, tim memegang piala, atau penyerahan penghargaan. Tampil di popup detail dan beranda.",
-      fields: [{ name: "alt", title: "Deskripsi foto", type: "string" }],
+      fields: [
+        {
+          name: "alt",
+          title: "Deskripsi foto",
+          type: "string",
+          validation: (r) => optionalText(r, 200),
+        },
+      ],
     }),
-    defineField({ name: "organizer", title: "Penyelenggara (opsional)", type: "string" }),
-    defineField({ name: "location", title: "Lokasi (opsional)", type: "string" }),
+    defineField({
+      name: "organizer",
+      title: "Penyelenggara (opsional)",
+      type: "string",
+      validation: (r) => optionalText(r, 200),
+    }),
+    defineField({
+      name: "location",
+      title: "Lokasi (opsional)",
+      type: "string",
+      validation: (r) => optionalText(r, 200),
+    }),
     defineField({
       name: "participants",
       title: "Peserta / anggota tim",
       type: "array",
+      validation: (r) => r.max(50),
       description: "Nama tampil di arsip; foto dan fakultas tampil di popup detail.",
       of: [
         {
@@ -90,14 +110,20 @@ export const prestasiSchema = defineType({
               name: "name",
               title: "Nama lengkap",
               type: "string",
-              validation: (r) => r.required(),
+              validation: (r) => requiredText(r, 100),
             }),
-            defineField({ name: "faculty", title: "Fakultas / program studi", type: "string" }),
+            defineField({
+              name: "faculty",
+              title: "Fakultas / program studi",
+              type: "string",
+              validation: (r) => optionalText(r, 200),
+            }),
             defineField({
               name: "image",
               title: "Foto",
               type: "image",
-              options: { hotspot: true },
+              options: { hotspot: true, accept: "image/jpeg,image/png,image/webp,image/avif" },
+              validation: (r) => r.custom(validImage),
             }),
           ],
           preview: { select: { title: "name", subtitle: "faculty", media: "image" } },

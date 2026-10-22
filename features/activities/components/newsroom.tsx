@@ -70,7 +70,8 @@ export default function Newsroom() {
       const targets = Array.from(
         archive.current?.querySelectorAll<HTMLElement>("[data-archive-pop]") || [],
       ).filter((element) => !element.dataset.archiveRevealed && element.offsetParent !== null);
-      gsap.set(targets, { autoAlpha: 0, y: 28, scale: 0.94, transformOrigin: "50% 100%" });
+      if (!targets.length) return;
+      gsap.set(targets, { opacity: 0, y: 28, scale: 0.94, transformOrigin: "50% 100%" });
       ScrollTrigger.batch(targets, {
         start: "top 92%",
         once: true,
@@ -79,7 +80,7 @@ export default function Newsroom() {
             (element as HTMLElement).dataset.archiveRevealed = "true";
           });
           gsap.to(elements, {
-            autoAlpha: 1,
+            opacity: 1,
             y: 0,
             scale: 1,
             duration: 0.6,
@@ -117,7 +118,20 @@ export default function Newsroom() {
         ),
       );
     });
-    return () => media.revert();
+    const node = archive.current;
+    const revealFocused = (event: FocusEvent) => {
+      if (!(event.target instanceof Element)) return;
+      const element = event.target.closest<HTMLElement>("[data-archive-pop]");
+      if (!element) return;
+      element.dataset.archiveRevealed = "true";
+      gsap.killTweensOf(element);
+      gsap.set(element, { opacity: 1, y: 0, scale: 1 });
+    };
+    node?.addEventListener("focusin", revealFocused);
+    return () => {
+      node?.removeEventListener("focusin", revealFocused);
+      media.revert();
+    };
   }, [activities, expanded]);
 
   function change(update: () => void, resetScroll = true) {
@@ -145,7 +159,7 @@ export default function Newsroom() {
       // Filtering owns card entry now; don't replay the viewport reveal as well.
       const reveals = container.querySelectorAll<HTMLElement>("[data-archive-pop]");
       gsap.killTweensOf(reveals);
-      gsap.set(reveals, { clearProps: "opacity,visibility,transform" });
+      if (reveals.length) gsap.set(reveals, { clearProps: "opacity,visibility,transform" });
       reveals.forEach((element) => {
         element.dataset.archiveRevealed = "true";
       });
@@ -177,13 +191,17 @@ export default function Newsroom() {
       ease: "power2.inOut",
       absoluteOnLeave: true,
       onEnter: (elements) =>
-        gsap.fromTo(
-          elements,
-          { opacity: 0, scale: 0.88 },
-          { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" },
-        ),
+        elements.length
+          ? gsap.fromTo(
+              elements,
+              { opacity: 0, scale: 0.88 },
+              { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" },
+            )
+          : undefined,
       onLeave: (elements) =>
-        gsap.to(elements, { opacity: 0, scale: 0.88, duration: 0.3, ease: "power2.in" }),
+        elements.length
+          ? gsap.to(elements, { opacity: 0, scale: 0.88, duration: 0.3, ease: "power2.in" })
+          : undefined,
       onComplete: () => {
         gsap.set(area, { clearProps: "height" });
         ScrollTrigger.refresh();
