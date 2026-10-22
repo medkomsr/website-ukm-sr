@@ -97,6 +97,22 @@ export const bidangSchema = defineType({
       fields: memberFields,
     }),
     defineField({
+      name: "wakilKetuaBidangTambahan",
+      title: "Wakil kepala bidang Nasyid",
+      description: "Wakil kedua khusus bidang Banjari & Nasyid.",
+      type: "object",
+      fields: memberFields,
+      hidden: ({ document }) =>
+        (document?.slug as { current?: string } | undefined)?.current !== "banjari-nasyid",
+      validation: (rule) =>
+        rule.custom((value, { document }) =>
+          !value ||
+          (document?.slug as { current?: string } | undefined)?.current === "banjari-nasyid"
+            ? true
+            : "Wakil tambahan hanya tersedia untuk bidang Banjari & Nasyid.",
+        ),
+    }),
+    defineField({
       name: "gallery",
       title: "Galeri dokumentasi",
       description: "Maksimal 10 foto dokumentasi pembinaan, kejuaraan, dan kegiatan bidang.",

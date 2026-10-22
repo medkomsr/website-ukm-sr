@@ -20,6 +20,7 @@ const creatableTypes = new Set(["beritaAcara", "prestasi"]);
 
 export default defineConfig({
   basePath: "/studio",
+  title: `Seni Religi — ${dataset}`,
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schemas' folder
