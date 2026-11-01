@@ -24,6 +24,17 @@ const reservedDepartments: Record<string, string> = {
   psdm: "PSDM",
   medkom: "Medkom",
 };
+// Keep the groups in view when the documentation fills a landscape frame.
+const bkrtProgramImagePositions: Record<string, string> = {
+  "Diklat PH": "50% 100%",
+  "Festival Qurban": "50% 45%",
+  "GBQN UB": "50% 100%",
+  "Halal Bihalal": "50% 100%",
+  "MTQ UB 2026": "50% 50%",
+  "Rapat Evaluasi": "50% 50%",
+  "Safari Khotmil": "50% 100%",
+  "Studi Banding": "50% 100%",
+};
 function previewDepartment(slug: string): SanityDepartemenDetail {
   const abbr = reservedDepartments[slug];
   return {
@@ -64,6 +75,7 @@ export function ProfileContent({
         title,
         description: data.programDescriptions?.[i] || "",
         image: data.programImages?.[i],
+        imagePosition: data.slug === "bkrt" ? bkrtProgramImagePositions[title] : undefined,
       }))
     : [
         {
@@ -286,6 +298,8 @@ export function ProfileContent({
           items={programCards}
           count={programs.length}
           tone="green"
+          imageLayout={data.slug === "bkrt" ? "landscape" : "default"}
+          hideImagePlaceholder={data.slug === "bkrt"}
         />
       )}
       <ScrollGallery

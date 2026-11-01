@@ -14,6 +14,7 @@ export type GalleryItem = {
   title: string;
   description: string;
   image?: string;
+  imagePosition?: string;
   placeholder?: boolean;
 };
 
@@ -25,6 +26,8 @@ export default function ScrollGallery({
   count,
   countLabel = "PROGRAM",
   last = false,
+  imageLayout = "default",
+  hideImagePlaceholder = false,
 }: {
   id: string;
   title: string;
@@ -33,6 +36,8 @@ export default function ScrollGallery({
   count?: number;
   countLabel?: string;
   last?: boolean;
+  imageLayout?: "default" | "landscape";
+  hideImagePlaceholder?: boolean;
 }) {
   const root = useRef<HTMLElement>(null);
   const controls = useRef<(step: number) => void>(() => {});
@@ -187,6 +192,7 @@ export default function ScrollGallery({
           data-gallery-stage
           data-last={last || undefined}
           data-tone={tone}
+          data-image-layout={imageLayout}
           className={`${s.stage} ${count !== undefined ? s.sideLayout : ""}`}
         >
           <header className={s.heading}>
@@ -213,8 +219,9 @@ export default function ScrollGallery({
                           alt={item.title}
                           fill
                           sizes="(max-width: 700px) 72vw, 340px"
+                          style={{ objectPosition: item.imagePosition }}
                         />
-                      ) : (
+                      ) : hideImagePlaceholder ? null : (
                         <div className={s.placeholder}>
                           <ImageIcon size={46} strokeWidth={1} />
                           <span>{item.placeholder ? "Menunggu data resmi" : "Seni Religi"}</span>
