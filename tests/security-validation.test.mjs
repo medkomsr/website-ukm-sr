@@ -6,6 +6,7 @@ import {
   readOne,
   activityContent,
   fieldContent,
+  departmentContent,
   listOf,
   visionContent,
   isSafeSlug,
@@ -60,6 +61,25 @@ test("malformed imported content cannot inject objects into text or broken membe
   assert.deepEqual(listOf(activityContent).parse([null, { title: "No ID" }]), []);
 });
 const secret = "test-only-secret-32-characters-long-enough";
+test("programs without documentation preserve image positions without throwing", () => {
+  const base = `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/`;
+  const validImage = `${base}documentation.jpg`;
+  const department = readOne(departmentContent, {
+    _id: "departemen-bkrt",
+    slug: "bkrt",
+    abbr: "BKRT",
+    programs: ["Diklat PH", "Muktamar", "Studi Banding", "Wisata Religi"],
+    programImages: [validImage, "", validImage, "not-a-url"],
+  });
+  assert.deepEqual(department.programImages, [validImage, "", validImage, ""]);
+  assert.equal(department.programs.length, 4);
+  const untrusted = readOne(departmentContent, {
+    ...department,
+    programImages: ["https://example.com/photo.jpg", "javascript:alert(1)"],
+  });
+  assert.deepEqual(untrusted.programImages, ["", ""]);
+});
+
 async function webhook(payload, secretValue = secret) {
   const body = JSON.stringify(payload);
   return new Request("https://example.test/api/sanity/revalidate", {
