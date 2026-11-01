@@ -72,8 +72,8 @@
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
-      "sha256": "3735b3a3cf537f411c9e35b1a61fa7cf81c5557b625faa81bb0d1a450de1ab05",
-      "revision": "2026-10-08: Unclipped manual galleries, borderless activity cards, caption-free documentation collage."
+      "sha256": "e348e3a7b1a06b1b6cd3acbb03979a0486a9060a4fa1a7a455a817a6088ab9a4",
+      "revision": "2026-11-01: Approved BKRT landscape program frames with per-photo focal positions, readable descriptions, and blank undocumented programs; reviewed on desktop and mobile."
     },
     "features/departments/components/department-profile.module.scss": {
       "source": "app/tentang/[dept]/components/department-profile.module.css",

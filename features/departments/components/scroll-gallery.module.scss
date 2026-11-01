@@ -135,6 +135,25 @@
   max-height: 6.4em;
   overflow-y: auto;
 }
+.stage[data-image-layout="landscape"] {
+  .card {
+    display: flex;
+    flex-direction: column;
+  }
+  .photo {
+    flex-shrink: 0;
+    height: auto;
+    aspect-ratio: 16 / 9;
+  }
+  .caption {
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .caption p {
+    max-height: none;
+    overflow: visible;
+  }
+}
 .stage[data-enhanced] .track {
   position: relative;
   width: min(72vw, 340px);
@@ -147,6 +166,9 @@
 }
 .stage[data-enhanced] .track:active {
   cursor: grabbing;
+}
+.stage[data-enhanced][data-image-layout="landscape"] .track {
+  height: 430px;
 }
 .stage[data-enhanced] .card {
   position: absolute;
@@ -259,6 +281,9 @@
   .stage[data-enhanced] .track {
     height: min(52svh, 480px);
     min-height: 330px;
+  }
+  .stage[data-enhanced][data-image-layout="landscape"] .track {
+    min-height: 430px;
   }
   .photo {
     height: clamp(160px, 26svh, 260px);
