@@ -72,8 +72,8 @@
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
-      "sha256": "e348e3a7b1a06b1b6cd3acbb03979a0486a9060a4fa1a7a455a817a6088ab9a4",
-      "revision": "2026-11-01: Approved BKRT landscape program frames with per-photo focal positions, readable descriptions, and blank undocumented programs; reviewed on desktop and mobile."
+      "sha256": "06653c4969565d3588d8e22753de2ac28f787984d82cd0d209aab8e05b0bf602",
+      "revision": "2026-11-01: Preserve BKRT landscape frames and add PSDM mixed photo ratios, readable descriptions, and blank undocumented programs; reviewed on desktop and mobile."
     },
     "features/departments/components/department-profile.module.scss": {
       "source": "app/tentang/[dept]/components/department-profile.module.css",

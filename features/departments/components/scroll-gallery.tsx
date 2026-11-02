@@ -15,6 +15,7 @@ export type GalleryItem = {
   description: string;
   image?: string;
   imagePosition?: string;
+  imageAspectRatio?: string;
   placeholder?: boolean;
 };
 
@@ -36,7 +37,7 @@ export default function ScrollGallery({
   count?: number;
   countLabel?: string;
   last?: boolean;
-  imageLayout?: "default" | "landscape";
+  imageLayout?: "default" | "landscape" | "mixed";
   hideImagePlaceholder?: boolean;
 }) {
   const root = useRef<HTMLElement>(null);
@@ -211,7 +212,7 @@ export default function ScrollGallery({
               <ul data-gallery-track id={uid} className={s.track} aria-label={title}>
                 {items.map((item, i) => (
                   <li data-gallery-card className={s.card} key={`${i}-${item.title}`}>
-                    <div className={s.photo}>
+                    <div className={s.photo} style={{ aspectRatio: item.imageAspectRatio }}>
                       {item.image ? (
                         <Image
                           draggable={false}

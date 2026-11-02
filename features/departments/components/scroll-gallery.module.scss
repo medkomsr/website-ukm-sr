@@ -135,7 +135,8 @@
   max-height: 6.4em;
   overflow-y: auto;
 }
-.stage[data-image-layout="landscape"] {
+.stage[data-image-layout="landscape"],
+.stage[data-image-layout="mixed"] {
   .card {
     display: flex;
     flex-direction: column;
@@ -169,6 +170,9 @@
 }
 .stage[data-enhanced][data-image-layout="landscape"] .track {
   height: 430px;
+}
+.stage[data-enhanced][data-image-layout="mixed"] .track {
+  height: 530px;
 }
 .stage[data-enhanced] .card {
   position: absolute;
@@ -284,6 +288,9 @@
   }
   .stage[data-enhanced][data-image-layout="landscape"] .track {
     min-height: 430px;
+  }
+  .stage[data-enhanced][data-image-layout="mixed"] .track {
+    height: 480px;
   }
   .photo {
     height: clamp(160px, 26svh, 260px);

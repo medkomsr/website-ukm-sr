@@ -75,7 +75,14 @@ export function ProfileContent({
         title,
         description: data.programDescriptions?.[i] || "",
         image: data.programImages?.[i],
-        imagePosition: data.slug === "bkrt" ? bkrtProgramImagePositions[title] : undefined,
+        imagePosition:
+          data.slug === "bkrt"
+            ? bkrtProgramImagePositions[title]
+            : data.slug === "psdm"
+              ? title === "Baksos"
+                ? "50% 60%"
+                : "50% 100%"
+              : undefined,
       }))
     : [
         {
@@ -298,8 +305,8 @@ export function ProfileContent({
           items={programCards}
           count={programs.length}
           tone="green"
-          imageLayout={data.slug === "bkrt" ? "landscape" : "default"}
-          hideImagePlaceholder={data.slug === "bkrt"}
+          imageLayout={data.slug === "bkrt" || data.slug === "psdm" ? "landscape" : "default"}
+          hideImagePlaceholder={data.slug === "bkrt" || data.slug === "psdm"}
         />
       )}
       <ScrollGallery

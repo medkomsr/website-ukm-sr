@@ -28,7 +28,7 @@ export const faqSchema = defineType({
               title: "Jawaban",
               type: "text",
               rows: 4,
-              validation: (r) => requiredText(r, 700),
+              validation: (r) => requiredText(r, 1500),
             }),
           ],
           preview: { select: { title: "pertanyaan", subtitle: "jawaban" } },
