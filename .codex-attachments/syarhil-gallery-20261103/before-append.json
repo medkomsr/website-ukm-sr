@@ -1,0 +1,86 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-syarhil-quran",
+  "_rev": "iUcxrxOWabBRcMpmgHffyp",
+  "_type": "bidang",
+  "_updatedAt": "2026-11-03T05:51:16Z",
+  "abbr": "Syarhil",
+  "description": "Syarhil Qur’an adalah seni menyampaikan kandungan Al-Qur’an melalui perpaduan tilawah, sari tilawah, dan uraian pesan ayat. Bidang ini menjadi ruang untuk belajar menyusun naskah, mengolah ekspresi, dan menyampaikan pesan dengan jelas serta menyentuh pendengar.",
+  "fullName": "Bidang Syarhil",
+  "gallery": [
+    {
+      "_key": "syarhil-documentation-1",
+      "_type": "object",
+      "alt": "Lima anggota bidang Syarhil Qur’an berfoto bersama di dalam ruangan.",
+      "caption": "Kebersamaan anggota Syarhil Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-20ab141d30b4241ca93da57f550d02059b1000b6-720x1280-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "syarhil-documentation-2",
+      "_type": "object",
+      "alt": "Tiga anggota berlatih menyampaikan Syarhil Qur’an di ruang ibadah.",
+      "caption": "Latihan Syarhil Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9884827ebbe710fce9abe20b34c6f5507059e919-603x1280-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "syarhil-documentation-3",
+      "_type": "object",
+      "alt": "Swafoto anggota bidang Syarhil Qur’an yang duduk bersama di dalam gedung.",
+      "caption": "Momen bersama anggota Syarhil Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-1b0e1afe3520f55dad8d3c6c8e0f27d540216b82-2268x4032-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-b091a3bb2afad9afdb4dfc96a8282cdc94051857-2624x1968-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-7db1d95afeb1baf2f80cb6f7dc18a5bf3defa386-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Alif Laam Miim Dinda Waloyo",
+    "role": "Kepala Bidang Syarhil Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "syarhil-quran"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-d29c1bc567c084b670912a723b1f30b14f28dee1-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Muhammad Naufal Muzakki",
+    "role": "Wakil Kepala Bidang Syarhil Qur'an"
+  }
+}
