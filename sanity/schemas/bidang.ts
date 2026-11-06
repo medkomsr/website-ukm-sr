@@ -123,6 +123,14 @@ export const bidangSchema = defineType({
           type: "object",
           fields: [
             defineField({
+              name: "showFullImage",
+              title: "Tampilkan foto utuh",
+              description:
+                "Menampilkan seluruh foto dalam bingkai galeri agar peserta di tepi tidak terpotong.",
+              type: "boolean",
+              initialValue: false,
+            }),
+            defineField({
               name: "image",
               title: "Foto",
               type: "image",

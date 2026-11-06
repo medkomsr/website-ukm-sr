@@ -47,7 +47,19 @@ export const fieldContent = profileCard.extend({
   ketuaBidang: member.optional().catch(undefined),
   wakilKetuaBidang: member.optional().catch(undefined),
   wakilKetuaBidangTambahan: member.optional().catch(undefined),
-  gallery: listOf(z.object({ imageUrl: image, alt: text, caption: text })),
+  gallery: listOf(
+    z.object({
+      imageUrl: image,
+      alt: text,
+      caption: text,
+      showFullImage: z.boolean().optional().catch(undefined),
+      aspectRatio: z.number().positive().finite().optional().catch(undefined),
+      hotspot: z
+        .object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) })
+        .optional()
+        .catch(undefined),
+    }),
+  ),
 });
 export const departmentContent = profileCard.extend({
   programs: z

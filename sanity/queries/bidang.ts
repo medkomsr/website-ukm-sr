@@ -16,6 +16,9 @@ const bidangProjection = groq`{
   description,
   "gallery": gallery[]{
     "imageUrl": image.asset->url,
+    "aspectRatio": image.asset->metadata.dimensions.aspectRatio,
+    "hotspot": image.hotspot{x, y},
+    showFullImage,
     alt,
     caption
   },

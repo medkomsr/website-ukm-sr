@@ -1,0 +1,13 @@
+import { getCliClient } from 'sanity/cli';
+import { writeFileSync } from 'node:fs';
+import assert from 'node:assert/strict';
+process.loadEnvFile('.env.local');
+const client = getCliClient({ projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, apiVersion: '2024-01-01', useCdn: false }).withConfig({ dataset: 'development', perspective: 'raw' });
+assert.equal(client.config().projectId, 'yzaa35ug');
+assert.equal(client.config().dataset, 'development');
+const doc = await client.getDocument('bidang-dia');
+writeFileSync('.codex-attachments/dia-gallery-20261105/before-fit.json', JSON.stringify(doc, null, 2), { flag: 'wx' });
+const gallery = doc.gallery.map((item, i) => i >= 2 ? { ...item, showFullImage: true } : item);
+await client.patch(doc._id).ifRevisionId(doc._rev).set({ gallery }).commit();
+assert.deepEqual((await client.getDocument(doc._id)).gallery, gallery);
+console.log('Verified: last three gallery photos display uncropped in development.');

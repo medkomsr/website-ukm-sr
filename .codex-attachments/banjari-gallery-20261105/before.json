@@ -1,0 +1,124 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-banjari-nasyid",
+  "_rev": "JtZe9g3n0Vp3PBavL4rlfl",
+  "_type": "bidang",
+  "_updatedAt": "2026-10-25T13:09:26Z",
+  "abbr": "Banjari & Nasyid",
+  "description": "Banjari dan Nasyid adalah bidang seni musik religi yang memadukan irama hadrah dan harmoni vokal untuk menyampaikan pesan kebaikan. Banjari mengolah kekompakan pola pukulan rebana, sedangkan nasyid menekankan keselarasan suara dan penghayatan lirik. Keduanya menjadi ruang untuk melatih kepekaan musikal, kreativitas, dan kerja sama dalam berkarya.",
+  "fullName": "Bidang Banjari & Nasyid",
+  "gallery": [
+    {
+      "_key": "gallery-0",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi latihan rutin Banjari & Nasyid",
+      "caption": "Latihan rutin Banjari & Nasyid — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-1",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi diskusi materi Banjari & Nasyid",
+      "caption": "Diskusi materi Banjari & Nasyid — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0e9984a0f3b089b0a111b3cad680b8f09e0f0484-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-2",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi persiapan penampilan Banjari & Nasyid",
+      "caption": "Persiapan penampilan Banjari & Nasyid — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-de5e15e4e96573d85f1aebb45c76054b40ef7580-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-3",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi evaluasi bersama Banjari & Nasyid",
+      "caption": "Evaluasi bersama Banjari & Nasyid — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-4",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi kebersamaan anggota Banjari & Nasyid",
+      "caption": "Kebersamaan anggota Banjari & Nasyid — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-264172d5969b268ba0aaf5bef144a293df8a7ded-3936x2624-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-a9907b364d18b50d95fe1ce3ced6d1a83f7c3f7a-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Ahmad Tri Fauzi",
+    "role": "Kepala Bidang Banjari & Nasyid"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "banjari-nasyid"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-038c9b1e069117f4a6ed5a3acd8429bf7ab40b6a-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Umar Hawadisy",
+    "role": "Wakil Kepala Bidang Banjari"
+  },
+  "wakilKetuaBidangTambahan": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-675d2f90c8c920e6e38f55aaca5da0b5063fd993-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Lutfiah Putri Aryanti",
+    "role": "Wakil Kepala Bidang Nasyid"
+  }
+}

@@ -114,6 +114,9 @@ export type SanityBidangMember = {
 
 export type SanityBidangGalleryItem = {
   imageUrl: string;
+  hotspot?: { x: number; y: number };
+  showFullImage?: boolean;
+  aspectRatio?: number;
   alt: string;
   caption: string;
 };

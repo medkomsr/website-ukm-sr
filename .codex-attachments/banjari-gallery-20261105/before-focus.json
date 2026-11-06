@@ -1,0 +1,111 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-banjari-nasyid",
+  "_rev": "qII0aQjd9rV3w8kfPW93mi",
+  "_type": "bidang",
+  "_updatedAt": "2026-11-05T12:30:03Z",
+  "abbr": "Banjari & Nasyid",
+  "description": "Banjari dan Nasyid adalah bidang seni musik religi yang memadukan irama hadrah dan harmoni vokal untuk menyampaikan pesan kebaikan. Banjari mengolah kekompakan pola pukulan rebana, sedangkan nasyid menekankan keselarasan suara dan penghayatan lirik. Keduanya menjadi ruang untuk melatih kepekaan musikal, kreativitas, dan kerja sama dalam berkarya.",
+  "fullName": "Bidang Banjari & Nasyid",
+  "gallery": [
+    {
+      "_key": "banjari-documentation-1",
+      "_type": "object",
+      "alt": "Anggota Banjari berfoto bersama dengan rebana di ruang yang menampilkan koleksi piala.",
+      "caption": "Kebersamaan anggota dalam pembinaan Banjari",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-d799bf51c0d0ece34564e74e2427afe673900490-1200x1600-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "banjari-documentation-2",
+      "_type": "object",
+      "alt": "Anggota Banjari duduk melingkar di dalam ruangan dengan rebana saat pembinaan.",
+      "caption": "Suasana latihan pembinaan Banjari",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-b6155ea5ce8d745d1dd5b0a002a40c7a36a150fd-4032x3024-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "banjari-documentation-3",
+      "_type": "object",
+      "alt": "Peserta pembinaan Banjari berfoto bersama di selasar, beberapa memegang rebana.",
+      "caption": "Foto bersama peserta pembinaan Banjari",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-c7ecd42b48b2019680b1db2b0882219d59274ce9-1200x1600-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "banjari-documentation-4",
+      "_type": "object",
+      "alt": "Peserta pembinaan Banjari berfoto bersama sambil duduk di dalam gedung.",
+      "caption": "Kebersamaan peserta pembinaan Banjari",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-ab79756ba0c8aae5e84c682a2f04f655a1b907f4-1200x1600-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-264172d5969b268ba0aaf5bef144a293df8a7ded-3936x2624-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-a9907b364d18b50d95fe1ce3ced6d1a83f7c3f7a-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Ahmad Tri Fauzi",
+    "role": "Kepala Bidang Banjari & Nasyid"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "banjari-nasyid"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-038c9b1e069117f4a6ed5a3acd8429bf7ab40b6a-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Umar Hawadisy",
+    "role": "Wakil Kepala Bidang Banjari"
+  },
+  "wakilKetuaBidangTambahan": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-675d2f90c8c920e6e38f55aaca5da0b5063fd993-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Lutfiah Putri Aryanti",
+    "role": "Wakil Kepala Bidang Nasyid"
+  }
+}
