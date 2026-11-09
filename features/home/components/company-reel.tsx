@@ -2,7 +2,7 @@
 import { useEffect, useId, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Play } from "lucide-react";
+import { ArrowUpRight, Film, Play } from "lucide-react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -35,6 +35,7 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
   const [previewLoaded, setPreviewLoaded] = useState(false);
   const [reduced, setReduced] = useState(false);
   const source = companyVideoSource(videoUrl);
+  const hasVideo = !!source;
   useEffect(() => {
     const preference = matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(preference.matches);
@@ -141,6 +142,7 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
         );
       });
       mm.add("(min-width: 801px) and (prefers-reduced-motion: no-preference)", () => {
+        if (!hasVideo) return;
         const stage = root.current!.querySelector<HTMLElement>("[data-reel-stage]")!;
         const frame = root.current!.querySelector<HTMLElement>("[data-reel-frame]")!;
         const media = root.current!.querySelector<HTMLElement>("[data-reel-media]")!;
@@ -268,6 +270,7 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
           .to({}, { duration: 0.15 });
       });
       mm.add("(max-width: 800px) and (prefers-reduced-motion: no-preference)", () => {
+        if (!hasVideo) return;
         gsap.fromTo(
           "[data-reel-frame]",
           { width: "72%" },
@@ -285,7 +288,7 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
       });
       return () => mm.revert();
     },
-    { scope: root },
+    { scope: root, dependencies: [hasVideo], revertOnUpdate: true },
   );
   return (
     <section
@@ -363,39 +366,56 @@ export function CompanyReel({ poster, videoUrl }: { poster: string; videoUrl?: s
           </Link>
         </div>
       </div>
-      <div data-reel-stage className={r.stage}>
+      <div data-reel-stage className={r.stage} data-empty={!hasVideo || undefined}>
         <div
           ref={frameRef}
           data-reel-frame
-          style={{ clipPath: `url(#${clipId})` }}
+          style={hasVideo ? { clipPath: `url(#${clipId})` } : undefined}
           className={r.frame}
         >
-          <div data-reel-media className={r.media}>
-            {(!source || reduced) && <Image src={poster} alt="" fill sizes="90vw" />}
-            {source && previewLoaded && !reduced && (
-              <CompanyVideo key={videoUrl} url={videoUrl!} preview active={visible && !origin} />
-            )}
-          </div>
-          <button
-            className={r.playSurface}
-            onClick={openVideo}
-            disabled={!source}
-            aria-label="Putar video company profile Seni Religi"
-          >
-            <span className={r.playPosition}>
-              <span data-reel-play className={r.play}>
-                <span className={r.playIcon} aria-hidden="true">
-                  <Play size={24} fill="currentColor" />
+          {source ? (
+            <>
+              <div data-reel-media className={r.media}>
+                {reduced && <Image src={poster} alt="" fill sizes="90vw" />}
+                {source && previewLoaded && !reduced && (
+                  <CompanyVideo
+                    key={videoUrl}
+                    url={videoUrl!}
+                    preview
+                    active={visible && !origin}
+                  />
+                )}
+              </div>
+              <button
+                className={r.playSurface}
+                onClick={openVideo}
+                disabled={!source}
+                aria-label="Putar video company profile Seni Religi"
+              >
+                <span className={r.playPosition}>
+                  <span data-reel-play className={r.play}>
+                    <span className={r.playIcon} aria-hidden="true">
+                      <Play size={24} fill="currentColor" />
+                    </span>
+                  </span>
                 </span>
-              </span>
-            </span>
-          </button>
+              </button>
+            </>
+          ) : (
+            <div className={r.unavailable}>
+              <Film size={32} strokeWidth={1.4} aria-hidden="true" />
+              <h3>Company profile belum tersedia</h3>
+              <p>Nantikan video terbaru Seni Religi di sini.</p>
+            </div>
+          )}
         </div>
-        <div data-reel-marks className={r.marks} aria-hidden="true">
-          {[0, 2, 4, 5, 6].map((index) => (
-            <SrSymbol key={index} index={index} />
-          ))}
-        </div>
+        {hasVideo && (
+          <div data-reel-marks className={r.marks} aria-hidden="true">
+            {[0, 2, 4, 5, 6].map((index) => (
+              <SrSymbol key={index} index={index} />
+            ))}
+          </div>
+        )}
       </div>
       {origin && source && videoUrl && (
         <CompanyVideoDialog url={videoUrl} origin={origin} close={() => setOrigin(null)} />

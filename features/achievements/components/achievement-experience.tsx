@@ -422,12 +422,12 @@ export default function AchievementExperience() {
           !data.length && (
             <div className={s.empty}>
               <h3>
-                {totalRecords ? "Belum ada hasil yang cocok." : "Jejak baik, segera hadir di sini."}
+                {totalRecords ? "Belum ada hasil yang cocok." : "Kabar prestasi belum tersedia."}
               </h3>
               <p>
                 {totalRecords
                   ? "Coba pilihan tahun atau bidang lainnya."
-                  : "Arsip pencapaian dan kisah para juara sedang dirangkai."}
+                  : "Nantikan pencapaian dan kisah terbaru anggota Seni Religi di sini."}
               </p>
               {totalRecords ? (
                 <button className={s.pill} onClick={reset}>

@@ -129,7 +129,7 @@ export function NewsGallery({
         ref={viewport}
         className={s.galleryViewport}
         tabIndex={items.length ? 0 : undefined}
-        aria-label="Galeri, geser untuk menjelajahi"
+        aria-label={items.length ? "Galeri, geser untuk menjelajahi" : "Berita dan acara"}
       >
         <div ref={track} className={s.galleryTrack}>
           {items.map((a, i) => (
@@ -172,12 +172,12 @@ export function NewsGallery({
                   ? "Menyiapkan cerita…"
                   : error
                     ? "Cerita belum dapat dimuat"
-                    : "Cerita berikutnya sedang dirangkai."}
+                    : "Berita & acara belum tersedia"}
               </h3>
               <p>
                 {error
                   ? "Coba muat ulang halaman untuk melihat pembaruan."
-                  : "Kabar dan kegiatan yang dipublikasikan akan hadir di sini."}
+                  : "Nantikan kabar dan agenda terbaru Seni Religi di sini."}
               </p>
               <TextLink href="/aktivitas">Jelajahi aktivitas</TextLink>
             </div>

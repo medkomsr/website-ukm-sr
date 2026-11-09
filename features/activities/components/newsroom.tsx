@@ -241,11 +241,11 @@ export default function Newsroom() {
       ) : (
         <div className={s.emptyHero} data-tone="green">
           <h2>
-            Cerita berikutnya
+            Berita &amp; acara
             <br />
-            segera hadir.
+            belum tersedia.
           </h2>
-          <p>Berita dan acara Seni Religi akan ditampilkan di sini.</p>
+          <p>Nantikan kabar dan agenda terbaru Seni Religi di sini.</p>
         </div>
       )}
 
@@ -446,9 +446,7 @@ export default function Newsroom() {
             </div>
             {!isLoading && !error && shown.size === 0 && (
               <div data-empty-results className={s.message}>
-                <h3>
-                  {hasFilters ? "Belum ada yang cocok." : "Belum ada kabar untuk ditampilkan."}
-                </h3>
+                <h3>{hasFilters ? "Belum ada yang cocok." : "Berita & acara belum tersedia."}</h3>
                 <p>
                   {hasFilters
                     ? "Pilih jenis berita/acara atau ubah kata kunci pencarianmu."

@@ -16,7 +16,7 @@ export function companyVideoSource(value?: string): CompanyVideoSource | null {
     if (id && /^[\w-]{11}$/.test(id)) return { kind: "youtube", id };
     if (/\.(mp4|webm)$/i.test(url.pathname)) return { kind: "file", url: url.href };
   } catch {
-    /* Missing or malformed CMS values use the poster fallback. */
+    /* Missing or malformed CMS values show the unavailable state. */
   }
   return null;
 }

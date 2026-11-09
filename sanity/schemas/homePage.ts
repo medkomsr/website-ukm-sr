@@ -10,7 +10,7 @@ export const homePageSchema = defineType({
       name: "companyProfile",
       title: "Video Company Profile",
       description:
-        "Kartu video di beranda selalu tampil. Jika video dikosongkan, tombol putar menampilkan pesan bahwa video belum tersedia; jika sampul dikosongkan, gambar bawaan dipakai.",
+        "Jika file dan tautan video dikosongkan, beranda menampilkan pesan company profile belum tersedia tanpa tombol putar. Sampul hanya dipakai saat video tersedia.",
       options: { collapsible: true, collapsed: false },
     },
     {

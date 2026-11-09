@@ -63,7 +63,7 @@ export function Achievements({
         ref={root}
         className={s.awardStage}
         role="region"
-        aria-roledescription="carousel"
+        aria-roledescription={items.length ? "carousel" : undefined}
         aria-label="Prestasi Seni Religi"
         tabIndex={items.length > 1 ? 0 : undefined}
         onKeyDown={(e) => {
@@ -125,21 +125,18 @@ export function Achievements({
               <SrSymbol index={0} />
             </div>
             <article className={`${s.awardCard} ${s.awardEmpty}`}>
-              <span className={s.awardTop}>01</span>
-              <div className={s.awardPhoto}>
-                <span>Dokumentasi prestasi</span>
-              </div>
+              <SrSymbol index={0} />
               <h3>
                 {loading
                   ? "Memuat jejak kami…"
                   : error
                     ? "Arsip belum dapat dimuat."
-                    : "Jejak baik akan hadir di sini."}
+                    : "Kabar prestasi belum tersedia"}
               </h3>
               <p>
                 {error
                   ? "Silakan coba muat ulang halaman."
-                  : "Catatan prestasi belum dipublikasikan. Setiap pencapaian akan mendapat ruangnya."}
+                  : "Nantikan pencapaian dan kisah terbaru anggota Seni Religi di sini."}
               </p>
               <TextLink href="/prestasi">Jelajahi prestasi</TextLink>
             </article>
