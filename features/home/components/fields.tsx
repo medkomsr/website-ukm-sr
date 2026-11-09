@@ -6,7 +6,7 @@ import { FIELD_ACCENTS as accents } from "@/lib/constants/home-content";
 import s from "@/styles/experience.module.scss";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
-import { ArrowUpRight, Plus, X } from "lucide-react";
+import { ArrowUpRight, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { SectionTitle } from "./section-heading";
@@ -128,15 +128,20 @@ export function Fields() {
   return (
     <section data-tone="cream" data-wave id="crafts" className={`${s.section} ${s.fields}`}>
       <SectionTitle title="Temukan minat dan bakat mu">
-        <button
-          className={s.resetFields}
-          onClick={() => {
-            setActive(null);
-            playground.reset();
-          }}
-        >
-          Kembalikan susunan <span aria-hidden="true">↺</span>
-        </button>
+        {playground.hasMoved && (
+          <button
+            className={s.resetFields}
+            onClick={() => {
+              setActive(null);
+              playground.reset();
+              root.current
+                ?.querySelector<HTMLButtonElement>(`button.${s.fieldFront}`)
+                ?.focus({ preventScroll: true });
+            }}
+          >
+            Kembalikan susunan <span aria-hidden="true">↺</span>
+          </button>
+        )}
       </SectionTitle>
       <p className={s.fieldHint} id="field-help">
         Klik dan tahan untuk menarik kartu. Lepaskan untuk menaruhnya, atau klik untuk mengenal
@@ -182,14 +187,10 @@ export function Fields() {
                   tabIndex={active === i ? -1 : 0}
                   aria-hidden={active === i}
                 >
-                  <span className={s.fieldNumber}>0{i + 1}</span>
                   <span data-field-symbol>
                     <SrSymbol index={i} />
                   </span>
                   <h3>{field.name}</h3>
-                  <span className={s.fieldPlus}>
-                    <Plus size={15} />
-                  </span>
                 </button>
                 <div
                   id={`field-${i}`}
@@ -211,7 +212,6 @@ export function Fields() {
                   >
                     <X size={18} />
                   </button>
-                  <span className={s.fieldNumber}>BIDANG / 0{i + 1}</span>
                   <h3>{field.name}</h3>
                   <p>{field.text}</p>
                   <Link href={`/tentang/bidang/${field.slug}`}>

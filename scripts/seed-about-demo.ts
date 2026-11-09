@@ -49,7 +49,7 @@ const departments = [
   {
     slug: "psdm",
     abbr: "PSDM",
-    fullName: "Departemen Pengembangan Sumber Daya Manusia",
+    fullName: "Departemen Pengembangan Sumber Daya Mahasiswa",
     description:
       "Membangun perjalanan belajar anggota yang terbuka, terarah, dan saling mendukung. PSDM mendampingi proses pengenalan organisasi, pengembangan kepemimpinan, dan evaluasi pengalaman berorganisasi.",
     programs: [

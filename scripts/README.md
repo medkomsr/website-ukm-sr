@@ -59,7 +59,7 @@ Skrip `seed-demo-profiles.mjs` dihentikan karena memakai ID nonbaku untuk BKRT/K
 
 ## Keamanan dan validasi CMS
 
-Validator bersama ada di sanity/validation.ts. Batas publikasi: judul 120 karakter, ringkasan 350, nama 100, visi 500, misi 1–10 butir @250, FAQ 150/700, slug 96, galeri bidang 10 dan galeri berita 9 foto tambahan (10 bersama foto utama), program/pengurus/rundown 30, peserta prestasi 50, tag 10. Isi berita maksimal 200 blok. Gambar maksimal 5 MiB, 128–12.000 piksel per sisi, JPG/PNG/WebP/AVIF. Pemeriksaan gambar dilakukan sebelum publish; Sanity mengunggah aset sebelum validasi ini, sehingga bukan pembatas kuota upload di server.
+Validator bersama ada di sanity/validation.ts. Batas publikasi: judul 120 karakter, ringkasan 350, nama 100, visi 500, misi 1–10 butir @250, FAQ 150/1500, slug 96, galeri bidang 10 dan galeri berita 9 foto tambahan (10 bersama foto utama), program/pengurus/rundown 30, peserta prestasi 50, tag 10. Isi berita maksimal 200 blok. Gambar maksimal 5 MiB, 128–12.000 piksel per sisi, JPG/PNG/WebP/AVIF. Pemeriksaan gambar dilakukan sebelum publish; Sanity mengunggah aset sebelum validasi ini, sehingga bukan pembatas kuota upload di server.
 
 Data lama tidak dimutasi atau dipotong. Deskripsi prestasi demo 01, 04, 05, 07, 08, 09, 10 melewati batas baru; editor harus merangkum sebelum publish ulang. Draft departemen c8dd3137-ca2d-48d9-9278-1f6a981ada8c belum memiliki nama/slug. Company profile (schema, video, sampul, player) dikecualikan dari perubahan. Menu profil tambahan tetap bisa membaca dokumen lama tetapi tidak menawarkan pembuatan/duplikasi profil di luar struktur frontend.
 

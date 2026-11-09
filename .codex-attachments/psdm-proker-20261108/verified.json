@@ -1,0 +1,137 @@
+{
+  "dataset": "development",
+  "programKerja": [
+    {
+      "_key": "psdm-3n",
+      "_type": "programKerja",
+      "detail": "Ngaji, Ngopi, Njagong: khataman Al-Qur’an dan diskusi santai untuk mempererat kebersamaan anggota dan Pengurus Harian.",
+      "nama": "3N"
+    },
+    {
+      "_key": "psdm-baksos",
+      "_type": "programKerja",
+      "detail": "Kegiatan bakti sosial yang mengajak anggota menumbuhkan kepedulian terhadap sesama melalui aksi berbagi dan pengabdian kepada masyarakat.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-3349d630777eaeba01a8263f68c010cda36ee4fc-3024x4032-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Baksos"
+    },
+    {
+      "_key": "psdm-diklat",
+      "_type": "programKerja",
+      "detail": "Pembekalan nilai organisasi dan kerja sama untuk mempersiapkan anggota agar aktif berkegiatan di UKM Seni Religi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f75dbb20fd9a7777658658415c7f469980be81f7-4032x3024-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Diklat Anggota"
+    },
+    {
+      "_key": "psdm-stuban",
+      "_type": "programKerja",
+      "detail": "Kunjungan antar-UKM sejenis untuk mempererat silaturahmi, berbagi pengalaman pengembangan minat dan bakat, serta pengelolaan organisasi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-d21db4a66d2cddcd61b90327eee1accaf2a5b5d1-4160x2724-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Stuban"
+    },
+    {
+      "_key": "psdm-yks",
+      "_type": "programKerja",
+      "detail": "Pembacaan maulid diba’ setiap Kamis malam selepas Isya, bergiliran di masjid UB bersama Lembaga Dakwah Fakultas atau universitas lain.",
+      "nama": "YKS"
+    },
+    {
+      "_type": "programKerja",
+      "_key": "psdm-harlah",
+      "nama": "Harlah",
+      "detail": "Peringatan tahunan untuk mengenang hari berdirinya UKM Seni Religi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "image-b4b66ace26aefc9995b418340aa708183b80040e-1280x853-jpg"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "x": 0.5,
+          "y": 1,
+          "width": 1,
+          "height": 0.4
+        }
+      }
+    },
+    {
+      "_type": "programKerja",
+      "_key": "psdm-awarding",
+      "nama": "Awarding",
+      "detail": "Apresiasi bagi anggota terpilih yang paling aktif dalam pembinaan dan kegiatan UKM Seni Religi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "image-0c99283727d83714d024c9f0cb2e873c9dd142ad-603x403-jpg"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "x": 0.5,
+          "y": 0.5,
+          "width": 1,
+          "height": 0.4
+        }
+      }
+    },
+    {
+      "_type": "programKerja",
+      "_key": "psdm-oprec-anggota",
+      "nama": "Oprec Anggota",
+      "detail": "Rangkaian rekrutmen bagi mahasiswa yang ingin bergabung menjadi anggota UKM Seni Religi UB.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "image-9aa5083bf8a5889c798ae55f6e4aebcaa42a16b6-960x1280-jpg"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "x": 0.5,
+          "y": 0.6,
+          "width": 1,
+          "height": 0.4
+        }
+      }
+    },
+    {
+      "_type": "programKerja",
+      "_key": "psdm-mentoring",
+      "nama": "Mentoring",
+      "detail": "Kegiatan futsal bersama untuk mempererat hubungan keluarga besar UKM Seni Religi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_type": "reference",
+          "_ref": "image-1c7bdcca8c44145f048931280eaf381985ed2a53-960x1280-jpg"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "x": 0.5,
+          "y": 0.8,
+          "width": 1,
+          "height": 0.4
+        }
+      }
+    }
+  ],
+  "existingProgramsPreserved": true
+}

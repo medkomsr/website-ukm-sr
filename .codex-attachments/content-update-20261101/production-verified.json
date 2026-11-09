@@ -1,0 +1,996 @@
+[
+  {
+    "_createdAt": "2026-10-09T09:35:45Z",
+    "_id": "departemen-bkrt",
+    "_rev": "81CGHukabm2jqQoIZKd6cE",
+    "_type": "departemen",
+    "_updatedAt": "2026-11-01T17:16:04Z",
+    "abbr": "BKRT",
+    "fullName": "Badan Kerumahtanggaan",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-45f5a1ca3695f1868db04376e9ff8fdf252b23d1-2624x3936-jpg",
+        "_type": "reference"
+      }
+    },
+    "pengurus": [
+      {
+        "_key": "bkrt-2026-1",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-2fbde865033018e8bbee251e91574ecd73b79987-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Ketua Umum",
+        "nama": "Royyan Zain"
+      },
+      {
+        "_key": "bkrt-2026-2",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-c870f319e2c181c91150d6b4af00bcb8a095bc60-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Wakil Ketua Umum",
+        "nama": "Roikhanah Dinis Salsabila"
+      },
+      {
+        "_key": "bkrt-2026-3",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-b2d2a95566707ba56284530551eb07d4468ea125-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Sekretaris Umum",
+        "nama": "Viorenza Annora Prabawati"
+      },
+      {
+        "_key": "bkrt-2026-4",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-1b61c985d1c2117e34846e20a1314aef8bda4b7b-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Sekretaris 1",
+        "nama": "Wisnu Ibnu Muttaqiem"
+      },
+      {
+        "_key": "bkrt-2026-5",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-a48d9152e5ed044ca5a005d1969656ec5d3b373a-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Sekretaris 2",
+        "nama": "Reza Noorita"
+      },
+      {
+        "_key": "bkrt-2026-6",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-fc324da69a566691573ee179427429f88fa81555-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Bendahara Umum",
+        "nama": "Zulfina Khoirotun Nisa"
+      },
+      {
+        "_key": "bkrt-2026-7",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-27f565fbac17ae1bf5e84d14cc3e1458e0f25143-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Bendahara 1",
+        "nama": "Aqiila Jihan Hanniyah"
+      },
+      {
+        "_key": "bkrt-2026-8",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-5774ca62d499d1dab420ae1d6548356fd7f3f574-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Bendahara 2",
+        "nama": "Farsya Rahmi Fakhira"
+      }
+    ],
+    "programKerja": [
+      {
+        "_key": "diklat-ph",
+        "_type": "programKerja",
+        "detail": "Kegiatan pendidikan dan latihan dasar kepengurusan serta bonding antar Pengurus Harian.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-4b3c7c0ead0cb15d435d96f2bbb90737113e8e39-4032x3024-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Diklat PH"
+      },
+      {
+        "_key": "festival-qurban",
+        "_type": "programKerja",
+        "detail": "Festival Qurban merupakan program dalam memperingati Hari Raya Idul Adha dengan rangkaian acara penyembelihan hewan qurban serta menyalurkannya kepada yang membutuhkan.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-54a14baa3ca65896afb2fa85e4815fbcf860985c-6000x4000-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Festival Qurban"
+      },
+      {
+        "_key": "gbqn-ub",
+        "_type": "programKerja",
+        "detail": "GBQN (Gebyar Brawijaya Qur'ani Nasional) adalah kompetisi seni dan syiar Al-Qur'an tingkat nasional yang diselenggarakan oleh UKM Seni Religi Universitas Brawijaya. Kegiatan ini menjadi wadah bagi pelajar dan mahasiswa dari berbagai daerah di Indonesia untuk berkompetisi, mengembangkan bakat Qur'ani, serta mempererat silaturahmi antar generasi Qur'ani.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-678d8ebfd8eece3f83e4dc6c55c1f99429ec64da-6000x4000-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "GBQN UB"
+      },
+      {
+        "_key": "halal-bihalal",
+        "_type": "programKerja",
+        "detail": "Kegiatan yang diselenggarakan dengan tujuan untuk mempererat tali silaturahmi keseluruhan keluarga UKM Seni Religi yang terdiri dari seluruh anggota, pengurus harian, dan alumni.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-d3497a038dfa2f08697f3606c685336184bb7979-4032x3024-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Halal Bihalal"
+      },
+      {
+        "_key": "mtq-ub",
+        "_type": "programKerja",
+        "detail": "MTQ UB (Musabaqah Tilawatil Qur’an Universitas Brawijaya) merupakan kompetisi internal antar-fakultas di Universitas Brawijaya yang juga difungsikan sebagai ajang seleksi untuk menjaring delegasi terbaik kafilah MTQMN.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f382a5040cc61f0e0b7884886f4c172f5de58a4b-4032x2268-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "MTQ UB 2026"
+      },
+      {
+        "_key": "muktamar",
+        "_type": "programKerja",
+        "detail": "Merupakan agenda akhir tahun kepengurusan dalam rangka pertanggungjawaban selama 1 tahun kepengurusan serta agenda pemilihan ketua umum periode selanjutnya.",
+        "nama": "Muktamar"
+      },
+      {
+        "_key": "rapat-evaluasi",
+        "_type": "programKerja",
+        "detail": "Pertemuan pengurus untuk meninjau pelaksanaan program kerja, membahas kendala, serta menyepakati tindak lanjut agar koordinasi dan kegiatan berikutnya semakin baik.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-b78fde870675e76f5d8f63c006a3167ec4bbc454-1600x816-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Rapat Evaluasi"
+      },
+      {
+        "_key": "safari-khotmil",
+        "_type": "programKerja",
+        "detail": "Merupakan program kerja dalam rangka menyambut bulan suci Ramadhan dengan agenda khataman Al-Qur’an selama 17 hari dengan bekerja sama dengan LDF (Lembaga Dakwah Fakultas) di Universitas Brawijaya.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-00f334dda4fbb33f1a1b24c60f084edfef25b18b-6000x4000-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Safari Khotmil"
+      },
+      {
+        "_key": "studi-banding",
+        "_type": "programKerja",
+        "detail": "Kegiatan kunjungan atau menerima kunjungan dari UKM yang sejenis atau linear dengan UKM Seni Religi Universitas Brawijaya untuk menjalin silaturahmi, berdiskusi tentang pengembangan minat dan bakat, serta bertukar ilmu atau informasi mengenai manajemen organisasi.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-267ddafea5962e02a8d488c04ebd02a2aaaebd2d-4160x2492-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Studi Banding"
+      },
+      {
+        "_key": "wisata-religi",
+        "_type": "programKerja",
+        "detail": "Wisata religi merupakan agenda ziarah wali bagi seluruh anggota UKM Seni Religi Universitas Brawijaya, mahasiswa, dan masyarakat umum. Kegiatan ini merupakan program kerja tahunan UKM Seni Religi yang dilaksanakan di akhir tahun.",
+        "nama": "Wisata Religi"
+      }
+    ],
+    "slug": {
+      "_type": "slug",
+      "current": "bkrt"
+    }
+  },
+  {
+    "_createdAt": "2026-10-09T09:35:45Z",
+    "_id": "departemen-medkom",
+    "_rev": "nOHEybZSCqHvK8PBPLBjr7",
+    "_type": "departemen",
+    "_updatedAt": "2026-11-01T06:56:57Z",
+    "abbr": "Medkom",
+    "fullName": "Departemen Media dan Komunikasi",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-a5a659b3aded5b950b78349bfc0e51a755cb86ba-2624x3936-jpg",
+        "_type": "reference"
+      }
+    },
+    "pengurus": [
+      {
+        "_key": "medkom-2026-33",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-cbf0d4db76cd758502e4446cdfbfde2b9e964b2d-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Media Komunikasi Informasi Kreatif",
+        "nama": "Mohammad Binandha Oktasyarif"
+      },
+      {
+        "_key": "medkom-2026-34",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-89992440d032b97b57c3ac46251d9bb9ded713fb-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+        "nama": "Muhammad Farhan Baihaqy"
+      },
+      {
+        "_key": "medkom-2026-35",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-bce2eb7ab09a79c6b738aeef91c52b8b72bae5a0-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+        "nama": "Dimas Bima Sakti"
+      },
+      {
+        "_key": "medkom-2026-36",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-ae96dd8e25f2f77f8826b824034efcfda285c9a9-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+        "nama": "Rizqy Mas Adi Putra"
+      },
+      {
+        "_key": "medkom-2026-37",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f7a22a07dacf251c786923730748689132a9cf04-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+        "nama": "Dimas Agustian"
+      },
+      {
+        "_key": "medkom-2026-38",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-d76837759f02829babf3d642da896e666591dc5f-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+        "nama": "Syifa Amaliah"
+      },
+      {
+        "_key": "medkom-2026-39",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-7adb3671a2fa3198815755cb944c91a6afde6fe7-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Publikasi Informasi Media Branding",
+        "nama": "Diva Regita Haristanti"
+      },
+      {
+        "_key": "medkom-2026-40",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-fb9eecfffe20539c38376c7b9b25cbab0d193b0c-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Publikasi Informasi Media Branding",
+        "nama": "Iqbal Hafizd Arrizky"
+      },
+      {
+        "_key": "medkom-2026-41",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-4b4f1f230b83f0051167b07e8532fd720306c8d3-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Publikasi Informasi Media Branding",
+        "nama": "Muhammad Rafa Al Fatih Nasution"
+      },
+      {
+        "_key": "medkom-2026-42",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-9a6be0467bbd5a198552eb5de2717fb0a95cbead-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Publikasi Informasi Media Branding",
+        "nama": "Prasta Tyasih Trisoka Wijayanti"
+      },
+      {
+        "_key": "medkom-2026-43",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-24282334785d28a34f76c1b549f8a9018b521070-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Pengelolaan Website & Sistem Informasi",
+        "nama": "Kaesar Adam Rafano"
+      },
+      {
+        "_key": "medkom-2026-44",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-4991af7a2b354a9f4c8cbe2d502ffed1a8c7b7ed-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staff Divisi Pengelolaan Website & Sistem Informasi",
+        "nama": "Muhammad Zaidan Azizi"
+      },
+      {
+        "_key": "medkom-2026-45",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-8de713e819443215cf77b4df74cbc5bef5efdb5d-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staff Divisi Pengelolaan Website & Sistem Informasi",
+        "nama": "Mohamad Robi Alwan"
+      }
+    ],
+    "programKerja": [
+      {
+        "_key": "program-0",
+        "_type": "programKerja",
+        "detail": "Publikasi rutin yang merangkum kegiatan, cerita anggota, dan agenda organisasi dalam format yang mudah dibaca.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Kabar Seni Religi"
+      },
+      {
+        "_key": "program-1",
+        "_type": "programKerja",
+        "detail": "Lokakarya fotografi, desain, dan penyuntingan video untuk mengembangkan keterampilan tim dokumentasi.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Studio Kreatif"
+      },
+      {
+        "_key": "program-2",
+        "_type": "programKerja",
+        "detail": "Pengelompokan foto dan catatan kegiatan agar dokumentasi mudah ditemukan dan diteruskan kepada pengurus berikutnya.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Arsip Cerita"
+      }
+    ],
+    "slug": {
+      "_type": "slug",
+      "current": "medkom"
+    }
+  },
+  {
+    "_createdAt": "2026-10-09T09:35:45Z",
+    "_id": "departemen-minba",
+    "_rev": "nOHEybZSCqHvK8PBPLBjr7",
+    "_type": "departemen",
+    "_updatedAt": "2026-11-01T06:56:57Z",
+    "abbr": "Minba",
+    "fullName": "Departemen Minat dan Bakat",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-83abf09b16dc02f4c5f8901599aeda0e3a6aef37-3936x2624-jpg",
+        "_type": "reference"
+      }
+    },
+    "pengurus": [
+      {
+        "_key": "minba-2026-9",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-84f0078b585c53cc641c05ce5a4d1a4bfc973788-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Departemen Minat dan Bakat",
+        "nama": "Tsalitsa Ainur Rosyidah"
+      },
+      {
+        "_key": "minba-2026-10",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-1b7adf238205569e604c28457dcfd524af633264-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+        "nama": "Fariza Angel Firdaus"
+      },
+      {
+        "_key": "minba-2026-11",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-0cfadc963f5ad46b7c844244986d46558f6cefec-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+        "nama": "Faishal Akmali"
+      },
+      {
+        "_key": "minba-2026-12",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-29c9ca0a003c40980148bc88ae0c048f019ade2a-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+        "nama": "Ahmad Luthfi Ramadhan"
+      },
+      {
+        "_key": "minba-2026-13",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-9eab6f4f16c99c41f402d9e27012575a5e8dfaed-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+        "nama": "Rafsanjana Toriq Panangsang"
+      },
+      {
+        "_key": "minba-2026-14",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-a3d308d90033a90994acfc8e324fe90dd5725d65-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+        "nama": "Muhammad Afiq Assyauqi"
+      },
+      {
+        "_key": "minba-2026-15",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-9e3d6b843d38e8be387bd2db8c6b478c82ddbc73-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Perlombaan Minat dan Bakat",
+        "nama": "Yasinta Syifa'ul Aulia"
+      },
+      {
+        "_key": "minba-2026-16",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-b0e929afab8a638c2da15e43b304cde3098801e6-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Perlombaan Minat dan Bakat",
+        "nama": "Ika Octavia D. V."
+      },
+      {
+        "_key": "minba-2026-17",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-29ddd0886209a08dc37a7e68f9389674b5a3962f-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Perlombaan Minat dan Bakat",
+        "nama": "Zidan Zakiy Priambada"
+      },
+      {
+        "_key": "minba-2026-18",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-1517087b69694fa8cb5b744576e08d3726f42ad9-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Perlombaan Minat dan Bakat",
+        "nama": "Eka Alfreda Saputra"
+      },
+      {
+        "_key": "minba-2026-19",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-9228ed61bee8b15173317013daf8eab19b1ecf7f-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi SR Manajemen Talent",
+        "nama": "M. Abdiy Lillah Afis Sholeh"
+      },
+      {
+        "_key": "minba-2026-20",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-fa52c97abed767a990f69c1c38f689878bf402a8-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi SR Manajemen Talent",
+        "nama": "Ahmad Yogi Nurrochim"
+      },
+      {
+        "_key": "minba-2026-21",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-734a62f4d0eb907ae8b89790e8594c2d57074d62-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi SR Inventaris",
+        "nama": "M. Rizqi Fahruddien"
+      },
+      {
+        "_key": "minba-2026-22",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-99fdc1ed7ba7b7f8a37a95511744431a8f768fa4-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi SR Inventaris",
+        "nama": "Heru Kurniawan"
+      },
+      {
+        "_key": "minba-2026-23",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-5500828beae47ce1272f5df32e493d291f4e426d-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi SR Inventaris",
+        "nama": "Yahya Ahmad Kurniawan"
+      }
+    ],
+    "programKerja": [
+      {
+        "_key": "program-0",
+        "_type": "programKerja",
+        "detail": "Mengenali minat dan pengalaman anggota melalui diskusi singkat serta sesi mencoba berbagai bidang.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-0e9984a0f3b089b0a111b3cad680b8f09e0f0484-1440x586-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Peta Potensi Anggota"
+      },
+      {
+        "_key": "program-1",
+        "_type": "programKerja",
+        "detail": "Pertunjukan kecil sebagai ruang mencoba karya, menerima masukan, dan menumbuhkan keberanian tampil.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-de5e15e4e96573d85f1aebb45c76054b40ef7580-1440x586-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Panggung Apresiasi"
+      },
+      {
+        "_key": "program-2",
+        "_type": "programKerja",
+        "detail": "Pendampingan terjadwal untuk mengembangkan materi, kesiapan tampil, dan kerja sama tim sebelum kompetisi.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Kelas Persiapan Delegasi"
+      }
+    ],
+    "slug": {
+      "_type": "slug",
+      "current": "minba"
+    }
+  },
+  {
+    "_createdAt": "2026-10-09T09:35:45Z",
+    "_id": "departemen-psdm",
+    "_rev": "81CGHukabm2jqQoIZKd6cE",
+    "_type": "departemen",
+    "_updatedAt": "2026-11-01T17:16:04Z",
+    "abbr": "PSDM",
+    "fullName": "Departemen Pengembangan Sumber Daya Manusia",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-3ee1e0ccad2ddf0185dd6c3221c707ff077dbbf4-2624x3936-jpg",
+        "_type": "reference"
+      }
+    },
+    "pengurus": [
+      {
+        "_key": "psdm-2026-24",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-e51d558f832a6e599ef4be0cf53f9fa27a3932d3-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Departemen PSDM",
+        "nama": "Maulidatul Reva Dini"
+      },
+      {
+        "_key": "psdm-2026-25",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-d28b9e2e963c2f70569cf81ba7c59cdc66dcbece-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Internal PSDM",
+        "nama": "Meigita Dwi Suryani"
+      },
+      {
+        "_key": "psdm-2026-26",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f38f507736fc224d4f3175062db63a0d7b54c33a-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Internal PSDM",
+        "nama": "Mohammad Arman Zaki"
+      },
+      {
+        "_key": "psdm-2026-27",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-60f1154cee968866b905b0e44d4abdda98dbdc28-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Internal PSDM",
+        "nama": "Fadhil Alauddin"
+      },
+      {
+        "_key": "psdm-2026-28",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-f2fef6ebda2776d2d11be8e8803e63e3903d4884-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Internal PSDM",
+        "nama": "Fasiska Nurin Ni'amah"
+      },
+      {
+        "_key": "psdm-2026-29",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-cf20b381914e86f59ecc29634ea1da0a46193dc2-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Internal PSDM",
+        "nama": "Qotrunnada Aiko Naila Sofa"
+      },
+      {
+        "_key": "psdm-2026-30",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-7a59376cd610766cc93caa72fdd65f6b9a9b9ff1-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Kepala Divisi Eksternal PSDM",
+        "nama": "Hilal Fajarul Habibi"
+      },
+      {
+        "_key": "psdm-2026-31",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-74013e12fd45e824911000075fb5cfe198d2aa88-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Eksternal PSDM",
+        "nama": "Muhammad Shidqi Wafa'"
+      },
+      {
+        "_key": "psdm-2026-32",
+        "_type": "pengurus",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-095cbb8f72bc4c9d7c50159748b7acfd71fd00aa-960x720-jpg",
+            "_type": "reference"
+          }
+        },
+        "jabatan": "Staf Divisi Eksternal PSDM",
+        "nama": "Nur Rohmatul Faiza"
+      }
+    ],
+    "programKerja": [
+      {
+        "_key": "psdm-3n",
+        "_type": "programKerja",
+        "detail": "Kegiatan rutin untuk mempererat ukhuwah insaniyah antar anggota dan Pengurus Harian UKM Seni Religi Universitas Brawijaya melalui rangkaian kegiatan khataman Al-Qur’an dan diskusi santai bersama.",
+        "nama": "3N"
+      },
+      {
+        "_key": "psdm-baksos",
+        "_type": "programKerja",
+        "detail": "Kegiatan bakti sosial yang mengajak anggota menumbuhkan kepedulian terhadap sesama melalui aksi berbagi dan pengabdian kepada masyarakat.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-3349d630777eaeba01a8263f68c010cda36ee4fc-3024x4032-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Baksos"
+      },
+      {
+        "_key": "psdm-diklat",
+        "_type": "programKerja",
+        "detail": "Pembekalan anggota untuk mengenal nilai dan kehidupan organisasi UKM Seni Religi, membangun kerja sama, serta mempersiapkan diri untuk berpartisipasi aktif dalam kegiatan organisasi.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-caf288d6c3c6f69a7a22a62c4f0bfc17512b0e3d-4032x3024-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Diklat Anggota 2026"
+      },
+      {
+        "_key": "psdm-stuban",
+        "_type": "programKerja",
+        "detail": "Kegiatan kunjungan atau menerima kunjungan dari UKM yang sejenis atau linear dengan UKM Seni Religi Universitas Brawijaya untuk menjalin silaturahmi, berdiskusi tentang pengembangan minat dan bakat, serta bertukar ilmu atau informasi mengenai manajemen organisasi.",
+        "foto": {
+          "_type": "image",
+          "asset": {
+            "_ref": "image-d21db4a66d2cddcd61b90327eee1accaf2a5b5d1-4160x2724-jpg",
+            "_type": "reference"
+          }
+        },
+        "nama": "Stuban"
+      },
+      {
+        "_key": "psdm-yks",
+        "_type": "programKerja",
+        "detail": "Pembacaan maulid diba’ yang dilakukan setiap hari Kamis malam Jumat ba’da Isya. Kegiatan ini dilaksanakan di masjid-masjid Universitas Brawijaya secara bergiliran dan juga berkolaborasi dengan LDF (Lembaga Dakwah Fakultas) atau universitas lain.",
+        "nama": "YKS"
+      }
+    ],
+    "slug": {
+      "_type": "slug",
+      "current": "psdm"
+    }
+  },
+  {
+    "_createdAt": "2026-10-05T15:03:53Z",
+    "_id": "drafts.c8dd3137-ca2d-48d9-9278-1f6a981ada8c",
+    "_rev": "42a2841f-29b5-4f49-9bb7-89e5c68d5451",
+    "_type": "departemen",
+    "_updatedAt": "2026-10-06T03:45:13Z"
+  },
+  {
+    "_createdAt": "2026-05-17T01:35:28Z",
+    "_id": "drafts.visiMisi",
+    "_rev": "81CGHukabm2jqQoIZKd6cE",
+    "_system": {
+      "base": {
+        "id": "visiMisi",
+        "rev": "41cZiyooW0zXplSyu95a9W"
+      }
+    },
+    "_type": "visiMisi",
+    "_updatedAt": "2026-11-01T17:16:04Z",
+    "misi": [
+      "Menumbuhkan dan memperkuat spiritualitas anggota melalui penciptaan lingkungan organisasi yang menjunjung tinggi nilai-nilai keagamaan.",
+      "Membangun hubungan yang harmonis, sinergis, dan berkelanjutan baik secara internal maupun eksternal UKM Seni Religi.",
+      "Menanamkan nilai kepedulian dalam setiap program kegiatan sebagai upaya mempererat ikatan persahabatan, solidaritas, dan kekeluargaan.",
+      "Mengembangkan potensi seni religi yang inovatif dan berdaya saing serta memperkuat citra dan branding seni religi di lingkungan Universitas Brawijaya."
+    ],
+    "visi": "Mewujudkan UKM Seni Religi sebagai pilar utama pengembangan kreativitas dan prestasi dalam bidang seni religi, yang berlandaskan nilai kekeluargaan, tanggung jawab, serta sinergi antar anggota."
+  },
+  {
+    "_createdAt": "2026-11-01T17:16:04Z",
+    "_id": "faq",
+    "_rev": "81CGHukabm2jqQoIZKd6cE",
+    "_type": "faq",
+    "_updatedAt": "2026-11-01T17:16:04Z",
+    "items": [
+      {
+        "_key": "tentang-seni-religi",
+        "_type": "faqItem",
+        "jawaban": "Seni Religi merupakan salah satu Unit Kegiatan Mahasiswa (UKM) di Universitas Brawijaya yang menjadi wadah bagi mahasiswa untuk mengembangkan minat dan bakat di bidang seni Islami dan Qur’ani. UKM ini didirikan pada 10 Muharram 1433 H, bertepatan dengan tahun 2012, sebagai bentuk komitmen dalam mewadahi kreativitas mahasiswa yang bernilai religius di lingkungan Universitas Brawijaya.",
+        "pertanyaan": "Apa sih UKM Seni Religi itu?"
+      },
+      {
+        "_key": "program-prioritas",
+        "_type": "faqItem",
+        "jawaban": "Pertama, Musabaqah Tilawatil Qur’an Mahasiswa Nasional (MTQMN) merupakan ajang kompetisi tingkat nasional yang diselenggarakan oleh Kementerian Pendidikan Tinggi dengan siklus penyelenggaraan dua tahun sekali.\n\nKedua, Gebyar Brawijaya Qur’ani Nasional (GBQN) diselenggarakan pada tahun ketika MTQMN tidak berlangsung. GBQN merupakan kompetisi Al-Qur’an tingkat nasional yang juga menjadi sarana pengenalan Universitas Brawijaya kepada siswa SMA/sederajat sekaligus menjaring calon mahasiswa berprestasi di bidang Al-Qur’an.\n\nKetiga, MTQ Universitas Brawijaya (MTQ UB) merupakan kompetisi internal tingkat Universitas yang diselenggarakan setiap tahun. Kegiatan ini berfungsi sebagai wadah penjaringan dan pembinaan mahasiswa berprestasi untuk mempersiapkan kafilah Universitas Brawijaya yang akan berlaga di MTQMN.",
+        "pertanyaan": "Apa Program Prioritas UKM Seni Religi?"
+      },
+      {
+        "_key": "kegiatan-lain",
+        "_type": "faqItem",
+        "jawaban": "Tentu tidak. UKM Seni Religi tidak hanya berfokus pada pembinaan prestasi dan kompetisi Al-Qur’an, tetapi juga memiliki banyak kegiatan keagamaan, kebersamaan, dan pengembangan organisasi.\n\nBeberapa di antaranya adalah YKS (Yuk Kita Sholawatan) yang dilaksanakan setiap malam Jumat secara bergiliran di masjid-masjid fakultas, 3N (Ngaji, Ngopi, Njagong) berupa kegiatan khotmil Qur’an di masjid fakultas, Safari Khotmil, Wisata Religi, Muktamar, Harlah, serta kegiatan sowan kepada pembina.",
+        "pertanyaan": "Apakah UKM Seni Religi hanya berfokus pada pembinaan prestasi, atau juga memiliki kegiatan lainnya?"
+      }
+    ]
+  },
+  {
+    "_createdAt": "2026-05-17T01:35:28Z",
+    "_id": "visiMisi",
+    "_rev": "81CGHukabm2jqQoIZKd6cE",
+    "_type": "visiMisi",
+    "_updatedAt": "2026-11-01T17:16:04Z",
+    "misi": [
+      "Menumbuhkan dan memperkuat spiritualitas anggota melalui penciptaan lingkungan organisasi yang menjunjung tinggi nilai-nilai keagamaan.",
+      "Membangun hubungan yang harmonis, sinergis, dan berkelanjutan baik secara internal maupun eksternal UKM Seni Religi.",
+      "Menanamkan nilai kepedulian dalam setiap program kegiatan sebagai upaya mempererat ikatan persahabatan, solidaritas, dan kekeluargaan.",
+      "Mengembangkan potensi seni religi yang inovatif dan berdaya saing serta memperkuat citra dan branding seni religi di lingkungan Universitas Brawijaya."
+    ],
+    "visi": "Mewujudkan UKM Seni Religi sebagai pilar utama pengembangan kreativitas dan prestasi dalam bidang seni religi, yang berlandaskan nilai kekeluargaan, tanggung jawab, serta sinergi antar anggota."
+  }
+]

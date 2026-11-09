@@ -30,11 +30,25 @@ const bkrtProgramImagePositions: Record<string, string> = {
   "Festival Qurban": "50% 45%",
   "GBQN UB": "50% 100%",
   "Halal Bihalal": "50% 100%",
-  "MTQ UB 2026": "50% 50%",
+  "MTQ UB": "50% 50%",
   "Rapat Evaluasi": "50% 50%",
   "Safari Khotmil": "50% 100%",
   "Studi Banding": "50% 100%",
+  "Wisata Religi": "50% 65%",
 };
+const psdmProgramImagePositions: Record<string, string> = {
+  "3N": "50% 80%",
+  Baksos: "50% 60%",
+  Awarding: "50% 50%",
+  "Oprec Anggota": "50% 60%",
+  Mentoring: "50% 80%",
+};
+const minbaProgramImagePositions: Record<string, string> = {
+  "Pembinaan Rutin": "50% 80%",
+  "Kaderisasi Prestatif": "50% 75%",
+  Pendelegasian: "50% 50%",
+};
+const programFallbackImage = "/program-placeholder.png";
 function previewDepartment(slug: string): SanityDepartemenDetail {
   const abbr = reservedDepartments[slug];
   return {
@@ -74,13 +88,28 @@ export function ProfileContent({
     ? programs.map((title, i) => ({
         title,
         description: data.programDescriptions?.[i] || "",
-        image: data.programImages?.[i],
-        imagePosition: data.slug === "bkrt" ? bkrtProgramImagePositions[title] : undefined,
+        image: data.programImages?.[i] || programFallbackImage,
+        imageAlt: data.programImages?.[i] ? title : "Seni Religi Universitas Brawijaya",
+        imageFit:
+          !data.programImages?.[i] || (data.slug === "minba" && title === "SR Mini Shop")
+            ? ("contain" as const)
+            : ("cover" as const),
+        imagePosition:
+          data.slug === "bkrt"
+            ? bkrtProgramImagePositions[title]
+            : data.slug === "psdm"
+              ? psdmProgramImagePositions[title] || "50% 100%"
+              : data.slug === "minba"
+                ? minbaProgramImagePositions[title]
+                : undefined,
       }))
     : [
         {
           title: "Program kerja",
           description: "Detail program belum tersedia.",
+          image: programFallbackImage,
+          imageAlt: "Seni Religi Universitas Brawijaya",
+          imageFit: "contain" as const,
           placeholder: true,
         },
       ];
@@ -298,8 +327,8 @@ export function ProfileContent({
           items={programCards}
           count={programs.length}
           tone="green"
-          imageLayout={data.slug === "bkrt" ? "landscape" : "default"}
-          hideImagePlaceholder={data.slug === "bkrt"}
+          imageLayout="landscape"
+          hideImagePlaceholder={data.slug === "bkrt" || data.slug === "psdm"}
         />
       )}
       <ScrollGallery

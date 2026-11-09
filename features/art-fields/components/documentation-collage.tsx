@@ -20,7 +20,14 @@ export default function DocumentationCollage({
   name: string;
   title?: string;
   tone?: "green" | "cream";
-  items: { imageUrl: string; alt?: string; caption?: string }[];
+  items: {
+    imageUrl: string;
+    alt?: string;
+    caption?: string;
+    hotspot?: { x: number; y: number };
+    showFullImage?: boolean;
+    aspectRatio?: number;
+  }[];
 }) {
   const photos = items.filter((item) => !!item.imageUrl);
   const [active, setActive] = useState<number | null>(null);
@@ -114,34 +121,68 @@ export default function DocumentationCollage({
     }) as gsap.core.Tween;
   };
 
+  // Each column stacks independently so a portrait cannot stretch the other column.
+  const naturalLayout = photos.every((item) => item.showFullImage && item.aspectRatio);
+  const columns: number[][] = [[], []];
+  const heights = [0, 0];
+  if (naturalLayout) {
+    photos.forEach((item, index) => {
+      const column = heights[0] <= heights[1] ? 0 : 1;
+      columns[column].push(index);
+      heights[column] += (column === 0 ? 7 : 5) / item.aspectRatio!;
+    });
+  }
+
+  const renderPhoto = (item: (typeof photos)[number], index: number) => (
+    <button
+      key={`${item.imageUrl}-${index}`}
+      className={s.tile}
+      style={naturalLayout ? { order: index } : undefined}
+      data-natural-ratio={item.showFullImage && !!item.aspectRatio ? true : undefined}
+      onClick={(event) => open(index, event.currentTarget)}
+      aria-label={`Perbesar foto: ${item.alt || item.caption || `${name} ${index + 1}`}`}
+      aria-haspopup="dialog"
+    >
+      <div
+        data-collage-photo
+        data-flip-id={`${uid}-${index}`}
+        className={s.photo}
+        style={item.showFullImage ? { aspectRatio: item.aspectRatio } : undefined}
+      >
+        <Image
+          src={item.imageUrl}
+          alt={item.alt || `Dokumentasi ${name} ${index + 1}`}
+          fill
+          sizes="(max-width: 700px) 90vw, 60vw"
+          style={{
+            objectFit: item.showFullImage ? "contain" : undefined,
+            objectPosition:
+              !item.showFullImage && item.hotspot
+                ? `${item.hotspot.x * 100}% ${item.hotspot.y * 100}%`
+                : undefined,
+          }}
+        />
+      </div>
+      <span className={s.expand} aria-hidden>
+        <Expand size={20} />
+      </span>
+    </button>
+  );
+
   return (
     <section ref={root} data-tone={tone} className={s.section} aria-labelledby={`${uid}-title`}>
       <header data-documentation-intro className={s.heading}>
         <h2 id={`${uid}-title`}>{title}</h2>
       </header>
       {photos.length ? (
-        <div className={s.collage}>
-          {photos.map((item, index) => (
-            <button
-              key={`${item.imageUrl}-${index}`}
-              className={s.tile}
-              onClick={(event) => open(index, event.currentTarget)}
-              aria-label={`Perbesar foto: ${item.alt || item.caption || `${name} ${index + 1}`}`}
-              aria-haspopup="dialog"
-            >
-              <div data-collage-photo data-flip-id={`${uid}-${index}`} className={s.photo}>
-                <Image
-                  src={item.imageUrl}
-                  alt={item.alt || `Dokumentasi ${name} ${index + 1}`}
-                  fill
-                  sizes="(max-width: 700px) 90vw, 60vw"
-                />
-              </div>
-              <span className={s.expand} aria-hidden>
-                <Expand size={20} />
-              </span>
-            </button>
-          ))}
+        <div className={`${s.collage} ${naturalLayout ? s.naturalCollage : ""}`}>
+          {naturalLayout
+            ? columns.map((column, index) => (
+                <div key={index} className={s.column}>
+                  {column.map((photoIndex) => renderPhoto(photos[photoIndex], photoIndex))}
+                </div>
+              ))
+            : photos.map(renderPhoto)}
         </div>
       ) : (
         <>

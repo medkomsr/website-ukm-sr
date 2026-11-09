@@ -1,0 +1,112 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-fahmil-quran",
+  "_rev": "JtZe9g3n0Vp3PBavL4rlfl",
+  "_type": "bidang",
+  "_updatedAt": "2026-10-25T13:09:26Z",
+  "abbr": "Fahmil",
+  "description": "Fahmil Qur’an adalah bidang yang mendalami pemahaman Al-Qur’an dan pengetahuan keislaman melalui cerdas cermat. Proses belajarnya memadukan ketelitian memahami materi, kecepatan berpikir, dan kerja sama tim dalam menjawab pertanyaan.",
+  "fullName": "Bidang Fahmil",
+  "gallery": [
+    {
+      "_key": "gallery-0",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi latihan rutin Fahmil",
+      "caption": "Latihan rutin Fahmil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-1",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi diskusi materi Fahmil",
+      "caption": "Diskusi materi Fahmil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0e9984a0f3b089b0a111b3cad680b8f09e0f0484-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-2",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi persiapan penampilan Fahmil",
+      "caption": "Persiapan penampilan Fahmil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-de5e15e4e96573d85f1aebb45c76054b40ef7580-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-3",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi evaluasi bersama Fahmil",
+      "caption": "Evaluasi bersama Fahmil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-4",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi kebersamaan anggota Fahmil",
+      "caption": "Kebersamaan anggota Fahmil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-1399060e97deadd408d5a81ac26599d595c442c7-1696x2528-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-b752d8c78dcc717129ad110302ba06e8ff43badf-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Zakiyatun Nufus",
+    "role": "Kepala Bidang Fahmil Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "fahmil-quran"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6d84f17c81523ef4f33148a1a1267104ed3380b4-284x213-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Salwa",
+    "role": "Wakil Kepala Bidang Fahmil Qur'an"
+  }
+}

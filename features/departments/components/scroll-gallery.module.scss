@@ -135,7 +135,8 @@
   max-height: 6.4em;
   overflow-y: auto;
 }
-.stage[data-image-layout="landscape"] {
+.stage[data-image-layout="landscape"],
+.stage[data-image-layout="mixed"] {
   .card {
     display: flex;
     flex-direction: column;
@@ -169,6 +170,9 @@
 }
 .stage[data-enhanced][data-image-layout="landscape"] .track {
   height: 430px;
+}
+.stage[data-enhanced][data-image-layout="mixed"] .track {
+  height: 530px;
 }
 .stage[data-enhanced] .card {
   position: absolute;
@@ -260,6 +264,10 @@
   .sideLayout .card {
     flex-basis: min(28vw, 340px);
   }
+  // Match the animated track to its cards so their centers align with the controls.
+  .sideLayout[data-enhanced] .track {
+    width: min(28vw, 340px);
+  }
 }
 @media (max-width: 700px) {
   .stage {
@@ -284,6 +292,9 @@
   }
   .stage[data-enhanced][data-image-layout="landscape"] .track {
     min-height: 430px;
+  }
+  .stage[data-enhanced][data-image-layout="mixed"] .track {
+    height: 480px;
   }
   .photo {
     height: clamp(160px, 26svh, 260px);
