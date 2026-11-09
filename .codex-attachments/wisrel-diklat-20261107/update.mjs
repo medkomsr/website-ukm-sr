@@ -1,0 +1,40 @@
+import { getCliClient } from 'sanity/cli';
+import { readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
+import sharp from 'sharp';
+process.loadEnvFile('.env.local');
+const client = getCliClient({projectId:process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,apiVersion:'2024-01-01',useCdn:false}).withConfig({dataset:'development',perspective:'raw'});
+assert.equal(client.config().projectId,'yzaa35ug');
+assert.equal(client.config().dataset,'development');
+const docs=await client.fetch('*[_type == "departemen" && slug.current in ["psdm","bkrt"]]');
+assert.equal(docs.length,2,'Inspect drafts/duplicates');
+const psdm=docs.find(d=>d.slug.current==='psdm');
+const bkrt=docs.find(d=>d.slug.current==='bkrt');
+const diklat=psdm.programKerja.filter(p=>p.nama==='Diklat Anggota 2026');
+const wisrel=bkrt.programKerja.filter(p=>p.nama==='Wisata Religi');
+assert.equal(diklat.length,1);
+assert.equal(wisrel.length,1);
+assert.ok(diklat[0]._key && wisrel[0]._key);
+const base='.codex-attachments/wisrel-diklat-20261107/';
+writeFileSync(base+'before.json',JSON.stringify(docs,null,2),{flag:'wx'});
+const bytes=readFileSync('C:/Users/Adam R/Downloads/wisrel.jpg');
+const meta=await sharp(bytes).metadata();
+assert.equal(meta.format,'jpeg');
+assert.ok(bytes.length<5*1024*1024);
+const sha1=createHash('sha1').update(bytes).digest('hex');
+let asset=await client.fetch('*[_type=="sanity.imageAsset" && sha1hash==$sha1][0]',{sha1});
+if(!asset) asset=await client.assets.upload('image',bytes,{filename:'wisrel.jpg',contentType:'image/jpeg'});
+writeFileSync(base+'uploaded.json',JSON.stringify({id:asset._id,url:asset.url,sha1},null,2));
+const foto={_type:'image',asset:{_type:'reference',_ref:asset._id},hotspot:{_type:'sanity.imageHotspot',x:0.5,y:0.65,width:1,height:0.5}};
+await client.transaction()
+ .patch(psdm._id,p=>p.ifRevisionId(psdm._rev).set({[`programKerja[_key==${JSON.stringify(diklat[0]._key)}].nama`]:'Diklat Anggota'}))
+ .patch(bkrt._id,p=>p.ifRevisionId(bkrt._rev).set({[`programKerja[_key==${JSON.stringify(wisrel[0]._key)}].foto`]:foto}))
+ .commit();
+const expected=structuredClone(docs);
+expected.find(d=>d._id===psdm._id).programKerja.find(p=>p._key===diklat[0]._key).nama='Diklat Anggota';
+expected.find(d=>d._id===bkrt._id).programKerja.find(p=>p._key===wisrel[0]._key).foto=foto;
+const stable=({_rev,_updatedAt,...d})=>d;
+for(const doc of expected) assert.deepEqual(stable(await client.getDocument(doc._id)),stable(doc));
+assert.ok((await fetch(asset.url,{method:'HEAD'})).ok);
+console.log(JSON.stringify({dataset:'development',diklat:'Diklat Anggota',wisrel:asset.url,dimensions:[meta.width,meta.height],verified:true}));

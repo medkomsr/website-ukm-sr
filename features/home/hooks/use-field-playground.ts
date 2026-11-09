@@ -1,5 +1,5 @@
 "use client";
-import { useRef, type RefObject } from "react";
+import { useRef, useState, type RefObject } from "react";
 import { createFieldWorld, type FieldPose } from "@/features/home/lib/field-collisions";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(useGSAP, Draggable, ScrollTrigger);
 
 export function useFieldPlayground(root: RefObject<HTMLDivElement | null>) {
+  const [hasMoved, setHasMoved] = useState(false);
   const resetRef = useRef<() => void>(() => {});
   const moveRef = useRef<(index: number, x: number, y: number) => void>(() => {});
   const ignoreClickUntil = useRef(0);
@@ -83,6 +84,7 @@ export function useFieldPlayground(root: RefObject<HTMLDivElement | null>) {
               (parseFloat(getComputedStyle(card).getPropertyValue("--turn")) * Math.PI) / 180 || 0,
           }));
           world = createFieldWorld(homes, width, height, reduced);
+          setHasMoved(false);
           render();
         };
         measure();
@@ -116,6 +118,7 @@ export function useFieldPlayground(root: RefObject<HTMLDivElement | null>) {
             },
             onDragStart() {
               visible = true;
+              setHasMoved(true);
               card.dataset.dragging = "true";
               world.grab(i, origin);
             },
@@ -160,6 +163,7 @@ export function useFieldPlayground(root: RefObject<HTMLDivElement | null>) {
             },
             onComplete: () => {
               resetting = false;
+              setHasMoved(false);
             },
           });
         });
@@ -167,6 +171,7 @@ export function useFieldPlayground(root: RefObject<HTMLDivElement | null>) {
           if (resetting) return;
           visible = true;
           world.nudge(i, x, y);
+          setHasMoved(true);
         };
         const observer = new ResizeObserver(() => {
           if (stage.clientWidth !== width || stage.clientHeight !== height) measure();
@@ -190,6 +195,7 @@ export function useFieldPlayground(root: RefObject<HTMLDivElement | null>) {
     { scope: root },
   );
   return {
+    hasMoved,
     reset: () => resetRef.current(),
     move: (i: number, x: number, y: number) => moveRef.current(i, x, y),
     suppressClick: () => performance.now() < ignoreClickUntil.current,

@@ -14,6 +14,8 @@ export type GalleryItem = {
   title: string;
   description: string;
   image?: string;
+  imageAlt?: string;
+  imageFit?: "cover" | "contain";
   imagePosition?: string;
   imageAspectRatio?: string;
   placeholder?: boolean;
@@ -212,15 +214,21 @@ export default function ScrollGallery({
               <ul data-gallery-track id={uid} className={s.track} aria-label={title}>
                 {items.map((item, i) => (
                   <li data-gallery-card className={s.card} key={`${i}-${item.title}`}>
-                    <div className={s.photo} style={{ aspectRatio: item.imageAspectRatio }}>
+                    <div
+                      className={s.photo}
+                      style={{
+                        aspectRatio: item.imageAspectRatio,
+                        background: item.imageFit === "contain" ? "#fffcf3" : undefined,
+                      }}
+                    >
                       {item.image ? (
                         <Image
                           draggable={false}
                           src={item.image}
-                          alt={item.title}
+                          alt={item.imageAlt ?? item.title}
                           fill
                           sizes="(max-width: 700px) 72vw, 340px"
-                          style={{ objectPosition: item.imagePosition }}
+                          style={{ objectPosition: item.imagePosition, objectFit: item.imageFit }}
                         />
                       ) : hideImagePlaceholder ? null : (
                         <div className={s.placeholder}>

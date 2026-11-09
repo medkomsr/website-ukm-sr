@@ -264,6 +264,10 @@
   .sideLayout .card {
     flex-basis: min(28vw, 340px);
   }
+  // Match the animated track to its cards so their centers align with the controls.
+  .sideLayout[data-enhanced] .track {
+    width: min(28vw, 340px);
+  }
 }
 @media (max-width: 700px) {
   .stage {

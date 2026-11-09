@@ -140,9 +140,6 @@ export default function SiteHeader() {
           aria-label="Seni Religi — Beranda"
         >
           <Image src="/logo.png" alt="" width={34} height={34} />
-          <b>
-            Seni Religi<span>Universitas Brawijaya</span>
-          </b>
         </Link>
         <div className={s.islandButtons}>
           <button
