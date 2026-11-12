@@ -491,17 +491,24 @@
   font-size: 11px;
   color: #53644e;
 }
-.emptyHero {
-  padding: 85px 7vw;
+.emptyPage {
+  display: grid;
+  place-items: center;
+  margin-top: -88px;
+  min-height: 100svh;
+  box-sizing: border-box;
+  padding: 6rem 7vw;
+  background: #fffcf3;
+  color: #123d2a;
+  text-align: center;
 }
-.emptyHero h2 {
-  font-size: clamp(40px, 6vw, 80px);
+.emptyPage h1 {
+  max-width: 22ch;
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 4.5rem);
   line-height: 1.1;
   font-weight: 400;
-  margin: 30px 0;
-}
-.emptyHero p {
-  font-size: 15px;
+  text-wrap: balance;
 }
 .loadingHero {
   min-height: 560px;
@@ -764,6 +771,9 @@
 }
 
 @media (max-width: 900px) {
+  .emptyPage {
+    margin-top: -76px;
+  }
   .intro {
     height: calc(100svh - 76px);
     padding-bottom: 76px;
@@ -775,18 +785,16 @@
   background: transparent;
 }
 .page:has([data-title-pinned]) .featured,
-.page:has([data-title-pinned]) .loadingHero,
-.page:has([data-title-pinned]) .emptyHero {
+.page:has([data-title-pinned]) .loadingHero {
   margin-top: calc(-1 * clamp(64px, 10svh, 104px));
 }
 
 @media (max-width: 700px) {
   .page:has([data-title-pinned]) .featured,
-  .page:has([data-title-pinned]) .loadingHero,
-  .page:has([data-title-pinned]) .emptyHero {
+  .page:has([data-title-pinned]) .loadingHero {
     margin-top: calc(-1 * clamp(240px, 39svh, 400px));
   }
-  .page:has([data-title-pinned]) :is(.featured, .loadingHero, .emptyHero, .archive) {
+  .page:has([data-title-pinned]) :is(.featured, .loadingHero, .archive) {
     translate: 0
       calc(
         max(0px, clamp(240px, 39svh, 400px) - clamp(200px, 30vw, 400px)) *

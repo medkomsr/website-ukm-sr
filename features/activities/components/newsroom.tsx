@@ -221,6 +221,14 @@ export default function Newsroom() {
     };
   }, [types, category, status, search, page, activities]);
 
+  if (meta.isSuccess && featured.length === 0) {
+    return (
+      <section className={s.emptyPage} data-tone="cream">
+        <h1>Berita dan acara belum tersedia.</h1>
+      </section>
+    );
+  }
+
   return (
     <div className={s.page}>
       <NewsTitle />
@@ -236,18 +244,9 @@ export default function Newsroom() {
             Coba lagi <ArrowUpRight size={17} />
           </button>
         </div>
-      ) : featured.length > 0 ? (
+      ) : featured.length ? (
         <FeaturedStories key={featured.map((item) => item._id).join("-")} items={featured} />
-      ) : (
-        <div className={s.emptyHero} data-tone="green">
-          <h2>
-            Berita &amp; acara
-            <br />
-            belum tersedia.
-          </h2>
-          <p>Nantikan kabar dan agenda terbaru Seni Religi di sini.</p>
-        </div>
-      )}
+      ) : null}
 
       <section
         ref={archive}

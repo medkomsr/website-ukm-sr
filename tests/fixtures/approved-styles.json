@@ -9,8 +9,8 @@
     },
     "features/activities/components/newsroom.module.scss": {
       "source": "app/aktivitas/components/newsroom.module.css",
-      "sha256": "2f238348dad9f739d2e574fb4173ccfb6a2ba2f4d35560587e2ca1d0be120c23",
-      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
+      "sha256": "df4d9fda06c878f144f94e4769c2ed82c62d3626f2fc2a214e390e2c27a3bdb5",
+      "revision": "2026-11-13: Center the empty newsroom message on a single light screen."
     },
     "features/home/components/motto.module.scss": {
       "source": "app/(home)/components/motto.module.css",
