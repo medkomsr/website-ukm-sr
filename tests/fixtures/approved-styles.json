@@ -67,8 +67,8 @@
     },
     "features/activities/components/detail/story-detail.module.scss": {
       "source": "app/aktivitas/[id]/components/story-detail.module.css",
-      "sha256": "11f222d7b24ed0cc4fb41661b8375cbf4460bcdce336617f8d08b8dc3e8b0d43",
-      "revision": "2026-11-16: Let desktop story cover titles use the full text area with justified lines."
+      "sha256": "64461bb16d4c503df1aff3d0aaf1750120392eeb7baaa7637297fcd430300d2f",
+      "revision": "2026-11-16: Scale story titles with their cover container, balance lines and restore natural word spacing."
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
