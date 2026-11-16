@@ -67,8 +67,8 @@
     },
     "features/activities/components/detail/story-detail.module.scss": {
       "source": "app/aktivitas/[id]/components/story-detail.module.css",
-      "sha256": "941a0b577e7f6d3ffb160d7205d3caf16ae9163cbd28b05214ced13de6c7f5f3",
-      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
+      "sha256": "11f222d7b24ed0cc4fb41661b8375cbf4460bcdce336617f8d08b8dc3e8b0d43",
+      "revision": "2026-11-16: Let desktop story cover titles use the full text area with justified lines."
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
