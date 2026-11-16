@@ -1,7 +1,13 @@
-import { useMemo, useState } from "react";
-import { keepPreviousData, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo, useState } from "react";
+import {
+  keepPreviousData,
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import type { ArchiveFilters, ArchivePage } from "@/lib/content/pagination";
 import { CONTENT_STALE_TIME } from "@/lib/query/constants";
+import { prefetchNextArchivePage } from "@/lib/query/prefetch-archive";
 
 /** Desktop navigates pages; mobile reveals five more records per request. */
 export function useResponsiveArchive<T>(
@@ -10,6 +16,7 @@ export function useResponsiveArchive<T>(
   filters: ArchiveFilters,
   mobile: boolean,
 ) {
+  const client = useQueryClient();
   const mobileFilters = { ...filters, page: undefined };
   const filterKey = JSON.stringify(mobileFilters);
   const [reveal, setReveal] = useState({ key: filterKey, batches: 1 });
@@ -29,6 +36,19 @@ export function useResponsiveArchive<T>(
     staleTime: CONTENT_STALE_TIME,
     enabled: mobile,
   });
+  useEffect(() => {
+    if (mobile || desktop.isPlaceholderData || !desktop.isSuccess || !desktop.data) return;
+    void prefetchNextArchivePage(client, resource, fetchPage, filters, desktop.data);
+  }, [
+    client,
+    resource,
+    fetchPage,
+    filters,
+    mobile,
+    desktop.data,
+    desktop.isPlaceholderData,
+    desktop.isSuccess,
+  ]);
   const data = useMemo(() => {
     if (!mobile) return desktop.data;
     const first = incremental.data?.pages[0];

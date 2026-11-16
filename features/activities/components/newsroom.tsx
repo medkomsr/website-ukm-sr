@@ -53,6 +53,7 @@ export default function Newsroom() {
   const meta = useAktivitasMeta();
   const pending = isFetching || search !== debouncedSearch;
   const currentPage = data?.page ?? page;
+  const revealedPage = useRef(currentPage);
   const [selection, setSelection] = useState<PreviewSelection | null>(null);
   const snapshot = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const gridHeight = useRef(0);
@@ -65,6 +66,16 @@ export default function Newsroom() {
   const hasFilters = types.length !== 2 || category !== "all" || status !== "all" || search !== "";
 
   useLayoutEffect(() => {
+    // New pages appear together instead of replaying the scroll entrance after loading.
+    if (revealedPage.current !== currentPage) {
+      archive.current
+        ?.querySelectorAll<HTMLElement>("[data-news-card] [data-archive-pop]")
+        .forEach((el) => {
+          el.dataset.archiveRevealed = "true";
+          gsap.set(el, { clearProps: "opacity,visibility,transform" });
+        });
+    }
+    revealedPage.current = currentPage;
     const media = gsap.matchMedia();
     media.add("(min-width: 701px) and (prefers-reduced-motion: no-preference)", () => {
       const targets = Array.from(
@@ -132,7 +143,7 @@ export default function Newsroom() {
       node?.removeEventListener("focusin", revealFocused);
       media.revert();
     };
-  }, [activities, expanded]);
+  }, [activities, expanded, currentPage]);
 
   function change(update: () => void, resetScroll = true) {
     const container = grid.current;
