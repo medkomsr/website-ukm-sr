@@ -149,7 +149,8 @@ function Experience({ activity }: { activity: SanityActivity }) {
               zoom.to(
                 gallery.querySelector("[data-cover-title]"),
                 {
-                  fontSize: () => `${Math.min(112, innerWidth * 0.085)}px`,
+                  fontSize: () =>
+                    `${innerWidth <= 700 ? Math.min(112, innerWidth * 0.085) : Math.min(64, innerWidth * 0.045)}px`,
                   duration: 0.85,
                   ease: "power2.inOut",
                 },
