@@ -67,8 +67,8 @@
     },
     "features/activities/components/detail/story-detail.module.scss": {
       "source": "app/aktivitas/[id]/components/story-detail.module.css",
-      "sha256": "64461bb16d4c503df1aff3d0aaf1750120392eeb7baaa7637297fcd430300d2f",
-      "revision": "2026-11-16: Scale story titles with their cover container, balance lines and restore natural word spacing."
+      "sha256": "93bc3b94e34f6b855fea90746bc4c7b869e6c49421b966c41e5177f09fa0292e",
+      "revision": "2026-11-16: Restrict cover typography refinements to desktop; restore approved mobile sizing and animation."
     },
     "features/departments/components/scroll-gallery.module.scss": {
       "source": "app/tentang/[dept]/components/scroll-gallery.module.css",

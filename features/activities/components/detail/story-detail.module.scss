@@ -98,14 +98,26 @@
   letter-spacing: 0.16em;
 }
 .coverText h1 {
-  font-size: clamp(20px, 5.5cqw, 52px);
+  font-size: clamp(27px, 3.2vw, 54px);
   font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.15;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
   margin: 0;
   overflow-wrap: anywhere;
-  text-align: left;
-  text-wrap: balance;
+  max-width: 18ch;
+}
+@media (min-width: 701px) {
+  .leadVisual {
+    container-type: inline-size;
+  }
+  .coverText h1 {
+    font-size: clamp(20px, 5.5cqw, 52px);
+    letter-spacing: -0.035em;
+    line-height: 1.15;
+    max-width: none;
+    text-align: left;
+    text-wrap: balance;
+  }
 }
 .scrollCue {
   grid-area: 4 / 1 / 5 / 4;
@@ -305,7 +317,6 @@
 .leadVisual {
   position: absolute;
   inset: 0;
-  container-type: inline-size;
   animation: lead-enter 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 @keyframes lead-fade {
@@ -482,6 +493,9 @@
   .coverText {
     left: 7%;
     right: 7%;
+  }
+  .coverText h1 {
+    font-size: clamp(28px, 7.5vw, 40px);
   }
   .coverText > p {
     font-size: 10px;

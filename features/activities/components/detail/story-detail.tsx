@@ -128,6 +128,7 @@ function Experience({ activity }: { activity: SanityActivity }) {
             const cells = gallery.querySelectorAll<HTMLElement>("[data-bento-cell]");
             // Flip leaves measured dimensions inline; rebuild from the responsive CSS.
             gsap.set(cells, { clearProps: "all" });
+            gsap.set(gallery.querySelector("[data-cover-title]"), { clearProps: "fontSize" });
             gallery.classList.remove(s.bentoFinal);
             layout = gsap.context(() => {
               gallery.classList.add(s.bentoFinal);
@@ -145,6 +146,17 @@ function Experience({ activity }: { activity: SanityActivity }) {
                 },
               });
               zoom.add(Flip.to(finalState, { duration: 1, ease: "power2.inOut", simple: true }));
+              if (innerWidth <= 700) {
+                zoom.to(
+                  gallery.querySelector("[data-cover-title]"),
+                  {
+                    fontSize: () => `${Math.min(112, innerWidth * 0.085)}px`,
+                    duration: 0.85,
+                    ease: "power2.inOut",
+                  },
+                  0.1,
+                );
+              }
               zoom.to(
                 gallery.querySelector("[data-scroll-cue]"),
                 { autoAlpha: 0, duration: 0.15 },
