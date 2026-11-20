@@ -21,74 +21,64 @@ environment lokal/hosting, bukan Git atau percakapan.
 
 ## Lingkungan Sanity dan alur rilis
 
-Proyek Sanity: `yzaa35ug`. Dataset dipisahkan pada 22 Oktober 2026.
+Konfigurasi Vercel Production sejak 20 November 2026 memilih dataset Sanity
+`development` dalam proyek `yzaa35ug`. Pilihan ini berlaku pada situs publik
+setelah deployment baru aktif. Preview `dev` dan server lokal juga memakai dataset ini.
 
 | Lingkungan                  | Branch / alamat                                        | `NEXT_PUBLIC_SANITY_DATASET`          |
 | --------------------------- | ------------------------------------------------------ | ------------------------------------- |
 | Lokal                       | `.env.local`, `http://localhost:3000`                  | `development`                         |
 | Vercel Preview khusus `dev` | `website-ukm-sr-git-dev-medkomsrs-projects.vercel.app` | `development` (override branch `dev`) |
-| Vercel Production           | Branch `staging`, `website-ukm-sr.vercel.app`          | `production`                          |
+| Vercel Production           | Branch `staging`, `website-ukm-sr.vercel.app`          | `development`                         |
+| Preview branch lain         | Deployment Preview tanpa override dataset              | `production` (konfigurasi lama)       |
 
-**`staging` adalah branch production proyek ini**, bukan lingkungan uji tambahan.
-Jangan mempromosikan deployment `dev` langsung ke production. Gunakan alur
+Publikasi atau penghapusan melalui Studio lokal, Preview `dev`, maupun situs
+publik mengubah sumber konten situs publik saat itu juga. Gunakan draft untuk
+meninjau suntingan sebelum menekan **Publish**. Untuk mencoba operasi tulis
+dengan data simulasi, gunakan proyek atau dataset uji terpisah.
+
+**`staging` adalah branch rilis situs publik.** Alur perubahan kode tetap melalui
 branch fitur → PR ke `dev` → uji Preview `dev` → PR ke `staging` → deployment
-production otomatis. Setelah merge, pastikan deployment `staging` berstatus Ready
-dan menjadi deployment aktif; merge Git saja belum menjamin build berhasil.
-
-Override Vercel dibuat khusus untuk branch `dev`. Preview branch lain masih
-mewarisi konfigurasi sebelumnya dan **belum dijamin terpisah dari production**.
-Uji CMS di lokal atau Preview `dev` yang baru. Jika membutuhkan preview branch
-fitur, tambahkan override dataset `development` untuk branch tersebut dahulu.
-Deployment preview lama memiliki konfigurasi saat build dibuat; gunakan alias
-branch terbaru, bukan URL deployment lama yang mungkin masih memakai production.
+Production otomatis. Setelah merge, periksa bahwa deployment berstatus Ready
+dan menjadi deployment aktif. Merge kode tidak menyalin dokumen Sanity.
 
 CORS Sanity mengizinkan `http://localhost:3000` dan origin Preview `dev`
 `https://website-ukm-sr-git-dev-medkomsrs-projects.vercel.app` dengan credentials
 agar login Studio berfungsi. Gunakan alias tersebut untuk Studio preview. Jika
 menambah origin baru, daftarkan alamat persisnya; jangan gunakan wildcard.
 
-`development` diisi sekali melalui export/import data dan aset production,
-termasuk salinan company profile, tanpa memodifikasi sumber. Tidak ada sinkronisasi
-konten otomatis antardataset. Publish, edit, atau hapus di Studio development hanya
-berlaku untuk development. Kedua dataset bersifat public sesuai paket gratis;
-jangan masukkan informasi rahasia ke dokumen published atau aset uji.
+Pada 20 November 2026, data dan aset dari `production` disalin ke `development`.
+Lima berita, lima acara, dan sepuluh prestasi demo yang hanya ada di
+`development` dihapus. Dataset `production` tetap tersedia terpisah.
+Kedua dataset tidak tersinkron otomatis dan bersifat public; jangan masukkan
+informasi rahasia ke dokumen published atau aset.
 
 ### Pemeriksaan sebelum mengedit konten
 
-1. Periksa `.env.local`: `NEXT_PUBLIC_SANITY_PROJECT_ID=yzaa35ug` dan
-   `NEXT_PUBLIC_SANITY_DATASET=development`. `.env.example` sudah menggunakan
-   default development. Jangan menyalin environment Production ke lokal.
-2. Restart `npm run dev` sesudah mengubah environment. Website dan `/studio`
-   menggunakan dataset yang sama. Judul Studio menampilkan `Seni Religi — <dataset>`
-   setelah perubahan kode ini dipakai pada deployment terkait.
-3. Pada Vercel, periksa **environment dan branch override**, bukan nama branch
-   saja. `NEXT_PUBLIC_*` tertanam ketika build; perubahan environment memerlukan
-   redeploy **Preview dev**, bukan redeploy Production.
-4. Untuk perintah CLI yang menulis, selalu sebutkan target secara eksplisit,
-   misalnya `--project-id yzaa35ug --dataset development` jika perintah mendukungnya.
-   Periksa header target sebelum meneruskan. Skrip dalam `scripts/` dapat membaca
-   `.env.local`; jangan menjalankan seed/cleanup terhadap production untuk uji coba.
+1. Periksa `.env.local` dan judul Studio `Seni Religi — <dataset>`. Konfigurasi
+   lokal standar memilih `NEXT_PUBLIC_SANITY_PROJECT_ID=yzaa35ug` dan
+   `NEXT_PUBLIC_SANITY_DATASET=development`, yaitu konten situs publik.
+2. Pilih environment dan branch Vercel yang sesuai saat memeriksa konfigurasi.
+   `NEXT_PUBLIC_*` tertanam ketika build. Setelah perubahan, restart server lokal
+   atau deploy ulang environment yang diubah. Deployment lama membawa konfigurasi
+   dari build sebelumnya.
+3. Untuk CLI dan skrip, periksa target sebelum menerapkan perubahan. Skrip dalam
+   `scripts/` dapat membaca `.env.local`. Jalankan seed, cleanup, atau import
+   untuk pengujian hanya pada target uji yang terpisah dari kedua dataset ini.
 
-### Cache, webhook, dan pemindahan konten
+### Cache dan webhook
 
-Webhook `Website SR — Production cache` hanya memantau dataset `production` dan
-mengirim ke `/api/sanity/revalidate` di domain production. Secret
-`SANITY_REVALIDATE_SECRET` hanya tersimpan di environment Production Vercel dan
-pengaturan webhook Sanity. Jangan menyalinnya ke Preview atau Git. Draft dan
-versions tidak memicu webhook; request tanpa signature ditolak.
+Saat mengalihkan deployment aktif, arahkan webhook `Website SR — Production cache`
+ke dataset yang dibaca situs publik (`development` setelah pengalihan). Webhook ini
+mengirim perubahan dokumen published ke `/api/sanity/revalidate` di domain
+Production. Draft dan versi rilis tidak memicu webhook. Secret
+`SANITY_REVALIDATE_SECRET` tersimpan di environment Production Vercel dan
+pengaturan webhook Sanity. Endpoint menolak permintaan tanpa signature.
 
-Development belum memiliki webhook terpisah. Untuk memeriksa Publish lokal yang
-masih tampil lama, restart server development dan muat ulang halaman. Pada Preview
-dev, tunggu pembaruan cache atau redeploy Preview dev lalu muat ulang halaman;
-React Query di tab yang terbuka juga menyimpan cache. Jangan mengarahkan webhook
-development ke endpoint production. Jangan mengubah atau menonaktifkan deployment
-protection hanya untuk menyambungkan webhook preview.
-
-Merge kode **tidak memindahkan isi dataset**. Konten final dipublikasikan melalui
-Studio production oleh pengelola. Jika perlu migrasi konten, buat rencana terpisah
-dengan daftar dokumen, cadangan, dan persetujuan target; jangan mengimpor seluruh
-dataset development ke production. Company profile production tetap dikelola
-melalui CRUD yang sudah ada dan tidak diubah dalam pemisahan lingkungan ini.
+Server lokal dan Preview `dev` memakai cache masing-masing. Jika konten lama
+masih terlihat, muat ulang tab setelah cache diperbarui. Untuk memeriksa hasil
+lebih cepat di lokal, restart server development lalu muat ulang halaman.
+Webhook situs publik tidak menyegarkan cache Preview.
 
 Kedua slot dataset gratis kini digunakan. Gunakan dataset yang sama lintas kabinet;
 pisahkan periode lewat dokumen/field sesuai kebutuhan. Salinan aset memakai sumber

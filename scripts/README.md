@@ -3,12 +3,16 @@
 ## Target lingkungan
 
 Lihat [alur lokal, Preview dev, dan production](../README.md#lingkungan-sanity-dan-alur-rilis).
-Lokal dan Preview branch `dev` memakai dataset `development`; production dari
-branch `staging` memakai `production`. Semua perintah contoh penulisan di bawah
-ditujukan untuk development. Periksa `.env.local` dan target CLI sebelum menjalankan
-skrip. Jangan menjalankan seed, cleanup, atau import terhadap production sebagai
-bagian pengujian. Dataset development telah diisi salinan awal pada 22 Oktober 2026;
-tidak perlu menjalankan seed ulang untuk mulai melihat tampilan.
+Lokal, Vercel Preview `dev`, dan build Production baru dari branch `staging`
+memakai dataset `development`. Menjalankan skrip dengan
+`--apply` pada target lokal standar akan mengubah data situs publik. Gunakan
+mode tanpa `--apply` untuk memeriksa rencana. Contoh perintah penulisan di
+bawah hanya untuk target uji terpisah. Periksa project dan dataset di
+`.env.local` serta keluaran CLI sebelum menerapkan perubahan.
+
+Data dan aset `development` sudah disamakan dengan `production` pada
+20 November 2026, termasuk penghapusan 20 dokumen demo. Tidak perlu
+menjalankan seed pada kedua dataset ini untuk menyiapkan lingkungan lokal.
 
 `seed-demo-content.mjs` menambahkan 5 berita, 5 acara, dan 10 prestasi. Setiap berita/acara memiliki 1 foto utama dan 4 foto tambahan, sehingga bagian Dokumentasi menampilkan 5 foto. Lima aset gambar dipakai bergantian di seluruh contoh.
 
@@ -61,7 +65,7 @@ Skrip `seed-demo-profiles.mjs` dihentikan karena memakai ID nonbaku untuk BKRT/K
 
 Validator bersama ada di sanity/validation.ts. Batas publikasi: judul 120 karakter, ringkasan 350, nama 100, visi 500, misi 1–10 butir @250, FAQ 150/1500, slug 96, galeri bidang 10 dan galeri berita 9 foto tambahan (10 bersama foto utama), program/pengurus/rundown 30, peserta prestasi 50, tag 10. Isi berita maksimal 200 blok. Gambar maksimal 5 MiB, 128–12.000 piksel per sisi, JPG/PNG/WebP/AVIF. Pemeriksaan gambar dilakukan sebelum publish; Sanity mengunggah aset sebelum validasi ini, sehingga bukan pembatas kuota upload di server.
 
-Data lama tidak dimutasi atau dipotong. Deskripsi prestasi demo 01, 04, 05, 07, 08, 09, 10 melewati batas baru; editor harus merangkum sebelum publish ulang. Draft departemen c8dd3137-ca2d-48d9-9278-1f6a981ada8c belum memiliki nama/slug. Company profile (schema, video, sampul, player) dikecualikan dari perubahan. Menu profil tambahan tetap bisa membaca dokumen lama tetapi tidak menawarkan pembuatan/duplikasi profil di luar struktur frontend.
+Jika seed dipakai pada target uji, deskripsi prestasi demo 01, 04, 05, 07, 08, 09, 10 pada data contoh lama perlu diringkas sebelum publish ulang. Draft departemen c8dd3137-ca2d-48d9-9278-1f6a981ada8c belum memiliki nama/slug. Company profile (schema, video, sampul, player) dikecualikan dari perubahan. Menu profil tambahan tetap bisa membaca dokumen lama tetapi tidak menawarkan pembuatan/duplikasi profil di luar struktur frontend.
 
 Validasi Studio tidak berlaku untuk mutation API; skrip impor wajib memvalidasi input sendiri dan menjalankan pemeriksaan dataset setelahnya. Jangan menjalankan skrip seed/cleanup untuk menerapkan perubahan keamanan ini. Untuk audit baca saja:
 
@@ -74,12 +78,12 @@ node node_modules/@sanity/cli/bin/run.js documents validate --yes --format ndjso
 Endpoint POST /api/sanity/revalidate memverifikasi signature dari @sanity/webhook terhadap body asli (maksimal 16 KiB), hanya menerima tipe dokumen yang diizinkan, dan mengabaikan draft/versi rilis. Menggunakan revalidateTag(tag, { expire: 0 }). Pembacaan CMS melewati Sanity API CDN karena Next sudah menyimpan cache hasil; ini mencegah data CDN lama masuk lagi setelah invalidasi.
 
 1. Buat secret acak minimal 32 karakter. Isi SANITY_REVALIDATE_SECRET di environment server Vercel, bukan NEXT_PUBLIC dan jangan commit nilainya.
-2. Deploy aplikasi sebelum mengaktifkan webhook. Tambahkan webhook Sanity menuju https://website-ukm-sr.vercel.app/api/sanity/revalidate, dataset production, metode POST, trigger create/update/delete; drafts dan versions nonaktif. Masukkan secret yang sama pada pengaturan Secret, bukan header bearer.
+2. Deploy aplikasi sebelum mengaktifkan webhook. Tambahkan webhook Sanity menuju https://website-ukm-sr.vercel.app/api/sanity/revalidate, dataset `development`, metode POST, trigger create/update/delete; drafts dan versions nonaktif. Masukkan secret yang sama pada pengaturan Secret, bukan header bearer.
 3. Filter: coalesce(after()._type, before()._type) in ["beritaAcara", "prestasi", "departemen", "bidang", "visiMisi", "kabinet", "faq", "homePage"].
 4. Projection: {"_id": coalesce(after()._id, before()._id), "_type": coalesce(after()._type, before()._type)}. before() penting untuk penghapusan.
 5. Periksa delivery log Sanity dan respons 200. Jangan menguji dengan menghapus konten asli. Tab pengunjung yang sudah terbuka masih menggunakan React Query staleTime satu jam; reload mengambil payload server terbaru.
 
-Webhook production sudah aktif sejak 22 Oktober 2026 dengan nama `Website SR — Production cache` (ID `Uw3gI2di1q4HGjND`). Langkah di atas adalah referensi pemulihan, bukan instruksi membuat webhook duplikat. Secret tersimpan hanya di Vercel Production dan Sanity; nilainya tidak dicatat di repositori. Development tidak memakai webhook ini. Tanpa secret, endpoint menolak request dengan 503. CORS yang sudah benar dipertahankan. Token Viewer non-expiring belum dirotasi: identifikasi pemakainya sebelum mengganti credential agar integrasi lama tidak terputus.
+Webhook production sudah aktif sejak 22 Oktober 2026 dengan nama `Website SR — Production cache` (ID `Uw3gI2di1q4HGjND`). Langkah di atas adalah referensi pemulihan, bukan instruksi membuat webhook duplikat. Secret tersimpan hanya di Vercel Production dan Sanity; nilainya tidak dicatat di repositori. Sejak 20 November 2026, webhook ini menyegarkan situs publik saat data published di `development` berubah. Tanpa secret, endpoint menolak request dengan 503. CORS yang sudah benar dipertahankan. Token Viewer non-expiring belum dirotasi: identifikasi pemakainya sebelum mengganti credential agar integrasi lama tidak terputus.
 
 ### Formulir kontak tetap nonaktif
 
