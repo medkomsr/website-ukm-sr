@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Great_Vibes, Inter, Playfair_Display } from "next/font/google";
 import { Suspense } from "react";
+import { siteName, siteUrl } from "@/lib/site";
 import "@/app/globals.css";
 import "@/styles/brand-theme.scss";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,13 @@ export const metadata: Metadata = {
   icons: { icon: "/favicon.png" },
 };
 
+const website = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: siteName,
+  url: siteUrl,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,6 +50,10 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(website).replace(/</g, "\\u003c") }}
+        />
         <Suspense>
           <QueryProvider>{children}</QueryProvider>
         </Suspense>
