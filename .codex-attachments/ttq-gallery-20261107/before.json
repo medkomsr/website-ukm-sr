@@ -1,0 +1,81 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-ttq",
+  "_rev": "d7CVw7aDESWWKYmK50u17y",
+  "_system": {
+    "base": {
+      "id": "bidang-ttq",
+      "rev": "IqwjtJHQAER2YjcSns6JJW"
+    }
+  },
+  "_type": "bidang",
+  "_updatedAt": "2026-11-05T13:11:38Z",
+  "abbr": "Tilawah & Tartil",
+  "description": "Tilawah dan Tartil Qur’an adalah bidang yang mengembangkan kualitas bacaan Al-Qur’an dengan memperhatikan makhraj, tajwid, dan kelancaran. Keindahan irama dalam tilawah serta ketertiban bacaan dalam tartil menjadi bagian dari proses belajar untuk membaca dengan baik dan penuh penghayatan.",
+  "fullName": "Bidang Tilawah & Tartil",
+  "gallery": [
+    {
+      "_key": "ttq-documentation-1",
+      "_type": "object",
+      "alt": "Peserta pembinaan Tilawah dan Tartil duduk bersama dengan mushaf Al-Qur’an di ruang ibadah berkarpet merah.",
+      "caption": "Pembinaan Tilawah dan Tartil Al-Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-b5b479dd16be21dc6f8c80efccffa0a7e76b844c-4032x2268-jpg",
+          "_type": "reference"
+        }
+      },
+      "showFullImage": true
+    },
+    {
+      "_key": "ttq-documentation-2",
+      "_type": "object",
+      "alt": "Peserta menyimak latihan bacaan Al-Qur’an di ruang ibadah, dengan mushaf terbuka di atas rehal.",
+      "caption": "Latihan bacaan Al-Qur’an dalam pembinaan Tilawah dan Tartil",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-78ec07f4c0cbe5264d8ac097565ad4e9d0840d22-4032x2268-jpg",
+          "_type": "reference"
+        }
+      },
+      "showFullImage": true
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-72c64d0ce4bf2eb399c53e82ded847d93675c22a-1696x2528-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-138431d1c4d864a243a03cee049cb370ccd30e18-792x594-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Shahrul Abidin",
+    "role": "Kepala Bidang Tilawah dan Tartil Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "ttq"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-cd44c6a3f833ba9ed6872a410fe711c9ff0cc44b-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Muhammad Firjatullah Arkhab",
+    "role": "Wakil Kepala Bidang Tilawah dan Tartil Qur'an"
+  }
+}

@@ -1,0 +1,248 @@
+.section {
+  height: 100svh;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  padding: 0 6vw;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  perspective: 1100px;
+  font-size: 10px;
+}
+.track {
+  display: flex;
+  align-items: center;
+  gap: 15vw;
+  width: max-content;
+  flex-shrink: 0;
+  padding: 100px 0;
+}
+.scene {
+  display: flex;
+  align-items: center;
+  gap: 4vw;
+  flex-shrink: 0;
+  perspective: 1000px;
+}
+.phrase {
+  display: flex;
+  align-items: center;
+  gap: 0.22em;
+  white-space: nowrap;
+  font-family: var(--font-geist), var(--font-sans), sans-serif;
+  font-size: clamp(90px, 12vw, 190px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.065em;
+  margin: 0;
+}
+.phrase > [data-motto-words] {
+  display: inline-block;
+  perspective: 800px;
+}
+.stickerWrap {
+  position: relative;
+  display: inline-flex;
+}
+.sticker {
+  display: block;
+  font: inherit !important;
+  letter-spacing: inherit;
+  border: 0;
+  padding: 0.04em 0.18em 0.1em;
+  border-radius: 12px;
+  transform: rotate(-4deg);
+  cursor: pointer;
+  box-shadow: 5px 8px 0 color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.yellow {
+  background: var(--sr-metal);
+  color: #173b28;
+}
+.green {
+  background: #c7d6bf;
+  color: #092713;
+  transform: rotate(5deg);
+}
+.echo {
+  position: absolute;
+  inset: 0;
+  padding: 0.04em 0.18em 0.1em;
+  border: 2px solid var(--sr-yellow);
+  color: transparent;
+  border-radius: 12px;
+  -webkit-text-stroke: 1px var(--sr-yellow);
+  pointer-events: none;
+  opacity: 0;
+}
+.flairWrap {
+  display: block;
+  flex-shrink: 0;
+  width: clamp(130px, 15vw, 235px);
+  height: clamp(130px, 15vw, 235px);
+  color: #c7d6bf;
+  transform-origin: center;
+}
+.flair {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.flower {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.flower i {
+  border-radius: 50%;
+  background: #c7d6bf;
+}
+.orbit {
+  border: 20px solid var(--sr-yellow);
+  border-radius: 50%;
+  transform: rotate(-25deg);
+}
+.orbit:before,
+.orbit:after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #c7d6bf;
+  border-radius: 50%;
+  left: 50%;
+  top: -24px;
+  transform: translateX(-50%);
+}
+.orbit:after {
+  top: auto;
+  bottom: -24px;
+}
+.curve {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  color: var(--ink);
+}
+.asterisk {
+  background: var(--sr-yellow);
+  clip-path: polygon(
+    42% 0,
+    58% 0,
+    58% 32%,
+    80% 10%,
+    92% 22%,
+    69% 43%,
+    100% 43%,
+    100% 59%,
+    69% 59%,
+    92% 82%,
+    80% 94%,
+    58% 71%,
+    58% 100%,
+    42% 100%,
+    42% 70%,
+    20% 93%,
+    8% 81%,
+    31% 59%,
+    0 59%,
+    0 43%,
+    31% 43%,
+    8% 21%,
+    20% 9%,
+    42% 32%
+  );
+}
+.scene:last-child {
+  padding-right: 3vw;
+}
+@media (max-width: 800px) {
+  .section {
+    height: auto;
+    min-height: 0;
+    padding: 85px 6vw;
+    overflow: hidden;
+  }
+  .track {
+    width: 100%;
+    padding: 0;
+    flex-direction: column;
+    gap: 115px;
+    align-items: stretch;
+  }
+  .scene {
+    position: relative;
+    display: block;
+    padding-bottom: 65px;
+  }
+  .phrase {
+    font-size: clamp(48px, 12vw, 88px);
+    white-space: normal;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .scene:nth-child(even) .phrase {
+    align-items: flex-end;
+  }
+  .flairWrap {
+    width: 76px;
+    height: 76px;
+    position: absolute;
+    right: 8%;
+    bottom: -24px;
+  }
+  .scene:nth-child(even) .flairWrap {
+    right: auto;
+    left: 7%;
+  }
+  .orbit {
+    border-width: 9px;
+  }
+  .orbit:before,
+  .orbit:after {
+    width: 16px;
+    height: 16px;
+    top: -13px;
+  }
+  .orbit:after {
+    top: auto;
+    bottom: -13px;
+  }
+  .sticker {
+    border-radius: 8px;
+  }
+  .scene:last-child {
+    padding-right: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    height: auto;
+    min-height: 0;
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+  .track {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 80px;
+  }
+  .scene {
+    max-width: 100%;
+  }
+  .phrase {
+    font-size: clamp(44px, 6vw, 94px);
+    white-space: normal;
+    flex-wrap: wrap;
+  }
+  .flairWrap {
+    max-width: 12vw;
+    max-height: 12vw;
+  }
+  .echo {
+    display: none;
+  }
+}

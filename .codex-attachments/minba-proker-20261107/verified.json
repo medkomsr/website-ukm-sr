@@ -1,0 +1,55 @@
+{
+  "dataset": "development",
+  "document": "departemen-minba",
+  "programKerja": [
+    {
+      "_type": "programKerja",
+      "_key": "pembinaan-rutin",
+      "nama": "Pembinaan Rutin",
+      "detail": "Kegiatan pembinaan rutin adalah inti kegiatan dalam pengembangan potensi minat dan bakat anggota UKM Seni Religi yang dikoordinir dan diawasi oleh Departemen Minat Bakat. Pelaksanaan pembinaan rutin dilakukan oleh pengurus harian di setiap bidang."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "kaderisasi-prestatif",
+      "nama": "Kaderisasi Prestatif",
+      "detail": "Pembentukan tim dan seleksi talent dari anggota UKM Seni Religi yang memiliki keahlian di bidangnya untuk diutus dalam lomba."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "pendelegasian",
+      "nama": "Pendelegasian",
+      "detail": "Program Pendelegasian merupakan program yang kami sediakan untuk menjaring anggota UKM Seni Religi dalam lomba yang sesuai dengan bidang pembinaan."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "info-lomba",
+      "nama": "Info Lomba",
+      "detail": "Info Lomba merupakan program informasi-informasi terkait lomba yang relevan dengan bidang pembinaan yang ada di UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "consulting-center",
+      "nama": "Consulting Center",
+      "detail": "Merupakan program persiapan dan pendampingan road to lomba anggota UKM Seni Religi dalam pendelegasian lomba yang sesuai dengan bidang yang dilombakan."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "sr-talent-management",
+      "nama": "SR Talent Management",
+      "detail": "Merupakan program yang berfokus pada pemberdayaan dan optimalisasi potensi anggota UKM Seni Religi dengan menjembatani talenta internal kepada pihak eksternal yang membutuhkan secara profesional dan terstruktur."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "peminjaman-inventaris",
+      "nama": "Peminjaman Inventaris",
+      "detail": "Merupakan program penyediaan layanan berupa barang inventaris milik UKM Seni Religi untuk mendukung kelengkapan kebutuhan barang suatu acara baik internal maupun eksternal."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "sr-mini-shop",
+      "nama": "SR Mini Shop",
+      "detail": "Merupakan program penjualan karya atau inventaris milik UKM Seni Religi yang memiliki daya jual, baik dari inventaris umum maupun inventaris bidang."
+    }
+  ],
+  "onlyProgramsChanged": true
+}

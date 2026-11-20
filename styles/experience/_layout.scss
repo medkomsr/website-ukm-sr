@@ -1,0 +1,367 @@
+// Emitted in experience.module.scss; order is part of the approved design.
+@mixin styles {
+  /* Floating navigation and alternating fixed section tones. */
+  .island {
+    top: 18px;
+    left: 50%;
+    right: auto;
+    translate: -50% 0;
+    width: max-content;
+    justify-content: center;
+    gap: 10px;
+    height: 62px;
+    padding: 0 15px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fffcf3ed;
+    color: #123d2a;
+    box-shadow: 0 8px 32px #123d2a12;
+  }
+  .islandButtons > .iconButton:first-child {
+    border: 0;
+    width: auto;
+    height: 40px;
+  }
+  .menuButton {
+    gap: 10px;
+    padding: 0 6px;
+  }
+  .islandButtons > .menuButton:first-child {
+    width: 40px;
+  }
+  .menuAnchor {
+    left: 50%;
+    right: auto;
+    top: 92px;
+    transform: translateX(-50%);
+  }
+  .menuPanel {
+    transform-origin: top center;
+  }
+  .hero {
+    min-height: 100svh;
+    padding-top: 110px;
+  }
+  .heroMain {
+    padding: 45px 0 32px;
+  }
+  .heroBottom {
+    padding-bottom: 76px;
+  }
+  .heroScroll::before {
+    background: #123d2a;
+  }
+  .heroScroll:is(:hover, :focus-visible) > span {
+    background: #123d2a;
+    color: #fff8de;
+  }
+  .section[data-wave] {
+    padding-top: max(120px, 9vw);
+    padding-bottom: 120px;
+  }
+  .footer[data-wave] {
+    padding-top: 140px;
+  }
+  .signature {
+    color: var(--ink);
+  }
+  @media (max-width: 800px) {
+    .island {
+      width: max-content;
+      justify-content: center;
+      gap: 10px;
+      height: 58px;
+      padding: 0 14px;
+      top: 14px;
+    }
+    .menuAnchor {
+      top: 84px;
+      width: min(390px, calc(100vw - 32px));
+    }
+    .menuPanel {
+      width: 100%;
+    }
+    .hero {
+      padding-top: 115px;
+      min-height: 94svh;
+    }
+    .heroMain {
+      padding: 12px 0 24px;
+    }
+    .heroBottom {
+      padding: 30px 0 70px;
+    }
+    .section[data-wave] {
+      padding-top: 105px;
+      padding-bottom: 85px;
+    }
+    .footer[data-wave] {
+      padding-top: 100px;
+    }
+  }
+
+  .news {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .news > .sectionTitle,
+  .news > .galleryHint {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  .galleryViewport {
+    width: 100%;
+  }
+  .galleryTrack {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .fieldFloat {
+    width: 100%;
+    transform-style: preserve-3d;
+  }
+  .field {
+    touch-action: pan-y;
+  }
+  .fieldFront {
+    cursor: grab !important;
+  }
+  .field[data-dragging="true"] {
+    z-index: 10;
+  }
+  .field[data-dragging="true"] .fieldFront {
+    cursor: grabbing !important;
+  }
+  .resetFields {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    color: var(--ink);
+    background: transparent;
+    white-space: nowrap;
+    font-size: 14px !important;
+  }
+  .resetFields:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .fieldHint {
+    font:
+      12px var(--font-geist),
+      sans-serif;
+    color: var(--muted);
+    margin-bottom: 25px !important;
+  }
+  .menuPanel {
+    transform-origin: top center;
+  }
+  @media (max-width: 800px) {
+    .news > .sectionTitle,
+    .news > .galleryHint {
+      margin-left: 6vw;
+      margin-right: 6vw;
+    }
+    .fields > .sectionTitle {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .fieldHint {
+      line-height: 1.6;
+    }
+  }
+
+  /* A fixed play area leaves room for soft collisions without growing the section. */
+  .fieldStage {
+    gap: 64px 5%;
+    padding: 44px 28px 64px;
+    overflow: clip;
+  }
+  .field,
+  .field:nth-child(even) {
+    top: 0;
+  }
+  @media (max-width: 800px) {
+    .fieldStage {
+      gap: 48px 22px;
+      padding: 30px 12px;
+    }
+  }
+
+  .mobileFields {
+    display: none;
+  }
+
+  /* Room to rotate and pass between rows, while the board itself stays bounded. */
+  .fieldStage {
+    gap: 116px 5%;
+    padding: 58px 28px 86px;
+  }
+  .field {
+    width: 88%;
+    justify-self: center;
+    will-change: transform;
+  }
+  .fieldInner {
+    height: 246px;
+  }
+  .fieldBack {
+    padding: 24px 18px;
+  }
+  .fieldBack p {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .field[data-dragging="true"] {
+    z-index: 6;
+  }
+  @media (max-width: 800px) {
+    .fieldStage {
+      gap: 68px 22px;
+      padding: 38px 12px 48px;
+    }
+    .field {
+      width: 100%;
+    }
+    .fieldInner {
+      height: 260px;
+    }
+    .fieldBack {
+      padding: 24px 11px 16px;
+    }
+    .fieldBack p {
+      font-size: 10px;
+    }
+  }
+
+  @keyframes fieldMarqueeFlow {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @media (max-width: 800px) {
+    .fields .fieldStage,
+    .fields .resetFields,
+    .fields .fieldHint {
+      display: none;
+    }
+    .mobileFields {
+      display: block;
+    }
+    .mobileFieldIntro {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 8px 0 32px;
+      font:
+        12px/1.7 var(--font-geist),
+        sans-serif;
+      color: var(--muted);
+    }
+    .fieldMarquee {
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      overflow: hidden;
+      padding: 16px 0;
+    }
+    .fieldMarqueeTrack {
+      display: flex;
+      width: max-content;
+      animation: fieldMarqueeFlow 36s linear infinite;
+    }
+    .fieldMarquee:nth-of-type(3) .fieldMarqueeTrack {
+      animation-direction: reverse;
+      animation-duration: 42s;
+    }
+    .fieldMarqueeGroup {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+    }
+    .fieldMarqueeGroup a {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding-right: 28px;
+      white-space: nowrap;
+      font:
+        600 clamp(44px, 10vw, 72px)/1.2 var(--font-geist),
+        sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.04em;
+      color: var(--bg);
+      -webkit-text-stroke: 2px var(--ink);
+      paint-order: stroke fill;
+    }
+    .fieldMarqueeGroup a:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 4px;
+      color: var(--ink);
+    }
+    .marqueeSymbol {
+      width: 38px;
+      color: var(--ink);
+      --symbol-cut: var(--bg);
+    }
+    .marqueeSymbol svg {
+      width: 100%;
+      height: 38px;
+    }
+    .fieldMarquee:focus-within .fieldMarqueeTrack,
+    .fieldMarquee:hover .fieldMarqueeTrack {
+      animation-play-state: paused;
+    }
+  }
+  @media (max-width: 800px) and (prefers-reduced-motion: reduce) {
+    .fieldMarqueeTrack {
+      animation: none;
+    }
+    .fieldMarquee {
+      overflow-x: auto;
+    }
+    .fieldMarqueeGroup[aria-hidden="true"] {
+      display: none;
+    }
+  }
+
+  .contact .pillCta {
+    background: transparent;
+    color: #123d2a !important;
+    border: 2px solid #123d2a;
+    box-shadow: none;
+  }
+  .contact .pillCta:is(:hover, :focus-visible) {
+    background: #123d2a;
+    color: #fff8de !important;
+  }
+  @media (max-width: 800px) {
+    .heroBottom {
+      position: relative;
+      top: -32px;
+    }
+    .news .galleryViewport {
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-padding-inline: 6vw;
+      scrollbar-width: none;
+      overscroll-behavior-x: contain;
+      padding-bottom: 0;
+    }
+    .news .galleryViewport::-webkit-scrollbar {
+      display: none;
+    }
+    .news .galleryTrack {
+      padding-inline: 6vw;
+      gap: 16px;
+    }
+    .news .newsCard {
+      width: calc(100vw - 12vw - 15px);
+      max-width: 460px;
+      scroll-snap-align: start;
+    }
+  }
+}

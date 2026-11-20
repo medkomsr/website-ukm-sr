@@ -1,0 +1,112 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-ktdaq",
+  "_rev": "JtZe9g3n0Vp3PBavL4rlfl",
+  "_type": "bidang",
+  "_updatedAt": "2026-10-25T13:09:26Z",
+  "abbr": "KTDAQ",
+  "description": "KTDAQ adalah bidang yang mempertemukan kajian Al-Qur’an dengan karya tulis ilmiah dan pengembangan aplikasi digital. Bidang ini membuka ruang untuk merumuskan gagasan, menelaah sumber, serta menyusun karya dan solusi yang berangkat dari nilai-nilai Qur’ani.",
+  "fullName": "Bidang KTDAQ",
+  "gallery": [
+    {
+      "_key": "gallery-0",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi latihan rutin KTDAQ",
+      "caption": "Latihan rutin KTDAQ — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-1",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi diskusi materi KTDAQ",
+      "caption": "Diskusi materi KTDAQ — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-2",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi persiapan penampilan KTDAQ",
+      "caption": "Persiapan penampilan KTDAQ — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0e9984a0f3b089b0a111b3cad680b8f09e0f0484-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-3",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi evaluasi bersama KTDAQ",
+      "caption": "Evaluasi bersama KTDAQ — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-de5e15e4e96573d85f1aebb45c76054b40ef7580-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-4",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi kebersamaan anggota KTDAQ",
+      "caption": "Kebersamaan anggota KTDAQ — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-5ab9c109eb6085173e1214ac7f1592ef2e781918-1696x2528-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-b927169274af279d1023bd1df24d3c0af17547d8-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Ulfa Eka Rahmawati",
+    "role": "Kepala Bidang Karya Tulis dan Desain Aplikasi Qur'ani"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "ktdaq"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-e7673c58be3d7728e57fd02c30a2b467b728582f-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Aida Isma Ardiani",
+    "role": "Wakil Kepala Bidang Karya Ilmiah Al-Qur’an"
+  }
+}

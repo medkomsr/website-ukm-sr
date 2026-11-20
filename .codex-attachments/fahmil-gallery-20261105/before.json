@@ -1,0 +1,99 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-fahmil-quran",
+  "_rev": "kYBEi1Nh2tVFfYaC2umm6Q",
+  "_type": "bidang",
+  "_updatedAt": "2026-11-02T08:31:20Z",
+  "abbr": "Fahmil",
+  "description": "Fahmil Qur’an adalah bidang yang mendalami pemahaman Al-Qur’an dan pengetahuan keislaman melalui cerdas cermat. Proses belajarnya memadukan ketelitian memahami materi, kecepatan berpikir, dan kerja sama tim dalam menjawab pertanyaan.",
+  "fullName": "Bidang Fahmil",
+  "gallery": [
+    {
+      "_key": "fahmil-documentation-1",
+      "_type": "object",
+      "alt": "Anggota bidang Fahmil Qur’an duduk bersama di area kampus.",
+      "caption": "Kebersamaan anggota Fahmil Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2451a5d358f2695c88307226b0a5b4746d11e18f-4080x3060-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "fahmil-documentation-2",
+      "_type": "object",
+      "alt": "Anggota bidang Fahmil Qur’an berfoto bersama di dalam gedung.",
+      "caption": "Dokumentasi pembinaan Fahmil Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-86a4388abf4915060e8e0d478027e4ca758ff916-3060x4080-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "fahmil-documentation-3",
+      "_type": "object",
+      "alt": "Anggota bidang Fahmil Qur’an berfoto di taman kampus.",
+      "caption": "Kebersamaan di lingkungan kampus",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0a3ebbd7d676abf8401c35988d72222e0c4cf6b6-720x1280-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "fahmil-documentation-4",
+      "_type": "object",
+      "alt": "Swafoto bersama anggota bidang Fahmil Qur’an di area luar gedung.",
+      "caption": "Momen bersama anggota Fahmil Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0c0094183eee309a536c7b80af1caf9eba16ece3-2252x4000-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-1399060e97deadd408d5a81ac26599d595c442c7-1696x2528-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-b752d8c78dcc717129ad110302ba06e8ff43badf-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Zakiyatun Nufus",
+    "role": "Kepala Bidang Fahmil Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "fahmil-quran"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6d84f17c81523ef4f33148a1a1267104ed3380b4-284x213-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Salwa",
+    "role": "Wakil Kepala Bidang Fahmil Qur'an"
+  }
+}

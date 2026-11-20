@@ -1,0 +1,14 @@
+// Shared visual vocabulary. Keep include order: later layers refine earlier ones.
+@use "./experience/foundation";
+@use "./experience/responsive";
+@use "./experience/composition";
+@use "./experience/palette";
+@use "./experience/navigation";
+@use "./experience/layout";
+
+@include foundation.styles;
+@include responsive.styles;
+@include composition.styles;
+@include palette.styles;
+@include navigation.styles;
+@include layout.styles;

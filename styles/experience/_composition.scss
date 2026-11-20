@@ -1,0 +1,357 @@
+// Emitted in experience.module.scss; order is part of the approved design.
+@mixin styles {
+  /* Centered wordmark and navigation, with independent animation layers. */
+  .srOnly {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px !important;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .hero {
+    min-height: 100svh;
+    padding-bottom: 0;
+  }
+  .heroMain {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 90px 0 50px;
+  }
+  .wordmarkWrap {
+    width: 100%;
+  }
+  .wordmark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3%;
+    width: 100%;
+    border: 0;
+    background: none;
+    padding: 24px 0;
+  }
+  .wordmark > svg {
+    width: 58.2%;
+    height: auto;
+    overflow: visible;
+  }
+  .wordmark > svg:first-child {
+    width: 38.8%;
+  }
+  .heroBottom {
+    justify-content: center;
+    padding: 12px 0 70px;
+  }
+  .heroScroll {
+    display: inline-flex;
+    position: relative;
+    padding: 2px;
+    border-radius: 50px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .heroScroll:before {
+    content: "";
+    position: absolute;
+    width: 250%;
+    aspect-ratio: 1;
+    left: -75%;
+    top: 50%;
+    background: conic-gradient(#bba574, #b9b98c, #96af9b, #bba574, #bba574);
+    animation: orbitBorder 5s linear infinite;
+    z-index: -1;
+  }
+  .heroScroll > span {
+    border-radius: 50px;
+    padding: 18px 28px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    font-size: 13px;
+  }
+  .heroScroll svg {
+    animation: scrollNudge 2s ease-in-out infinite;
+  }
+  @keyframes orbitBorder {
+    from {
+      transform: translateY(-50%) rotate(0deg);
+    }
+    to {
+      transform: translateY(-50%) rotate(360deg);
+    }
+  }
+  @keyframes scrollNudge {
+    0%,
+    100% {
+      transform: translateY(-3px);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+  .menuAnchor {
+    position: fixed;
+    left: 50%;
+    top: 88px;
+    width: min(calc(100vw - 32px), 400px);
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .menuPanel {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    translate: none;
+    width: 100%;
+    pointer-events: auto;
+  }
+  .menuPanel[inert] {
+    pointer-events: none;
+  }
+  .island {
+    left: 50%;
+    right: auto;
+    translate: -50% 0;
+  }
+  .motto {
+    height: 100svh;
+    min-height: 650px;
+    max-height: none;
+    justify-content: center;
+    gap: 14vh;
+    position: relative;
+  }
+  .motto > .eyebrow {
+    position: absolute;
+    top: 90px;
+    left: 5vw;
+  }
+  .mottoTrack {
+    flex-shrink: 0;
+  }
+  .mottoTrack [data-sticker] {
+    border: 0;
+    line-height: inherit;
+    letter-spacing: inherit;
+  }
+  .companyReel {
+    position: relative;
+    margin: 0 5vw;
+    height: calc(100svh - 110px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+  .companyReel .videoFrame {
+    container-type: inline-size;
+    flex-shrink: 0;
+    max-height: calc(100svh - 145px);
+    aspect-ratio: 1.85;
+  }
+  .companyReel .videoPlay {
+    font-size: clamp(24px, 9cqw, 76px);
+    white-space: nowrap;
+    gap: 12px;
+  }
+  .companyReel .videoPlay > svg {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    flex-shrink: 0;
+  }
+  .fieldInner {
+    transition: none;
+  }
+  .fieldFront > span[data-field-symbol] {
+    transform-origin: center;
+  }
+  .newsImage > img {
+    transition: none;
+  }
+  .newsImage:hover > img {
+    transform: none;
+  }
+  .awardSpark {
+    background: none;
+    border: 0;
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    align-self: center;
+    color: var(--accent);
+    margin: 18px 0;
+    padding: 0;
+    --symbol-cut: var(--surface);
+  }
+  .awardSpark svg {
+    width: 100%;
+    height: 100%;
+  }
+  .awardEmpty .awardSpark {
+    --symbol-cut: var(--ink);
+  }
+  .contactPlay {
+    position: absolute;
+    right: 7%;
+    top: 10%;
+    width: clamp(80px, 15vw, 220px);
+    height: clamp(80px, 15vw, 220px);
+    background: none;
+    border: 0;
+    color: inherit;
+    padding: 0;
+  }
+  .contactPlay img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .partnerGrid {
+    display: flex;
+    gap: 45px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 0;
+  }
+  .partner {
+    min-height: 100px;
+    display: grid;
+    place-items: center;
+  }
+  .partner img {
+    max-width: 180px;
+    max-height: 90px;
+    object-fit: contain;
+  }
+  .imageFallback {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    inset: 0;
+    background: var(--surface);
+    color: var(--muted);
+    gap: 16px;
+    align-content: center;
+  }
+  .imageFallback > svg {
+    width: 80px;
+    height: 80px;
+  }
+  .imageFallback > span {
+    font: 10px monospace;
+    letter-spacing: 0.1em;
+  }
+  @media (max-width: 800px) {
+    .hero {
+      min-height: 100svh;
+      padding: 24px 24px 0;
+    }
+    .heroTop .brand > span {
+      display: none;
+    }
+    .heroMain {
+      padding: 90px 0 55px;
+    }
+    .wordmark {
+      flex-direction: column;
+      gap: 30px;
+    }
+    .wordmark > svg {
+      width: 100%;
+    }
+    .wordmark > svg:first-child {
+      width: 68%;
+    }
+    .heroBottom {
+      width: 100%;
+      padding: 0 0 65px;
+    }
+    .heroScroll > span {
+      font-size: 12px;
+      padding: 16px 24px;
+    }
+    .motto {
+      min-height: 0;
+      height: auto;
+      padding: 60px 24px;
+      gap: 25px;
+    }
+    .motto > .eyebrow {
+      position: static;
+    }
+    .companyReel {
+      margin: 0 24px;
+      padding: 32px 0 0;
+      height: auto;
+    }
+    .companyReel .videoFrame {
+      width: 100%;
+      aspect-ratio: 1.6;
+      max-height: none;
+    }
+    .companyReel .videoPlay {
+      font-size: clamp(25px, 7.5vw, 52px);
+      gap: 8px;
+    }
+    .companyReel .videoPlay > svg {
+      width: 24px;
+      height: 24px;
+    }
+    .awardSpark {
+      width: 80px;
+      height: 80px;
+      margin: 12px 0;
+    }
+    .contactPlay {
+      right: 0;
+      top: 7%;
+      width: 70px;
+      height: 70px;
+    }
+    .partnerGrid {
+      justify-content: center;
+      gap: 24px;
+    }
+  }
+  @media (max-width: 370px) {
+    .heroMain {
+      padding-top: 80px;
+    }
+    .heroBottom {
+      padding-bottom: 50px;
+    }
+    .contactPlay {
+      width: 52px;
+      height: 52px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .motto {
+      height: auto;
+      min-height: 0;
+      padding-top: 100px;
+    }
+    .motto > .eyebrow {
+      position: static;
+    }
+    .companyReel {
+      height: auto;
+      padding: 40px 0;
+    }
+    .heroScroll:before,
+    .heroScroll svg {
+      animation: none;
+    }
+  }
+}

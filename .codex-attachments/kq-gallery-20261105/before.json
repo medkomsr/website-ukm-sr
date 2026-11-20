@@ -1,0 +1,112 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-khattil-quran",
+  "_rev": "JtZe9g3n0Vp3PBavL4rlfl",
+  "_type": "bidang",
+  "_updatedAt": "2026-10-25T13:09:26Z",
+  "abbr": "Khattil",
+  "description": "Khattil Qur’an adalah bidang seni kaligrafi yang mengolah keindahan aksara Arab menjadi karya visual. Proses belajarnya mencakup kaidah penulisan, proporsi huruf, dan komposisi, sekaligus memberi ruang untuk melatih ketelitian serta mengeksplorasi kreativitas dalam setiap goresan.",
+  "fullName": "Bidang Khattil",
+  "gallery": [
+    {
+      "_key": "gallery-0",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi latihan rutin Khattil",
+      "caption": "Latihan rutin Khattil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0e9984a0f3b089b0a111b3cad680b8f09e0f0484-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-1",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi diskusi materi Khattil",
+      "caption": "Diskusi materi Khattil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-de5e15e4e96573d85f1aebb45c76054b40ef7580-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-2",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi persiapan penampilan Khattil",
+      "caption": "Persiapan penampilan Khattil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-3",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi evaluasi bersama Khattil",
+      "caption": "Evaluasi bersama Khattil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-4",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi kebersamaan anggota Khattil",
+      "caption": "Kebersamaan anggota Khattil — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-e24aa3fb6d7e7076ee7f421341894fb06384ad83-2624x1968-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-8ea40b13b197414ca94769111c6e357273c4a861-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Zain Ahmad Quroba",
+    "role": "Kepala Bidang Khattil Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "khattil-quran"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-cc9ea928c619e82f52919172a4c3dc72958262be-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Alifah Nurnaura Salsabila",
+    "role": "Wakil Kepala Bidang Khattil Qur'an"
+  }
+}

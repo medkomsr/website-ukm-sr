@@ -1,0 +1,267 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "departemen-minba",
+  "_rev": "Rkpc1zpEs7DINM5NyNjNNK",
+  "_type": "departemen",
+  "_updatedAt": "2026-11-07T04:09:43Z",
+  "abbr": "Minba",
+  "fullName": "Departemen Minat dan Bakat",
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-83abf09b16dc02f4c5f8901599aeda0e3a6aef37-3936x2624-jpg",
+      "_type": "reference"
+    }
+  },
+  "pengurus": [
+    {
+      "_key": "minba-2026-9",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-84f0078b585c53cc641c05ce5a4d1a4bfc973788-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Departemen Minat dan Bakat",
+      "nama": "Tsalitsa Ainur Rosyidah"
+    },
+    {
+      "_key": "minba-2026-10",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-1b7adf238205569e604c28457dcfd524af633264-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+      "nama": "Fariza Angel Firdaus"
+    },
+    {
+      "_key": "minba-2026-11",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0cfadc963f5ad46b7c844244986d46558f6cefec-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+      "nama": "Faishal Akmali"
+    },
+    {
+      "_key": "minba-2026-12",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-29c9ca0a003c40980148bc88ae0c048f019ade2a-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+      "nama": "Ahmad Luthfi Ramadhan"
+    },
+    {
+      "_key": "minba-2026-13",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9eab6f4f16c99c41f402d9e27012575a5e8dfaed-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+      "nama": "Rafsanjana Toriq Panangsang"
+    },
+    {
+      "_key": "minba-2026-14",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-a3d308d90033a90994acfc8e324fe90dd5725d65-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Pembinaan dan Kaderisasi Prestatif Minat dan Bakat",
+      "nama": "Muhammad Afiq Assyauqi"
+    },
+    {
+      "_key": "minba-2026-15",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9e3d6b843d38e8be387bd2db8c6b478c82ddbc73-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Perlombaan Minat dan Bakat",
+      "nama": "Yasinta Syifa'ul Aulia"
+    },
+    {
+      "_key": "minba-2026-16",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-b0e929afab8a638c2da15e43b304cde3098801e6-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Perlombaan Minat dan Bakat",
+      "nama": "Ika Octavia D. V."
+    },
+    {
+      "_key": "minba-2026-17",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-29ddd0886209a08dc37a7e68f9389674b5a3962f-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Perlombaan Minat dan Bakat",
+      "nama": "Zidan Zakiy Priambada"
+    },
+    {
+      "_key": "minba-2026-18",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-1517087b69694fa8cb5b744576e08d3726f42ad9-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Perlombaan Minat dan Bakat",
+      "nama": "Eka Alfreda Saputra"
+    },
+    {
+      "_key": "minba-2026-19",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9228ed61bee8b15173317013daf8eab19b1ecf7f-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi SR Manajemen Talent",
+      "nama": "M. Abdiy Lillah Afis Sholeh"
+    },
+    {
+      "_key": "minba-2026-20",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-fa52c97abed767a990f69c1c38f689878bf402a8-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi SR Manajemen Talent",
+      "nama": "Ahmad Yogi Nurrochim"
+    },
+    {
+      "_key": "minba-2026-21",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-734a62f4d0eb907ae8b89790e8594c2d57074d62-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi SR Inventaris",
+      "nama": "M. Rizqi Fahruddien"
+    },
+    {
+      "_key": "minba-2026-22",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-99fdc1ed7ba7b7f8a37a95511744431a8f768fa4-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi SR Inventaris",
+      "nama": "Heru Kurniawan"
+    },
+    {
+      "_key": "minba-2026-23",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-5500828beae47ce1272f5df32e493d291f4e426d-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi SR Inventaris",
+      "nama": "Yahya Ahmad Kurniawan"
+    }
+  ],
+  "programKerja": [
+    {
+      "_key": "pembinaan-rutin",
+      "_type": "programKerja",
+      "detail": "Pembinaan minat dan bakat oleh pengurus tiap bidang, di bawah koordinasi dan pengawasan Minba.",
+      "nama": "Pembinaan Rutin"
+    },
+    {
+      "_key": "kaderisasi-prestatif",
+      "_type": "programKerja",
+      "detail": "Seleksi talenta dan pembentukan tim anggota untuk mewakili UKM Seni Religi dalam lomba.",
+      "nama": "Kaderisasi Prestatif"
+    },
+    {
+      "_key": "pendelegasian",
+      "_type": "programKerja",
+      "detail": "Penjaringan dan pengutusan anggota ke lomba yang sesuai dengan bidang pembinaan.",
+      "nama": "Pendelegasian"
+    },
+    {
+      "_key": "info-lomba",
+      "_type": "programKerja",
+      "detail": "Penyampaian informasi lomba yang relevan dengan bidang pembinaan UKM Seni Religi.",
+      "nama": "Info Lomba"
+    },
+    {
+      "_key": "consulting-center",
+      "_type": "programKerja",
+      "detail": "Persiapan dan pendampingan anggota dalam mengikuti lomba sesuai bidangnya.",
+      "nama": "Consulting Center"
+    },
+    {
+      "_key": "sr-talent-management",
+      "_type": "programKerja",
+      "detail": "Menghubungkan talenta anggota dengan kebutuhan pihak eksternal secara profesional dan terstruktur.",
+      "nama": "SR Talent Management"
+    },
+    {
+      "_key": "peminjaman-inventaris",
+      "_type": "programKerja",
+      "detail": "Layanan peminjaman inventaris UKM Seni Religi untuk kebutuhan acara internal maupun eksternal.",
+      "nama": "Peminjaman Inventaris"
+    },
+    {
+      "_key": "sr-mini-shop",
+      "_type": "programKerja",
+      "detail": "Penjualan karya dan inventaris UKM Seni Religi yang bernilai jual, baik umum maupun bidang.",
+      "nama": "SR Mini Shop"
+    }
+  ],
+  "slug": {
+    "_type": "slug",
+    "current": "minba"
+  }
+}

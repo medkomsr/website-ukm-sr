@@ -1,0 +1,50 @@
+[
+  {
+    "_key": "pembinaan-rutin",
+    "_type": "programKerja",
+    "detail": "Pembinaan minat dan bakat oleh pengurus tiap bidang, di bawah koordinasi dan pengawasan Minba.",
+    "nama": "Pembinaan Rutin"
+  },
+  {
+    "_key": "kaderisasi-prestatif",
+    "_type": "programKerja",
+    "detail": "Seleksi talenta dan pembentukan tim anggota untuk mewakili UKM Seni Religi dalam lomba.",
+    "nama": "Kaderisasi Prestatif"
+  },
+  {
+    "_key": "pendelegasian",
+    "_type": "programKerja",
+    "detail": "Penjaringan dan pengutusan anggota ke lomba yang sesuai dengan bidang pembinaan.",
+    "nama": "Pendelegasian"
+  },
+  {
+    "_key": "info-lomba",
+    "_type": "programKerja",
+    "detail": "Penyampaian informasi lomba yang relevan dengan bidang pembinaan UKM Seni Religi.",
+    "nama": "Info Lomba"
+  },
+  {
+    "_key": "consulting-center",
+    "_type": "programKerja",
+    "detail": "Persiapan dan pendampingan anggota dalam mengikuti lomba sesuai bidangnya.",
+    "nama": "Consulting Center"
+  },
+  {
+    "_key": "sr-talent-management",
+    "_type": "programKerja",
+    "detail": "Menghubungkan talenta anggota dengan kebutuhan pihak eksternal secara profesional dan terstruktur.",
+    "nama": "SR Talent Management"
+  },
+  {
+    "_key": "peminjaman-inventaris",
+    "_type": "programKerja",
+    "detail": "Layanan peminjaman inventaris UKM Seni Religi untuk kebutuhan acara internal maupun eksternal.",
+    "nama": "Peminjaman Inventaris"
+  },
+  {
+    "_key": "sr-mini-shop",
+    "_type": "programKerja",
+    "detail": "Penjualan karya dan inventaris UKM Seni Religi yang bernilai jual, baik umum maupun bidang.",
+    "nama": "SR Mini Shop"
+  }
+]

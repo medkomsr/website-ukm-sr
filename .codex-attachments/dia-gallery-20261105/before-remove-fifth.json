@@ -1,0 +1,150 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-dia",
+  "_rev": "Rkpc1zpEs7DINM5Ny1aDjE",
+  "_type": "bidang",
+  "_updatedAt": "2026-11-05T12:56:56Z",
+  "abbr": "Debat Ilmiah",
+  "description": "Debat Ilmiah adalah bidang yang mengembangkan kemampuan menyusun dan menyampaikan argumen melalui kajian Al-Qur’an, ilmu pengetahuan, dan persoalan masa kini. Bidang ini melatih penalaran kritis, ketelitian membaca sumber, serta keterampilan menanggapi pandangan lain secara runtut dan santun.",
+  "fullName": "Bidang Debat Ilmiah",
+  "gallery": [
+    {
+      "_key": "dia-documentation-1",
+      "_type": "object",
+      "alt": "Lima peserta pembinaan Debat Ilmiah Al-Qur’an berkumpul di meja dengan buku catatan dan laptop.",
+      "caption": "Kebersamaan dalam pembinaan Debat Ilmiah Al-Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-34888dc703e3711a082fa0062861e9803e1624ad-4032x3024-jpg",
+          "_type": "reference"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 0.7,
+          "width": 1,
+          "x": 0.5,
+          "y": 0.65
+        }
+      }
+    },
+    {
+      "_key": "dia-documentation-2",
+      "_type": "object",
+      "alt": "Peserta pembinaan Debat Ilmiah Al-Qur’an berfoto bersama di sekitar meja panjang dalam ruangan.",
+      "caption": "Pertemuan pembinaan Debat Ilmiah Al-Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-56ef796409160bc796dcbb14630e438da6dd0fce-1280x720-jpg",
+          "_type": "reference"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 1,
+          "width": 0.7,
+          "x": 0.35,
+          "y": 0.5
+        }
+      }
+    },
+    {
+      "_key": "dia-documentation-3",
+      "_type": "object",
+      "alt": "Tiga peserta pembinaan Debat Ilmiah Al-Qur’an berfoto bersama di meja luar ruangan pada malam hari.",
+      "caption": "Momen bersama peserta pembinaan Debat Ilmiah Al-Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-da9fa2aa5c5de36a6870d8954dd7843d00f6c77e-1296x972-jpg",
+          "_type": "reference"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 1,
+          "width": 0.6000000000000001,
+          "x": 0.7,
+          "y": 0.5
+        }
+      },
+      "showFullImage": true
+    },
+    {
+      "_key": "dia-documentation-4",
+      "_type": "object",
+      "alt": "Empat peserta pembinaan Debat Ilmiah Al-Qur’an berfoto bersama di meja luar ruangan dengan buku catatan.",
+      "caption": "Dokumentasi pembinaan Debat Ilmiah Al-Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9ee72ad2614e2956bc2d82c98d5fef67e77b5fea-4128x2322-jpg",
+          "_type": "reference"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 0.7,
+          "width": 0.7,
+          "x": 0.65,
+          "y": 0.65
+        }
+      },
+      "showFullImage": true
+    },
+    {
+      "_key": "dia-documentation-5",
+      "_type": "object",
+      "alt": "Empat peserta pembinaan Debat Ilmiah Al-Qur’an berfoto bersama di meja pada malam hari.",
+      "caption": "Kebersamaan peserta Debat Ilmiah Al-Qur’an",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-de6e4e908487bfeb9279f39c9f59e85cc96455aa-4128x2322-jpg",
+          "_type": "reference"
+        },
+        "hotspot": {
+          "_type": "sanity.imageHotspot",
+          "height": 1,
+          "width": 0.7,
+          "x": 0.65,
+          "y": 0.5
+        }
+      },
+      "showFullImage": true
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-5e706e143cde55807ce58f45387ee5f40148bd76-2624x1968-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6f074f127195d13d2928a7f1f8468640f1924fa5-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Rayhan Ramadhan",
+    "role": "Kepala Bidang Debat Ilmiah Al-Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "dia"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-c753bb5c5ce30602e6b1d751d9d2c279e27835fb-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Najwa Marisa",
+    "role": "Wakil Kepala Bidang Debat Ilmiah Al-Qur'an"
+  }
+}

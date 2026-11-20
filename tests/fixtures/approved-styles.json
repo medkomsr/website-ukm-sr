@@ -1,0 +1,94 @@
+{
+  "description": "Approved styling before architecture refactor. Sass normalizes equivalent CSS notation; rule/declaration order remains significant.",
+  "baselineCommit": "67be166a16784b9c2addc710069ab8c63b0ae2cb",
+  "styles": {
+    "styles/brand-theme.scss": {
+      "source": "app/brand-theme.css",
+      "sha256": "837129ad6cee228ec6fed05497444cd4997b4aeff3d48b5b711b2999179a50dd",
+      "revision": "2026-10-09: Match wave edge underpainting and overlap the pinned motto seam to prevent fractional-pixel hairlines."
+    },
+    "features/activities/components/newsroom.module.scss": {
+      "source": "app/aktivitas/components/newsroom.module.css",
+      "sha256": "df4d9fda06c878f144f94e4769c2ed82c62d3626f2fc2a214e390e2c27a3bdb5",
+      "revision": "2026-11-13: Center the empty newsroom message on a single light screen."
+    },
+    "features/home/components/motto.module.scss": {
+      "source": "app/(home)/components/motto.module.css",
+      "sha256": "e57b892e650d2ce50769457fca42285d0f7c0e75064bcf37253a836c5588c75e"
+    },
+    "styles/experience.module.scss": {
+      "source": "app/(home)/components/sr-home.module.css",
+      "sha256": "e7444a0e4f075431735525fd36ed9376423b4f6097e16245f68ca36638c4db42",
+      "revision": "2026-10-08: stable achievement carousel with content-sized cards and spaced controls"
+    },
+    "features/home/components/hero-scene.module.scss": {
+      "source": "app/(home)/components/hero-scene.module.css",
+      "sha256": "da66434694c5838f661c0cc1368fb6769e8a3ea946c2fdb64acb6ea5d63cad5a"
+    },
+    "features/home/components/company-reel.module.scss": {
+      "source": "app/(home)/components/company-reel.module.css",
+      "sha256": "ad916f0131e3ff28debeb5adcd5daa3eaffc81bf3562934f984bbc80dab90d79",
+      "revision": "2026-10-09: Match wave edge underpainting and overlap the pinned motto seam to prevent fractional-pixel hairlines."
+    },
+    "components/layout/footer.module.scss": {
+      "source": "components/footer.module.css",
+      "sha256": "dd2c5de7b23f88889ea1815d183e604dedc242457be239de080402d9fcb6f421"
+    },
+    "components/layout/site-header.module.scss": {
+      "source": "components/site-header.module.css",
+      "sha256": "f551b4a27576859347416890c83614efe1303df7f77d36951d5dc685fee96cfe"
+    },
+    "components/layout/site-shell.module.scss": {
+      "source": "components/elegant-shell.module.css",
+      "sha256": "59aa5e3dcbc088248d7695f77696dc0e2a303e1243a9f8f61958bc58d1db993d",
+      "retainedSelectors": [
+        ".skip",
+        ".skip:focus"
+      ],
+      "note": "The only selectors referenced by the active shell; legacy header/footer selectors removed. Digest derived from these rules in baselineCommit."
+    },
+    "features/contact/components/contact.module.scss": {
+      "source": "app/kontak/components/contact.module.css",
+      "sha256": "eb777e5b129ed1371e4b05a2679c859cf7f6b96195bf72850fc07c33881694f2"
+    },
+    "features/achievements/components/achievements.module.scss": {
+      "source": "app/prestasi/components/achievements.module.css",
+      "sha256": "3e364d6f972c68b1f38632ad2cd5a962184ea4301d17bc97a81bb47501944a4e",
+      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
+    },
+    "features/about/components/about-profile.module.scss": {
+      "source": "app/tentang/components/about-profile.module.css",
+      "sha256": "925d0ecba2cc14bc838436737cde815019c0bdf0f9916f7e339f6ea111ac1eca",
+      "revision": "2026-10-09: Keep CMS vision and mission text intact, preserve paragraph breaks, and remove clipping masks."
+    },
+    "features/about/components/cabinet.module.scss": {
+      "source": "app/tentang/components/cabinet.module.css",
+      "sha256": "004c93f11034e673269fbb2d808b4fd5be9893495f9a2b523ae331a4634d5b6e"
+    },
+    "features/activities/components/detail/story-detail.module.scss": {
+      "source": "app/aktivitas/[id]/components/story-detail.module.css",
+      "sha256": "93bc3b94e34f6b855fea90746bc4c7b869e6c49421b966c41e5177f09fa0292e",
+      "revision": "2026-11-16: Restrict cover typography refinements to desktop; restore approved mobile sizing and animation."
+    },
+    "features/departments/components/scroll-gallery.module.scss": {
+      "source": "app/tentang/[dept]/components/scroll-gallery.module.css",
+      "sha256": "06653c4969565d3588d8e22753de2ac28f787984d82cd0d209aab8e05b0bf602",
+      "revision": "2026-11-01: Preserve BKRT landscape frames and add PSDM mixed photo ratios, readable descriptions, and blank undocumented programs; reviewed on desktop and mobile."
+    },
+    "features/departments/components/department-profile.module.scss": {
+      "source": "app/tentang/[dept]/components/department-profile.module.css",
+      "sha256": "6fe578b2716372048da780fa18f3a6da66871a0894dba1a8b006b6ad3a369356",
+      "revision": "2026-10-07: restore profile colors retaining waves, dark activity-detail hero, and borderless achievement search focus"
+    },
+    "features/art-fields/components/documentation-collage.module.scss": {
+      "source": "app/tentang/bidang/[bidang]/components/documentation-collage.module.css",
+      "sha256": "931f35fbab056ea7006fc25dbd90ddc6bdcc4f6216b9f0fd9d209f3150d0cc93",
+      "revision": "2026-10-08: Unclipped manual galleries, borderless activity cards, caption-free documentation collage."
+    },
+    "features/home/components/company-video.module.scss": {
+      "source": "features/home/components/company-video.module.scss",
+      "sha256": "bd366c6eeeb2230b0e776aa92d48313d0ca74306b03480172461356a9e5620d5",
+      "revision": "2026-10-08: requested autoplay reel with clean cinematic framing and viewport-safe scroll expansion; verified desktop and mobile"
+    }
+  }
+}

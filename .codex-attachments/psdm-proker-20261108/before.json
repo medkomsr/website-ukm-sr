@@ -1,0 +1,192 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "departemen-psdm",
+  "_rev": "Rkpc1zpEs7DINM5NyNRy3B",
+  "_type": "departemen",
+  "_updatedAt": "2026-11-07T02:57:46Z",
+  "abbr": "PSDM",
+  "fullName": "Departemen Pengembangan Sumber Daya Mahasiswa",
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-3ee1e0ccad2ddf0185dd6c3221c707ff077dbbf4-2624x3936-jpg",
+      "_type": "reference"
+    }
+  },
+  "pengurus": [
+    {
+      "_key": "psdm-2026-24",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-e51d558f832a6e599ef4be0cf53f9fa27a3932d3-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Departemen PSDM",
+      "nama": "Maulidatul Reva Dini"
+    },
+    {
+      "_key": "psdm-2026-25",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-d28b9e2e963c2f70569cf81ba7c59cdc66dcbece-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Internal PSDM",
+      "nama": "Meigita Dwi Suryani"
+    },
+    {
+      "_key": "psdm-2026-26",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f38f507736fc224d4f3175062db63a0d7b54c33a-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Internal PSDM",
+      "nama": "Mohammad Arman Zaki"
+    },
+    {
+      "_key": "psdm-2026-27",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-60f1154cee968866b905b0e44d4abdda98dbdc28-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Internal PSDM",
+      "nama": "Fadhil Alauddin"
+    },
+    {
+      "_key": "psdm-2026-28",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f2fef6ebda2776d2d11be8e8803e63e3903d4884-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Internal PSDM",
+      "nama": "Fasiska Nurin Ni'amah"
+    },
+    {
+      "_key": "psdm-2026-29",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-cf20b381914e86f59ecc29634ea1da0a46193dc2-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Internal PSDM",
+      "nama": "Qotrunnada Aiko Naila Sofa"
+    },
+    {
+      "_key": "psdm-2026-30",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-7a59376cd610766cc93caa72fdd65f6b9a9b9ff1-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Eksternal PSDM",
+      "nama": "Hilal Fajarul Habibi"
+    },
+    {
+      "_key": "psdm-2026-31",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-74013e12fd45e824911000075fb5cfe198d2aa88-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Eksternal PSDM",
+      "nama": "Muhammad Shidqi Wafa'"
+    },
+    {
+      "_key": "psdm-2026-32",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-095cbb8f72bc4c9d7c50159748b7acfd71fd00aa-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Eksternal PSDM",
+      "nama": "Nur Rohmatul Faiza"
+    }
+  ],
+  "programKerja": [
+    {
+      "_key": "psdm-3n",
+      "_type": "programKerja",
+      "detail": "Ngaji, Ngopi, Njagong: khataman Al-Qur’an dan diskusi santai untuk mempererat kebersamaan anggota dan Pengurus Harian.",
+      "nama": "3N"
+    },
+    {
+      "_key": "psdm-baksos",
+      "_type": "programKerja",
+      "detail": "Kegiatan bakti sosial yang mengajak anggota menumbuhkan kepedulian terhadap sesama melalui aksi berbagi dan pengabdian kepada masyarakat.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-3349d630777eaeba01a8263f68c010cda36ee4fc-3024x4032-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Baksos"
+    },
+    {
+      "_key": "psdm-diklat",
+      "_type": "programKerja",
+      "detail": "Pembekalan nilai organisasi dan kerja sama untuk mempersiapkan anggota agar aktif berkegiatan di UKM Seni Religi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f75dbb20fd9a7777658658415c7f469980be81f7-4032x3024-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Diklat Anggota"
+    },
+    {
+      "_key": "psdm-stuban",
+      "_type": "programKerja",
+      "detail": "Kunjungan antar-UKM sejenis untuk mempererat silaturahmi, berbagi pengalaman pengembangan minat dan bakat, serta pengelolaan organisasi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-d21db4a66d2cddcd61b90327eee1accaf2a5b5d1-4160x2724-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Stuban"
+    },
+    {
+      "_key": "psdm-yks",
+      "_type": "programKerja",
+      "detail": "Pembacaan maulid diba’ setiap Kamis malam selepas Isya, bergiliran di masjid UB bersama Lembaga Dakwah Fakultas atau universitas lain.",
+      "nama": "YKS"
+    }
+  ],
+  "slug": {
+    "_type": "slug",
+    "current": "psdm"
+  }
+}

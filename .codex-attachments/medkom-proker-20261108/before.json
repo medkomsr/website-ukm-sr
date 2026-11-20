@@ -1,0 +1,232 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "departemen-medkom",
+  "_rev": "JtZe9g3n0Vp3PBavL51m6r",
+  "_type": "departemen",
+  "_updatedAt": "2026-10-25T13:41:18Z",
+  "abbr": "Medkom",
+  "fullName": "Departemen Media dan Komunikasi",
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-a5a659b3aded5b950b78349bfc0e51a755cb86ba-2624x3936-jpg",
+      "_type": "reference"
+    }
+  },
+  "pengurus": [
+    {
+      "_key": "medkom-2026-33",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-cbf0d4db76cd758502e4446cdfbfde2b9e964b2d-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Media Komunikasi Informasi Kreatif",
+      "nama": "Mohammad Binandha Oktasyarif"
+    },
+    {
+      "_key": "medkom-2026-34",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-89992440d032b97b57c3ac46251d9bb9ded713fb-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+      "nama": "Muhammad Farhan Baihaqy"
+    },
+    {
+      "_key": "medkom-2026-35",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-bce2eb7ab09a79c6b738aeef91c52b8b72bae5a0-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+      "nama": "Dimas Bima Sakti"
+    },
+    {
+      "_key": "medkom-2026-36",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-ae96dd8e25f2f77f8826b824034efcfda285c9a9-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+      "nama": "Rizqy Mas Adi Putra"
+    },
+    {
+      "_key": "medkom-2026-37",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f7a22a07dacf251c786923730748689132a9cf04-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+      "nama": "Dimas Agustian"
+    },
+    {
+      "_key": "medkom-2026-38",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-d76837759f02829babf3d642da896e666591dc5f-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Branding dan Karya Kreatif Media Komunikasi Informasi Kreatif",
+      "nama": "Syifa Amaliah"
+    },
+    {
+      "_key": "medkom-2026-39",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-7adb3671a2fa3198815755cb944c91a6afde6fe7-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Publikasi Informasi Media Branding",
+      "nama": "Diva Regita Haristanti"
+    },
+    {
+      "_key": "medkom-2026-40",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-fb9eecfffe20539c38376c7b9b25cbab0d193b0c-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Publikasi Informasi Media Branding",
+      "nama": "Iqbal Hafizd Arrizky"
+    },
+    {
+      "_key": "medkom-2026-41",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-4b4f1f230b83f0051167b07e8532fd720306c8d3-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Publikasi Informasi Media Branding",
+      "nama": "Muhammad Rafa Al Fatih Nasution"
+    },
+    {
+      "_key": "medkom-2026-42",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-9a6be0467bbd5a198552eb5de2717fb0a95cbead-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staf Divisi Publikasi Informasi Media Branding",
+      "nama": "Prasta Tyasih Trisoka Wijayanti"
+    },
+    {
+      "_key": "medkom-2026-43",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-24282334785d28a34f76c1b549f8a9018b521070-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Kepala Divisi Pengelolaan Website & Sistem Informasi",
+      "nama": "Kaesar Adam Rafano"
+    },
+    {
+      "_key": "medkom-2026-44",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-4991af7a2b354a9f4c8cbe2d502ffed1a8c7b7ed-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staff Divisi Pengelolaan Website & Sistem Informasi",
+      "nama": "Muhammad Zaidan Azizi"
+    },
+    {
+      "_key": "medkom-2026-45",
+      "_type": "pengurus",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-8de713e819443215cf77b4df74cbc5bef5efdb5d-960x720-jpg",
+          "_type": "reference"
+        }
+      },
+      "jabatan": "Staff Divisi Pengelolaan Website & Sistem Informasi",
+      "nama": "Mohamad Robi Alwan"
+    }
+  ],
+  "programKerja": [
+    {
+      "_key": "program-0",
+      "_type": "programKerja",
+      "detail": "Publikasi rutin yang merangkum kegiatan, cerita anggota, dan agenda organisasi dalam format yang mudah dibaca.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Kabar Seni Religi"
+    },
+    {
+      "_key": "program-1",
+      "_type": "programKerja",
+      "detail": "Lokakarya fotografi, desain, dan penyuntingan video untuk mengembangkan keterampilan tim dokumentasi.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Studio Kreatif"
+    },
+    {
+      "_key": "program-2",
+      "_type": "programKerja",
+      "detail": "Pengelompokan foto dan catatan kegiatan agar dokumentasi mudah ditemukan dan diteruskan kepada pengurus berikutnya.",
+      "foto": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+          "_type": "reference"
+        }
+      },
+      "nama": "Arsip Cerita"
+    }
+  ],
+  "slug": {
+    "_type": "slug",
+    "current": "medkom"
+  }
+}

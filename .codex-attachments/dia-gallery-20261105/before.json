@@ -1,0 +1,112 @@
+{
+  "_createdAt": "2026-10-09T09:35:45Z",
+  "_id": "bidang-dia",
+  "_rev": "JtZe9g3n0Vp3PBavL4rlfl",
+  "_type": "bidang",
+  "_updatedAt": "2026-10-25T13:09:26Z",
+  "abbr": "Debat Ilmiah",
+  "description": "Debat Ilmiah adalah bidang yang mengembangkan kemampuan menyusun dan menyampaikan argumen melalui kajian Al-Qur’an, ilmu pengetahuan, dan persoalan masa kini. Bidang ini melatih penalaran kritis, ketelitian membaca sumber, serta keterampilan menanggapi pandangan lain secara runtut dan santun.",
+  "fullName": "Bidang Debat Ilmiah",
+  "gallery": [
+    {
+      "_key": "gallery-0",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi latihan rutin Debat Ilmiah",
+      "caption": "Latihan rutin Debat Ilmiah — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-de5e15e4e96573d85f1aebb45c76054b40ef7580-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-1",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi diskusi materi Debat Ilmiah",
+      "caption": "Diskusi materi Debat Ilmiah — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-28040850c0c94f20ddc65a8459f3f33704cae232-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-2",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi persiapan penampilan Debat Ilmiah",
+      "caption": "Persiapan penampilan Debat Ilmiah — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-57b4f408b85b7b647705f1ed6b61b8b6c62f1c6e-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-3",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi evaluasi bersama Debat Ilmiah",
+      "caption": "Evaluasi bersama Debat Ilmiah — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-2a735aba3ed7bb3c73ab0ee4146dea05486ac723-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "gallery-4",
+      "_type": "object",
+      "alt": "Cuplikan company profile untuk ilustrasi kebersamaan anggota Debat Ilmiah",
+      "caption": "Kebersamaan anggota Debat Ilmiah — ilustrasi demo",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-0e9984a0f3b089b0a111b3cad680b8f09e0f0484-1440x586-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "image": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-5e706e143cde55807ce58f45387ee5f40148bd76-2624x1968-jpg",
+      "_type": "reference"
+    }
+  },
+  "ketuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-6f074f127195d13d2928a7f1f8468640f1924fa5-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Rayhan Ramadhan",
+    "role": "Kepala Bidang Debat Ilmiah Al-Qur'an"
+  },
+  "slug": {
+    "_type": "slug",
+    "current": "dia"
+  },
+  "wakilKetuaBidang": {
+    "_type": "object",
+    "image": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-c753bb5c5ce30602e6b1d751d9d2c279e27835fb-960x720-jpg",
+        "_type": "reference"
+      }
+    },
+    "name": "Najwa Marisa",
+    "role": "Wakil Kepala Bidang Debat Ilmiah Al-Qur'an"
+  }
+}

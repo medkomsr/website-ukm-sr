@@ -1,0 +1,103 @@
+{
+  "dataset": "development",
+  "document": "departemen-medkom",
+  "programKerja": [
+    {
+      "_type": "programKerja",
+      "_key": "grand-launching-kabinet",
+      "nama": "Grand Launching Kabinet",
+      "detail": "Pengenalan pengurus baru UKM Seni Religi 2026 melalui Instagram."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "oprec-anggota-pembinaan",
+      "nama": "Oprec Anggota Pembinaan",
+      "detail": "Rangkaian kegiatan untuk menarik minat mahasiswa bergabung di UKM Seni Religi UB."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "moniq",
+      "nama": "MONIQ",
+      "detail": "Publikasi kata-kata mutiara di media sosial UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "ulang-tahun-pengurus-harian",
+      "nama": "Ulang Tahun Pengurus Harian",
+      "detail": "Ucapan ulang tahun bagi pengurus harian UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "kabar-prestasi",
+      "nama": "Kabar Prestasi",
+      "detail": "Publikasi prestasi anggota UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "jadwal-publikasi-pembinaan",
+      "nama": "Jadwal Pembinaan dan Publikasi Pembinaan",
+      "detail": "Penyampaian jadwal dan informasi kegiatan pembinaan."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "konten-lpj",
+      "nama": "Konten LPJ",
+      "detail": "Rekap seluruh kegiatan pada pertengahan dan akhir masa kepengurusan."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "ucapan-hari-besar",
+      "nama": "Ucapan Hari Besar (PHBI & PHBN)",
+      "detail": "Ucapan peringatan hari besar Islam dan nasional."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "live-report-kegiatan",
+      "nama": "Live Report Kegiatan",
+      "detail": "Dokumentasi langsung kegiatan bersama UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "ulang-tahun-ukm-lain",
+      "nama": "Ucapan Ulang Tahun UKM Lain",
+      "detail": "Ucapan ulang tahun untuk UKM Seni Religi di universitas lain."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "publikasi-karya-bidang",
+      "nama": "Publikasi Karya Bidang (OPERA SR)",
+      "detail": "Apresiasi karya anggota dari bidang pembinaan melalui publikasi di media sosial UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "podcast",
+      "nama": "Podcast",
+      "detail": "Diskusi digital UKM Seni Religi."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "spesial-ramadhan",
+      "nama": "Spesial Ramadhan",
+      "detail": "Konten selama bulan Ramadhan hingga menjelang Hari Raya Idul Fitri."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "company-profile",
+      "nama": "Company Profile",
+      "detail": "Video profil UKM Seni Religi 2025."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "grand-launching-website",
+      "nama": "Grand Launching & Sosialisasi Website",
+      "detail": "Peluncuran website kepada publik dan demo fitur inventaris bagi pengurus."
+    },
+    {
+      "_type": "programKerja",
+      "_key": "sr-digital-information-center",
+      "nama": "SR Digital Information Center",
+      "detail": "Penghimpunan, pengelolaan, dan unggah berita kegiatan, press release, serta prestasi ke website."
+    }
+  ],
+  "onlyProgramsChanged": true
+}

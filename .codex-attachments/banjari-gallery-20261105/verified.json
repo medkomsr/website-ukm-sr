@@ -1,0 +1,13 @@
+{
+  "dataset": "development",
+  "document": "bidang-banjari-nasyid",
+  "photos": 4,
+  "verified": true,
+  "onlyGalleryChanged": true,
+  "files": [
+    "dokumentasi_pembinaan_banjari_1.jpg",
+    "dokumentasi_pembinaan_banjari_2.jpg",
+    "dokumentasi_pembinaan_banjari_3.jpg",
+    "dokumentasi_pembinaan_banjari_4.jpg"
+  ]
+}
