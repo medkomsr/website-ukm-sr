@@ -1,0 +1,36 @@
+{
+  "status": 200,
+  "headers": {
+    "link": "</_next/static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\", </_next/static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\"",
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/tentang/layout,_N_T_/tentang/page,_N_T_/tentang,departemen,kabinet,visiMisi,bidang"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/tentang/__PAGE__"
+  ],
+  "prefetchHints": {
+    "hints": 49216,
+    "slots": {
+      "children": {
+        "hints": 49248,
+        "slots": {
+          "children": {
+            "hints": 49312,
+            "slots": null
+          }
+        }
+      }
+    }
+  },
+  "routeCache": {
+    "key": "/route-cache/APP_PAGE/4eda87b01b14b530ad3308c6cf0acffda9f928e13a1ad5c0faf4ab4b64a61869/$/tentang",
+    "owner": {
+      "kind": "APP_PAGE",
+      "sourceRoute": "/tentang/page"
+    },
+    "isFallback": false
+  }
+}

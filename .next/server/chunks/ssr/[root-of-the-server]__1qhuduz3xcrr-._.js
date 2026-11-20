@@ -1,0 +1,3 @@
+module.exports=[918622,(a,b,c)=>{b.exports=a.x("next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",()=>require("next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"))},234403,a=>{"use strict";a.s(["L",0,"Seni Religi UB","Z",0,"https://senireligi.ub.ac.id/"])},924951,(a,b,c)=>{"use strict";b.exports=a.r(918622)},907997,(a,b,c)=>{"use strict";b.exports=a.r(924951).vendored["react-rsc"].ReactJsxRuntime},211857,(a,b,c)=>{"use strict";b.exports=a.r(924951).vendored["react-rsc"].ReactServerDOMTurbopackServer},800717,(a,b,c)=>{"use strict";b.exports=a.r(924951).vendored["react-rsc"].React}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__1qhuduz3xcrr-._.js.map

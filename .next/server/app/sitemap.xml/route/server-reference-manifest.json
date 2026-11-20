@@ -1,0 +1,15 @@
+{
+  "node": {
+    "80eb99a9895d4dac89fd134c7bc643fdbbd15c9b3f": {
+      "workers": {
+        "app/sitemap.xml/route": {
+          "moduleId": 637883,
+          "async": false
+        }
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_0",
+      "filename": "app/sitemap.ts"
+    }
+  },
+  "edge": {}
+}

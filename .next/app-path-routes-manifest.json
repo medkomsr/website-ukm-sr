@@ -1,0 +1,17 @@
+{
+  "/(home)/page": "/",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/aktivitas/[id]/page": "/aktivitas/[id]",
+  "/aktivitas/page": "/aktivitas",
+  "/api/contact/route": "/api/contact",
+  "/api/sanity/revalidate/route": "/api/sanity/revalidate",
+  "/favicon.ico/route": "/favicon.ico",
+  "/kontak/page": "/kontak",
+  "/prestasi/page": "/prestasi",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/studio/[[...tool]]/page": "/studio/[[...tool]]",
+  "/tentang/[dept]/page": "/tentang/[dept]",
+  "/tentang/bidang/[bidang]/page": "/tentang/bidang/[bidang]",
+  "/tentang/page": "/tentang"
+}

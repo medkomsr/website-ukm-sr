@@ -1,0 +1,17 @@
+{
+  "/(home)/page": "app/(home)/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/aktivitas/[id]/page": "app/aktivitas/[id]/page.js",
+  "/aktivitas/page": "app/aktivitas/page.js",
+  "/api/contact/route": "app/api/contact/route.js",
+  "/api/sanity/revalidate/route": "app/api/sanity/revalidate/route.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/kontak/page": "app/kontak/page.js",
+  "/prestasi/page": "app/prestasi/page.js",
+  "/sitemap.xml/route": "app/sitemap.xml/route.js",
+  "/studio/[[...tool]]/page": "app/studio/[[...tool]]/page.js",
+  "/tentang/[dept]/page": "app/tentang/[dept]/page.js",
+  "/tentang/bidang/[bidang]/page": "app/tentang/bidang/[bidang]/page.js",
+  "/tentang/page": "app/tentang/page.js"
+}

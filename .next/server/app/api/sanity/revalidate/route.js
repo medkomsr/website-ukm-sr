@@ -1,0 +1,10 @@
+var R=require("../../../../chunks/[turbopack]_runtime.js")("server/app/api/sanity/revalidate/route.js")
+R.c("server/chunks/[externals]__1789ew3p2pwyw._.js")
+R.c("server/chunks/node_modules_next_dist_1wdyn4471wvec._.js")
+R.c("server/chunks/_0ujhkvif265tw._.js")
+R.c("server/chunks/[root-of-the-server]__12uj0887q1ayr._.js")
+R.c("server/chunks/node_modules_next_1dp3mo79-ig6j._.js")
+R.c("server/chunks/node_modules_next_dist_1ixxkvkbot_zu._.js")
+R.c("server/chunks/_next-internal_server_app_api_sanity_revalidate_route_actions_1bcexcn6evlre.js")
+R.m(372075)
+module.exports=R.m(372075).exports

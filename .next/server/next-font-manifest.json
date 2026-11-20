@@ -1,0 +1,67 @@
+{
+  "app": {
+    "[project]/app/(home)/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/_not-found/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/aktivitas/[id]/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/aktivitas/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/kontak/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/prestasi/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/studio/[[...tool]]/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/tentang/[dept]/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/tentang/bidang/[bidang]/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ],
+    "[project]/app/tentang/page": [
+      "static/media/07c7676b89ed2778-s.p.2bn3s6zvc0dyp.woff2",
+      "static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2",
+      "static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2",
+      "static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pages": {},
+  "pagesUsingSizeAdjust": false
+}
