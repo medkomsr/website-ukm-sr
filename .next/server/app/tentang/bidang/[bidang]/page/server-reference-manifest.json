@@ -1,6 +1,6 @@
 {
   "node": {
-    "e0bee3bce751308aaff9616ed2fc8a35f4878fd2c7": {
+    "e0761a6c05a70fdad094b0174455833d3874048b7b": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -10,7 +10,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "lib/query/content-state.ts"
     },
-    "80f8c75a48e9e42f1bcf6d9af7642e9d08571434e5": {
+    "80993e0f96340b94f0ada58554d1fa08a05f582bf4": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -20,7 +20,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/homePage.ts"
     },
-    "807ecb0123384d56cfb18ecad94f4af615f561e39b": {
+    "80eb37ab43af4630912cf517926cc204c57f04f400": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -30,7 +30,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/kabinet.ts"
     },
-    "8005058c268a0f089f5e22742b6a38c57b0b9e95eb": {
+    "802a56cec2790e96aeb78a9b85cfbad187f7ffaf6c": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -40,7 +40,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/visiMisi.ts"
     },
-    "800814bdbfb6e7f1745f25df7994a059424b59fbbf": {
+    "80e296e16504c7c9f2fe576c22d4dea1885d10c632": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -50,7 +50,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/departemen.ts"
     },
-    "c0bca2ea01cb15e02279bf53985ba0dd07145f22c0": {
+    "c07b1d5ff25a891d6566fa3926c7a9183d5438747d": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -60,7 +60,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_1",
       "filename": "sanity/queries/departemen.ts"
     },
-    "80c6bdeb75b92598cc4f544a7f88d6b64dc178dc8c": {
+    "802052fdbcddb2a5c37439b1e945aacedbc50d8668": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -70,7 +70,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/bidang.ts"
     },
-    "c088213ab61d0e37c033a7dee40b24e0564ef46e73": {
+    "c078a30e53486c3e63d6f49e5e8b2772d214932212": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -80,7 +80,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_1",
       "filename": "sanity/queries/bidang.ts"
     },
-    "80264cb0f32c0692ae6e365cf72b00d06836789cc0": {
+    "805390f85990f017b9e4b3f3ac195fbd3f9dc3f515": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -90,7 +90,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_2",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "80479444bea145b48e9c53df27e490d2aee07a5e8e": {
+    "80d32a9ea73cc18d6e46396b9674451ea16c60f2cd": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -100,7 +100,17 @@
       "exportedName": "$$RSC_SERVER_CACHE_1",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "c00f2f07b3d95f2a5eab6def4c1a8637448778aff2": {
+    "c06c35f28f5e710f39f58d631f762ed8be79d2c4e9": {
+      "workers": {
+        "app/tentang/bidang/[bidang]/page": {
+          "moduleId": 481143,
+          "async": false
+        }
+      },
+      "exportedName": "$$RSC_SERVER_CACHE_0",
+      "filename": "sanity/queries/aktivitas.ts"
+    },
+    "c0e7f59b3f3c1fae66ee4a5a750278425b42949789": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -110,17 +120,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_3",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "c048a868d6c0b6d9d2bde17ef19fe840ece32ca536": {
-      "workers": {
-        "app/tentang/bidang/[bidang]/page": {
-          "moduleId": 481143,
-          "async": false
-        }
-      },
-      "exportedName": "$$RSC_SERVER_CACHE_0",
-      "filename": "sanity/queries/aktivitas.ts"
-    },
-    "c07e1b09af32b81189caac944d2167c55e03420599": {
+    "c08bfdd12fc7a0d01f075ee5f7059a1dace49175c1": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -130,7 +130,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/archive-index.ts"
     },
-    "8002220f4450cb5c65265d69a69a9d3342dd3e993f": {
+    "805b78a21030310e3c9565672fc6f7d732b00c2af9": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -140,7 +140,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_2",
       "filename": "sanity/queries/prestasi.ts"
     },
-    "80efd2c138fc04c5617f92ab6cc763eecb193c305c": {
+    "80bad3a086f68c2c77ac6815eceb99cf833634b857": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -150,7 +150,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_1",
       "filename": "sanity/queries/prestasi.ts"
     },
-    "c08761b0c4227ac5bfa73908bb0a61a8eabf3d819d": {
+    "c057daf19d65b014fb8e1f5942d6426c8189fe7176": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -160,7 +160,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/prestasi.ts"
     },
-    "808e5c3df271dcdfba35e2fd41276e7a72d32418e5": {
+    "80be2a371ba632543719848de890e9c151972098ce": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -170,7 +170,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/faq.ts"
     },
-    "8067235875617087972f74374b8d8a759ed76725a5": {
+    "800dc62dcd248d4ad56d6835b20ab7489cc3e36987": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -180,7 +180,7 @@
       "exportedName": "getAllBidang",
       "filename": "sanity/queries/bidang.ts"
     },
-    "c0924c1bdef612a2d87bb2c4877a948c6ce903384e": {
+    "c045af268d4b70c93ea740d3cda5fcd10a54adb8a3": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -190,7 +190,7 @@
       "exportedName": "getBidangBySlug",
       "filename": "sanity/queries/bidang.ts"
     },
-    "801290dc8f1f832881b094d223741513e1d63535f6": {
+    "805d325647d7540797ebd19cdc1933c5f4bf654dce": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -200,7 +200,7 @@
       "exportedName": "getAllDepartemen",
       "filename": "sanity/queries/departemen.ts"
     },
-    "c04043bc40457d16799304408f16be811296643912": {
+    "c07e9e2246d04d6e7a71fab9934e33018c95488207": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
@@ -210,7 +210,7 @@
       "exportedName": "getDepartemenBySlug",
       "filename": "sanity/queries/departemen.ts"
     },
-    "807e120ae58cffc9db94f95a7498c7707f0be2ef36": {
+    "8091ee0433c81fca1117004d9adda11cea60b1bbad": {
       "workers": {
         "app/tentang/bidang/[bidang]/page": {
           "moduleId": 481143,
