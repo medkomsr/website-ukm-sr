@@ -24,7 +24,7 @@ type CollageImageProps = Pick<
 };
 
 export default function CollageImage({ cdnVariant, ...props }: CollageImageProps) {
-  if (!cdnVariant) return <Image {...props} />;
+  if (!cdnVariant) return <Image {...props} alt={props.alt} />;
 
   const { widths, fallback, quality, sizes } = variants[cdnVariant];
   const url = new URL(props.src);
