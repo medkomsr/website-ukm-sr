@@ -3,9 +3,10 @@ import ContentData from "@/components/content/content-data";
 import ContentSkeleton from "@/components/content/content-skeleton";
 import SiteLayout from "@/components/layout/site-layout";
 import AchievementExperience from "@/features/achievements/components/achievement-experience";
+import { pageTitle } from "@/lib/site";
 
 export const metadata = {
-  title: "Prestasi | UKM Seni Religi UB",
+  title: pageTitle("Kabar Prestasi"),
   description:
     "Rekam jejak prestasi dan penghargaan UKM Seni Religi Universitas Brawijaya dari tingkat kampus hingga nasional.",
 };
