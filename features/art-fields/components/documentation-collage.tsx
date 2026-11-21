@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useLayoutEffect, useRef, useState } from "react";
-import Image from "next/image";
+import CollageImage from "./collage-image";
 import { Expand, ImageIcon, X } from "lucide-react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
@@ -16,10 +16,12 @@ export default function DocumentationCollage({
   items,
   title = "Galeri",
   tone = "green",
+  useSanityCdn = false,
 }: {
   name: string;
   title?: string;
   tone?: "green" | "cream";
+  useSanityCdn?: boolean;
   items: {
     imageUrl: string;
     alt?: string;
@@ -149,7 +151,8 @@ export default function DocumentationCollage({
         className={s.photo}
         style={item.showFullImage ? { aspectRatio: item.aspectRatio } : undefined}
       >
-        <Image
+        <CollageImage
+          cdnVariant={useSanityCdn ? "thumbnail" : undefined}
           src={item.imageUrl}
           alt={item.alt || `Dokumentasi ${name} ${index + 1}`}
           fill
@@ -216,7 +219,8 @@ export default function DocumentationCollage({
         {selected && (
           <figure className={s.figure}>
             <div ref={enlarged} data-flip-id={`${uid}-${active}`} className={s.enlarged}>
-              <Image
+              <CollageImage
+                cdnVariant={useSanityCdn ? "enlarged" : undefined}
                 src={selected.imageUrl}
                 alt={selected.alt || `Dokumentasi ${name}`}
                 width={1600}

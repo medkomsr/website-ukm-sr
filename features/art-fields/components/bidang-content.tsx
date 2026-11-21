@@ -58,7 +58,12 @@ export default function BidangContent({ slug }: { slug: string }) {
       data={profile}
       fieldDescription={description}
     >
-      <DocumentationCollage key={slug} name={profile.abbr} items={data?.gallery || []} />
+      <DocumentationCollage
+        key={slug}
+        name={profile.abbr}
+        items={data?.gallery || []}
+        useSanityCdn
+      />
     </ProfileContent>
   );
 }
