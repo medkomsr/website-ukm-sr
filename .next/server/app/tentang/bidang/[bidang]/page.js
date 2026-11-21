@@ -1,6 +1,7 @@
 var R=require("../../../../chunks/ssr/[turbopack]_runtime.js")("server/app/tentang/bidang/[bidang]/page.js")
-R.c("server/chunks/ssr/[root-of-the-server]__1uf5nvmgtzl9y._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1-zdvbz7w4ezt._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0yt01urnbci_k.js")
+R.c("server/chunks/ssr/_0wu2b6l2xb7p6._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__16wg53d5k_3-l._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_0-amwqbrge23p._.js")
 R.c("server/chunks/ssr/_1dsa7c7_3mqix._.js")
