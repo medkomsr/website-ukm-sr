@@ -8,10 +8,10 @@ const variants = {
     sizes: "auto, (max-width: 700px) 86vw, (max-width: 1372px) 50vw, 680px",
   },
   enlarged: {
-    widths: [960, 1280, 1600, 2048],
-    fallback: 1600,
+    widths: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    fallback: 1920,
     quality: 85,
-    sizes: "(max-width: 1222px) 90vw, 1100px",
+    sizes: "90vw",
   },
 };
 
