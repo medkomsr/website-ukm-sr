@@ -181,10 +181,20 @@ async function photos(page,path,simulate) {
   } finally {allowFailure();}
 }
 async function navigateThroughSite(page) {
-  await open(page,'/');
+  let release;
+  const held = new Promise(resolve => { release = resolve; });
+  await page.route('**/_next/static/chunks/**', async route => {
+    if (/\.js$/.test(new URL(route.request().url()).pathname)) await held;
+    await route.continue();
+  });
   const menu=page.getByRole('button',{name:'Buka menu'});
-  // This journey checks the interactive menu. SSR input readiness is covered independently above.
-  await page.waitForFunction(button => Object.keys(button).some(key => key.startsWith('__reactProps$')), await menu.elementHandle());
+  try {
+    const response = await page.goto(origin + '/', {waitUntil:'commit'});
+    assert.equal(response.status(), 200);
+    await menu.waitFor();
+    assert.equal(await menu.isEnabled(), false, 'The SSR menu should not accept a tap before hydration');
+  } finally { release(); }
+  // Playwright waits for the visible button to become enabled and taps exactly once.
   await menu.tap();
   await page.getByRole('navigation',{name:'Navigasi utama'}).getByRole('link',{name:/Berita & acara/i}).tap();
   await page.getByText('3 kabar ditemukan',{exact:true}).waitFor();
