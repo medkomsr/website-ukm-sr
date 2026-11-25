@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import { activityContent, activityMeta, listOf, readOne, isSafeSlug } from "../read-validation";
 import { activityFilter } from "@/sanity/queries/archive-filters";
@@ -8,7 +8,12 @@ import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
 import type { SanityActivity } from "@/sanity/types";
 
-import { archiveParams, fetchArchivePage, type ArchiveFilters } from "@/lib/content/pagination";
+import {
+  archiveParams,
+  fetchArchivePage,
+  isInitialArchivePage,
+  type ArchiveFilters,
+} from "@/lib/content/pagination";
 
 const HOME_NEWS_LIMIT = 3;
 
@@ -51,11 +56,23 @@ const activityCardProjection = groq`{
   "time": select(jenis == "acara" => time), "location": select(jenis == "acara" => location)
 }`;
 
-export async function getAktivitasPage(input: ArchiveFilters = {}) {
+export function getAktivitasPage(input: ArchiveFilters = {}) {
+  const params = archiveParams(input);
+  // Share the initial page with SSR. Visitor search terms should not grow the server cache.
+  return isInitialArchivePage(params)
+    ? getFirstAktivitasPage(params.pageSize)
+    : readAktivitasPage(params);
+}
+
+async function getFirstAktivitasPage(pageSize: number) {
   "use cache";
   cacheLife("hours");
   cacheTag("aktivitas");
-  const params = { ...archiveParams(input), validIds: await getValidArchiveIds("aktivitas") };
+  return readAktivitasPage(archiveParams({ pageSize }));
+}
+
+async function readAktivitasPage(filters: ReturnType<typeof archiveParams>) {
+  const params = { ...filters, validIds: await getValidArchiveIds("aktivitas") };
   const total = await client.fetch<number>(
     `count(*[${activityFilter} && _id in $validIds])`,
     params,

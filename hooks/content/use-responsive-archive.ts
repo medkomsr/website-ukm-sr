@@ -6,13 +6,13 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import type { ArchiveFilters, ArchivePage } from "@/lib/content/pagination";
-import { CONTENT_STALE_TIME } from "@/lib/query/constants";
+import { CONTENT_OBSERVER_STALE_TIME } from "@/lib/query/constants";
 import { prefetchNextArchivePage } from "@/lib/query/prefetch-archive";
 
 /** Desktop navigates pages; mobile reveals five more records per request. */
 export function useResponsiveArchive<T>(
   resource: string,
-  fetchPage: (filters: ArchiveFilters) => Promise<ArchivePage<T>>,
+  fetchPage: (filters: ArchiveFilters, signal?: AbortSignal) => Promise<ArchivePage<T>>,
   filters: ArchiveFilters,
   mobile: boolean,
 ) {
@@ -23,17 +23,18 @@ export function useResponsiveArchive<T>(
   const batches = reveal.key === filterKey ? reveal.batches : 1;
   const desktop = useQuery({
     queryKey: [resource, "page", filters],
-    queryFn: () => fetchPage(filters),
+    queryFn: ({ signal }) => fetchPage(filters, signal),
     placeholderData: keepPreviousData,
-    staleTime: CONTENT_STALE_TIME,
+    staleTime: CONTENT_OBSERVER_STALE_TIME,
     enabled: !mobile,
   });
   const incremental = useInfiniteQuery({
     queryKey: [resource, "mobile", mobileFilters],
-    queryFn: ({ pageParam }) => fetchPage({ ...mobileFilters, page: pageParam, pageSize: 5 }),
+    queryFn: ({ pageParam, signal }) =>
+      fetchPage({ ...mobileFilters, page: pageParam, pageSize: 5 }, signal),
     initialPageParam: 1,
     getNextPageParam: (last) => (last.page < last.pages ? last.page + 1 : undefined),
-    staleTime: CONTENT_STALE_TIME,
+    staleTime: CONTENT_OBSERVER_STALE_TIME,
     enabled: mobile,
   });
   useEffect(() => {
@@ -61,6 +62,8 @@ export function useResponsiveArchive<T>(
     isLoading: query.isLoading,
     isFetching: query.isFetching,
     isError: query.isError,
+    isPlaceholderData: query.isPlaceholderData,
+    isLoadMoreError: mobile && incremental.isFetchNextPageError,
     error: query.error,
     refetch: query.refetch,
     canExpand: !!data && data.items.length < data.total,

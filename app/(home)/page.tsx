@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SrHome from "@/features/home/components/sr-home";
 import { Suspense } from "react";
 import SiteLayout from "@/components/layout/site-layout";
+import { PublicFooter } from "@/components/layout/site-shell";
 import ContentData from "@/components/content/content-data";
 import ContentSkeleton from "@/components/content/content-skeleton";
 import { siteName, siteUrl } from "@/lib/site";
@@ -23,7 +24,7 @@ export default function Home() {
       }
     >
       <ContentData page="home">
-        <SrHome />
+        <SrHome footer={<PublicFooter />} />
       </ContentData>
     </Suspense>
   );

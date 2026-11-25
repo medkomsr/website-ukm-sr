@@ -124,7 +124,7 @@ export const achievementIdentity = z.object({
   title: required,
   year: z.number().int().min(2000).max(2100),
   category: z.enum(["Kompetisi", "Penghargaan", "Kolaborasi", "Rekam Jejak"]),
-  level: z.enum(["Kampus", "Kota", "Provinsi", "Nasional", "Internasional"]),
+  level: z.enum(["-", "Kampus", "Kota", "Provinsi", "Nasional", "Internasional"]),
 });
 export const achievementContent = achievementIdentity.extend({
   description: text,

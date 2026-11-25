@@ -1,27 +1,36 @@
 import { useResponsiveArchive } from "@/hooks/content/use-responsive-archive";
-import type { ArchiveFilters } from "@/lib/content/pagination";
-import { getPrestasiPage, getPrestasiMeta } from "@/sanity/queries/prestasi";
+import { fetchArchive } from "@/lib/content/archive-client";
+import type { ArchiveFilters, ArchivePage } from "@/lib/content/pagination";
+import type { getPrestasiMeta } from "@/sanity/queries/prestasi";
 import { useQuery } from "@tanstack/react-query";
-import { getBerandaPrestasi } from "@/sanity/queries/prestasi";
 import type { SanityPrestasi } from "@/sanity/types";
-import { CONTENT_STALE_TIME } from "@/lib/query/constants";
+import { CONTENT_OBSERVER_STALE_TIME } from "@/lib/query/constants";
 
 export function usePrestasi() {
   return useQuery<SanityPrestasi[]>({
     queryKey: ["prestasi", "home"],
-    queryFn: getBerandaPrestasi,
-    staleTime: CONTENT_STALE_TIME,
+    queryFn: ({ signal }) => fetchArchive<SanityPrestasi[]>("prestasi", { view: "home" }, signal),
+    staleTime: CONTENT_OBSERVER_STALE_TIME,
   });
 }
 
+function fetchPage(filters: ArchiveFilters, signal?: AbortSignal) {
+  return fetchArchive<ArchivePage<SanityPrestasi>>("prestasi", filters, signal);
+}
+
 export function usePrestasiPage(filters: ArchiveFilters, mobile = false) {
-  return useResponsiveArchive("prestasi", getPrestasiPage, filters, mobile);
+  return useResponsiveArchive("prestasi", fetchPage, filters, mobile);
 }
 export function usePrestasiMeta(enabled = true) {
   return useQuery({
     queryKey: ["prestasi", "meta"],
-    queryFn: getPrestasiMeta,
-    staleTime: CONTENT_STALE_TIME,
+    queryFn: ({ signal }) =>
+      fetchArchive<Awaited<ReturnType<typeof getPrestasiMeta>>>(
+        "prestasi",
+        { view: "meta" },
+        signal,
+      ),
+    staleTime: CONTENT_OBSERVER_STALE_TIME,
     enabled,
   });
 }

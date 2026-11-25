@@ -23,7 +23,6 @@ export type ContentPage =
 
 export async function getContentState(page: ContentPage, slug = "") {
   "use cache";
-  cacheLife("hours");
   // Nested CMS caches propagate their invalidation tags to this public payload.
   // A fresh client per payload keeps server renders isolated from one another.
   const client = new QueryClient({
@@ -89,6 +88,18 @@ export async function getContentState(page: ContentPage, slug = "") {
       requests.push(fetch(["faq"], getAllFaq));
       break;
   }
-  await Promise.all(requests);
+  if (page === "activities" || page === "achievements" || page === "field") {
+    const results = await Promise.allSettled(requests);
+    // Hydrate successful reads independently. The browser can retry just the missing query.
+    const partial = results.some((result) => result.status === "rejected");
+    const emptyAchievements =
+      page === "achievements" &&
+      client.getQueryData<{ total: number }>(["prestasi", "meta"])?.total === 0;
+    if (partial || emptyAchievements) cacheLife("seconds");
+    else cacheLife("hours");
+  } else {
+    await Promise.all(requests);
+    cacheLife("hours");
+  }
   return dehydrate(client);
 }

@@ -65,14 +65,15 @@ export default function AchievementExperience() {
   const prestasi = usePrestasiPage({ ...filters, search: debouncedSearch, page }, mobile);
   const meta = usePrestasiMeta();
   const data = prestasi.data?.items ?? emptyAchievements;
-  const isLoading = prestasi.isLoading;
-  const isError = prestasi.isError || meta.isError;
   const pending = prestasi.isFetching || search !== debouncedSearch;
-  const refetch = () => {
-    void prestasi.refetch();
-    void meta.refetch();
-  };
-  const totalRecords = meta.data?.total ?? 0;
+  const loadingResults =
+    search !== debouncedSearch ||
+    prestasi.isPlaceholderData ||
+    (!prestasi.data && !prestasi.isError);
+  const hasFilters = year !== "all" || field !== "all" || category !== "all" || !!search;
+  const total = prestasi.data?.total;
+  const totalRecords =
+    !hasFilters && !loadingResults && total !== undefined ? total : meta.data?.total;
   const [selection, setSelection] = useState<{
     item: SanityPrestasi;
     origin: HTMLButtonElement;
@@ -80,10 +81,8 @@ export default function AchievementExperience() {
   const years = [...(meta.data?.years ?? [])].sort((a, b) => b - a);
   const fields = meta.data?.fields ?? [];
   const categories = meta.data?.categories ?? [];
-  const total = prestasi.data?.total ?? 0;
   const pages = prestasi.data?.pages ?? 1;
   const currentPage = prestasi.data?.page ?? page;
-  const shown = new Set(data.map((item) => item._id));
 
   useGSAP(
     () => {
@@ -316,9 +315,11 @@ export default function AchievementExperience() {
             <h2 id="records-title">TRACK RECORD</h2>
           </div>
           <div className={s.recordTotal} data-reveal>
-            <span className={s.bigNumber} data-compact={totalRecords > 10 || undefined}>
-              <span data-count={totalRecords}>{twoDigits(Math.min(10, totalRecords))}</span>
-              {totalRecords > 10 && <span className={s.countPlus}>+</span>}
+            <span className={s.bigNumber} data-compact={(totalRecords ?? 0) > 10 || undefined}>
+              <span data-count={totalRecords}>
+                {totalRecords === undefined ? "—" : twoDigits(Math.min(10, totalRecords))}
+              </span>
+              {(totalRecords ?? 0) > 10 && <span className={s.countPlus}>+</span>}
             </span>
             <div>
               <button
@@ -367,7 +368,9 @@ export default function AchievementExperience() {
           fields={fields}
           categories={categories}
           count={total}
-          loading={pending}
+          loading={loadingResults}
+          hasFilters={hasFilters}
+          onRetryOptions={meta.isError && !meta.data ? () => void meta.refetch() : undefined}
           onChange={changeFilters}
         />
         <div className={s.resultLabels} aria-hidden="true">
@@ -377,14 +380,11 @@ export default function AchievementExperience() {
           <span>PENCAPAIAN</span>
           <span />
         </div>
-        <div ref={results} className={s.results} aria-busy={pending} inert={pending}>
+        <div ref={results} className={s.results} aria-busy={pending} inert={loadingResults}>
           {data.map((item) => (
             <button
               key={item._id}
               className={s.result}
-              style={{ display: shown.has(item._id) ? undefined : "none" }}
-              inert={!shown.has(item._id)}
-              aria-hidden={!shown.has(item._id)}
               data-result
               onClick={(event) => open(item, event.currentTarget)}
               aria-label={`Lihat prestasi: ${item.title}`}
@@ -407,29 +407,30 @@ export default function AchievementExperience() {
             </button>
           ))}
         </div>
-        {isLoading ? (
+        {loadingResults && !prestasi.data ? (
           <div className={s.empty} role="status">
             <p>Menyiapkan jejak prestasi…</p>
           </div>
-        ) : isError ? (
+        ) : !loadingResults && prestasi.isError && !prestasi.data ? (
           <div className={s.empty} role="alert">
             <h3>Arsip belum dapat dimuat.</h3>
-            <button className={s.pill} onClick={() => refetch()}>
+            <button className={s.pill} onClick={() => void prestasi.refetch()}>
               Coba lagi <ArrowRight size={18} />
             </button>
           </div>
         ) : (
-          !data.length && (
+          !loadingResults &&
+          total === 0 && (
             <div className={s.empty}>
               <h3>
-                {totalRecords ? "Belum ada hasil yang cocok." : "Kabar prestasi belum tersedia."}
+                {hasFilters ? "Belum ada hasil yang cocok." : "Kabar prestasi belum tersedia."}
               </h3>
               <p>
-                {totalRecords
+                {hasFilters
                   ? "Coba pilihan tahun atau bidang lainnya."
                   : "Nantikan pencapaian dan kisah terbaru anggota Seni Religi di sini."}
               </p>
-              {totalRecords ? (
+              {hasFilters ? (
                 <button className={s.pill} onClick={reset}>
                   Lihat semua prestasi <X size={16} />
                 </button>
@@ -446,6 +447,7 @@ export default function AchievementExperience() {
         {mobile ? (
           <ArchiveLoadMore
             busy={pending}
+            failed={prestasi.isLoadMoreError}
             canExpand={prestasi.canExpand}
             canCollapse={prestasi.canCollapse}
             onMore={() => void prestasi.loadMore()}

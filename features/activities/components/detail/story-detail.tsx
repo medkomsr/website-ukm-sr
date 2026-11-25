@@ -306,7 +306,7 @@ function Experience({ activity }: { activity: SanityActivity }) {
 export default function StoryDetail({ slug }: { slug: string }) {
   const { data: activity, isLoading, error, refetch } = useAktivitasBySlug(slug);
   if (isLoading) return <ContentSkeleton />;
-  if (error)
+  if (error && activity === undefined)
     return (
       <div className={s.loading} role="alert">
         <h1>Cerita belum dapat dimuat.</h1>

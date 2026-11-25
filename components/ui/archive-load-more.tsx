@@ -6,12 +6,14 @@ import s from "./archive-pagination.module.scss";
 
 export default function ArchiveLoadMore({
   busy,
+  failed = false,
   canExpand,
   canCollapse,
   onMore,
   onLess,
 }: {
   busy: boolean;
+  failed?: boolean;
   canExpand: boolean;
   canCollapse: boolean;
   onMore: () => void;
@@ -37,7 +39,7 @@ export default function ArchiveLoadMore({
     <div ref={controls} className={s.pagination}>
       {canExpand && (
         <button disabled={busy} onClick={onMore}>
-          {busy ? "Memuat…" : "Lihat lebih banyak"}
+          {busy ? "Memuat…" : failed ? "Coba muat lagi" : "Lihat lebih banyak"}
         </button>
       )}
       {canCollapse && (

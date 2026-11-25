@@ -1,8 +1,21 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parse, evaluate } from "groq-js";
-import { archiveParams, fetchArchivePage } from "../lib/content/pagination.ts";
+import {
+  archiveParams,
+  archiveFiltersFromUrl,
+  fetchArchivePage,
+} from "../lib/content/pagination.ts";
+import { fetchArchive } from "../lib/content/archive-client.ts";
+import { createQueryClient } from "../lib/query/client.ts";
 import { activityFilter, achievementFilter } from "../sanity/queries/archive-filters.ts";
+import { achievementIdentity, achievementContent } from "../sanity/read-validation.ts";
+
+test("achievements with a pending competition level are counted and displayed", () => {
+  const entry = { _id: "entry", title: "MSQ", category: "Kompetisi", year: 2026, level: "-" };
+  assert.equal(achievementIdentity.parse(entry).level, "-");
+  assert.equal(achievementContent.parse(entry).level, "-");
+});
 
 const dataset = Array.from({ length: 113 }, (_, i) => ({
   _id: `item-${String(i).padStart(3, "0")}`,
@@ -14,7 +27,35 @@ const dataset = Array.from({ length: 113 }, (_, i) => ({
   title: i === 112 ? "Cerita halaman terakhir" : `Cerita ${i}`,
   description: "Latihan bersama",
 }));
-test("untrusted archive arguments cannot crash the server action parser", () => {
+
+test("public archive GET preserves search text, mobile pagination and an empty type selection", async (t) => {
+  const requests = [];
+  t.mock.method(globalThis, "fetch", async (path, options) => {
+    requests.push({ method: options.method ?? "GET", path: new URL(path, "http://localhost") });
+    return Response.json({ items: [] });
+  });
+  const input = { page: 2, pageSize: 5, search: "Gebyar & Seni + 2026", types: [] };
+  await fetchArchive("aktivitas", input);
+  assert.equal(requests[0].method, "GET");
+  assert.equal(requests[0].path.pathname, "/api/arsip/aktivitas");
+  assert.deepEqual(archiveFiltersFromUrl(requests[0].path.searchParams), archiveParams(input));
+  assert.deepEqual(archiveFiltersFromUrl(new URLSearchParams()), archiveParams());
+});
+test("an archive denial surfaces immediately while a temporary server outage can retry", async (t) => {
+  const fetchMock = t.mock.method(globalThis, "fetch");
+  const client = createQueryClient();
+  const retry = client.getDefaultOptions().queries.retry;
+  for (const status of [403, 503]) {
+    fetchMock.mock.mockImplementationOnce(async () => new Response(null, { status }));
+    await assert.rejects(fetchArchive("prestasi", {}), (error) => {
+      assert.equal(error.status, status);
+      assert.equal(retry(0, error), status === 503);
+      return true;
+    });
+  }
+});
+
+test("untrusted archive arguments cannot crash the server parser", () => {
   for (const value of [
     null,
     42,

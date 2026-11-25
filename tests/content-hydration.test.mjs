@@ -1,9 +1,17 @@
 import assert from "node:assert/strict";
+import { createRequire } from "node:module";
 import test from "node:test";
-import { dehydrate, hydrate, QueryClient, QueryObserver } from "@tanstack/react-query";
+import { createElement } from "react";
+import { renderToString } from "react-dom/server";
+import { usePrestasiPage, usePrestasiMeta } from "../hooks/content/use-prestasi.ts";
 import { createQueryClient } from "../lib/query/client.ts";
 import { seedArchive } from "../lib/query/seed-archive.ts";
 import { CONTENT_STALE_TIME } from "../lib/query/constants.ts";
+
+// tsx loads the application's TS hooks as CommonJS. Use the same React Query context.
+const { dehydrate, hydrate, QueryClient, QueryClientProvider, QueryObserver } = createRequire(
+  import.meta.url,
+)("@tanstack/react-query");
 
 test("hydrated content is immediately readable and stays fresh when returning to a page", async () => {
   const server = new QueryClient();
@@ -31,6 +39,39 @@ test("hydrated content is immediately readable and stays fresh when returning to
   assert.ok(browser.getDefaultOptions().queries.gcTime >= CONTENT_STALE_TIME);
   server.clear();
   browser.clear();
+});
+
+test("a cold server render includes the seeded archive without reading the current time", (t) => {
+  const client = new QueryClient();
+  const filters = { page: 1 };
+  seedArchive(client, "prestasi", filters, {
+    total: 9,
+    page: 1,
+    pages: 1,
+    items: [{ title: "MSQ" }],
+  });
+  client.setQueryData(["prestasi", "meta"], { years: [2026] });
+  function Archive() {
+    const page = usePrestasiPage(filters);
+    const meta = usePrestasiMeta();
+    return createElement(
+      "p",
+      null,
+      `${page.data.total} prestasi: ${page.data.items[0].title} ${meta.data.years[0]}`,
+    );
+  }
+  const clock = t.mock.method(Date, "now", () => {
+    throw new Error("Date.now() in a prerendered archive");
+  });
+  try {
+    const html = renderToString(
+      createElement(QueryClientProvider, { client }, createElement(Archive)),
+    );
+    assert.match(html, /9 prestasi: MSQ 2026/);
+  } finally {
+    clock.mock.restore();
+    client.clear();
+  }
 });
 
 test("desktop hydration seeds mobile with five records and the correct continuation page", () => {

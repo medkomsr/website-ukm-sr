@@ -49,9 +49,11 @@ export default function Newsroom() {
     },
     mobile,
   );
-  const { data, isLoading, error, refetch, isFetching } = archiveData;
+  const { data, isError, refetch, isFetching } = archiveData;
   const meta = useAktivitasMeta();
   const pending = isFetching || search !== debouncedSearch;
+  const loadingResults =
+    search !== debouncedSearch || archiveData.isPlaceholderData || (!data && !isError);
   const currentPage = data?.page ?? page;
   const revealedPage = useRef(currentPage);
   const [selection, setSelection] = useState<PreviewSelection | null>(null);
@@ -61,8 +63,6 @@ export default function Newsroom() {
   const activities = useMemo(() => data?.items ?? [], [data]);
   const featured = meta.data?.featured ?? [];
   const categories = meta.data?.categories ?? [];
-  const total = data?.total ?? 0;
-  const shown = new Set(activities.map((item) => item._id));
   const hasFilters = types.length !== 2 || category !== "all" || status !== "all" || search !== "";
 
   useLayoutEffect(() => {
@@ -232,7 +232,13 @@ export default function Newsroom() {
     };
   }, [types, category, status, search, page, activities]);
 
-  if (meta.isSuccess && featured.length === 0) {
+  if (
+    !hasFilters &&
+    !loadingResults &&
+    data?.total === 0 &&
+    meta.isSuccess &&
+    featured.length === 0
+  ) {
     return (
       <section className={s.emptyPage} data-tone="cream">
         <h1>Berita dan acara belum tersedia.</h1>
@@ -243,20 +249,20 @@ export default function Newsroom() {
   return (
     <div className={s.page}>
       <NewsTitle />
-      {meta.isLoading ? (
+      {featured.length ? (
+        <FeaturedStories key={featured.map((item) => item._id).join("-")} items={featured} />
+      ) : meta.isLoading ? (
         <div className={s.loadingHero} role="status">
           Memuat kabar Seni Religi…
         </div>
-      ) : meta.error ? (
+      ) : meta.isError && !meta.data ? (
         <div className={s.message} role="alert">
-          <h2>Kabar belum dapat dimuat.</h2>
+          <h2>Sorotan berita dan acara belum dapat dimuat.</h2>
           <p>Silakan coba kembali sebentar lagi.</p>
           <button onClick={() => meta.refetch()}>
             Coba lagi <ArrowUpRight size={17} />
           </button>
         </div>
-      ) : featured.length ? (
-        <FeaturedStories key={featured.map((item) => item._id).join("-")} items={featured} />
       ) : null}
 
       <section
@@ -384,31 +390,24 @@ export default function Newsroom() {
           </div>
         )}
         <div data-archive-pop className={s.results} aria-live="polite">
-          {pending ? "Memuat kabar…" : `${total} kabar ditemukan`}
+          {loadingResults ? "Memuat kabar…" : data && `${data.total} kabar ditemukan`}
           {hasFilters && !expanded && (
             <button onClick={reset}>
               Reset filter <X size={12} />
             </button>
           )}
         </div>
-        {error && (
+        {!loadingResults && isError && !data && (
           <div role="alert" className={s.message}>
             <p>Kabar belum dapat dimuat.</p>
             <button onClick={() => refetch()}>Coba lagi</button>
           </div>
         )}
-        <div ref={resultsArea} className={s.resultsArea} aria-busy={pending} inert={pending}>
+        <div ref={resultsArea} className={s.resultsArea} aria-busy={pending} inert={loadingResults}>
           <div ref={resultsContent}>
             <div ref={grid} className={s.grid} role="region" aria-label="Daftar berita dan acara">
               {activities.map((item) => (
-                <article
-                  data-news-card
-                  className={s.card}
-                  key={item._id}
-                  style={{ display: shown.has(item._id) ? "block" : "none" }}
-                  inert={!shown.has(item._id)}
-                  aria-hidden={!shown.has(item._id)}
-                >
+                <article data-news-card className={s.card} key={item._id}>
                   <div data-archive-pop>
                     <button
                       className={s.cardButton}
@@ -454,7 +453,7 @@ export default function Newsroom() {
                 </article>
               ))}
             </div>
-            {!isLoading && !error && shown.size === 0 && (
+            {!loadingResults && data?.total === 0 && (
               <div data-empty-results className={s.message}>
                 <h3>{hasFilters ? "Belum ada yang cocok." : "Berita & acara belum tersedia."}</h3>
                 <p>
@@ -474,6 +473,7 @@ export default function Newsroom() {
         {mobile ? (
           <ArchiveLoadMore
             busy={pending}
+            failed={archiveData.isLoadMoreError}
             canExpand={archiveData.canExpand}
             canCollapse={archiveData.canCollapse}
             onMore={() => void archiveData.loadMore()}

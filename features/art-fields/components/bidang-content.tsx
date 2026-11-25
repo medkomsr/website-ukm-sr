@@ -15,7 +15,7 @@ export default function BidangContent({ slug }: { slug: string }) {
   const field = srFields.find((item) => item.slug === slug);
 
   if (isPending) return <ContentSkeleton />;
-  if (isError)
+  if (isError && data === undefined)
     return (
       <div data-tone="cream" className={s.status}>
         <h1>Halaman belum dapat dimuat.</h1>
@@ -58,12 +58,7 @@ export default function BidangContent({ slug }: { slug: string }) {
       data={profile}
       fieldDescription={description}
     >
-      <DocumentationCollage
-        key={slug}
-        name={profile.abbr}
-        items={data?.gallery || []}
-        useSanityCdn
-      />
+      <DocumentationCollage key={slug} name={profile.abbr} items={data?.gallery || []} />
     </ProfileContent>
   );
 }
