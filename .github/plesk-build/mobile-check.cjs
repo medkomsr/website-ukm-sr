@@ -110,6 +110,44 @@ async function news(page) {
   assert(responses.some(([m,s,r])=>m==='GET'&&s.toLowerCase()==='gbqn'&&r===200));
   return {initial:3,GBQN:1,empty:0,DiklatAfterRetry:1,responses};
 }
+async function delayedSearchHydration(page) {
+  let release;
+  const held = new Promise(resolve => { release = resolve; });
+  await page.route('**/_next/static/chunks/**', async route => {
+    if (/\.js$/.test(new URL(route.request().url()).pathname)) await held;
+    await route.continue();
+  });
+  try {
+    const navigation = await page.goto(origin + '/aktivitas', {waitUntil:'commit'});
+    assert.equal(navigation.status(), 200);
+    await page.getByText('3 kabar ditemukan', {exact:true}).waitFor();
+    const input = page.getByPlaceholder('Cari berita atau acara…');
+    await input.waitFor();
+    const locked = !(await input.isEditable());
+    // While JS is still in transit, the field must be locked or retain accepted keystrokes.
+    if (!locked) {
+      await input.pressSequentially('GBQN', {delay:50});
+      assert.equal(await input.inputValue(), 'GBQN');
+    }
+    const response = page.waitForResponse(res => {
+      const url = new URL(res.url());
+      return res.request().method() === 'GET' && url.pathname === '/api/arsip/aktivitas'
+        && url.searchParams.get('search')?.toUpperCase() === 'GBQN' && res.status() === 200;
+    }, {timeout:22000});
+    release();
+    if (locked) {
+      await page.waitForFunction(el => !el.disabled && !el.readOnly, await input.elementHandle());
+      await input.pressSequentially('GBQN', {delay:50});
+    }
+    await response;
+    await page.locator('[aria-live=polite]').filter({hasText:'1 kabar ditemukan'}).waitFor();
+    const cards = page.locator('[data-news-card]');
+    await expectCount(cards, 1);
+    assert.match(await cards.innerText(), /GBQN|Gebyar Brawijaya/i);
+    return {lockedBeforeHydration:locked, search:await input.inputValue(), news:await cards.count()};
+  } finally { release(); }
+}
+
 async function photos(page,path,simulate) {
   let allowFailure;
   const gate=new Promise(resolve=>{allowFailure=resolve;});
@@ -170,6 +208,7 @@ async function navigateThroughSite(page) {
   const browser=await chromium.launch({executablePath:process.env.CHROME_BIN,headless:true});
   try {
     await fresh(browser,'berita',news);
+    await fresh(browser,'pencarian saat JS terlambat',delayedSearchHydration);
     await fresh(browser,'prestasi',achievements);
     await fresh(browser,'foto bidang',p=>photos(p,'/tentang/bidang/syarhil-quran',false));
     await fresh(browser,'foto berita',p=>photos(p,story,true));

@@ -13,7 +13,7 @@ jobs:
     env:
       NEXT_PUBLIC_SANITY_PROJECT_ID: yzaa35ug
       NEXT_PUBLIC_SANITY_API_VERSION: '2024-01-01'
-      GALLERY_SOURCE_SHA: 6c2e759090d1adc6c68ab3f664c82c010c984d52
+      GALLERY_SOURCE_SHA: 0608bdf20d87dfea424ddb2d2cbee3880eabc22a
     steps:
       - uses: actions/checkout@v4
         with:
