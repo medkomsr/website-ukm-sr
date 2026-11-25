@@ -1,0 +1,3 @@
+{
+  "/api/arsip/[resource]/route": "app/api/arsip/[resource]/route.js"
+}
