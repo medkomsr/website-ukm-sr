@@ -183,6 +183,8 @@ async function photos(page,path,simulate) {
 async function navigateThroughSite(page) {
   await open(page,'/');
   const menu=page.getByRole('button',{name:'Buka menu'});
+  // This journey checks the interactive menu. SSR input readiness is covered independently above.
+  await page.waitForFunction(button => Object.keys(button).some(key => key.startsWith('__reactProps$')), await menu.elementHandle());
   await menu.tap();
   await page.getByRole('navigation',{name:'Navigasi utama'}).getByRole('link',{name:/Berita & acara/i}).tap();
   await page.getByText('3 kabar ditemukan',{exact:true}).waitFor();
