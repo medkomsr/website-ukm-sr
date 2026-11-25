@@ -14,6 +14,7 @@ import StoryPreview, {
   type PreviewSelection,
 } from "@/features/activities/components/story-preview";
 import ArchiveLoadMore from "@/components/ui/archive-load-more";
+import ArchiveSearchInput from "@/components/ui/archive-search-input";
 import { useMobileArchive } from "@/hooks/content/use-mobile-archive";
 import ArchivePagination from "@/components/ui/archive-pagination";
 import { useDebouncedSearch } from "@/hooks/content/use-debounced-search";
@@ -314,7 +315,7 @@ export default function Newsroom() {
           </div>
           <div data-archive-pop className={s.search}>
             <Search size={18} aria-hidden="true" />
-            <input
+            <ArchiveSearchInput
               aria-label="Cari berita atau acara"
               placeholder="Cari berita atau acara…"
               value={search}
