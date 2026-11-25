@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useHydrated } from "@/hooks/use-hydrated";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import s from "@/styles/experience.module.scss";
@@ -18,6 +19,7 @@ const nav = [
 ];
 
 export default function SiteHeader() {
+  const hydrated = useHydrated();
   const root = useRef<HTMLDivElement>(null),
     toggle = useRef<HTMLButtonElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
@@ -144,6 +146,7 @@ export default function SiteHeader() {
         <div className={s.islandButtons}>
           <button
             ref={toggle}
+            disabled={!hydrated}
             className={`${s.iconButton} ${s.menuButton}`}
             onClick={() => setOpen((v) => !v)}
             aria-label={open ? "Tutup menu" : "Buka menu"}
