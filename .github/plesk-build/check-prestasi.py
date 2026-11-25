@@ -29,15 +29,15 @@ class ArchiveRows(HTMLParser):
             self.rows[self.active].append(data.strip())
 
 expected = {
-    "MYCC â€“ MSQ": "Juara 1",
-    "MYCC â€“ MTQ": "Juara 2",
-    "MUFI â€“ MTQ": "Juara 1",
-    "GBQN UB â€“ MSQ": "Juara 2",
-    "GSRA UNAIR â€“ Banjari": "Juara 1",
-    "Maâ€™had Al-Jamiâ€™ah UIN Syekh Washil Kediri â€“ MSQ": "Juara 2",
-    "MTQ UB â€“ MSQ": "Juara 1",
-    "Gebyar Tafsir ISQI â€“ MSQ": "Juara 1",
-    "UIN Ponorogo â€“ MSQ": "Juara Harapan 2",
+    "MYCC \u2013 MSQ": "Juara 1",
+    "MYCC \u2013 MTQ": "Juara 2",
+    "MUFI \u2013 MTQ": "Juara 1",
+    "GBQN UB \u2013 MSQ": "Juara 2",
+    "GSRA UNAIR \u2013 Banjari": "Juara 1",
+    "Ma\u2019had Al-Jami\u2019ah UIN Syekh Washil Kediri \u2013 MSQ": "Juara 2",
+    "MTQ UB \u2013 MSQ": "Juara 1",
+    "Gebyar Tafsir ISQI \u2013 MSQ": "Juara 1",
+    "UIN Ponorogo \u2013 MSQ": "Juara Harapan 2",
 }
 html = urlopen(sys.argv[1] + "/prestasi", timeout=30).read().decode("utf-8")
 archive = ArchiveRows()
