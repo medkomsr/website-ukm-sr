@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { getAllDepartemen, getDepartemenBySlug } from "@/sanity/queries/departemen";
 import type { SanityDepartemenCard, SanityDepartemenDetail } from "@/sanity/types";
-import { CONTENT_STALE_TIME } from "@/lib/query/constants";
+import { CONTENT_OBSERVER_STALE_TIME } from "@/lib/query/constants";
 
 // Get all departemen
 export function useDepartemen() {
   return useQuery<SanityDepartemenCard[]>({
     queryKey: ["departemen"],
     queryFn: getAllDepartemen,
-    staleTime: CONTENT_STALE_TIME,
+    staleTime: CONTENT_OBSERVER_STALE_TIME,
   });
 }
 
@@ -18,6 +18,6 @@ export function useDepartemenBySlug(slug: string) {
     queryKey: ["departemen", slug],
     queryFn: () => getDepartemenBySlug(slug),
     enabled: !!slug,
-    staleTime: CONTENT_STALE_TIME,
+    staleTime: CONTENT_OBSERVER_STALE_TIME,
   });
 }

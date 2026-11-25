@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import { achievementContent, achievementMeta, listOf } from "../read-validation";
 import { achievementFilter } from "@/sanity/queries/archive-filters";
@@ -8,7 +8,12 @@ import { client } from "@/sanity/client";
 import { cacheLife, cacheTag } from "next/cache";
 import type { SanityPrestasi } from "@/sanity/types";
 
-import { archiveParams, fetchArchivePage, type ArchiveFilters } from "@/lib/content/pagination";
+import {
+  archiveParams,
+  fetchArchivePage,
+  isInitialArchivePage,
+  type ArchiveFilters,
+} from "@/lib/content/pagination";
 
 const HOME_ACHIEVEMENT_LIMIT = 5;
 
@@ -28,11 +33,25 @@ const prestasiProjection = groq`{
   "participants": participants[]{ _key, name, faculty, "imageUrl": image.asset->url }
 }`;
 
-export async function getPrestasiPage(input: ArchiveFilters = {}) {
+export function getPrestasiPage(input: ArchiveFilters = {}) {
+  const params = archiveParams(input);
+  // Share the initial page with SSR. Visitor search terms should not grow the server cache.
+  return isInitialArchivePage(params)
+    ? getFirstPrestasiPage(params.pageSize)
+    : readPrestasiPage(params);
+}
+
+async function getFirstPrestasiPage(pageSize: number) {
   "use cache";
-  cacheLife("hours");
   cacheTag("prestasi");
-  const params = { ...archiveParams(input), validIds: await getValidArchiveIds("prestasi") };
+  const data = await readPrestasiPage(archiveParams({ pageSize }));
+  if (data.total === 0) cacheLife("seconds");
+  else cacheLife("hours");
+  return data;
+}
+
+async function readPrestasiPage(filters: ReturnType<typeof archiveParams>) {
+  const params = { ...filters, validIds: await getValidArchiveIds("prestasi") };
   const total = await client.fetch<number>(
     `count(*[${achievementFilter} && _id in $validIds])`,
     params,
@@ -53,7 +72,6 @@ export async function getPrestasiPage(input: ArchiveFilters = {}) {
 
 export async function getPrestasiMeta() {
   "use cache";
-  cacheLife("hours");
   cacheTag("prestasi");
   const validIds = await getValidArchiveIds("prestasi");
   const result = await client.fetch<{
@@ -70,7 +88,10 @@ export async function getPrestasiMeta() {
   }`,
     { validIds },
   );
-  return achievementMeta.parse(result ?? {});
+  const data = achievementMeta.parse(result ?? {});
+  if (data.total === 0) cacheLife("seconds");
+  else cacheLife("hours");
+  return data;
 }
 
 /** Homepage picks first (in editor order), then the latest achievements fill the remaining slots. */

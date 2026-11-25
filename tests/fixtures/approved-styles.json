@@ -82,8 +82,8 @@
     },
     "features/art-fields/components/documentation-collage.module.scss": {
       "source": "app/tentang/bidang/[bidang]/components/documentation-collage.module.css",
-      "sha256": "931f35fbab056ea7006fc25dbd90ddc6bdcc4f6216b9f0fd9d209f3150d0cc93",
-      "revision": "2026-10-08: Unclipped manual galleries, borderless activity cards, caption-free documentation collage."
+      "sha256": "2233bf82970aa254317cc121652d1333e4d8d07dd112ffa343247bd8d088b6a3",
+      "revision": "2026-11-26: Size the documentation lightbox before loading and keep the photo preview visible alongside loading and retry controls."
     },
     "features/home/components/company-video.module.scss": {
       "source": "features/home/components/company-video.module.scss",

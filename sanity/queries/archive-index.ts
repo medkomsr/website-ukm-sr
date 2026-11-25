@@ -8,9 +8,9 @@ import { activityIdentity, achievementIdentity, listOf } from "../read-validatio
  */
 export async function getValidArchiveIds(kind: "aktivitas" | "prestasi") {
   "use cache";
-  cacheLife("hours");
   cacheTag(kind);
   if (kind === "aktivitas") {
+    cacheLife("hours");
     const records = await client.fetch(`*[_type == "beritaAcara"]{
       _id, "slug": slug.current, "type": select(jenis == "acara" => "event", "article"), title
     }`);
@@ -19,7 +19,10 @@ export async function getValidArchiveIds(kind: "aktivitas" | "prestasi") {
       .map((item) => item._id);
   }
   const records = await client.fetch(`*[_type == "prestasi"]{_id, title, year, category, level}`);
-  return listOf(achievementIdentity, Infinity)
+  const ids = listOf(achievementIdentity, Infinity)
     .parse(records)
     .map((item) => item._id);
+  if (ids.length) cacheLife("hours");
+  else cacheLife("seconds");
+  return ids;
 }

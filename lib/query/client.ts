@@ -1,5 +1,4 @@
 import { QueryClient } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { CONTENT_STALE_TIME } from "./constants";
 
 export function createQueryClient() {
@@ -12,8 +11,9 @@ export function createQueryClient() {
         gcTime: CONTENT_STALE_TIME,
         retry: (failureCount, error) => {
           if (
-            error instanceof AxiosError &&
-            error.status &&
+            error instanceof Error &&
+            "status" in error &&
+            typeof error.status === "number" &&
             error.status >= 400 &&
             error.status < 500
           ) {

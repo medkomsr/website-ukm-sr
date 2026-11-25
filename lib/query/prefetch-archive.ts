@@ -6,7 +6,7 @@ import { CONTENT_STALE_TIME } from "./constants";
 export async function prefetchNextArchivePage<T>(
   client: QueryClient,
   resource: string,
-  fetchPage: (filters: ArchiveFilters) => Promise<ArchivePage<T>>,
+  fetchPage: (filters: ArchiveFilters, signal?: AbortSignal) => Promise<ArchivePage<T>>,
   filters: ArchiveFilters,
   current: ArchivePage<T>,
 ) {
@@ -14,7 +14,7 @@ export async function prefetchNextArchivePage<T>(
   const next = { ...filters, page: current.page + 1 };
   await client.prefetchQuery({
     queryKey: [resource, "page", next],
-    queryFn: () => fetchPage(next),
+    queryFn: ({ signal }) => fetchPage(next, signal),
     staleTime: CONTENT_STALE_TIME,
     retry: false,
   });

@@ -17,21 +17,23 @@ export default function AchievementFilters({
   categories,
   count,
   loading = false,
+  hasFilters,
+  onRetryOptions,
   onChange,
 }: {
   values: Values;
   years: number[];
   fields: string[];
   categories: string[];
-  count: number;
+  count?: number;
   loading?: boolean;
+  hasFilters: boolean;
+  onRetryOptions?: () => void;
   onChange: (next: Values) => void;
 }) {
   const root = useRef<HTMLDivElement>(null);
   const panel = useRef<HTMLDivElement>(null);
   const [expanded, setExpanded] = useState(false);
-  const hasFilters =
-    values.year !== "all" || values.field !== "all" || values.category !== "all" || !!values.search;
   useGSAP(
     () => {
       const media = gsap.matchMedia();
@@ -146,8 +148,14 @@ export default function AchievementFilters({
           )}
         </div>
       </div>
+      {onRetryOptions && (
+        <div className={n.results} role="alert">
+          Pilihan filter prestasi belum dapat dimuat.
+          <button onClick={onRetryOptions}>Coba lagi</button>
+        </div>
+      )}
       <div data-filter-pop className={n.results} aria-live="polite">
-        {loading ? "Memuat prestasi…" : `${count} prestasi ditemukan`}
+        {loading ? "Memuat prestasi…" : count !== undefined && `${count} prestasi ditemukan`}
         {hasFilters && !expanded && (
           <button onClick={reset}>
             Reset filter <X size={12} />

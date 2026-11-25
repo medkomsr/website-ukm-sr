@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useLayoutEffect, useRef, useState } from "react";
+import { useId, useLayoutEffect, useRef, useState, type CSSProperties, type Ref } from "react";
 import CollageImage from "./collage-image";
 import { Expand, ImageIcon, X } from "lucide-react";
 import { gsap } from "gsap";
@@ -11,17 +11,99 @@ import s from "@/features/art-fields/components/documentation-collage.module.scs
 
 gsap.registerPlugin(Flip, ScrollTrigger, useGSAP);
 
+function EnlargedPhoto({
+  src,
+  alt,
+  preview,
+  aspectRatio,
+  frameRef,
+  flipId,
+}: {
+  src: string;
+  alt: string;
+  preview?: string;
+  aspectRatio: number;
+  frameRef: Ref<HTMLDivElement>;
+  flipId: string;
+}) {
+  const [previewFailed, setPreviewFailed] = useState(false);
+  const [load, setLoad] = useState({
+    attempt: 0,
+    status: "loading" as "loading" | "ready" | "failed",
+    ratio: aspectRatio,
+  });
+
+  function finish(status: "ready" | "failed", ratio?: number) {
+    setLoad((current) =>
+      current.attempt === load.attempt
+        ? { ...current, status, ratio: ratio || current.ratio }
+        : current,
+    );
+  }
+
+  return (
+    <figure className={s.figure} style={{ "--photo-ratio": load.ratio } as CSSProperties}>
+      <div ref={frameRef} data-flip-id={flipId} className={s.enlarged}>
+        {preview && !previewFailed && load.status !== "ready" && (
+          // Reuse the thumbnail request, including its selected srcset width.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={preview}
+            alt={alt}
+            className={s.preview}
+            onError={() => setPreviewFailed(true)}
+          />
+        )}
+        <CollageImage
+          key={load.attempt}
+          variant={load.attempt === 0 ? "enlarged" : "retry"}
+          src={src}
+          alt={alt}
+          fill
+          className={load.status === "ready" ? undefined : s.pendingImage}
+          onLoad={(event) => {
+            const image = event.currentTarget;
+            finish("ready", image.naturalWidth / image.naturalHeight);
+          }}
+          onError={() => finish("failed")}
+        />
+        {load.status !== "ready" && (
+          <div className={s.feedback}>
+            <span role="status">
+              {load.status === "loading"
+                ? "Memuat foto…"
+                : "Foto belum dapat dimuat dalam ukuran besar."}
+            </span>
+            {load.status === "failed" && (
+              <button
+                type="button"
+                onClick={() =>
+                  setLoad((current) => ({
+                    ...current,
+                    attempt: current.attempt + 1,
+                    status: "loading",
+                  }))
+                }
+              >
+                Coba lagi
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </figure>
+  );
+}
+
 export default function DocumentationCollage({
   name,
   items,
   title = "Galeri",
   tone = "green",
-  useSanityCdn = false,
 }: {
   name: string;
   title?: string;
   tone?: "green" | "cream";
-  useSanityCdn?: boolean;
   items: {
     imageUrl: string;
     alt?: string;
@@ -32,7 +114,9 @@ export default function DocumentationCollage({
   }[];
 }) {
   const photos = items.filter((item) => !!item.imageUrl);
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<{ index: number; preview?: string; ratio?: number } | null>(
+    null,
+  );
   const uid = useId();
   const root = useRef<HTMLElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
@@ -41,7 +125,7 @@ export default function DocumentationCollage({
   const snapshot = useRef<ReturnType<typeof Flip.getState> | null>(null);
   const animation = useRef<gsap.core.Animation | null>(null);
   const closing = useRef(false);
-  const selected = active === null ? null : photos[active];
+  const selected = active === null ? null : photos[active.index];
 
   useGSAP(
     () => {
@@ -97,7 +181,13 @@ export default function DocumentationCollage({
     origin.current = button;
     snapshot.current = Flip.getState(button.querySelector("[data-collage-photo]")!);
     closing.current = false;
-    setActive(index);
+    const thumbnail = button.querySelector("img");
+    const loaded = thumbnail && thumbnail.naturalWidth > 0 && thumbnail.naturalHeight > 0;
+    setActive({
+      index,
+      preview: thumbnail && (!thumbnail.complete || loaded) ? thumbnail.currentSrc : undefined,
+      ratio: loaded ? thumbnail.naturalWidth / thumbnail.naturalHeight : undefined,
+    });
   };
   const close = () => {
     if (closing.current || active === null) return;
@@ -152,11 +242,10 @@ export default function DocumentationCollage({
         style={item.showFullImage ? { aspectRatio: item.aspectRatio } : undefined}
       >
         <CollageImage
-          cdnVariant={useSanityCdn ? "thumbnail" : undefined}
+          variant="thumbnail"
           src={item.imageUrl}
           alt={item.alt || `Dokumentasi ${name} ${index + 1}`}
           fill
-          sizes="(max-width: 700px) 90vw, 60vw"
           style={{
             objectFit: item.showFullImage ? "contain" : undefined,
             objectPosition:
@@ -210,25 +299,22 @@ export default function DocumentationCollage({
           close();
         }}
         onClick={(event) => {
-          if (!(event.target instanceof HTMLImageElement)) close();
+          if (event.target === event.currentTarget) close();
         }}
       >
         <button className={s.close} onClick={close} aria-label="Tutup foto" autoFocus>
           <X size={24} />
         </button>
-        {selected && (
-          <figure className={s.figure}>
-            <div ref={enlarged} data-flip-id={`${uid}-${active}`} className={s.enlarged}>
-              <CollageImage
-                cdnVariant={useSanityCdn ? "enlarged" : undefined}
-                src={selected.imageUrl}
-                alt={selected.alt || `Dokumentasi ${name}`}
-                width={1600}
-                height={1000}
-                sizes="90vw"
-              />
-            </div>
-          </figure>
+        {active && selected && (
+          <EnlargedPhoto
+            key={selected.imageUrl}
+            src={selected.imageUrl}
+            alt={selected.alt || selected.caption || `Dokumentasi ${name} ${active.index + 1}`}
+            preview={active.preview}
+            aspectRatio={active.ratio ?? selected.aspectRatio ?? 1.5}
+            frameRef={enlarged}
+            flipId={`${uid}-${active.index}`}
+          />
         )}
       </dialog>
     </section>

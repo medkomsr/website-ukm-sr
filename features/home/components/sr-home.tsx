@@ -15,7 +15,6 @@ import { usePrestasi } from "@/hooks/content/use-prestasi";
 import { useHomePage } from "@/hooks/content/use-home-page";
 
 import { IMAGES } from "@/lib/constants/home-content";
-import Footer from "@/components/layout/footer";
 import SiteHeader from "@/components/layout/site-header";
 import s from "@/styles/experience.module.scss";
 
@@ -25,7 +24,7 @@ import { NewsGallery } from "./news-gallery";
 import { SectionTitle } from "./section-heading";
 gsap.registerPlugin(ScrollTrigger);
 
-export default function SrHome() {
+export default function SrHome({ footer }: { footer: React.ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
   const { data: home } = useHomePage();
 
@@ -139,7 +138,7 @@ export default function SrHome() {
           </div>
         </section>
       </main>
-      <Footer />
+      {footer}
     </div>
   );
 }

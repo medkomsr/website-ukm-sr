@@ -8,25 +8,43 @@ const variants = {
     sizes: "auto, (max-width: 700px) 86vw, (max-width: 1372px) 50vw, 680px",
   },
   enlarged: {
-    widths: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    widths: [480, 640, 828, 1080, 1440, 1920, 2048],
     fallback: 1920,
     quality: 85,
-    sizes: "90vw",
+    sizes: "(max-width: 1222px) 90vw, 1100px",
+  },
+  retry: {
+    widths: [480, 640, 828, 960],
+    fallback: 828,
+    quality: 72,
+    sizes: "(max-width: 1222px) 90vw, 1100px",
   },
 };
 
 type CollageImageProps = Pick<
   ImageProps,
-  "alt" | "fill" | "width" | "height" | "sizes" | "style"
+  "alt" | "fill" | "style" | "className" | "onLoad" | "onError"
 > & {
   src: string;
-  cdnVariant?: keyof typeof variants;
+  variant: keyof typeof variants;
 };
 
-export default function CollageImage({ cdnVariant, ...props }: CollageImageProps) {
-  if (!cdnVariant) return <Image {...props} alt={props.alt} />;
+export default function CollageImage({ variant, onLoad, onError, ...props }: CollageImageProps) {
+  const { widths, fallback, quality, sizes } = variants[variant];
+  const loading = variant === "thumbnail" ? "lazy" : "eager";
+  if (!props.src.startsWith("https://cdn.sanity.io/images/")) {
+    return (
+      <Image
+        {...props}
+        alt={props.alt}
+        sizes={sizes}
+        loading={loading}
+        onLoad={onLoad}
+        onError={onError}
+      />
+    );
+  }
 
-  const { widths, fallback, quality, sizes } = variants[cdnVariant];
   const url = new URL(props.src);
   url.searchParams.set("auto", "format");
   url.searchParams.set("fit", "max");
@@ -41,10 +59,12 @@ export default function CollageImage({ cdnVariant, ...props }: CollageImageProps
     ...props,
     src: sizedUrl(fallback),
     unoptimized: true,
-    loading: cdnVariant === "thumbnail" ? "lazy" : "eager",
+    loading,
   });
 
   // Sanity serves each width directly; keep Next's existing fill and aspect-ratio styles.
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img {...img} sizes={sizes} srcSet={srcSet} alt={props.alt} />;
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img {...img} sizes={sizes} srcSet={srcSet} alt={props.alt} onLoad={onLoad} onError={onError} />
+  );
 }

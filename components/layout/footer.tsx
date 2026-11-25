@@ -64,7 +64,7 @@ function LegalDialog({ kind, close }: { kind: "privacy" | "terms"; close: () => 
 }
 
 /** Shared by the homepage and every public page layout. */
-export default function Footer({ wave = true }: { wave?: boolean }) {
+export default function Footer({ wave, year }: { wave: boolean; year: number }) {
   const [legal, setLegal] = useState<"privacy" | "terms" | null>(null);
   const socials = [
     ["Instagram", "https://www.instagram.com/senireligi_ub/"],
@@ -99,7 +99,7 @@ export default function Footer({ wave = true }: { wave?: boolean }) {
       </div>
       <ParticleSignature />
       <div className={s.legal}>
-        <span>© {new Date().getFullYear()} Seni Religi Universitas Brawijaya.</span>
+        <span>© {year} Seni Religi Universitas Brawijaya.</span>
         <div>
           <button onClick={() => setLegal("privacy")}>Privasi</button>
           <button onClick={() => setLegal("terms")}>Ketentuan</button>
