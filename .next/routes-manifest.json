@@ -71,6 +71,14 @@
       ]
     },
     {
+      "page": "/api/arsip/[resource]",
+      "regex": "^/api/arsip/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPresource": "nxtPresource"
+      },
+      "namedRegex": "^/api/arsip/(?<nxtPresource>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/studio/[[...tool]]",
       "regex": "^/studio(?:/(.+?))?(?:/)?$",
       "routeKeys": {

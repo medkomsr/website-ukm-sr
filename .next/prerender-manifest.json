@@ -4,9 +4,9 @@
     "/": {
       "renderingMode": "PARTIALLY_STATIC",
       "routeType": "page",
-      "response": "initial",
+      "response": "complete",
       "compute": "static",
-      "htmlSize": 16518,
+      "htmlSize": 84188,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -43,7 +43,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 9758,
+      "htmlSize": 9655,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -80,7 +80,7 @@
       "routeType": "page",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 10513,
+      "htmlSize": 10113,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -114,9 +114,9 @@
     "/aktivitas": {
       "renderingMode": "PARTIALLY_STATIC",
       "routeType": "page",
-      "response": "initial",
+      "response": "complete",
       "compute": "static",
-      "htmlSize": 16062,
+      "htmlSize": 47645,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -184,9 +184,9 @@
     "/kontak": {
       "renderingMode": "PARTIALLY_STATIC",
       "routeType": "page",
-      "response": "initial",
+      "response": "complete",
       "compute": "static",
-      "htmlSize": 14522,
+      "htmlSize": 30543,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -221,9 +221,9 @@
     "/prestasi": {
       "renderingMode": "PARTIALLY_STATIC",
       "routeType": "page",
-      "response": "initial",
+      "response": "complete",
       "compute": "static",
-      "htmlSize": 14919,
+      "htmlSize": 54867,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -292,9 +292,9 @@
     "/tentang": {
       "renderingMode": "PARTIALLY_STATIC",
       "routeType": "page",
-      "response": "initial",
+      "response": "complete",
       "compute": "static",
-      "htmlSize": 16519,
+      "htmlSize": 58786,
       "experimentalPPR": true,
       "experimentalBypassFor": [
         {
@@ -335,7 +335,7 @@
       "routeType": "shell",
       "response": "initial",
       "compute": "resuming",
-      "htmlSize": 1947,
+      "htmlSize": 6308,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -355,7 +355,8 @@
       "routeRegex": "^/aktivitas/([^/]+?)(?:/)?$",
       "dataRoute": "/aktivitas/[id].rsc",
       "fallback": "/aktivitas/[id]",
-      "fallbackRevalidate": false,
+      "fallbackRevalidate": 86400,
+      "fallbackExpire": 604800,
       "fallbackRootParams": [],
       "fallbackSourceRoute": "/aktivitas/[id]",
       "fallbackRouteParams": [
@@ -382,7 +383,7 @@
       "routeType": "shell",
       "response": "complete",
       "compute": "static",
-      "htmlSize": 4213,
+      "htmlSize": 4040,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -429,7 +430,7 @@
       "routeType": "shell",
       "response": "initial",
       "compute": "resuming",
-      "htmlSize": 2017,
+      "htmlSize": 6395,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -449,7 +450,8 @@
       "routeRegex": "^/tentang/bidang/([^/]+?)(?:/)?$",
       "dataRoute": "/tentang/bidang/[bidang].rsc",
       "fallback": "/tentang/bidang/[bidang]",
-      "fallbackRevalidate": false,
+      "fallbackRevalidate": 86400,
+      "fallbackExpire": 604800,
       "fallbackRootParams": [],
       "fallbackSourceRoute": "/tentang/bidang/[bidang]",
       "fallbackRouteParams": [
@@ -476,7 +478,7 @@
       "routeType": "shell",
       "response": "initial",
       "compute": "resuming",
-      "htmlSize": 2217,
+      "htmlSize": 6564,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -496,7 +498,8 @@
       "routeRegex": "^/tentang/([^/]+?)(?:/)?$",
       "dataRoute": "/tentang/[dept].rsc",
       "fallback": "/tentang/[dept]",
-      "fallbackRevalidate": false,
+      "fallbackRevalidate": 86400,
+      "fallbackExpire": 604800,
       "fallbackRootParams": [],
       "fallbackSourceRoute": "/tentang/[dept]",
       "fallbackRouteParams": [
@@ -519,8 +522,8 @@
   },
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "817769e46471613032466a4c78afb054",
-    "previewModeSigningKey": "d45e2769b48cee1e3aa87f085a871bb4c6dc406b8eaccf36fa5ea44acaf0957e",
-    "previewModeEncryptionKey": "5ea5858441deacb04df0ddc2d3248f950bd6de84a09d29df31fdd6fa1b1f48cb"
+    "previewModeId": "0349228f8a3637a8c1407df1b7aa3f5d",
+    "previewModeSigningKey": "25a8283b4940bbb68bc7ffa4f69c89f970b477678f2c8b5b3a928d57c9b3b05d",
+    "previewModeEncryptionKey": "87e25977ebaebdb5d82244cf4f3a13e7c656af3035485520422a99ab425306c1"
   }
 }

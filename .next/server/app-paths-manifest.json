@@ -4,6 +4,7 @@
   "/_not-found/page": "app/_not-found/page.js",
   "/aktivitas/[id]/page": "app/aktivitas/[id]/page.js",
   "/aktivitas/page": "app/aktivitas/page.js",
+  "/api/arsip/[resource]/route": "app/api/arsip/[resource]/route.js",
   "/api/contact/route": "app/api/contact/route.js",
   "/api/sanity/revalidate/route": "app/api/sanity/revalidate/route.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",

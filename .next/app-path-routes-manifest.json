@@ -4,6 +4,7 @@
   "/_not-found/page": "/_not-found",
   "/aktivitas/[id]/page": "/aktivitas/[id]",
   "/aktivitas/page": "/aktivitas",
+  "/api/arsip/[resource]/route": "/api/arsip/[resource]",
   "/api/contact/route": "/api/contact",
   "/api/sanity/revalidate/route": "/api/sanity/revalidate",
   "/favicon.ico/route": "/favicon.ico",
