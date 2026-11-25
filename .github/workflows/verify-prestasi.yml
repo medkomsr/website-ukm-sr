@@ -1,0 +1,37 @@
+name: Check Plesk achievement build
+on:
+  push:
+    branches: [codex/prestasi-2026-build-only]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: yzaa35ug
+      NEXT_PUBLIC_SANITY_API_VERSION: '2024-01-01'
+      GALLERY_SOURCE_SHA: ca7b04f1dedaaadd2d239cd3eb1806f4c81e3a39
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Build and test Linux x64 standalone
+        run: |
+          set -euo pipefail
+          export GALLERY_VERIFY_DIR="$GITHUB_WORKSPACE/.github/plesk-build"
+          bash "$GALLERY_VERIFY_DIR/build.sh" "$GITHUB_WORKSPACE" "$RUNNER_TEMP/out"
+          cd "$RUNNER_TEMP/out"
+          sha256sum candidate-*.tar.gz > SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plesk-prestasi-linux-x64
+          path: |
+            ${{ runner.temp }}/out/candidate-*.tar.gz
+            ${{ runner.temp }}/out/SHA256SUMS
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 3
