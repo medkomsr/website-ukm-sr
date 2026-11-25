@@ -98,7 +98,7 @@ export type SanityPrestasi = {
   description: string;
   year: number;
   category: "Kompetisi" | "Penghargaan" | "Kolaborasi" | "Rekam Jejak";
-  level: "Kampus" | "Kota" | "Provinsi" | "Nasional" | "Internasional";
+  level: "-" | "Kampus" | "Kota" | "Provinsi" | "Nasional" | "Internasional";
   position?: string;
   organizer?: string;
   location?: string;

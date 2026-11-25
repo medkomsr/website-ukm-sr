@@ -25,7 +25,7 @@ export const prestasiSchema = defineType({
       title: "Tingkat",
       type: "string",
       options: {
-        list: ["Kampus", "Kota", "Provinsi", "Nasional", "Internasional"],
+        list: ["-", "Kampus", "Kota", "Provinsi", "Nasional", "Internasional"],
         layout: "radio",
         direction: "horizontal",
       },
