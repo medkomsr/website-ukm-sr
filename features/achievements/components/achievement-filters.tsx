@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import n from "@/features/activities/components/newsroom.module.scss";
 import s from "@/features/achievements/components/achievements.module.scss";
 import FilterSelect from "./filter-select";
+import ArchiveSearchInput from "@/components/ui/archive-search-input";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 type Values = { year: string; field: string; category: string; search: string };
@@ -92,7 +93,7 @@ export default function AchievementFilters({
         </div>
         <div data-filter-pop className={`${n.search} ${s.archiveSearch}`}>
           <Search size={18} />
-          <input
+          <ArchiveSearchInput
             aria-label="Cari prestasi atau peserta"
             placeholder="Cari prestasi atau peserta…"
             value={values.search}
