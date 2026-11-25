@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 10
           persist-credentials: false
       - name: Build and test Linux x64 standalone
         run: |
