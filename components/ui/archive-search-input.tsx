@@ -1,13 +1,9 @@
 "use client";
 
-import { useSyncExternalStore, type ComponentProps } from "react";
-
-const subscribe = () => () => {};
-const onClient = () => true;
-const onServer = () => false;
+import type { ComponentProps } from "react";
+import { useHydrated } from "@/hooks/use-hydrated";
 
 export default function ArchiveSearchInput(props: ComponentProps<"input">) {
-  // The HTML is visible before React can retain keystrokes in the search state.
-  const hydrated = useSyncExternalStore(subscribe, onClient, onServer);
+  const hydrated = useHydrated();
   return <input {...props} disabled={!hydrated || props.disabled} />;
 }
