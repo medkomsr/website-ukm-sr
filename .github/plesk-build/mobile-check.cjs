@@ -25,17 +25,29 @@ async function fresh(browser, name, test) {
     await client.send('Network.setCacheDisabled', {cacheDisabled:true});
     page.setDefaultTimeout(22000);
     const actions = [], errors = [];
+    const archiveReads = [];
+    page.on("response", response => { if (response.url().includes("/api/arsip/")) archiveReads.push([response.status(), response.url().slice(origin.length)]); });
     page.on('request', req => {
       if(req.method() === 'POST' && req.url().startsWith(origin)) actions.push(new URL(req.url()).pathname);
     });
     page.on('pageerror', err => errors.push(err.message));
-    const result = await test(page);
+    let result;
+    try {
+      result = await test(page);
+    } catch (error) {
+      console.error("Diagnostic", name, page.url(), archiveReads, {
+        status: await page.locator("[aria-live=polite]").allTextContents(),
+        search: await page.locator("input").evaluateAll(els => els.map(el => ({value:el.value,placeholder:el.placeholder}))),
+        cards: await page.locator("[data-news-card]").count(),
+      });
+      throw error;
+    }
     assert.deepEqual(actions, [], 'Unexpected page POST');
     assert.deepEqual(errors, [], 'Browser errors');
     console.log('PASS',name,JSON.stringify(result));
   } catch(e) {
     process.exitCode = 1;
-    console.error('FAIL',name,e.message);
+    console.error('FAIL',name,e.stack);
   } finally { await context.close(); }
 }
 async function achievements(page) {
@@ -78,7 +90,7 @@ async function news(page) {
   const cards=page.locator('[data-news-card]');
   await expectCount(cards,3);
   const search=page.getByPlaceholder('Cari berita atau acara…');
-  await search.fill('GBQN');
+  await search.pressSequentially('GBQN', { delay: 70 });
   await page.locator('[aria-live=polite]').filter({hasText:'1 kabar ditemukan'}).waitFor();
   assert.match(await cards.innerText(),/GBQN|Gebyar Brawijaya/i);
   await cards.getByRole('button').tap();
@@ -156,9 +168,11 @@ async function navigateThroughSite(page) {
 }
 (async()=>{
   const browser=await chromium.launch({executablePath:process.env.CHROME_BIN,headless:true});
-  try { await Promise.all([
-    fresh(browser,'navigasi',navigateThroughSite),fresh(browser,'prestasi',achievements),fresh(browser,'berita',news),
-    fresh(browser,'foto berita',p=>photos(p,story,true)),
-    fresh(browser,'foto bidang',p=>photos(p,'/tentang/bidang/syarhil-quran',false))
-  ]); } finally {await browser.close();}
+  try {
+    await fresh(browser,'berita',news);
+    await fresh(browser,'prestasi',achievements);
+    await fresh(browser,'foto bidang',p=>photos(p,'/tentang/bidang/syarhil-quran',false));
+    await fresh(browser,'foto berita',p=>photos(p,story,true));
+    await fresh(browser,'navigasi',navigateThroughSite);
+  } finally {await browser.close();}
 })().catch(err=>{console.error(err);process.exitCode=1;});
