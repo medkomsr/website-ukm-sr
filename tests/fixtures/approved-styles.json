@@ -53,8 +53,8 @@
     },
     "features/achievements/components/achievements.module.scss": {
       "source": "app/prestasi/components/achievements.module.css",
-      "sha256": "e808c6c348ae9620ebdf70e3b0f8ccb4497931b1926edd81b01bd33ff18fb152",
-      "revision": "2026-11-26: Remove text placeholder styles now that empty photo frames use the Prestasi artwork."
+      "sha256": "b6024f14cc3202cc08d526788fb26b0cfed804794e3cf3de93cd59f3d3cc6684",
+      "revision": "2026-11-26: Frame the GBQN group and show the full MUFI poster in mobile achievement dialogs."
     },
     "features/about/components/about-profile.module.scss": {
       "source": "app/tentang/components/about-profile.module.css",
