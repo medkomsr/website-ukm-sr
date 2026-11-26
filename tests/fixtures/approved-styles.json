@@ -53,8 +53,8 @@
     },
     "features/achievements/components/achievements.module.scss": {
       "source": "app/prestasi/components/achievements.module.css",
-      "sha256": "3e364d6f972c68b1f38632ad2cd5a962184ea4301d17bc97a81bb47501944a4e",
-      "revision": "2026-10-09: Center pinned story hero, complete mobile ribbon, seamless featured wave, and responsive 10+ achievement count."
+      "sha256": "c34af62a6dc8b977706b5706fd6c784107328ea53f4ae09749bd4024426d0a04",
+      "revision": "2026-11-26: Keep achievement dialogs consistent across photos and add a full-photo view."
     },
     "features/about/components/about-profile.module.scss": {
       "source": "app/tentang/components/about-profile.module.css",

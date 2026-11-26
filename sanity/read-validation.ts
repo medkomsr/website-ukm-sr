@@ -7,6 +7,11 @@ const required = z.string().trim().min(1).max(300);
 const slug = z.string().refine(isSafeSlug);
 const shortText = z.string().max(200).catch("");
 const date = z.iso.date().catch("");
+const imageAspectRatio = z.number().positive().finite().optional().catch(undefined);
+const imageHotspot = z
+  .object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) })
+  .optional()
+  .catch(undefined);
 const image = z
   .string()
   .url()
@@ -53,11 +58,8 @@ export const fieldContent = profileCard.extend({
       alt: text,
       caption: text,
       showFullImage: z.boolean().optional().catch(undefined),
-      aspectRatio: z.number().positive().finite().optional().catch(undefined),
-      hotspot: z
-        .object({ x: z.number().min(0).max(1), y: z.number().min(0).max(1) })
-        .optional()
-        .catch(undefined),
+      aspectRatio: imageAspectRatio,
+      hotspot: imageHotspot,
     }),
   ),
 });
@@ -134,6 +136,8 @@ export const achievementContent = achievementIdentity.extend({
   location: text,
   imageUrl: image,
   imageAlt: text,
+  imageAspectRatio,
+  imageHotspot,
   participants: listOf(z.object({ _key: text, name: required, faculty: text, imageUrl: image })),
 });
 export const visionContent = z.object({ visi: text, misi: strings });
