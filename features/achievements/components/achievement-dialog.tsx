@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowUpRight, Expand, X } from "lucide-react";
 import { gsap } from "gsap";
 import type { SanityPrestasi } from "@/sanity/types";
+import { getAchievementPhotoFraming } from "@/features/achievements/photo-framing";
 import { AchievementPhotoPlaceholder } from "./achievement-photo-placeholder";
 import s from "@/features/achievements/components/achievements.module.scss";
 
@@ -50,12 +51,12 @@ function AchievementPhoto({ item }: { item: SanityPrestasi }) {
               alt={alt}
               fill
               sizes="(max-width: 700px) 92vw, (max-width: 1200px) 52vw, 620px"
-              className={s.achievementImage}
+              className={portrait ? s.portraitPreview : s.achievementImage}
+              data-framing={getAchievementPhotoFraming(item)}
               style={
                 portrait
                   ? {
-                      objectFit: "cover",
-                      objectPosition: `${(imageHotspot?.x ?? 0.5) * 100}% ${(imageHotspot?.y ?? 0.65) * 100}%`,
+                      objectPosition: `var(--preview-focus, ${(imageHotspot?.x ?? 0.5) * 100}% ${(imageHotspot?.y ?? 0.65) * 100}%)`,
                     }
                   : undefined
               }

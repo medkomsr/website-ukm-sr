@@ -1,6 +1,7 @@
 "use client";
 import { SrSymbol } from "@/components/brand/art-symbol";
 import { AchievementPhotoPlaceholder } from "@/features/achievements/components/achievement-photo-placeholder";
+import { getAchievementPhotoFraming } from "@/features/achievements/photo-framing";
 import { FIELD_ACCENTS as accents } from "@/lib/constants/home-content";
 import type { SanityPrestasi } from "@/sanity/types";
 import s from "@/styles/experience.module.scss";
@@ -11,8 +12,6 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { SectionTitle, TextLink } from "./section-heading";
-
-const gbqnGroupPhoto = "/f9f2545dc0d9b87dcdc65271abc1d5aa7d39d288-2268x4032.jpg";
 
 gsap.registerPlugin(useGSAP, Draggable);
 export function Achievements({
@@ -79,8 +78,7 @@ export function Achievements({
       >
         {items.length ? (
           items.map((a, i) => {
-            const isGbqnGroupPhoto =
-              a._id === "prestasi-2026-gbqn-ub-msq" && a.imageUrl?.endsWith(gbqnGroupPhoto);
+            const isGbqnGroupPhoto = getAchievementPhotoFraming(a) === "gbqn-group";
             let offset = (i - activeIndex + items.length) % items.length;
             if (offset > items.length / 2) offset -= items.length;
             return (

@@ -802,6 +802,9 @@
 .achievementImage {
   object-fit: contain;
 }
+.portraitPreview {
+  object-fit: cover;
+}
 .photoAction {
   display: flex;
   align-items: center;
@@ -1269,6 +1272,13 @@
   }
   .photoFrame {
     border-radius: 0;
+  }
+  .photoFrame [data-framing="gbqn-group"] {
+    --preview-focus: 50% 85%;
+  }
+  .photoFrame [data-framing="mufi-poster"] {
+    --preview-focus: center;
+    object-fit: contain;
   }
   .photoAction {
     min-height: 39px;
