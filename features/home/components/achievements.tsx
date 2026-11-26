@@ -11,6 +11,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { SectionTitle, TextLink } from "./section-heading";
+
+const gbqnGroupPhoto = "/f9f2545dc0d9b87dcdc65271abc1d5aa7d39d288-2268x4032.jpg";
+
 gsap.registerPlugin(useGSAP, Draggable);
 export function Achievements({
   tone,
@@ -76,6 +79,8 @@ export function Achievements({
       >
         {items.length ? (
           items.map((a, i) => {
+            const isGbqnGroupPhoto =
+              a._id === "prestasi-2026-gbqn-ub-msq" && a.imageUrl?.endsWith(gbqnGroupPhoto);
             let offset = (i - activeIndex + items.length) % items.length;
             if (offset > items.length / 2) offset -= items.length;
             return (
@@ -106,6 +111,7 @@ export function Achievements({
                       alt={a.imageAlt || a.title}
                       fill
                       sizes="(max-width: 800px) 70vw, 300px"
+                      style={isGbqnGroupPhoto ? { objectPosition: "50% 85%" } : undefined}
                     />
                   ) : (
                     <AchievementPhotoPlaceholder />
