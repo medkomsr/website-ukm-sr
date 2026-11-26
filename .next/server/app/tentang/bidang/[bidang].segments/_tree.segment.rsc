@@ -3,10 +3,10 @@
 :HL["/_next/static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/chunks/0ryoqwbdbjw82.css","style"]
+:HL["/_next/static/chunks/0lhau-ns39lxm.css","style"]
 :HL["/_next/static/chunks/1z2stevyw-rts.css","style"]
 4:[["children",{"s":"__PAGE__","h":49312}]]
 3:[["children",{"s":{"n":"bidang","t":"d","k":null,"s":[]},"h":49248,"c":"$Q4"}]]
 2:[["children",{"s":"bidang","h":49248,"c":"$Q3"}]]
 1:[["children",{"s":"tentang","h":49248,"c":"$Q2"}]]
-0:{"b":"SQwG4yYobqA5iEyYkV7Iw","t":{"t":{"s":"","h":49232,"c":"$Q1"}}}
+0:{"b":"v_BF8uXqpI5oZCsKv-Cy7","t":{"t":{"s":"","h":49232,"c":"$Q1"}}}

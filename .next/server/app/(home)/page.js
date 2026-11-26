@@ -10,7 +10,7 @@ R.c("server/chunks/ssr/node_modules_next_dist_client_components_0wpq8j32_ibz4._.
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_0symwr9mbf-fh.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_0l_sp0xky89qu.js")
 R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0q-w892nagajq.js")
-R.c("server/chunks/ssr/node_modules_@sanity_20z5-n49r17xi._.js")
+R.c("server/chunks/ssr/node_modules_@sanity_0ycn-vpg78d9l._.js")
 R.c("server/chunks/ssr/[root-of-the-server]__1mdkrk6n7lhjd._.js")
 R.c("server/chunks/ssr/node_modules_next_dist_1e80wwz-7qux-._.js")
 R.c("server/chunks/ssr/_0-k1i-nccnq_g._.js")
