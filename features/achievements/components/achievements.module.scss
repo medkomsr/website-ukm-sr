@@ -816,26 +816,6 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.photoPlaceholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 16px;
-  color: #506e40;
-  text-align: center;
-}
-.photoPlaceholder strong {
-  font-size: 16px;
-  font-weight: 550;
-}
-.photoPlaceholder p {
-  max-width: 28ch;
-  font-size: 12px;
-  line-height: 1.7;
-  margin: 0;
-  color: #536456;
-}
 .dialogCopy {
   grid-area: story;
   min-width: 0;

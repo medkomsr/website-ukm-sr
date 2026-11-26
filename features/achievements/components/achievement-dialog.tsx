@@ -4,9 +4,10 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { createPortal, flushSync } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Expand, ImageIcon, X } from "lucide-react";
+import { ArrowUpRight, Expand, X } from "lucide-react";
 import { gsap } from "gsap";
 import type { SanityPrestasi } from "@/sanity/types";
+import { AchievementPhotoPlaceholder } from "./achievement-photo-placeholder";
 import s from "@/features/achievements/components/achievements.module.scss";
 
 type Selection = { item: SanityPrestasi; origin: HTMLButtonElement };
@@ -23,11 +24,7 @@ function AchievementPhoto({ item }: { item: SanityPrestasi }) {
     return (
       <figure className={s.dialogPhoto}>
         <div className={s.photoFrame}>
-          <div className={s.photoPlaceholder}>
-            <ImageIcon size={38} strokeWidth={1} aria-hidden="true" />
-            <strong>Foto kejuaraan</strong>
-            <p>Dokumentasi pemenang atau penyerahan piala akan tampil di sini.</p>
-          </div>
+          <AchievementPhotoPlaceholder />
         </div>
       </figure>
     );
