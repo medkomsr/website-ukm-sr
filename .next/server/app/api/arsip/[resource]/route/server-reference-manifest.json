@@ -1,6 +1,6 @@
 {
   "node": {
-    "802bf4f72cc5b29ae3145abbf3ac835147253c09ef": {
+    "80c9f52917bd335a48d82755e300936c305df6701e": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -10,7 +10,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_1",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "802e165433578bf5e1c8da63a947c9568858d5588f": {
+    "80fc7b8dd1899cc769bcd551d230cf70eabdba90fb": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -20,7 +20,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_2",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "c00c9a8da8ceb9b42838c28c068a41ffa668de97b8": {
+    "c045771834e4178fa7d8432735016ffb2855c2f022": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -30,7 +30,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_3",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "c07a4019166f976f8ab0d29a392c9cdce3cf1ea7e6": {
+    "c0950626ba573490f711b63d309366e44593bfe512": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -40,7 +40,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/aktivitas.ts"
     },
-    "c0319f9dd781d25455e731f70f3999246c5202a5c6": {
+    "c02f1866721d4294d108fe757a49b738646f8a4852": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -50,7 +50,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/archive-index.ts"
     },
-    "8059eb2ed8c1361412b3deb64da02f798b49591378": {
+    "80a131163c888b6abd48196f14bd306e4905d11022": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -60,7 +60,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_2",
       "filename": "sanity/queries/prestasi.ts"
     },
-    "805d28b21cae74362634688bf294ed12625c519061": {
+    "80e85e16ec2101c57c8d39985da8231615f1776170": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -70,7 +70,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_1",
       "filename": "sanity/queries/prestasi.ts"
     },
-    "c007b7aba18281be31cd82f32db3637a7933283a02": {
+    "c0d6c1135a63df1b810ec81f6b6b1989bd4e28d8db": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -80,7 +80,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/prestasi.ts"
     },
-    "8029526bf89575d46bbc5c21d9de557f1d3c1a20a1": {
+    "803fb59c7d1846cc5f4427481aa4140ea0749755ef": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
@@ -90,7 +90,7 @@
       "exportedName": "$$RSC_SERVER_CACHE_0",
       "filename": "sanity/queries/bidang.ts"
     },
-    "c089a8a0e0ff04a7eccc3ecf3ea007300cf8393e3c": {
+    "c0bca07908edd9773f926e198775a5b20d6cb23e5a": {
       "workers": {
         "app/api/arsip/[resource]/route": {
           "moduleId": 517406,
