@@ -93,6 +93,8 @@ export type SanityPrestasi = {
   }>;
   imageUrl?: string;
   imageAlt?: string;
+  imageAspectRatio?: number;
+  imageHotspot?: { x: number; y: number };
   _id: string;
   title: string;
   description: string;

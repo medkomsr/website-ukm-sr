@@ -660,7 +660,7 @@
   height: 100dvh;
   max-height: none;
   background: transparent;
-  color: #101f19;
+  color: #14291f;
   overflow: auto;
   font-family: var(--font-sans), sans-serif;
 }
@@ -679,107 +679,182 @@
   height: min(760px, 90dvh);
   min-height: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto minmax(0, 1fr);
+  container-type: inline-size;
   margin: auto;
-  background: #f1efdf;
+  background: #f5f2e7;
   border-radius: 15px;
   overflow: hidden;
 }
+.dialogBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 70px;
+  padding: 10px 36px;
+  border-bottom: 1px solid #c9cdbb;
+}
+.dialogMetadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  color: #536456;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.dialogMetadata strong {
+  color: #14291f;
+  font-weight: 600;
+}
+.dialogMetadata span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.dialogMetadata span::before {
+  content: "";
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #768475;
+}
 .dialogClose {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 4;
   display: grid;
   place-items: center;
-  background: #f1efdf;
-  border: 1px solid #101f1933;
-  color: #101f19;
+  flex: none;
+  background: transparent;
+  border: 1px solid #bac3b0;
+  color: inherit;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
+}
+.dialogClose:hover {
+  background: #dfe6d3;
+}
+.dialogContent {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #9aaa90 transparent;
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  grid-template-areas: "heading heading" "photo story";
+  gap: clamp(24px, 3.3cqw, 42px);
+  align-content: start;
+  padding: clamp(25px, 4cqw, 46px) 36px 36px;
+}
+.dialogContent:focus-visible {
+  outline: 2px solid #748237;
+  outline-offset: -3px;
+}
+.dialogHeading {
+  grid-area: heading;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+.dialogHeading h2 {
+  margin: 0;
+  font-size: clamp(29px, 4.1cqw, 46px);
+  font-weight: 530;
+  letter-spacing: -0.055em;
+  line-height: 1.13;
+}
+.dialogPosition {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(30px, 4.4cqw, 50px);
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+  margin: 0;
+  color: #506e40;
 }
 .dialogPhoto {
-  position: relative;
-  min-height: 0;
-  overflow: hidden;
-  border-radius: 15px 0 0 15px;
-  background: #1a3023;
+  grid-area: photo;
+  min-width: 0;
+  margin: 0;
+}
+.photoButton {
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+}
+.photoFrame {
   display: grid;
   place-items: center;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #e6e8d9;
 }
 .achievementImage {
   object-fit: contain;
+}
+.photoAction {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  min-height: 44px;
+  color: #506e40;
+  font-size: 13px;
+  font-weight: 520;
+}
+.photoButton:hover .photoAction {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 .photoPlaceholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
-  padding: 28px;
-  color: #d8ee9a;
+  gap: 8px;
+  padding: 16px;
+  color: #506e40;
   text-align: center;
 }
 .photoPlaceholder strong {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 550;
 }
 .photoPlaceholder p {
   max-width: 28ch;
   font-size: 12px;
   line-height: 1.7;
   margin: 0;
-  color: #f1efdf99;
-}
-.dialogPhoto > span {
-  position: absolute;
-  left: 20px;
-  bottom: 20px;
-  padding: 10px 15px;
-  border-radius: 30px;
-  font-size: 10px;
-  color: #101f19;
-  background: #d8ee9a;
+  color: #536456;
 }
 .dialogCopy {
-  min-height: 0;
+  grid-area: story;
   min-width: 0;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: #718460 transparent;
-  padding: 60px 40px 45px;
-}
-.dialogCopy:focus-visible {
-  outline: 2px solid #718460;
-  outline-offset: -4px;
-}
-.dialogPosition {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 48px;
-  line-height: 1.05;
-  margin: 20px 0;
-  color: #567442;
-}
-.dialogCopy h2 {
-  font-size: 30px;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1.2;
-  margin: 0 0 22px;
+  overflow-wrap: anywhere;
 }
 .description {
-  font-size: 14px;
-  line-height: 1.8;
+  color: #263b2d;
+  font-size: clamp(15px, 1.65cqw, 18px);
+  line-height: 1.62;
   white-space: pre-line;
-  margin: 0 0 25px;
+  margin: 0;
 }
 .detailMeta {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
-  padding-block: 20px;
-  border-block: 1px solid #101f1930;
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid #c9cdbb;
 }
 .detailMeta dt {
   font-size: 9px;
@@ -792,43 +867,108 @@
   line-height: 1.5;
 }
 .dialogWinners {
-  margin: 25px 0;
+  border-top: 1px solid #c9cdbb;
+  margin-top: 24px;
+  padding-top: 22px;
 }
 .dialogWinners h3 {
-  font-size: 9px;
-  letter-spacing: 0.07em;
-  font-weight: 500;
-  margin-bottom: 18px;
+  font-size: 14px;
+  font-weight: 650;
+  margin: 0 0 16px;
 }
 .dialogWinners > div {
   display: flex;
-  gap: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
+  margin-top: 15px;
   align-items: center;
 }
 .avatar {
-  width: 43px;
-  height: 43px;
+  width: 34px;
+  height: 34px;
+  flex: none;
   position: relative;
   overflow: hidden;
   border-radius: 50%;
-  background: #d8dfc5;
+  background: #e3e9d3;
+  color: #37503c;
+  font-size: 13px;
   display: grid;
   place-items: center;
 }
 .dialogWinners strong {
   display: block;
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 550;
+  line-height: 1.4;
 }
 .dialogWinners small {
   display: block;
-  font-size: 10px;
-  opacity: 0.65;
-  margin-top: 4px;
+  color: #536456;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-top: 3px;
 }
 .dialogCopy > .pill {
   margin-top: 20px;
+}
+.fullPhotoDialog {
+  inset: 0;
+  width: min(1100px, 96vw);
+  height: min(900px, 94dvh);
+  max-width: none;
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 12px;
+  background: #16251e;
+  color: #f3f5ee;
+  font-family: var(--font-sans), sans-serif;
+}
+.fullPhotoDialog::backdrop {
+  background: #03130fd9;
+}
+.fullPhotoDialog[open] {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+}
+.fullPhotoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+}
+.fullPhotoHeader h2 {
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 550;
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+.fullPhotoHeader button {
+  flex: none;
+  min-height: 44px;
+  border-radius: 24px;
+  border: 1px solid #acbaaa;
+  background: transparent;
+  color: inherit;
+  padding: 4px 14px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.fullPhotoHeader button:hover {
+  background: #dfe6d3;
+  color: #14291f;
+}
+.fullPhotoHeader button:focus-visible {
+  outline: 2px solid #d8ee9a;
+  outline-offset: 3px;
+}
+.fullPhotoFrame {
+  position: relative;
+  min-height: 0;
 }
 @media (min-width: 1800px) {
   .heroTitle {
@@ -1128,41 +1268,58 @@
   .dialog {
     padding: 16px 4vw;
   }
-  .dialog[open] {
-    align-items: center;
-  }
   .dialogPanel {
     height: min(820px, calc(100dvh - 32px));
-    grid-template-columns: 1fr;
-    grid-template-rows: clamp(140px, 26dvh, 240px) minmax(0, 1fr);
+  }
+  .dialogBar {
+    min-height: 56px;
+    padding: 6px 16px;
+  }
+  .dialogMetadata {
+    font-size: 12px;
+  }
+  .dialogContent {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "photo" "heading" "story";
+    gap: 0;
+    padding: 0 18px 26px;
   }
   .dialogPhoto {
-    aspect-ratio: auto;
-    border-radius: 15px 15px 0 0;
+    margin: 0 -18px;
   }
-  .photoPlaceholder {
-    gap: 8px;
-    padding: 20px 24px 44px;
+  .photoFrame {
+    border-radius: 0;
   }
-  .photoPlaceholder strong {
-    font-size: 15px;
+  .photoAction {
+    min-height: 39px;
+    padding-inline: 18px;
+    font-size: 12px;
   }
-  .photoPlaceholder p {
-    font-size: 11px;
+  .dialogHeading {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 2px 0 12px;
   }
-  .dialogPhoto > span {
-    left: 14px;
-    bottom: 12px;
-    padding: 8px 12px;
-  }
-  .dialogCopy {
-    padding: 26px 24px 30px;
+  .dialogHeading h2 {
+    font-size: clamp(22px, 6.8cqw, 29px);
   }
   .dialogPosition {
-    font-size: 40px;
+    font-size: clamp(29px, 8.6cqw, 39px);
   }
-  .dialogCopy h2 {
-    font-size: 27px;
+  .description {
+    font-size: 14px;
+    line-height: 1.58;
+  }
+  .dialogWinners {
+    margin-top: 18px;
+    padding-top: 16px;
+  }
+  .dialogWinners h3 {
+    margin-bottom: 12px;
+  }
+  .dialogWinners > div {
+    margin-top: 12px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -30,6 +30,8 @@ const prestasiProjection = groq`{
   location,
   "imageUrl": image.asset->url,
   "imageAlt": image.alt,
+  "imageAspectRatio": image.asset->metadata.dimensions.aspectRatio,
+  "imageHotspot": image.hotspot{x, y},
   "participants": participants[]{ _key, name, faculty, "imageUrl": image.asset->url }
 }`;
 
