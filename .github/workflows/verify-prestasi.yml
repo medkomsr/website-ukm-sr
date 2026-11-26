@@ -1,0 +1,53 @@
+name: Build and verify Plesk achievement photo dialogs
+on:
+  push:
+    branches: [codex/popup-prestasi-build-20261126]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      NEXT_PUBLIC_SANITY_PROJECT_ID: yzaa35ug
+      NEXT_PUBLIC_SANITY_API_VERSION: '2024-01-01'
+      GALLERY_SOURCE_SHA: 8f9b53e22b946d15fbf420167dab412b0d5280ed
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 10
+          persist-credentials: false
+      - name: Build and test Linux x64 standalone
+        run: |
+          set -euo pipefail
+          export GALLERY_VERIFY_DIR="$GITHUB_WORKSPACE/.github/plesk-build"
+          bash "$GALLERY_VERIFY_DIR/build.sh" "$GITHUB_WORKSPACE" "$RUNNER_TEMP/out"
+      - name: Checksum built candidate
+        if: ${{ !cancelled() }}
+        run: |
+          cd "$RUNNER_TEMP/out"
+          shopt -s nullglob
+          files=(candidate-*.tar.gz)
+          if (( ${#files[@]} > 0 )); then sha256sum "${files[@]}" > SHA256SUMS; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plesk-arsip-galeri-linux-x64
+          path: |
+            ${{ runner.temp }}/out/candidate-*.tar.gz
+            ${{ runner.temp }}/out/SHA256SUMS
+          compression-level: 0
+          if-no-files-found: error
+          retention-days: 3
+      - name: Keep unsuccessful build for diagnosis
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostic-only-linux-x64
+          path: |
+            ${{ runner.temp }}/out/candidate-*.tar.gz
+            ${{ runner.temp }}/out/SHA256SUMS
+          compression-level: 0
+          if-no-files-found: ignore
+          retention-days: 1
