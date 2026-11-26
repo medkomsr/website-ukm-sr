@@ -1,5 +1,6 @@
 "use client";
 import { SrSymbol } from "@/components/brand/art-symbol";
+import { AchievementPhotoPlaceholder } from "@/features/achievements/components/achievement-photo-placeholder";
 import { FIELD_ACCENTS as accents } from "@/lib/constants/home-content";
 import type { SanityPrestasi } from "@/sanity/types";
 import s from "@/styles/experience.module.scss";
@@ -107,7 +108,7 @@ export function Achievements({
                       sizes="(max-width: 800px) 70vw, 300px"
                     />
                   ) : (
-                    <span>Dokumentasi prestasi</span>
+                    <AchievementPhotoPlaceholder />
                   )}
                 </div>
                 <h3>{a.title}</h3>
