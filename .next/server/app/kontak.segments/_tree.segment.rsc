@@ -3,8 +3,8 @@
 :HL["/_next/static/media/42b34334b62e1e5a-s.p.3rqg0w444aekk.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/605ce01b664af129-s.p.0wgildi0cnwt9.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/9d036f80216c14ee-s.p.3u4lli0-axodc.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/_next/static/chunks/0lhau-ns39lxm.css","style"]
+:HL["/_next/static/chunks/1w6slmzlqyie6.css","style"]
 :HL["/_next/static/chunks/0d3slk78dcsrb.css","style"]
 2:[["children",{"s":"__PAGE__","h":49312}]]
 1:[["children",{"s":"kontak","h":49248,"c":"$Q2"}]]
-0:{"b":"v_BF8uXqpI5oZCsKv-Cy7","t":{"t":{"s":"","h":49232,"c":"$Q1"}}}
+0:{"b":"LtyIjfO8Q5HqvLuk2gzIY","t":{"t":{"s":"","h":49232,"c":"$Q1"}}}
